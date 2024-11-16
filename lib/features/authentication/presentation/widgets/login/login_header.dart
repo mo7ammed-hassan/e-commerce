@@ -7,13 +7,11 @@ import 'package:t_store/utils/helpers/helper_functions.dart';
 class TLoginHeader extends StatelessWidget {
   const TLoginHeader({
     super.key,
-
   });
-
 
   @override
   Widget build(BuildContext context) {
-     final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = THelperFunctions.isDarkMode(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
