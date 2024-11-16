@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/features/authentication/presentation/pages/forget_password_page.dart';
 import 'package:t_store/features/authentication/presentation/pages/signup_page.dart';
+import 'package:t_store/navigation_menu.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
 
@@ -24,7 +25,7 @@ class TLoginForm extends StatelessWidget {
             // Remember Me & Forget Password
             _rememberMeAndForgetPassword(context),
             const SizedBox(height: TSizes.spaceBtwSections),
-            _signIn(),
+            _signIn(context),
             const SizedBox(height: TSizes.spaceBtwItems),
             _createAccount(context),
           ],
@@ -82,11 +83,18 @@ class TLoginForm extends StatelessWidget {
     );
   }
 
-  SizedBox _signIn() {
+  SizedBox _signIn(context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const NavigationMenu(),
+            ),
+          );
+        },
         child: const Text(TTexts.signIn),
       ),
     );
@@ -98,8 +106,12 @@ class TLoginForm extends StatelessWidget {
       child: OutlinedButton(
         onPressed: () {
           // Navigate to Sign Up screen
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const SignupPage()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SignupPage(),
+            ),
+          );
         },
         child: const Text(TTexts.createAccount),
       ),
