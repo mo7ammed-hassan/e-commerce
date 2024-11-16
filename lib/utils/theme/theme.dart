@@ -33,7 +33,7 @@ class TAppTheme {
     primaryColor: Colors.blue,
     scaffoldBackgroundColor: Colors.black,
     textTheme: TTextTheme.darkTextTheme,
-     chipTheme: TChipTheme.darkChipTheme,
+    chipTheme: TChipTheme.darkChipTheme,
     elevatedButtonTheme: TElevetedButtonTheme.darkElevetedButtonTheme,
     appBarTheme: TAppBarTheme.darkAppBarTheme,
     bottomSheetTheme: TBottomSheetTheme.darkBottomSheetTheme,
