@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:t_store/features/authentication/presentation/pages/verify_email_page.dart';
 import 'package:t_store/features/authentication/presentation/widgets/signup/term_and_condation_checkbox.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
@@ -32,7 +33,7 @@ class TSignupForm extends StatelessWidget {
           const SizedBox(height: TSizes.spaceBtwSections),
           const TTermAndCondationCheckbox(),
           const SizedBox(height: TSizes.spaceBtwSections),
-          _createAccount(),
+          _createAccount(context),
         ],
       ),
     );
@@ -100,11 +101,19 @@ class TSignupForm extends StatelessWidget {
     );
   }
 
-  SizedBox _createAccount() {
+  SizedBox _createAccount(context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const VerifyEmailPage(),
+            ),
+            (route) => false,
+          );
+        },
         child: const Text(TTexts.createAccount),
       ),
     );
