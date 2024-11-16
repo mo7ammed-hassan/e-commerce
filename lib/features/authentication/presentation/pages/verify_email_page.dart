@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:t_store/common/widgets/success_pages/success_page.dart';
 import 'package:t_store/features/authentication/presentation/pages/login_page.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
@@ -49,7 +50,7 @@ class VerifyEmailPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
-              _continueButton(),
+              _continueButton(context),
               const SizedBox(height: TSizes.spaceBtwItems),
               _resendButton(),
             ],
@@ -67,11 +68,33 @@ class VerifyEmailPage extends StatelessWidget {
     );
   }
 
-  SizedBox _continueButton() {
+  SizedBox _continueButton(context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          // Navigate to success page
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SuccessPage(
+                image: TImages.staticSuccessIllustration,
+                title: TTexts.yourAccountCreatedTitle,
+                subtitle: TTexts.yourAccountCreatedSubTitle,
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                    (route) => false,
+                  );
+                },
+              ),
+            ),
+            (route) => false,
+          );
+        },
         child: const Text(TTexts.tContinue),
       ),
     );
