@@ -20,7 +20,7 @@ class OnBoardingNextButton extends StatelessWidget {
       right: TSizes.defaultSpace,
       child: ElevatedButton(
         onPressed: () {
-          context.read<OnBoardingCubit>().nextPage();
+          context.read<OnBoardingCubit>().nextPage(context);
         },
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),

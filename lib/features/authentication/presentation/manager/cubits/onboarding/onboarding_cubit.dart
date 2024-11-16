@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:t_store/features/authentication/presentation/pages/login_page.dart';
 
 class OnBoardingCubit extends Cubit<int> {
   OnBoardingCubit() : super(0);
@@ -24,7 +25,7 @@ class OnBoardingCubit extends Cubit<int> {
     );
   }
 
-  void nextPage() {
+  void nextPage(context) {
     if (state < 2) {
       final nextIndex = state + 1;
       emit(nextIndex);
@@ -32,6 +33,13 @@ class OnBoardingCubit extends Cubit<int> {
         nextIndex,
         duration: const Duration(milliseconds: 350),
         curve: Curves.easeIn,
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginPage(),
+        ),
       );
     }
   }
