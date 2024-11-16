@@ -21,6 +21,8 @@ dependencies:
   logger: ^2.4.0
   iconsax: ^0.0.8
   flutter_native_splash: ^2.4.2
+  smooth_page_indicator: ^1.2.0+3
+  flutter_bloc: ^8.1.6
 
 dev_dependencies:
   flutter_test:
