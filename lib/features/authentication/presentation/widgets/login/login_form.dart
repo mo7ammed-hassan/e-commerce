@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:t_store/features/authentication/presentation/pages/forget_password_page.dart';
 import 'package:t_store/features/authentication/presentation/pages/signup_page.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
@@ -21,7 +22,7 @@ class TLoginForm extends StatelessWidget {
             _passwordField(),
             const SizedBox(height: TSizes.spaceBtwInputFields / 2),
             // Remember Me & Forget Password
-            _rememberMeAndForgetPassword(),
+            _rememberMeAndForgetPassword(context),
             const SizedBox(height: TSizes.spaceBtwSections),
             _signIn(),
             const SizedBox(height: TSizes.spaceBtwItems),
@@ -51,7 +52,7 @@ class TLoginForm extends StatelessWidget {
     );
   }
 
-  Row _rememberMeAndForgetPassword() {
+  Row _rememberMeAndForgetPassword(context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -62,7 +63,14 @@ class TLoginForm extends StatelessWidget {
           ],
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ForgetPasswordPage(),
+              ),
+            );
+          },
           child: const Text(
             TTexts.forgetPassword,
             style: TextStyle(
@@ -90,7 +98,8 @@ class TLoginForm extends StatelessWidget {
       child: OutlinedButton(
         onPressed: () {
           // Navigate to Sign Up screen
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const SignupPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const SignupPage()));
         },
         child: const Text(TTexts.createAccount),
       ),
