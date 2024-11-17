@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/utils/constants/colors.dart';
 
-class TCircularContainer extends StatelessWidget {
+class TAnimatedCircularConatiner extends StatelessWidget {
   final double? width, height, raduis;
   final double padding;
   final EdgeInsets? margin;
   final Widget? child;
   final Color backgroundColor;
-  const TCircularContainer({
+  const TAnimatedCircularConatiner({
     super.key,
     this.width = 400,
     this.height = 400,
@@ -20,7 +20,9 @@ class TCircularContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
       width: width,
       height: height,
       padding: EdgeInsets.all(padding),
