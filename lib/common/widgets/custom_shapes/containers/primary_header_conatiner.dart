@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/curved_edges/curved_edges_widgets.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/circular_conatiner.dart';
 import 'package:t_store/utils/constants/colors.dart';
+import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TPrimaryHeaderConatiner extends StatelessWidget {
   final Widget child;
@@ -19,7 +20,7 @@ class TPrimaryHeaderConatiner extends StatelessWidget {
           color: TColors.primary,
         ),
         child: SizedBox(
-          height: 400,
+          height: THelperFunctions.screenHeight() * 0.45,
           child: Stack(
             children: [
               Positioned(
