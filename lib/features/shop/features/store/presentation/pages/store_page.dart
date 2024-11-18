@@ -55,6 +55,9 @@ class StorePage extends StatelessWidget {
                   ],
                 ),
               ),
+
+              // Tabs --
+              
             ),
           ];
         },

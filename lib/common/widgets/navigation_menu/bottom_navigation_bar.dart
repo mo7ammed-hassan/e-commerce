@@ -14,7 +14,7 @@ class TBottomNavigationBar extends StatelessWidget {
     return BlocBuilder<NavigationMenuCubit, int>(
       builder: (context, state) {
         return NavigationBar(
-          height: 80,
+          height: 65,
           elevation: 0,
           selectedIndex: state,
           onDestinationSelected: context.read<NavigationMenuCubit>().setScreen,
