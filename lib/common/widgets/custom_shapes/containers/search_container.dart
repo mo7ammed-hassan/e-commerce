@@ -18,7 +18,7 @@ class TSearchConatiner extends StatelessWidget {
     this.showBackground = true,
     this.showBorder = true,
     this.onTap,
-    this.padding = const EdgeInsets.symmetric(vertical: TSizes.spaceBtwItems),
+    this.padding = const EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems),
   });
 
   @override
