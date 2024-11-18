@@ -20,7 +20,7 @@ class TPrimaryHeaderConatiner extends StatelessWidget {
           color: TColors.primary,
         ),
         child: SizedBox(
-          height: THelperFunctions.screenHeight() * 0.45,
+          height: THelperFunctions.screenHeight() * 0.49,
           child: Stack(
             children: [
               Positioned(

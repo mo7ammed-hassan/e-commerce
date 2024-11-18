@@ -25,7 +25,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
         onDotClicked: cubit.dotNavigationClick,
         effect: ExpandingDotsEffect(
           activeDotColor: isDarkMode ? TColors.light : TColors.dark,
-          dotHeight: 7,
+          dotHeight: 5,
         ),
       ),
     );

@@ -7,7 +7,8 @@ import 'package:t_store/utils/constants/colors.dart';
 class TPromoSliderIndicators extends StatelessWidget {
   final int length;
   const TPromoSliderIndicators({
-    super.key, required this.length,
+    super.key,
+    required this.length,
   });
 
   @override
@@ -20,7 +21,7 @@ class TPromoSliderIndicators extends StatelessWidget {
             children: List.generate(
               length,
               (index) => TAnimatedCircularConatiner(
-                width: state == index ? 35 : 22,
+                width: state == index ? 35 : 20,
                 height: 4,
                 margin: const EdgeInsets.only(right: 10),
                 backgroundColor:

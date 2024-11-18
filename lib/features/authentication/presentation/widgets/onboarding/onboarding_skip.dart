@@ -19,9 +19,15 @@ class OnBoardingSkip extends StatelessWidget {
         onPressed: () {
           context.read<OnBoardingCubit>().skipPage();
         },
-        child: Text(
-          TTexts.skip,
-          style: Theme.of(context).textTheme.bodyLarge,
+        child: BlocBuilder<OnBoardingCubit, int>(
+          builder: (context, state) {
+            return state != 2
+                ? Text(
+                    TTexts.skip,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  )
+                : const SizedBox();
+          },
         ),
       ),
     );
