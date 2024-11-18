@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/images/rounded_image.dart';
 import 'package:t_store/features/shop/features/home/presentation/manger/cubits/promo_slider/promo_slider_cubit.dart';
 
+
 class TPromoCarousel extends StatelessWidget {
   final List<String> banners;
   const TPromoCarousel({
