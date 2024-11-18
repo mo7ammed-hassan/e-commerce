@@ -7,15 +7,16 @@ import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class TBrandCard extends StatelessWidget {
-  const TBrandCard({super.key});
-
+  const TBrandCard({super.key, this.onTap, this.showBorder = true});
+  final VoidCallback? onTap;
+  final bool showBorder;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: TRoundedContainer(
         padding: const EdgeInsets.all(TSizes.sm),
-        showBorder: true,
+        showBorder: showBorder,
         backgroundColor: Colors.transparent,
         child: Row(
           children: [
