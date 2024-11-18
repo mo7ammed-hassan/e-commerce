@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              padding: const EdgeInsets.all(TSizes.spaceBtwItems),
               child: Column(
                 children: [
                   const TPromoSlider(

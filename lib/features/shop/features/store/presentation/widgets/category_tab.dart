@@ -17,7 +17,7 @@ class TCategoryTab extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace / 2),
+          padding: const EdgeInsets.all(TSizes.spaceBtwItems),
           child: Column(
             children: [
               // Brands
