@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/image_text_widgets/vertical_iamge_text.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class THomeCategories extends StatelessWidget {
   const THomeCategories({
@@ -11,7 +10,7 @@ class THomeCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: THelperFunctions.screenHeight() * 0.15,
+      height: 120,
       child: ListView.builder(
         itemCount: 6,
         scrollDirection: Axis.horizontal,

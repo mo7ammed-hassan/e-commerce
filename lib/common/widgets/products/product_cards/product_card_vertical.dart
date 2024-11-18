@@ -11,8 +11,8 @@ import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
-class TProductCardHorizontal extends StatelessWidget {
-  const TProductCardHorizontal({super.key});
+class TProductCardVertical extends StatelessWidget {
+  const TProductCardVertical({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +25,12 @@ class TProductCardHorizontal extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(TSizes.productImageRadius),
           boxShadow: [TShadowStyle.verticalProductShadow],
-          color: isDark ? TColors.darkGrey : TColors.white,
+          color: isDark ? TColors.darkerGrey : TColors.white,
         ),
         child: Column(
           children: [
             TRoundedContainer(
-              height: 180,
+              // height: 180,
               padding: const EdgeInsets.all(TSizes.sm),
               backgroundColor: isDark ? TColors.dark : TColors.light,
               child: Stack(
@@ -71,9 +71,7 @@ class TProductCardHorizontal extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const TProductTitleText(
-                    title: 'Green Nike Air Shose',
-                    smallSize: true,
-                  ),
+                      title: 'Green Nike Air Shose', smallSize: true),
                   const SizedBox(height: TSizes.spaceBtwItems / 2),
                   Row(
                     children: [
@@ -91,35 +89,37 @@ class TProductCardHorizontal extends StatelessWidget {
                       )
                     ],
                   ),
-                  //const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const TProductPriceText(price: '35.0', isLarge: true),
-                      Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomRight:
-                                Radius.circular(TSizes.productImageRadius),
-                            topLeft: Radius.circular(TSizes.productImageRadius),
-                          ),
-                          color: TColors.dark,
-                        ),
-                        child: const SizedBox(
-                          width: TSizes.iconLg * 1.2,
-                          height: TSizes.iconLg * 1.2,
-                          child: Center(
-                            child: Icon(
-                              Iconsax.add,
-                              color: TColors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
+            ),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: TSizes.sm),
+                  child: TProductPriceText(price: '35.0', isLarge: true),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(TSizes.productImageRadius),
+                      topLeft: Radius.circular(TSizes.productImageRadius),
+                    ),
+                    color: TColors.dark,
+                  ),
+                  child: const SizedBox(
+                    width: TSizes.iconLg * 1.2,
+                    height: TSizes.iconLg * 1.2,
+                    child: Center(
+                      child: Icon(
+                        Iconsax.add,
+                        color: TColors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

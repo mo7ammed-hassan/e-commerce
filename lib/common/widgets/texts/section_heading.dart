@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:t_store/utils/constants/colors.dart';
 
 class TSectionHeading extends StatelessWidget {
   final String title, buttonTitle;
@@ -18,6 +19,7 @@ class TSectionHeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
@@ -31,7 +33,13 @@ class TSectionHeading extends StatelessWidget {
         if (showActionButton)
           TextButton(
             onPressed: onPressed,
-            child: Text(buttonTitle),
+            child: Text(
+              buttonTitle,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .apply(color: TColors.primary),
+            ),
           )
       ],
     );
