@@ -23,34 +23,38 @@ class TTermAndCondationCheckbox extends StatelessWidget {
           ),
         ),
         const SizedBox(width: TSizes.spaceBtwItems),
-        Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: '${TTexts.iAgreeTo} ',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              TextSpan(
-                text: '${TTexts.privacyPolicy} ',
-                style: Theme.of(context).textTheme.bodyMedium!.apply(
-                      color: isDark ? TColors.white : TColors.primary,
-                      decoration: TextDecoration.underline,
-                      decorationColor: isDark ? TColors.white : TColors.primary,
-                    ),
-              ),
-              TextSpan(
-                text: '${TTexts.and} ',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              TextSpan(
-                text: TTexts.termsOfUse,
-                style: Theme.of(context).textTheme.bodyMedium!.apply(
-                      color: isDark ? TColors.white : TColors.primary,
-                      decoration: TextDecoration.underline,
-                      decorationColor: isDark ? TColors.white : TColors.primary,
-                    ),
-              ),
-            ],
+        Expanded(
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: '${TTexts.iAgreeTo} ',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                TextSpan(
+                  text: '${TTexts.privacyPolicy} ',
+                  style: Theme.of(context).textTheme.bodyMedium!.apply(
+                        color: isDark ? TColors.white : TColors.primary,
+                        decoration: TextDecoration.underline,
+                        decorationColor:
+                            isDark ? TColors.white : TColors.primary,
+                      ),
+                ),
+                TextSpan(
+                  text: '${TTexts.and} ',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                TextSpan(
+                  text: TTexts.termsOfUse,
+                  style: Theme.of(context).textTheme.bodyMedium!.apply(
+                        color: isDark ? TColors.white : TColors.primary,
+                        decoration: TextDecoration.underline,
+                        decorationColor:
+                            isDark ? TColors.white : TColors.primary,
+                      ),
+                ),
+              ],
+            ),
           ),
         ),
       ],

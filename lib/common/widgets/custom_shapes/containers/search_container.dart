@@ -10,6 +10,7 @@ class TSearchConatiner extends StatelessWidget {
   final IconData? icon;
   final bool showBackground, showBorder;
   final VoidCallback? onTap;
+  final EdgeInsetsGeometry padding;
   const TSearchConatiner({
     super.key,
     required this.text,
@@ -17,6 +18,7 @@ class TSearchConatiner extends StatelessWidget {
     this.showBackground = true,
     this.showBorder = true,
     this.onTap,
+    this.padding = const EdgeInsets.symmetric(vertical: TSizes.spaceBtwItems),
   });
 
   @override
@@ -25,7 +27,7 @@ class TSearchConatiner extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
+        padding: padding,
         child: Container(
           width: TDeviceUtils.getScreenWidth(context),
           padding: const EdgeInsets.all(TSizes.md),
@@ -43,7 +45,7 @@ class TSearchConatiner extends StatelessWidget {
               Icon(icon, color: TColors.darkGrey),
               const SizedBox(width: TSizes.spaceBtwItems),
               Text(
-                'Search in Store',
+                text,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],

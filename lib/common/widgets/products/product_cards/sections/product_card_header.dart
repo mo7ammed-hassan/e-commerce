@@ -17,7 +17,8 @@ class TProductCardHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
     return TRoundedContainer(
-      height: 180,
+      height: 160,
+      //width: double.infinity,
       padding: const EdgeInsets.all(TSizes.sm),
       backgroundColor: isDark ? TColors.dark : TColors.light,
       child: Stack(

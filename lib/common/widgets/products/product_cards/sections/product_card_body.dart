@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/common/widgets/brands/brand_title_and_verify_icon.dart';
+import 'package:t_store/common/widgets/texts/brand_title_with_verified_icon.dart';
 import 'package:t_store/common/widgets/texts/product_title_text.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
@@ -20,7 +20,7 @@ class TProductCardBody extends StatelessWidget {
             smallSize: true,
           ),
           SizedBox(height: TSizes.spaceBtwItems / 2),
-          BrandTitleAndVerifyIcon(title: 'Nike'),
+          TBrandTitleWithVerifiedIcon(title: 'Nike'),
         ],
       ),
     );
