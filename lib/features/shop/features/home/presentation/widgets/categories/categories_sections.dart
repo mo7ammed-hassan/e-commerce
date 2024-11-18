@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
-import 'package:t_store/features/shop/features/home/presentation/widgets/home_categories.dart';
+import 'package:t_store/features/shop/features/home/presentation/widgets/categories/home_categories.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class CategoriesSection extends StatelessWidget {
