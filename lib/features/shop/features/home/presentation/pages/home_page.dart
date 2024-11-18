@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/search_container.dart';
+import 'package:t_store/common/widgets/layouts/grid_layout.dart';
 import 'package:t_store/common/widgets/products/product_cards/product_card_horizontal.dart';
 import 'package:t_store/features/shop/features/home/presentation/widgets/categories/categories_sections.dart';
 import 'package:t_store/features/shop/features/home/presentation/widgets/home_app_bar.dart';
@@ -13,11 +14,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TPrimaryHeaderConatiner(
+            const TPrimaryHeaderConatiner(
               child: Column(
                 children: [
                   THomeAppBar(),
@@ -29,18 +30,22 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(TSizes.defaultSpace),
+              padding: const EdgeInsets.all(TSizes.defaultSpace),
               child: Column(
                 children: [
-                  TPromoSlider(
+                  const TPromoSlider(
                     banners: [
                       TImages.promoBanner1,
                       TImages.promoBanner2,
                       TImages.promoBanner3
                     ],
                   ),
-                  SizedBox(height: TSizes.spaceBtwSections),
-                  TProductCardHorizontal(),
+                  const SizedBox(height: TSizes.spaceBtwSections),
+                  TGridLayout(
+                    itemCount: 4,
+                    itemBuilder: (context, index) =>
+                        const TProductCardHorizontal(),
+                  ),
                 ],
               ),
             ),
