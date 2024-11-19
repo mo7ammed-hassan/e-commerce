@@ -3,6 +3,7 @@ import 'package:t_store/common/styles/shadows.dart';
 import 'package:t_store/common/widgets/products/product_cards/sections/product_card_body.dart';
 import 'package:t_store/common/widgets/products/product_cards/sections/product_card_footer.dart';
 import 'package:t_store/common/widgets/products/product_cards/sections/product_card_header.dart';
+import 'package:t_store/features/shop/features/product_details/presentation/pages/product_detail_page.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
@@ -14,7 +15,14 @@ class TProductCardVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProductDetailPage(),
+          ),
+        );
+      },
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
