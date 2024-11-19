@@ -36,7 +36,7 @@ class TCircularImage extends StatelessWidget {
       child: Image(
         image: isNetworkImage ? NetworkImage(image) : AssetImage(image),
         fit: fit,
-        color: isDark ? TColors.white : TColors.black,
+        // color: isDark ? TColors.white : TColors.black,
       ),
     );
   }

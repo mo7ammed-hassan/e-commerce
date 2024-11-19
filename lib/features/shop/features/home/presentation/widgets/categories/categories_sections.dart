@@ -20,6 +20,7 @@ class CategoriesSection extends StatelessWidget {
           ),
           SizedBox(height: TSizes.spaceBtwItems),
           THomeCategories(),
+          SizedBox(height: TSizes.spaceBtwSections),
         ],
       ),
     );

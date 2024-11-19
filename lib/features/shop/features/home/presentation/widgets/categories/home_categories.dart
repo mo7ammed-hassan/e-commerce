@@ -10,7 +10,7 @@ class THomeCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120,
+      height: 85,
       child: ListView.builder(
         itemCount: 6,
         scrollDirection: Axis.horizontal,
