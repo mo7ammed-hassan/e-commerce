@@ -18,6 +18,7 @@ class WishlistPage extends StatelessWidget {
         actions: [
           TCircularIcon(
             icon: Iconsax.add,
+            size: 28,
             onPressed: () {},
           )
         ],

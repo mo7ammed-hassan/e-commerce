@@ -18,16 +18,18 @@ class UserProfileTile extends StatelessWidget {
         padding: 0,
       ),
       title: Text(
-        'Coding with M7H',
+        'Mohamed Hassan',
         style: Theme.of(context)
             .textTheme
             .headlineSmall!
             .apply(color: TColors.white),
+        overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
         'support@gmail.com',
         style:
             Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),
+        overflow: TextOverflow.ellipsis,
       ),
       trailing: IconButton(
         onPressed: () {
