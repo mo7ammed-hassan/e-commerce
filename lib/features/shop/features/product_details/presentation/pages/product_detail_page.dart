@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:t_store/features/shop/features/product_details/presentation/widgets/product_attribute.dart';
+import 'package:t_store/features/shop/features/product_details/presentation/widgets/product_meta_data.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/product_detail_image_slider.dart';
+import 'package:t_store/features/shop/features/product_details/presentation/widgets/rating_and_share.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -7,12 +11,37 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TProductDetailImageSlider(),
-            
+            const TProductDetailImageSlider(),
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: TSizes.defaultSpace,
+                right: TSizes.defaultSpace,
+                left: TSizes.defaultSpace,
+              ),
+              child: Column(
+                children: [
+                  // -Rating & Share
+                  const TRatingAndShare(),
+                  const SizedBox(height: TSizes.spaceBtwItems / 2),
+                  // - Price, Title, Stock, Brand
+                  const TProductMetaData(),
+                  // - Attributes
+                  TProductAttrebute(isDark: isDark),
+                  const SizedBox(height: TSizes.spaceBtwItems),
+
+                  // - Checkout Button
+
+                  // -- Description
+
+                  // Reviews
+                ],
+              ),
+            ),
           ],
         ),
       ),

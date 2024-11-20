@@ -23,7 +23,7 @@ class TBrandCard extends StatelessWidget {
             const Flexible(
               child: TCircularImage(
                 isNetworkImage: false,
-                image: TImages.clothIcon,
+                image: TImages.nikeLogo,
                 backgroundColor: Colors.transparent,
               ),
             ),
@@ -41,7 +41,7 @@ class TBrandCard extends StatelessWidget {
                     '265 products',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium,
-                  )
+                  ),
                 ],
               ),
             )

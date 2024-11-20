@@ -20,10 +20,14 @@ class TSettingMenuTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: TColors.primary, size: 28),
-      title: Text(title, style: Theme.of(context).textTheme.titleMedium),
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
       subtitle: Text(
         subtitle,
         style: Theme.of(context).textTheme.labelMedium,
+        overflow: TextOverflow.ellipsis,
       ),
       trailing: trailing,
       onTap: onTap,

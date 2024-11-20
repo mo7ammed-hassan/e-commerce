@@ -45,8 +45,8 @@ class TProductDetailImageSlider extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return TRoundedImage(
                       width: 80,
-                      padding: const EdgeInsets.all(TSizes.sm),
-                      imageUrl: TImages.productImage3,
+                      padding: const EdgeInsets.all(TSizes.xs),
+                      imageUrl: TImages.productImage10,
                       backgroundColor: isDark ? TColors.dark : TColors.white,
                       border: Border.all(color: TColors.primary),
                     );
