@@ -6,6 +6,7 @@ import 'package:t_store/common/widgets/custom_shapes/containers/primary_header_c
 import 'package:t_store/common/widgets/list_tiles/user_profile_tile.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
 import 'package:t_store/features/personalization/pages/address/presentation/pages/address_page.dart';
+import 'package:t_store/features/shop/features/cart/presentation/pages/cart_page.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
@@ -68,7 +69,14 @@ class SettingsPage extends StatelessWidget {
                     icon: Iconsax.shopping_cart,
                     title: 'My Cart',
                     subtitle: 'Add, remove products from cart',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CartPage(),
+                        ),
+                      );
+                    },
                   ),
                   TSettingMenuTile(
                     icon: Iconsax.bag_tick,
