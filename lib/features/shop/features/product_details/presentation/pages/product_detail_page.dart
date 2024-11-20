@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/product_attribute.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/product_meta_data.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/product_detail_image_slider.dart';
@@ -31,10 +30,16 @@ class ProductDetailPage extends StatelessWidget {
                   // - Price, Title, Stock, Brand
                   const TProductMetaData(),
                   // - Attributes
-                  TProductAttrebute(isDark: isDark),
-                  const SizedBox(height: TSizes.spaceBtwItems),
-
+                  TProductAttributes(isDark: isDark),
+                  const SizedBox(height: TSizes.spaceBtwSections),
                   // - Checkout Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Checkout'),
+                    ),
+                  ),
 
                   // -- Description
 
