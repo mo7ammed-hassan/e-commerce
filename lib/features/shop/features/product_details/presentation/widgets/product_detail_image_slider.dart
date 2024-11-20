@@ -20,9 +20,9 @@ class TProductDetailImageSlider extends StatelessWidget {
         color: isDark ? TColors.darkerGrey : TColors.light,
         child: Stack(
           children: [
-            const SizedBox(
-              height: 400,
-              child: Center(
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.45,
+              child: const Center(
                 child: Padding(
                   padding: EdgeInsets.all(TSizes.productImageRadius * 2),
                   child: Image(
