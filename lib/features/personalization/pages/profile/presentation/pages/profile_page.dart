@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: const TAppBar(
         title: Text('Profile'),
-        showArrowBack: true,
+        showBackArrow: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
