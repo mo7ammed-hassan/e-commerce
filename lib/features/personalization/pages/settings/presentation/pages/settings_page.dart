@@ -7,6 +7,7 @@ import 'package:t_store/common/widgets/list_tiles/user_profile_tile.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
 import 'package:t_store/features/personalization/pages/address/presentation/pages/address_page.dart';
 import 'package:t_store/features/shop/features/cart/presentation/pages/cart_page.dart';
+import 'package:t_store/features/shop/features/order/presentation/pages/order_page.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
@@ -82,7 +83,14 @@ class SettingsPage extends StatelessWidget {
                     icon: Iconsax.bag_tick,
                     title: 'My Orders',
                     subtitle: 'Mange your orders',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OrderPage(),
+                        ),
+                      );
+                    },
                   ),
                   TSettingMenuTile(
                     icon: Iconsax.bank,
