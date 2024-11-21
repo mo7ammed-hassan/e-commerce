@@ -25,8 +25,8 @@ class ProductDetailPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                 bottom: TSizes.defaultSpace,
-                right: TSizes.defaultSpace,
-                left: TSizes.defaultSpace,
+                right: TSizes.spaceBtwItems,
+                left: TSizes.spaceBtwItems,
               ),
               child: Column(
                 children: [

@@ -13,7 +13,10 @@ class CartPage extends StatelessWidget {
       bottomNavigationBar: _checkoutButton(context),
       appBar: _appBar(context),
       body: const Padding(
-        padding: EdgeInsets.all(TSizes.spaceBtwItems),
+        padding: EdgeInsets.symmetric(
+          horizontal: TSizes.spaceBtwItems,
+          vertical: TSizes.defaultSpace,
+        ),
         child: CartItems(),
       ),
     );
