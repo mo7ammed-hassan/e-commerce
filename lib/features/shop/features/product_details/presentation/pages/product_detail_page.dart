@@ -35,6 +35,7 @@ class ProductDetailPage extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwItems / 2),
                   // - Price, Title, Stock, Brand
                   const TProductMetaData(),
+                  const SizedBox(height: TSizes.spaceBtwItems),
                   // - Attributes
                   TProductAttributes(isDark: isDark),
                   const SizedBox(height: TSizes.spaceBtwSections),

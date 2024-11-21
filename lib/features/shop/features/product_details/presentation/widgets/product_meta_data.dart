@@ -4,9 +4,11 @@ import 'package:t_store/common/widgets/products/product_cards/sections/discount_
 import 'package:t_store/common/widgets/texts/brand_title_with_verified_icon.dart';
 import 'package:t_store/common/widgets/texts/product_price.dart';
 import 'package:t_store/common/widgets/texts/product_title_text.dart';
+import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/enums.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
+import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TProductMetaData extends StatelessWidget {
   const TProductMetaData({
@@ -15,6 +17,7 @@ class TProductMetaData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = THelperFunctions.isDarkMode(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -47,11 +50,16 @@ class TProductMetaData extends StatelessWidget {
           ],
         ),
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
-        const Row(
+        Row(
           children: [
-            TCircularImage(image: TImages.nikeLogo),
-            SizedBox(width: TSizes.spaceBtwItems / 2),
-            TBrandTitleWithVerifiedIcon(
+            TCircularImage(
+              image: TImages.nikeLogo,
+              width: 32,
+              height: 32,
+              backgroundColor: isDark ? TColors.black : TColors.white,
+            ),
+            const SizedBox(width: TSizes.spaceBtwItems / 2),
+            const TBrandTitleWithVerifiedIcon(
               title: 'Nike',
               brandTextSize: TextSizes.medium,
             ),

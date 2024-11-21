@@ -36,7 +36,7 @@ class AddressPage extends StatelessWidget {
       ),
       body: const SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(TSizes.defaultSpace),
+          padding: EdgeInsets.all(TSizes.spaceBtwItems),
           child: Column(
             children: [
               SingleAddressCard(

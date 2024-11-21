@@ -18,6 +18,7 @@ class TProductDetailImageSlider extends StatelessWidget {
     return TCurvedEdgeWidget(
       child: Container(
         color: isDark ? TColors.darkerGrey : TColors.light,
+        padding: const EdgeInsets.all(0),
         child: Stack(
           children: [
             SizedBox(

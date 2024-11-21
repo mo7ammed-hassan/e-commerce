@@ -24,7 +24,7 @@ class CartPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
+        padding: const EdgeInsets.all(TSizes.spaceBtwItems),
         child: ListView.separated(
           itemCount: 4,
           shrinkWrap: true,
