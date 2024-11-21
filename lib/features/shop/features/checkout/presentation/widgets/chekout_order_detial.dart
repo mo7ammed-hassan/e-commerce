@@ -23,7 +23,7 @@ class ChekoutOrderDetial extends StatelessWidget {
           Divider(),
           SizedBox(height: TSizes.spaceBtwItems),
           PaymentSection(),
-          SizedBox(height: TSizes.spaceBtwItems * 2),
+          SizedBox(height: TSizes.spaceBtwSections),
           AddressSection(),
         ],
       ),

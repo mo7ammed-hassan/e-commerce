@@ -37,13 +37,16 @@ class CheckoutPage extends StatelessWidget {
 
   Widget _checkoutButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.symmetric(
+        horizontal: TSizes.defaultSpace,
+        vertical: TSizes.spaceBtwItems,
+      ),
       child: ElevatedButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>  SuccessPage(
+              builder: (context) => SuccessPage(
                 title: 'Payment Success!',
                 subtitle: 'Your items will be shipping soon!',
                 image: TImages.successfulPaymentIcon,
