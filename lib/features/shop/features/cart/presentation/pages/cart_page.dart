@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
-import 'package:t_store/features/shop/features/cart/presentation/widgets/cart_item_card.dart';
+import 'package:t_store/features/shop/features/cart/presentation/widgets/cart_items.dart';
+import 'package:t_store/features/shop/features/checkout/presentation/pages/checkout_page.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class CartPage extends StatelessWidget {
@@ -9,30 +10,38 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
-        child: ElevatedButton(
-          onPressed: () {},
-          child: const Text('Checkout \$300'),
-        ),
+      bottomNavigationBar: _checkoutButton(context),
+      appBar: _appBar(context),
+      body: const Padding(
+        padding: EdgeInsets.all(TSizes.spaceBtwItems),
+        child: CartItems(),
       ),
-      appBar: TAppBar(
-        showBackArrow: true,
-        title: Text(
-          'Cart',
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
+    );
+  }
+
+  TAppBar _appBar(BuildContext context) {
+    return TAppBar(
+      showBackArrow: true,
+      title: Text(
+        'Cart',
+        style: Theme.of(context).textTheme.headlineSmall,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(TSizes.spaceBtwItems),
-        child: ListView.separated(
-          itemCount: 4,
-          shrinkWrap: true,
-          itemBuilder: (context, index) => const CartItemCard(),
-          separatorBuilder: (context, index) => const SizedBox(
-            height: TSizes.spaceBtwSections,
-          ),
-        ),
+    );
+  }
+
+  Widget _checkoutButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CheckoutPage(),
+            ),
+          );
+        },
+        child: const Text('Checkout \$300'),
       ),
     );
   }

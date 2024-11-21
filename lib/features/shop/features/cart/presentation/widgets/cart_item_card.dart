@@ -12,8 +12,9 @@ import 'package:t_store/utils/helpers/helper_functions.dart';
 class CartItemCard extends StatelessWidget {
   const CartItemCard({
     super.key,
+    this.showAddRemoveButtons = true,
   });
-
+  final bool showAddRemoveButtons;
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
@@ -62,13 +63,14 @@ class CartItemCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TProductQuantityButtons(isDark: isDark),
-                      const TProductPriceText(price: '134.0'),
-                    ],
-                  ),
+                  if (showAddRemoveButtons)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TProductQuantityButtons(isDark: isDark),
+                        const TProductPriceText(price: '134.0'),
+                      ],
+                    ),
                 ],
               ),
             ),
