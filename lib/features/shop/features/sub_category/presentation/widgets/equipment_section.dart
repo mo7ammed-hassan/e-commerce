@@ -6,14 +6,15 @@ import 'package:t_store/utils/constants/sizes.dart';
 class EquipmentSection extends StatelessWidget {
   const EquipmentSection({
     super.key,
+    required this.title,
   });
-
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TSectionHeading(
-          title: 'Sports Equipments',
+          title: title,
           onPressed: () {},
         ),
         const SizedBox(height: TSizes.spaceBtwItems),
@@ -22,8 +23,7 @@ class EquipmentSection extends StatelessWidget {
           child: ListView.separated(
             itemCount: 4,
             scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) =>
-                const ProductCardHorizantal(),
+            itemBuilder: (context, index) => const ProductCardHorizantal(),
             separatorBuilder: (BuildContext context, int index) =>
                 const SizedBox(width: TSizes.spaceBtwItems),
           ),
