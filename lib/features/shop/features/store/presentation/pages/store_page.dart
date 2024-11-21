@@ -6,6 +6,7 @@ import 'package:t_store/common/widgets/custom_shapes/containers/search_container
 import 'package:t_store/common/widgets/layouts/grid_layout.dart';
 import 'package:t_store/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
+import 'package:t_store/features/shop/features/all_brands/presentation/pages/all_brands_page.dart';
 import 'package:t_store/features/shop/features/cart/presentation/pages/cart_page.dart';
 import 'package:t_store/features/shop/features/store/presentation/widgets/category_tab.dart';
 import 'package:t_store/utils/constants/colors.dart';
@@ -45,7 +46,16 @@ class StorePage extends StatelessWidget {
                         showBackground: false,
                       ),
                       const SizedBox(height: TSizes.spaceBtwSections),
-                      TSectionHeading(title: 'Future Brands', onPressed: () {}),
+                      TSectionHeading(
+                          title: 'Future Brands',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AllBrandsPage(),
+                              ),
+                            );
+                          }),
                       const SizedBox(height: TSizes.spaceBtwItems / 2),
                       TGridLayout(
                         itemCount: 4,

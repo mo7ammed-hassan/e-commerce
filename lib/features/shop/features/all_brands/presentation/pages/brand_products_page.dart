@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
+import 'package:t_store/common/widgets/brands/brand_card.dart';
 import 'package:t_store/common/widgets/products/sortable/sortable_products.dart';
+import 'package:t_store/common/widgets/texts/section_heading.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
-class AllProductsPage extends StatelessWidget {
-  const AllProductsPage({super.key});
+class BrandProductsPage extends StatelessWidget {
+  const BrandProductsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,15 @@ class AllProductsPage extends StatelessWidget {
             horizontal: TSizes.spaceBtwItems,
             vertical: TSizes.defaultSpace,
           ),
-          child: TSortableProducts(),
+          child: Column(
+            children: [
+              TBrandCard(),
+              SizedBox(height: TSizes.spaceBtwSections),
+              TSectionHeading(title: 'Products', showActionButton: false),
+              SizedBox(height: TSizes.spaceBtwItems),
+              TSortableProducts(),
+            ],
+          ),
         ),
       ),
     );
@@ -26,7 +36,7 @@ class AllProductsPage extends StatelessWidget {
     return TAppBar(
       showBackArrow: true,
       title: Text(
-        'Popular Products',
+        'Brand',
         style: Theme.of(context).textTheme.headlineSmall,
       ),
     );
