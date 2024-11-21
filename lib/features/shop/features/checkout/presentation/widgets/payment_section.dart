@@ -24,11 +24,13 @@ class PaymentSection extends StatelessWidget {
         Row(
           children: [
             TRoundedImage(
-              width: 60,
-              height: 35,
+              width: 55,
+              height: 30,
               backgroundColor: isDark ? TColors.light : TColors.white,
               imageUrl: TImages.visa,
               fit: BoxFit.contain,
+              padding: const EdgeInsets.all(2),
+              borderRadius: 5,
             ),
             const SizedBox(width: TSizes.spaceBtwItems),
             Text(
