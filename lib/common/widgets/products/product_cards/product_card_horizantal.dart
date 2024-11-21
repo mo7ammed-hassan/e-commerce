@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/common/styles/shadows.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:t_store/common/widgets/icons/add_icon.dart';
 import 'package:t_store/common/widgets/icons/circular_icon.dart';
@@ -35,8 +34,7 @@ class ProductCardHorizantal extends StatelessWidget {
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(TSizes.productImageRadius),
-          boxShadow: [TShadowStyle.verticalProductShadow],
-          color: isDark ? TColors.darkerGrey : TColors.white,
+          color: isDark ? TColors.darkerGrey : TColors.softGrey,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
