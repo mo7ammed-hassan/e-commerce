@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:t_store/features/authentication/presentation/pages/login_page.dart';
 
 class OnBoardingCubit extends Cubit<int> {
@@ -35,6 +36,8 @@ class OnBoardingCubit extends Cubit<int> {
         curve: Curves.easeIn,
       );
     } else {
+      final storage = GetStorage();
+      storage.write('isFirstLaunch', false);
       Navigator.push(
         context,
         MaterialPageRoute(
