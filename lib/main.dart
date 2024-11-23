@@ -6,6 +6,7 @@ import 'package:t_store/firebase_options.dart';
 import 'package:t_store/utils/theme/theme.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
