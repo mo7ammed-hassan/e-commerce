@@ -1,4 +1,4 @@
-class UserModel {
+class UserEntity {
   final String userId;
   final String firstName;
   final String lastName;
@@ -8,7 +8,7 @@ class UserModel {
   final String userPhone;
   final String? userImage;
 
-  UserModel(
+  UserEntity(
     this.userId,
     this.firstName,
     this.lastName,

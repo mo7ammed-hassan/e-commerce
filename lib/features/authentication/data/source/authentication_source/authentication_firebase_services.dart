@@ -1,17 +1,26 @@
 import 'package:dartz/dartz.dart';
 import 'package:t_store/features/authentication/data/models/user_creation_model.dart';
 import 'package:t_store/features/authentication/data/models/user_signin_model.dart';
-import 'package:t_store/features/authentication/domain/repository/authentication_repository.dart';
 
-class AuthenticationRepositoryImpl extends AuthenticationRepository {
+abstract class AuthenticationFirebaseServices {
+  Future<Either> signup(UserCreationModel usetCreationModel);
+  Future<Either> sihnin(UserSigninModel userSigninModel);
+  Future<Either> isLoggedIn();
+  Future<bool> logout();
+  Future<Either> resetPassword({required String email});
+  Future<Either> verifyEmail({required String email});
+}
+
+class FirebaseAuthenticationServicesImpl
+    extends AuthenticationFirebaseServices {
   @override
-  Future<bool> isLoggedIn() {
+  Future<Either> isLoggedIn() {
     // TODO: implement isLoggedIn
     throw UnimplementedError();
   }
 
   @override
-  Future<Either> logout() {
+  Future<bool> logout() {
     // TODO: implement logout
     throw UnimplementedError();
   }
@@ -23,14 +32,14 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Either> sigin(UserSigninModel userSigninModel) {
-    // TODO: implement sigin
+  Future<Either> signup(UserCreationModel usetCreationModel) {
+    // TODO: implement signup
     throw UnimplementedError();
   }
 
   @override
-  Future<Either> signup(UserCreationModel userCreationModel) {
-    // TODO: implement signup
+  Future<Either> sihnin(UserSigninModel userSigninModel) {
+    // TODO: implement sihnin
     throw UnimplementedError();
   }
 
