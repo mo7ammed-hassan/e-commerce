@@ -3,9 +3,10 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:t_store/features/authentication/data/models/user_creation_model.dart';
 import 'package:t_store/features/authentication/data/models/user_signin_model.dart';
+import 'package:t_store/utils/helpers/password_helper.dart';
 
 abstract class AuthenticationFirebaseServices {
-  Future<Either> signup(UserCreationModel usetCreationModel);
+  Future<Either> signup(UserCreationModel userCreationModel);
   Future<Either> signin(UserSigninModel userSigninModel);
   Future<Either> isLoggedIn();
   Future<bool> logout();
@@ -34,21 +35,27 @@ class AuthenticationFirebaseServicesImpl
   }
 
   @override
-  Future<Either> signup(UserCreationModel usetCreationModel) async {
+  Future<Either> signup(UserCreationModel userCreationModel) async {
     try {
-      // create user
+      // Create user in Firebase Auth
       final UserCredential credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: usetCreationModel.userEmail,
-        password: usetCreationModel.password,
+        email: userCreationModel.userEmail,
+        password: userCreationModel.password,
       );
 
-      // stor user
+      // --  Hash the password --
+      final hashedPassword =
+          TPasswordHelper.hashPassword(userCreationModel.password);
+
+      // Store user in Firestore
+      userCreationModel.userID = credential.user!.uid;
+      userCreationModel.password = hashedPassword; // Store hashed password
       await FirebaseFirestore.instance
           .collection('Users')
           .doc(credential.user!.uid)
           .set(
-            usetCreationModel.toMap(),
+            userCreationModel.toMap(),
           );
       return const Right(
         'Your Account has been created! Verify email to continue',

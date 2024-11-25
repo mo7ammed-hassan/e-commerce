@@ -4,6 +4,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/manager/cubits/password_and_selection/password_and_selection_cubit.dart';
 import 'package:t_store/common/widgets/text_filed/password_field.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_cubit.dart';
+import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_state.dart';
+import 'package:t_store/features/authentication/presentation/pages/verify_email_page.dart';
 import 'package:t_store/features/authentication/presentation/widgets/signup/term_and_condation_checkbox.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
@@ -115,24 +117,28 @@ class TSignupForm extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Builder(builder: (context) {
-        return ElevatedButton(
-          onPressed: () {
-            final passwordAndSelectionCubit =
-                context.read<PasswordAndSelectionCubit>();
-            context
-                .read<SignupCubit>()
-                .signup(passwordAndSelectionCubit.isPrivacyAccepted);
-            // if (context.read<SignupCubit>().validateForm()) {
-            //   Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => const VerifyEmailPage(),
-            //     ),
-            //     (route) => false,
-            //   );
-            // }
+        return BlocListener<SignupCubit, SignupState>(
+          listener: (context, state) {
+            if (state is SignupSuccessState) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const VerifyEmailPage(),
+                ),
+                (route) => false,
+              );
+            }
           },
-          child: const Text(TTexts.createAccount),
+          child: ElevatedButton(
+            onPressed: () {
+              final passwordAndSelectionCubit =
+                  context.read<PasswordAndSelectionCubit>();
+              context
+                  .read<SignupCubit>()
+                  .signup(passwordAndSelectionCubit.isPrivacyAccepted);
+            },
+            child: const Text(TTexts.createAccount),
+          ),
         );
       }),
     );
