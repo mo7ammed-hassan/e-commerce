@@ -21,23 +21,18 @@ class SignupCubit extends Cubit<SignupState> {
   // Key
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // validation
-  bool validateForm() {
-    return formKey.currentState?.validate() ?? false;
-  }
-
   void signup(bool isPrivacyAccepted) async {
-    // start Loading
+    // --Start Loading--
     TFullScreenLoader.openLoadingDialog(
       'We are processing your information...',
       TImages.docerAnimation,
     );
+
     // --Validation checks--
     if (!validateForm()) {
       TFullScreenLoader.stopLoading();
       return;
     }
-
     if (!isPrivacyAccepted) {
       TFullScreenLoader.stopLoading();
       TLoaders.warningSnackBar(
@@ -48,6 +43,7 @@ class SignupCubit extends Cubit<SignupState> {
       return;
     }
 
+    // --Signup--
     var result = await getIt<SignupUsecase>().call(
       params: UserCreationModel(
         firstName: firstNameController.text,
@@ -60,6 +56,7 @@ class SignupCubit extends Cubit<SignupState> {
       ),
     );
 
+    // --Result of Registration--
     result.fold(
       (errorMessage) {
         TFullScreenLoader.stopLoading();
@@ -67,7 +64,6 @@ class SignupCubit extends Cubit<SignupState> {
           title: 'Oh Snap!',
           message: errorMessage,
         );
-
         emit(SignupErrorState(errorMessage));
       },
       (successMessage) {
@@ -79,5 +75,10 @@ class SignupCubit extends Cubit<SignupState> {
         emit(SignupSuccessState(successMessage));
       },
     );
+  }
+
+  // validation
+  bool validateForm() {
+    return formKey.currentState?.validate() ?? false;
   }
 }
