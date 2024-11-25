@@ -55,15 +55,23 @@ class TLoginForm extends StatelessWidget {
     );
   }
 
-  Widget _rememberMeAndForgetPassword(context) {
+  Widget _rememberMeAndForgetPassword(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Row(
+        Row(
           children: [
-            CustomCheckbox(),
-            SizedBox(width: 5),
-            Text(TTexts.rememberMe),
+            Builder(
+              builder: (context) {
+                return CustomCheckbox(
+                  onChanged: (value) => context
+                      .read<PasswordAndSelectionCubit>()
+                      .toggleRememberMe(),
+                );
+              },
+            ),
+            const SizedBox(width: 5),
+            const Text(TTexts.rememberMe),
           ],
         ),
         TextButton(

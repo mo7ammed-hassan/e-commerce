@@ -8,8 +8,13 @@ class PasswordVisibleState extends PasswordAndSelectionState {
   PasswordVisibleState(this.isVisible);
 }
 
-class UserSelectedState extends PasswordAndSelectionState {
-  final bool isSelected;
+class PrivacyAcceptedState extends PasswordAndSelectionState {
+  final bool isPrivacyAccepted;
 
-  UserSelectedState(this.isSelected);
+  PrivacyAcceptedState(this.isPrivacyAccepted);
+}
+
+class RememberMeState extends PasswordAndSelectionState {
+  final bool isRemembered;
+  RememberMeState(this.isRemembered);
 }

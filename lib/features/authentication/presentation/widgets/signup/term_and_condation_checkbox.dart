@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:t_store/common/manager/cubits/password_and_selection/password_and_selection_cubit.dart';
 import 'package:t_store/common/widgets/checkbox/custom_checkbox.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TTermAndCondationCheckbox extends StatelessWidget {
-  const TTermAndCondationCheckbox({
-    super.key,
-  });
+  const TTermAndCondationCheckbox({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,11 @@ class TTermAndCondationCheckbox extends StatelessWidget {
 
     return Row(
       children: [
-        const CustomCheckbox(),
+        CustomCheckbox(
+          onChanged: (value) {
+            context.read<PasswordAndSelectionCubit>().togglePrivacyAcceptance();
+          },
+        ),
         const SizedBox(width: 5),
         Expanded(
           child: Text.rich(

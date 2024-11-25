@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/manager/cubits/password_and_selection/password_and_selection_cubit.dart';
@@ -6,23 +7,32 @@ import 'package:t_store/common/manager/cubits/password_and_selection/password_an
 class CustomCheckbox extends StatelessWidget {
   const CustomCheckbox({
     super.key,
+    // required this.isSelected,
+    this.onChanged,
   });
-
+  //final bool isSelected;
+  final void Function(bool?)? onChanged;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PasswordAndSelectionCubit, PasswordAndSelectionState>(
       builder: (context, state) {
-        final isSelected = context.read<PasswordAndSelectionCubit>().isSelected;
+        final isSelected = state is PrivacyAcceptedState
+            ? state.isPrivacyAccepted
+            : state is RememberMeState
+                ? state.isRemembered
+                : false;
+
+        // If debug mode is enabled, print the current state and checkbox state.
+        if (kDebugMode) {
+          print('$state.... $isSelected');
+        }
+
         return SizedBox(
           width: 24,
           height: 24,
           child: Checkbox(
             value: isSelected,
-            onChanged: (value) {
-              context
-                  .read<PasswordAndSelectionCubit>()
-                  .toggleUserSelection(value!);
-            },
+            onChanged: onChanged,
           ),
         );
       },

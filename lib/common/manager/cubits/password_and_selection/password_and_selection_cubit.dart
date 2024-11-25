@@ -6,7 +6,8 @@ class PasswordAndSelectionCubit extends Cubit<PasswordAndSelectionState> {
   PasswordAndSelectionCubit() : super(PasswordAndSelectionInitialState());
 
   bool isPasswordHidden = true; // Default password visibility is hidden
-  bool isSelected = false; // Default checkbox is not selected
+  bool isPrivacyAccepted = false; // Default checkbox is not selected
+  bool isRememberMe = false; // Default remember me is not selected
 
   // Toggle password visibility
   void togglePasswordVisibility() {
@@ -14,9 +15,15 @@ class PasswordAndSelectionCubit extends Cubit<PasswordAndSelectionState> {
     emit(PasswordVisibleState(isPasswordHidden));
   }
 
-  // Toggle checkbox selection
-  void toggleUserSelection(bool isSelected) {
-    this.isSelected = isSelected;
-    emit(UserSelectedState(isSelected));
+  // Toggle Privacy
+  void togglePrivacyAcceptance() {
+    isPrivacyAccepted = !isPrivacyAccepted;
+    emit(PrivacyAcceptedState(isPrivacyAccepted));
+  }
+
+  // Toggle remember me
+  void toggleRememberMe() {
+    isRememberMe = !isRememberMe;
+    emit(RememberMeState(isRememberMe));
   }
 }
