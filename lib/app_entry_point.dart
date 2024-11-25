@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:t_store/common/manager/cubits/launch_app/launch_app_cubit.dart';
 import 'package:t_store/features/authentication/presentation/pages/login_page.dart';
 import 'package:t_store/features/authentication/presentation/pages/onboarding_page.dart';
@@ -9,14 +10,19 @@ class AppEntryPoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LaunchAppCubit, bool>(
-      builder: (context, isFirstLaunch) {
+    return BlocListener<LaunchAppCubit, bool>(
+      listener: (context, isFirstLaunch) {
         if (isFirstLaunch) {
-          return const OnBoardingPage();
+          Get.offAll(const OnBoardingPage());
         } else {
-          return const LoginPage();
+          Get.offAll(const LoginPage());
         }
       },
+      child: const Scaffold(
+        body: Center(
+          child: SingleChildScrollView(),
+        ),
+      ),
     );
   }
 }

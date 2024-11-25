@@ -105,6 +105,7 @@ class TSignupForm extends StatelessWidget {
       controller: context.read<SignupCubit>().phoneController,
       validator: (value) => TValidator.validatePhoneNumber(value),
       decoration: const InputDecoration(
+        errorMaxLines: 2,
         labelText: TTexts.phoneNo,
         prefixIcon: Icon(Iconsax.call),
       ),

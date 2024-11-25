@@ -25,6 +25,7 @@ class PasswordField extends StatelessWidget {
           decoration: InputDecoration(
             labelText: TTexts.password,
             prefixIcon: const Icon(Iconsax.password_check),
+            errorMaxLines: 2,
             suffixIcon: IconButton(
               icon: Icon(
                 isPasswordHidden ? Iconsax.eye_slash : Iconsax.eye,
