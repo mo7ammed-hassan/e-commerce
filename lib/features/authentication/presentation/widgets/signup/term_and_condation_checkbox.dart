@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:t_store/common/widgets/checkbox/custom_checkbox.dart';
 import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
@@ -12,17 +12,11 @@ class TTermAndCondationCheckbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
+
     return Row(
       children: [
-        SizedBox(
-          width: 24,
-          height: 24,
-          child: Checkbox(
-            value: true,
-            onChanged: (value) {},
-          ),
-        ),
-        const SizedBox(width: TSizes.spaceBtwItems),
+        const CustomCheckbox(),
+        const SizedBox(width: 5),
         Expanded(
           child: Text.rich(
             TextSpan(

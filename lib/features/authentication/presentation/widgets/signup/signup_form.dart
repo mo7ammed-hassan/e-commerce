@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:t_store/common/manager/cubits/password_and_selection/password_and_selection_cubit.dart';
+import 'package:t_store/common/widgets/text_filed/password_field.dart';
+import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_cubit.dart';
 import 'package:t_store/features/authentication/presentation/pages/verify_email_page.dart';
 import 'package:t_store/features/authentication/presentation/widgets/signup/term_and_condation_checkbox.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:t_store/utils/validators/validation.dart';
 
 class TSignupForm extends StatelessWidget {
   const TSignupForm({
@@ -12,37 +17,45 @@ class TSignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              _firstNameField(),
-              const SizedBox(width: TSizes.spaceBtwInputFields),
-              _lastNameField(),
-            ],
-          ),
-          const SizedBox(height: TSizes.spaceBtwInputFields),
-          _userNameField(),
-          const SizedBox(height: TSizes.spaceBtwInputFields),
-          _emailField(),
-          const SizedBox(height: TSizes.spaceBtwInputFields),
-          _phoneNumberField(),
-          const SizedBox(height: TSizes.spaceBtwInputFields),
-          _passwordField(),
-          const SizedBox(height: TSizes.spaceBtwSections),
-          const TTermAndCondationCheckbox(),
-          const SizedBox(height: TSizes.spaceBtwSections),
-          _createAccount(context),
-        ],
+    return BlocProvider(
+      create: (context) => PasswordAndSelectionCubit(),
+      child: Form(
+        key: context.read<SignupCubit>().formKey,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                _firstNameField(context),
+                const SizedBox(width: TSizes.spaceBtwInputFields),
+                _lastNameField(context),
+              ],
+            ),
+            const SizedBox(height: TSizes.spaceBtwInputFields),
+            _userNameField(context),
+            const SizedBox(height: TSizes.spaceBtwInputFields),
+            _emailField(context),
+            const SizedBox(height: TSizes.spaceBtwInputFields),
+            _phoneNumberField(context),
+            const SizedBox(height: TSizes.spaceBtwInputFields),
+            PasswordField(
+              controller: context.read<SignupCubit>().passwordController,
+            ),
+            const SizedBox(height: TSizes.spaceBtwSections),
+            const TTermAndCondationCheckbox(),
+            const SizedBox(height: TSizes.spaceBtwSections),
+            _createAccount(context),
+          ],
+        ),
       ),
     );
   }
 
-  Expanded _firstNameField() {
+  Expanded _firstNameField(BuildContext context) {
     return Expanded(
       child: TextFormField(
         expands: false,
+        controller: context.read<SignupCubit>().firstNameController,
+        validator: (value) => TValidator.validateEmptyText('First Name', value),
         decoration: const InputDecoration(
           labelText: TTexts.firstName,
           prefixIcon: Icon(Iconsax.user),
@@ -51,9 +64,11 @@ class TSignupForm extends StatelessWidget {
     );
   }
 
-  Expanded _lastNameField() {
+  Expanded _lastNameField(BuildContext context) {
     return Expanded(
       child: TextFormField(
+        controller: context.read<SignupCubit>().lastNameController,
+        validator: (value) => TValidator.validateEmptyText('Last Name', value),
         expands: false,
         decoration: const InputDecoration(
           labelText: TTexts.lastName,
@@ -63,8 +78,10 @@ class TSignupForm extends StatelessWidget {
     );
   }
 
-  TextFormField _userNameField() {
+  TextFormField _userNameField(BuildContext context) {
     return TextFormField(
+      controller: context.read<SignupCubit>().usernameController,
+      validator: (value) => TValidator.validateEmptyText('username', value),
       decoration: const InputDecoration(
         labelText: TTexts.username,
         prefixIcon: Icon(Iconsax.user_edit),
@@ -72,8 +89,10 @@ class TSignupForm extends StatelessWidget {
     );
   }
 
-  TextFormField _emailField() {
+  TextFormField _emailField(BuildContext context) {
     return TextFormField(
+      controller: context.read<SignupCubit>().emailController,
+      validator: (value) => TValidator.validateEmail(value),
       decoration: const InputDecoration(
         labelText: TTexts.email,
         prefixIcon: Icon(Iconsax.direct),
@@ -81,8 +100,10 @@ class TSignupForm extends StatelessWidget {
     );
   }
 
-  TextFormField _phoneNumberField() {
+  TextFormField _phoneNumberField(BuildContext context) {
     return TextFormField(
+      controller: context.read<SignupCubit>().phoneController,
+      validator: (value) => TValidator.validatePhoneNumber(value),
       decoration: const InputDecoration(
         labelText: TTexts.phoneNo,
         prefixIcon: Icon(Iconsax.call),
@@ -90,29 +111,20 @@ class TSignupForm extends StatelessWidget {
     );
   }
 
-  TextFormField _passwordField() {
-    return TextFormField(
-      obscureText: true,
-      decoration: const InputDecoration(
-        labelText: TTexts.password,
-        prefixIcon: Icon(Iconsax.password_check),
-        suffixIcon: Icon(Iconsax.eye_slash),
-      ),
-    );
-  }
-
-  SizedBox _createAccount(context) {
+  SizedBox _createAccount(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const VerifyEmailPage(),
-            ),
-            (route) => false,
-          );
+          if (context.read<SignupCubit>().validateForm()) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const VerifyEmailPage(),
+              ),
+              (route) => false,
+            );
+          }
         },
         child: const Text(TTexts.createAccount),
       ),

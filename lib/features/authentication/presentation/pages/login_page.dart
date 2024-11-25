@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/styles/spacing_styles.dart';
 import 'package:t_store/common/widgets/login_signup/form_divider.dart';
 import 'package:t_store/common/widgets/login_signup/social_buttons.dart';
+import 'package:t_store/features/authentication/presentation/manager/cubits/signin/signin_cubit.dart';
 import 'package:t_store/features/authentication/presentation/widgets/login/login_form.dart';
 import 'package:t_store/features/authentication/presentation/widgets/login/login_header.dart';
 import 'package:t_store/utils/constants/sizes.dart';
@@ -12,20 +14,23 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         padding: TSpacingStyles.paddingWithAppBarHeight,
         child: Column(
           children: [
             // Logo, Title & sub-title
-            TLoginHeader(),
+            const TLoginHeader(),
             // Form
-            TLoginForm(),
+            BlocProvider(
+              create: (context) => LoginCubit(),
+              child: const TLoginForm(),
+            ),
             // Divider
-            TFormDivider(dividerText: TTexts.orSignInWith),
-            SizedBox(height: TSizes.spaceBtwSections),
+            const TFormDivider(dividerText: TTexts.orSignInWith),
+            const SizedBox(height: TSizes.spaceBtwSections),
             // Footer
-            TSocialButtons(),
+            const TSocialButtons(),
           ],
         ),
       ),
