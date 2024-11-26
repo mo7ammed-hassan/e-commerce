@@ -34,7 +34,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   Future<Either> signup(UserCreationModel userCreationModel) async {
     var returnedData =
         await getIt<AuthenticationFirebaseServices>().signup(userCreationModel);
-        
+
     return returnedData.fold(
       (errorMessage) {
         return Left(errorMessage);
@@ -46,8 +46,17 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Either> verifyEmail({required String email}) {
-    // TODO: implement verifyEmail
-    throw UnimplementedError();
+  Future<Either> verifyEmail({required String email}) async {
+    var returnedData =
+        await getIt<AuthenticationFirebaseServices>().verifyEmail(email: email);
+
+    return returnedData.fold(
+      (errorMessage) {
+        return Left(errorMessage);
+      },
+      (successMessage) {
+        return Right(successMessage);
+      },
+    );
   }
 }

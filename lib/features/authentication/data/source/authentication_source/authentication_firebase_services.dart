@@ -80,8 +80,13 @@ class AuthenticationFirebaseServicesImpl
   }
 
   @override
-  Future<Either> verifyEmail({required String email}) {
-    // TODO: implement verifyEmail
-    throw UnimplementedError();
+  Future<Either> verifyEmail({required String email}) async {
+    try {
+      await FirebaseAuth.instance.setLanguageCode("en");
+      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+      return const Right('Email verification sent successfully');
+    } catch (e) {
+      return const Left('There was an error, please try again');
+    }
   }
 }
