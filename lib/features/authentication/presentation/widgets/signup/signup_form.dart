@@ -7,8 +7,11 @@ import 'package:t_store/features/authentication/presentation/manager/cubits/sign
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_state.dart';
 import 'package:t_store/features/authentication/presentation/pages/verify_email_page.dart';
 import 'package:t_store/features/authentication/presentation/widgets/signup/term_and_condation_checkbox.dart';
+import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:t_store/utils/popups/full_screen_loader.dart';
+import 'package:t_store/utils/popups/loaders.dart';
 import 'package:t_store/utils/validators/validation.dart';
 
 class TSignupForm extends StatelessWidget {
@@ -18,35 +21,32 @@ class TSignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PasswordAndSelectionCubit(),
-      child: Form(
-        key: context.read<SignupCubit>().formKey,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                _firstNameField(context),
-                const SizedBox(width: TSizes.spaceBtwInputFields),
-                _lastNameField(context),
-              ],
-            ),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
-            _userNameField(context),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
-            _emailField(context),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
-            _phoneNumberField(context),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
-            PasswordField(
-              controller: context.read<SignupCubit>().passwordController,
-            ),
-            const SizedBox(height: TSizes.spaceBtwSections),
-            const TTermAndCondationCheckbox(),
-            const SizedBox(height: TSizes.spaceBtwSections),
-            _createAccount(context),
-          ],
-        ),
+    return Form(
+      key: context.read<SignupCubit>().formKey,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              _firstNameField(context),
+              const SizedBox(width: TSizes.spaceBtwInputFields),
+              _lastNameField(context),
+            ],
+          ),
+          const SizedBox(height: TSizes.spaceBtwInputFields),
+          _userNameField(context),
+          const SizedBox(height: TSizes.spaceBtwInputFields),
+          _emailField(context),
+          const SizedBox(height: TSizes.spaceBtwInputFields),
+          _phoneNumberField(context),
+          const SizedBox(height: TSizes.spaceBtwInputFields),
+          PasswordField(
+            controller: context.read<SignupCubit>().passwordController,
+          ),
+          const SizedBox(height: TSizes.spaceBtwSections),
+          const TTermAndCondationCheckbox(),
+          const SizedBox(height: TSizes.spaceBtwSections),
+          _createAccount(context),
+        ],
       ),
     );
   }
@@ -116,31 +116,51 @@ class TSignupForm extends StatelessWidget {
   SizedBox _createAccount(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Builder(builder: (context) {
-        return BlocListener<SignupCubit, SignupState>(
-          listener: (context, state) {
-            if (state is SignupSuccessState) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const VerifyEmailPage(),
-                ),
-                (route) => false,
-              );
-            }
+      child: BlocListener<SignupCubit, SignupState>(
+        listener: (context, state) {
+          if (state is PrivacyValidationErrorState) {
+            TLoaders.warningSnackBar(
+              title: 'Accept Privacy Policy',
+              message: state.errorMessage,
+            );
+          } else if (state is SignupLoadingState) {
+            TFullScreenLoader.openLoadingDialog(
+              'We are processing your information...',
+              TImages.docerAnimation,
+            );
+          } else if (state is SignupErrorState) {
+            TFullScreenLoader.stopLoading();
+            TLoaders.errorSnackBar(
+              title: 'Error',
+              message: state.errorMessage,
+            );
+          } else if (state is SignupSuccessState) {
+            _navigateToVerifyEmail(context);
+            TLoaders.successSnackBar(
+              title: 'Congratulations',
+              message: state.message,
+            );
+          }
+        },
+        child: ElevatedButton(
+          onPressed: () {
+            final isPrivacyAccepted =
+                context.read<PasswordAndSelectionCubit>().isPrivacyAccepted;
+            context.read<SignupCubit>().signup(isPrivacyAccepted);
           },
-          child: ElevatedButton(
-            onPressed: () {
-              final passwordAndSelectionCubit =
-                  context.read<PasswordAndSelectionCubit>();
-              context
-                  .read<SignupCubit>()
-                  .signup(passwordAndSelectionCubit.isPrivacyAccepted);
-            },
-            child: const Text(TTexts.createAccount),
-          ),
-        );
-      }),
+          child: const Text(TTexts.createAccount),
+        ),
+      ),
+    );
+  }
+
+  void _navigateToVerifyEmail(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const VerifyEmailPage(),
+      ),
+      (route) => false,
     );
   }
 }

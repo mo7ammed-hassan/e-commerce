@@ -4,81 +4,73 @@ import 'package:t_store/features/authentication/data/models/user_creation_model.
 import 'package:t_store/features/authentication/domain/use_cases/signup_usecase.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_state.dart';
 import 'package:t_store/service_locator.dart';
-import 'package:t_store/utils/constants/images_strings.dart';
-import 'package:t_store/utils/popups/full_screen_loader.dart';
-import 'package:t_store/utils/popups/loaders.dart';
 
 class SignupCubit extends Cubit<SignupState> {
   SignupCubit() : super(SignupInitialState());
 
-  // Controller
+  // Controllers
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  // Key
+
+  // Form Key
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  // validation → user creation → API call → result handling.
   void signup(bool isPrivacyAccepted) async {
-    // --Start Loading--
-    TFullScreenLoader.openLoadingDialog(
-      'We are processing your information...',
-      TImages.docerAnimation,
-    );
-
-    // --Validation checks--
+    // ------Validation checks------
     if (!validateForm()) {
-      TFullScreenLoader.stopLoading();
       return;
     }
     if (!isPrivacyAccepted) {
-      TFullScreenLoader.stopLoading();
-      TLoaders.warningSnackBar(
-        title: 'Accept Privacy Policy',
-        message:
-            'In order create account, you must have to read and accept the Privacy Policy & Terms of Use',
+      emit(
+        PrivacyValidationErrorState(
+          'In order create account, you must have to read and accept the Privacy Policy & Terms of Use',
+        ),
       );
       return;
     }
 
-    // --Signup--
-    var result = await getIt<SignupUsecase>().call(
-      params: UserCreationModel(
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        username: usernameController.text,
-        userEmail: emailController.text,
-        password: passwordController.text,
-        userPhone: phoneController.text,
-        profilePicture: '',
-      ),
+    // Construct user creation model
+    final user = UserCreationModel(
+      firstName: firstNameController.text.trim(),
+      lastName: lastNameController.text.trim(),
+      username: usernameController.text.trim(),
+      userEmail: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      userPhone: phoneController.text.trim(),
+      profilePicture: '',
     );
 
-    // --Result of Registration--
+    // Start Loading
+    emit(SignupLoadingState());
+
+    // Call use case
+    var result = await getIt<SignupUsecase>().call(params: user);
+
     result.fold(
-      (errorMessage) {
-        TFullScreenLoader.stopLoading();
-        TLoaders.errorSnackBar(
-          title: 'Oh Snap!',
-          message: errorMessage,
-        );
-        emit(SignupErrorState(errorMessage));
-      },
-      (successMessage) {
-        TFullScreenLoader.stopLoading();
-        TLoaders.successSnackBar(
-          title: 'Congratulations',
-          message: successMessage,
-        );
-        emit(SignupSuccessState(successMessage));
-      },
+      (errorMessage) => emit(SignupErrorState(errorMessage)),
+      (successMessage) => emit(SignupSuccessState(successMessage)),
     );
   }
 
-  // validation
+  // Validation logic
   bool validateForm() {
     return formKey.currentState?.validate() ?? false;
+  }
+
+  @override
+  Future<void> close() {
+    // Dispose controllers to prevent memory leaks
+    firstNameController.dispose();
+    lastNameController.dispose();
+    usernameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    phoneController.dispose();
+    return super.close();
   }
 }
