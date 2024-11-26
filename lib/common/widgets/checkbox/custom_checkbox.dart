@@ -22,11 +22,6 @@ class CustomCheckbox extends StatelessWidget {
                 ? state.isRemembered
                 : false;
 
-        // If debug mode is enabled, print the current state and checkbox state.
-        if (kDebugMode) {
-          print('$state.... $isSelected');
-        }
-
         return SizedBox(
           width: 24,
           height: 24,
