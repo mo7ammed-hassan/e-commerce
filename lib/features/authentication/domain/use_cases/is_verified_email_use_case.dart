@@ -1,11 +1,10 @@
-import 'package:dartz/dartz.dart';
 import 'package:t_store/common/core/usecases/use_cases.dart';
 import 'package:t_store/features/authentication/domain/repository/authentication_repository.dart';
 import 'package:t_store/service_locator.dart';
 
-class VerifyEmailUsecase extends UseCases<Either, dynamic> {
+class IsVerifiedEmailUseCase extends UseCases<bool, dynamic> {
   @override
-  Future<Either> call({dynamic params}) async {
-    return await getIt<AuthenticationRepository>().verifyEmail();
+  Future<bool> call({dynamic params}) async {
+    return await getIt<AuthenticationRepository>().isVerifiedEmail();
   }
 }

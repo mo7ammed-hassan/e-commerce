@@ -11,11 +11,15 @@ abstract class AuthenticationFirebaseServices {
   Future<Either> isLoggedIn();
   Future<bool> logout();
   Future<Either> resetPassword({required String email});
-  Future<Either> verifyEmail({required String email});
+  Future<Either> verifyEmail();
+  Future<bool> isVerifiedEmail();
 }
 
 class AuthenticationFirebaseServicesImpl
     extends AuthenticationFirebaseServices {
+  final FirebaseAuth _user = FirebaseAuth.instance;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
   @override
   Future<Either> isLoggedIn() {
     // TODO: implement isLoggedIn
@@ -39,7 +43,7 @@ class AuthenticationFirebaseServicesImpl
     try {
       // Create user in Firebase Auth
       final UserCredential credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          await _user.createUserWithEmailAndPassword(
         email: userCreationModel.userEmail,
         password: userCreationModel.password,
       );
@@ -51,7 +55,7 @@ class AuthenticationFirebaseServicesImpl
       // Store user in Firestore
       userCreationModel.userID = credential.user!.uid;
       userCreationModel.password = hashedPassword; // Store hashed password
-      await FirebaseFirestore.instance
+      await _firebaseFirestore
           .collection('Users')
           .doc(credential.user!.uid)
           .set(
@@ -80,13 +84,23 @@ class AuthenticationFirebaseServicesImpl
   }
 
   @override
-  Future<Either> verifyEmail({required String email}) async {
+  Future<Either> verifyEmail() async {
     try {
-      await FirebaseAuth.instance.setLanguageCode("en");
-      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+      await _user.currentUser?.sendEmailVerification();
+
       return const Right('Email verification sent successfully');
     } catch (e) {
       return const Left('There was an error, please try again');
     }
+  }
+
+  @override
+  Future<bool> isVerifiedEmail() async {
+    User? user = _user.currentUser;
+    if (user != null) {
+      await user.reload(); // Refresh user data
+      return user.emailVerified;
+    }
+    return false;
   }
 }

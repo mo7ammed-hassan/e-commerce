@@ -16,16 +16,15 @@ void main() async {
       WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+// Initialize Firebase App with custom options
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // Initialize GetX Local Storage
   await GetStorage.init();
 
   // Initialize Service Locator
   await initializeDependencies();
-
-  // Initialize Firebase App with custom options
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
   // Remove the splash screen once initialization is complete.
   FlutterNativeSplash.remove();

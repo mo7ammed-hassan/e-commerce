@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:t_store/common/styles/spacing_styles.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
@@ -23,9 +24,9 @@ class SuccessPage extends StatelessWidget {
           padding: TSpacingStyles.paddingWithAppBarHeight * 2,
           child: Column(
             children: [
-              Image(
+              Lottie.asset(
+                image,
                 width: THelperFunctions.screenWidth() * 0.6,
-                image: AssetImage(image),
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
               Text(

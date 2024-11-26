@@ -63,6 +63,9 @@ class TImages {
   static const String loaderAnimation =
       "assets/images/animations/loader-animation.json";
 
+  static const String successfullRegisterAnimation =
+      "assets/images/animations/72462-check-register.json";
+
   // -- OnBoarding Texts
   static const String onBoardingImage1 =
       "assets/images/on_boarding_images/sammy-line-searching.gif";

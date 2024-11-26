@@ -5,6 +5,7 @@ import 'package:t_store/common/manager/cubits/password_and_selection/password_an
 import 'package:t_store/common/widgets/text_filed/password_field.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_cubit.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_state.dart';
+import 'package:t_store/features/authentication/presentation/manager/cubits/signup/verify_email_cubit.dart';
 import 'package:t_store/features/authentication/presentation/pages/verify_email_page.dart';
 import 'package:t_store/features/authentication/presentation/widgets/signup/term_and_condation_checkbox.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
@@ -135,7 +136,10 @@ class TSignupForm extends StatelessWidget {
               message: state.errorMessage,
             );
           } else if (state is SignupSuccessState) {
-            _navigateToVerifyEmail(context);
+            _navigateToVerifyEmail(
+              context,
+              context.read<SignupCubit>().emailController.text.trim(),
+            );
             TLoaders.successSnackBar(
               title: 'Congratulations',
               message: state.message,
@@ -154,11 +158,16 @@ class TSignupForm extends StatelessWidget {
     );
   }
 
-  void _navigateToVerifyEmail(BuildContext context) {
+  void _navigateToVerifyEmail(BuildContext context, email) {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (context) => const VerifyEmailPage(),
+        builder: (context) => BlocProvider(
+          create: (context) => VerifyEmailCubit()..verifyEmail(),
+          child: VerifyEmailPage(
+            email: email,
+          ),
+        ),
       ),
       (route) => false,
     );
