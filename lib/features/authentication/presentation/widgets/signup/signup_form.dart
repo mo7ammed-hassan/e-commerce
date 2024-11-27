@@ -5,7 +5,6 @@ import 'package:t_store/common/manager/cubits/password_and_selection/password_an
 import 'package:t_store/common/widgets/text_filed/password_field.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_cubit.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_state.dart';
-import 'package:t_store/features/authentication/presentation/manager/cubits/signup/verify_email_cubit.dart';
 import 'package:t_store/features/authentication/presentation/pages/verify_email_page.dart';
 import 'package:t_store/features/authentication/presentation/widgets/signup/term_and_condation_checkbox.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
@@ -22,32 +21,35 @@ class TSignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: context.read<SignupCubit>().formKey,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              _firstNameField(context),
-              const SizedBox(width: TSizes.spaceBtwInputFields),
-              _lastNameField(context),
-            ],
-          ),
-          const SizedBox(height: TSizes.spaceBtwInputFields),
-          _userNameField(context),
-          const SizedBox(height: TSizes.spaceBtwInputFields),
-          _emailField(context),
-          const SizedBox(height: TSizes.spaceBtwInputFields),
-          _phoneNumberField(context),
-          const SizedBox(height: TSizes.spaceBtwInputFields),
-          PasswordField(
-            controller: context.read<SignupCubit>().passwordController,
-          ),
-          const SizedBox(height: TSizes.spaceBtwSections),
-          const TTermAndCondationCheckbox(),
-          const SizedBox(height: TSizes.spaceBtwSections),
-          _createAccount(context),
-        ],
+    return BlocProvider(
+      create: (context) => PasswordAndSelectionCubit(),
+      child: Form(
+        key: context.read<SignupCubit>().formKey,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                _firstNameField(context),
+                const SizedBox(width: TSizes.spaceBtwInputFields),
+                _lastNameField(context),
+              ],
+            ),
+            const SizedBox(height: TSizes.spaceBtwInputFields),
+            _userNameField(context),
+            const SizedBox(height: TSizes.spaceBtwInputFields),
+            _emailField(context),
+            const SizedBox(height: TSizes.spaceBtwInputFields),
+            _phoneNumberField(context),
+            const SizedBox(height: TSizes.spaceBtwInputFields),
+            PasswordField(
+              controller: context.read<SignupCubit>().passwordController,
+            ),
+            const SizedBox(height: TSizes.spaceBtwSections),
+            const TTermAndCondationCheckbox(),
+            const SizedBox(height: TSizes.spaceBtwSections),
+            _createAccount(context),
+          ],
+        ),
       ),
     );
   }
@@ -146,14 +148,18 @@ class TSignupForm extends StatelessWidget {
             );
           }
         },
-        child: ElevatedButton(
-          onPressed: () {
-            final isPrivacyAccepted =
-                context.read<PasswordAndSelectionCubit>().isPrivacyAccepted;
-            context.read<SignupCubit>().signup(isPrivacyAccepted);
-          },
-          child: const Text(TTexts.createAccount),
-        ),
+        child: Builder(builder: (context) {
+          return ElevatedButton(
+            onPressed: () {
+              var isPrivacyAccepted = context
+                  .read<PasswordAndSelectionCubit>()
+                  .state
+                  .isPrivacyAccepted;
+              context.read<SignupCubit>().signup(isPrivacyAccepted);
+            },
+            child: const Text(TTexts.createAccount),
+          );
+        }),
       ),
     );
   }
@@ -162,11 +168,8 @@ class TSignupForm extends StatelessWidget {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => VerifyEmailCubit()..verifyEmail(),
-          child: VerifyEmailPage(
-            email: email,
-          ),
+        builder: (context) => VerifyEmailPage(
+          email: email,
         ),
       ),
       (route) => false,

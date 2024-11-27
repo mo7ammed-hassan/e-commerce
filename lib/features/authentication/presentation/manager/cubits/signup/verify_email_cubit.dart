@@ -9,7 +9,7 @@ import 'package:t_store/service_locator.dart';
 class VerifyEmailCubit extends Cubit<VerifyEmailState> {
   VerifyEmailCubit() : super(VerifyEmailLoadingState());
 
-  void verifyEmail() async {
+  void sendVerifyEmail() async {
     emit(VerifyEmailLoadingState());
 
     var result = await getIt<VerifyEmailUsecase>().call();

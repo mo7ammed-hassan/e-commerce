@@ -46,9 +46,9 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Either> verifyEmail() async {
+  Future<Either> sendEmailVerification() async {
     var returnedData =
-        await getIt<AuthenticationFirebaseServices>().verifyEmail();
+        await getIt<AuthenticationFirebaseServices>().sendEmailVerification();
 
     return returnedData.fold(
       (errorMessage) {
@@ -62,6 +62,6 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
   @override
   Future<bool> isVerifiedEmail() async {
-   return await getIt<AuthenticationFirebaseServices>().isVerifiedEmail();
+    return await getIt<AuthenticationFirebaseServices>().isVerifiedEmail();
   }
 }

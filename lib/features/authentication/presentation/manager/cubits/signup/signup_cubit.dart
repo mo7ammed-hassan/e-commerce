@@ -50,7 +50,7 @@ class SignupCubit extends Cubit<SignupState> {
 
     // Call use case
     var result = await getIt<SignupUsecase>().call(params: user);
-
+    // await getIt<VerifyEmailUsecase>().call();
     result.fold(
       (errorMessage) => emit(SignupErrorState(errorMessage)),
       (successMessage) => emit(SignupSuccessState(successMessage)),

@@ -6,6 +6,6 @@ import 'package:t_store/service_locator.dart';
 class VerifyEmailUsecase extends UseCases<Either, dynamic> {
   @override
   Future<Either> call({dynamic params}) async {
-    return await getIt<AuthenticationRepository>().verifyEmail();
+    return await getIt<AuthenticationRepository>().sendEmailVerification();
   }
 }

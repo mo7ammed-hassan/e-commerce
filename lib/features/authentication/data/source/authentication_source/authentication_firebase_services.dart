@@ -11,7 +11,7 @@ abstract class AuthenticationFirebaseServices {
   Future<Either> isLoggedIn();
   Future<bool> logout();
   Future<Either> resetPassword({required String email});
-  Future<Either> verifyEmail();
+  Future<Either> sendEmailVerification();
   Future<bool> isVerifiedEmail();
 }
 
@@ -84,9 +84,12 @@ class AuthenticationFirebaseServicesImpl
   }
 
   @override
-  Future<Either> verifyEmail() async {
+  Future<Either> sendEmailVerification() async {
     try {
-      await _user.currentUser?.sendEmailVerification();
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+      }
 
       return const Right('Email verification sent successfully');
     } catch (e) {
@@ -104,3 +107,5 @@ class AuthenticationFirebaseServicesImpl
     return false;
   }
 }
+
+

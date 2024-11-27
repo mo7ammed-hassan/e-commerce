@@ -8,6 +8,6 @@ abstract class AuthenticationRepository {
   Future<bool> isLoggedIn();
   Future<Either> logout();
   Future<Either> resetPassword({required String email});
-  Future<Either> verifyEmail();
+  Future<Either> sendEmailVerification();
   Future<bool> isVerifiedEmail();
 }

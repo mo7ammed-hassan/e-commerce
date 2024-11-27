@@ -16,10 +16,8 @@ class PasswordField extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PasswordAndSelectionCubit, PasswordAndSelectionState>(
       builder: (context, state) {
-        final isPasswordHidden =
-            context.read<PasswordAndSelectionCubit>().isPasswordHidden;
         return TextFormField(
-          obscureText: isPasswordHidden,
+          obscureText: state.isPasswordHidden,
           controller: controller,
           validator: (value) => TValidator.validatePassword(value),
           decoration: InputDecoration(
@@ -28,7 +26,7 @@ class PasswordField extends StatelessWidget {
             errorMaxLines: 2,
             suffixIcon: IconButton(
               icon: Icon(
-                isPasswordHidden ? Iconsax.eye_slash : Iconsax.eye,
+                state.isPasswordHidden ? Iconsax.eye_slash : Iconsax.eye,
               ),
               onPressed: () {
                 context

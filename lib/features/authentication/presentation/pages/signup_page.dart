@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:t_store/common/manager/cubits/password_and_selection/password_and_selection_cubit.dart';
 import 'package:t_store/common/widgets/login_signup/form_divider.dart';
 import 'package:t_store/common/widgets/login_signup/social_buttons.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_cubit.dart';
@@ -28,10 +27,7 @@ class SignupPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: TSizes.spaceBtwSections),
-                BlocProvider(
-                  create: (context) => PasswordAndSelectionCubit(),
-                  child: const TSignupForm(),
-                ),
+                const TSignupForm(),
                 const SizedBox(height: TSizes.spaceBtwSections),
                 const TFormDivider(dividerText: TTexts.orSignUpWith),
                 const SizedBox(height: TSizes.spaceBtwSections),

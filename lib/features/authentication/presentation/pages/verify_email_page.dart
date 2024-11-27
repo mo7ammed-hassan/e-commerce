@@ -18,23 +18,23 @@ class VerifyEmailPage extends StatelessWidget {
   final String? email;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: const Icon(CupertinoIcons.clear),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const LoginPage(),
+    return BlocProvider(
+      create: (context) => VerifyEmailCubit()..sendVerifyEmail(),
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: const Icon(CupertinoIcons.clear),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginPage(),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-      body: BlocProvider(
-        create: (context) => VerifyEmailCubit(),
-        child: BlocListener<VerifyEmailCubit, VerifyEmailState>(
+          ],
+        ),
+        body: BlocListener<VerifyEmailCubit, VerifyEmailState>(
           listener: (context, state) {
             if (state is SuccessSendVerifyEmailState) {
               TLoaders.successSnackBar(
@@ -110,29 +110,7 @@ class VerifyEmailPage extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {
-          // Navigate to success page
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SuccessPage(
-                image: TImages.staticSuccessIllustration,
-                title: TTexts.yourAccountCreatedTitle,
-                subtitle: TTexts.yourAccountCreatedSubTitle,
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
-                    ),
-                    (route) => false,
-                  );
-                },
-              ),
-            ),
-            (route) => false,
-          );
-        },
+        onPressed: () {},
         child: const Text(TTexts.tContinue),
       ),
     );
@@ -144,7 +122,7 @@ class VerifyEmailPage extends StatelessWidget {
       child: Builder(builder: (context) {
         return TextButton(
           onPressed: () {
-            context.read<VerifyEmailCubit>().verifyEmail();
+            context.read<VerifyEmailCubit>().sendVerifyEmail();
           },
           child: Text(
             TTexts.resendEmail,

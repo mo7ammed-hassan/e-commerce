@@ -1,29 +1,26 @@
-// password_and_selection_cubit.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'password_and_selection_state.dart';
+import 'package:t_store/common/manager/cubits/password_and_selection/password_and_selection_state.dart';
 
 class PasswordAndSelectionCubit extends Cubit<PasswordAndSelectionState> {
-  PasswordAndSelectionCubit() : super(PasswordAndSelectionInitialState());
-
-  bool isPasswordHidden = true; // Default password visibility is hidden
-  bool isPrivacyAccepted = false; // Default checkbox is not selected
-  bool isRememberMe = false; // Default remember me is not selected
+  PasswordAndSelectionCubit()
+      : super(PasswordAndSelectionState(
+          isPasswordHidden: true,
+          isPrivacyAccepted: false,
+          isRememberMe: false,
+        ));
 
   // Toggle password visibility
   void togglePasswordVisibility() {
-    isPasswordHidden = !isPasswordHidden;
-    emit(PasswordVisibleState(isPasswordHidden));
+    emit(state.copyWith(isPasswordHidden: !state.isPasswordHidden));
   }
 
-  // Toggle Privacy
+  // Toggle Privacy Acceptance
   void togglePrivacyAcceptance() {
-    isPrivacyAccepted = !isPrivacyAccepted;
-    emit(PrivacyAcceptedState(isPrivacyAccepted));
+    emit(state.copyWith(isPrivacyAccepted: !state.isPrivacyAccepted));
   }
 
-  // Toggle remember me
+  // Toggle Remember Me
   void toggleRememberMe() {
-    isRememberMe = !isRememberMe;
-    emit(RememberMeState(isRememberMe));
+    emit(state.copyWith(isRememberMe: !state.isRememberMe));
   }
 }
