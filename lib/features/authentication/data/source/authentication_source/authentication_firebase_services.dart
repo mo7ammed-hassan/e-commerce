@@ -78,9 +78,26 @@ class AuthenticationFirebaseServicesImpl
   }
 
   @override
-  Future<Either> signin(UserSigninModel userSigninModel) {
-    // TODO: implement sihnin
-    throw UnimplementedError();
+  Future<Either> signin(UserSigninModel userSigninModel) async {
+    try {
+      await _user.signInWithEmailAndPassword(
+        email: userSigninModel.uerEmail,
+        password: userSigninModel.password,
+      );
+      return const Right(
+        'Successfully signed in',
+      );
+    } on FirebaseAuthException catch (e) {
+      String message = '';
+      if (e.code == 'user-not-found') {
+        message = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        message = 'Wrong password provided for that user.';
+      }
+      return Left(message);
+    } catch (e) {
+      return const Left('There was an error, please try again');
+    }
   }
 
   @override
@@ -107,5 +124,3 @@ class AuthenticationFirebaseServicesImpl
     return false;
   }
 }
-
-
