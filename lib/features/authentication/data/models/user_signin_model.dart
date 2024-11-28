@@ -2,5 +2,5 @@ class UserSigninModel {
   final String uerEmail;
   final String password;
 
-  UserSigninModel(this.uerEmail, this.password);
+  UserSigninModel({required this.uerEmail, required this.password});
 }

@@ -25,9 +25,18 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Either> sigin(UserSigninModel userSigninModel) {
-    // TODO: implement sigin
-    throw UnimplementedError();
+  Future<Either> sigin(UserSigninModel userSigninModel) async {
+    var returnedData =
+        await getIt<AuthenticationFirebaseServices>().signin(userSigninModel);
+
+    return returnedData.fold(
+      (errorMessage) {
+        return Left(errorMessage);
+      },
+      (successMessage) {
+        return Right(successMessage);
+      },
+    );
   }
 
   @override

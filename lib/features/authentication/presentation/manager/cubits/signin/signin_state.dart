@@ -1,11 +1,22 @@
-abstract class LoginState {}
+abstract class SignInState {}
 
-class LoginInitialState extends LoginState {}
+class SigninInitialState extends SignInState {}
 
-class LoginSuccessState extends LoginState {}
+class SignInLoadingState extends SignInState {}
 
-class LoginErrorState extends LoginState {
+class SignInSuccessState extends SignInState {
+  final String successMessage;
+
+  SignInSuccessState(this.successMessage);
+}
+
+class SignInErrorState extends SignInState {
   final String errorMessage;
 
-  LoginErrorState(this.errorMessage);
+  SignInErrorState(this.errorMessage);
+}
+
+class RememberMeErrorState extends SignInState {
+  final String errorMessage;
+  RememberMeErrorState(this.errorMessage);
 }

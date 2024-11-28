@@ -46,18 +46,14 @@ class VerifyEmailPage extends StatelessWidget {
               //     message: state.errorMessage.toString(),
               //   );
             } else if (state is VerifiyEmailSuccessState) {
-              // navigator to success screen and remove all page
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SuccessPage(
-                    title: TTexts.yourAccountCreatedTitle,
-                    subtitle: TTexts.yourAccountCreatedSubTitle,
-                    image: TImages.successfullRegisterAnimation,
-                    onPressed: () {
-                      context.removeAll(const NavigationMenu());
-                    },
-                  ),
+              context.removeAll(
+                SuccessPage(
+                  title: TTexts.yourAccountCreatedTitle,
+                  subtitle: TTexts.yourAccountCreatedSubTitle,
+                  image: TImages.successfullRegisterAnimation,
+                  onPressed: () {
+                    context.removeAll(const NavigationMenu());
+                  },
                 ),
               );
             }

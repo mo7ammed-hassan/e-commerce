@@ -6,11 +6,16 @@ import 'package:t_store/common/manager/cubits/password_and_selection/password_an
 import 'package:t_store/common/widgets/checkbox/custom_checkbox.dart';
 import 'package:t_store/common/widgets/text_filed/password_field.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signin/signin_cubit.dart';
+import 'package:t_store/features/authentication/presentation/manager/cubits/signin/signin_state.dart';
 import 'package:t_store/features/authentication/presentation/pages/forget_password_page.dart';
 import 'package:t_store/features/authentication/presentation/pages/signup_page.dart';
 import 'package:t_store/navigation_menu.dart';
+import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
+import 'package:t_store/utils/popups/full_screen_loader.dart';
+import 'package:t_store/utils/popups/loaders.dart';
 import 'package:t_store/utils/validators/validation.dart';
 
 class TLoginForm extends StatelessWidget {
@@ -21,7 +26,7 @@ class TLoginForm extends StatelessWidget {
     return BlocProvider(
       create: (context) => PasswordAndSelectionCubit(),
       child: Form(
-        key: context.read<LoginCubit>().formKey,
+        key: context.read<SignInCubit>().formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: TSizes.spaceBtwSections,
@@ -30,7 +35,9 @@ class TLoginForm extends StatelessWidget {
             children: [
               _emailField(context),
               const SizedBox(height: TSizes.spaceBtwInputFields),
-              const PasswordField(),
+              PasswordField(
+                controller: context.read<SignInCubit>().passwordController,
+              ),
               const SizedBox(height: TSizes.spaceBtwInputFields / 2),
               // Remember Me & Forget Password
               _rememberMeAndForgetPassword(context),
@@ -47,7 +54,7 @@ class TLoginForm extends StatelessWidget {
 
   TextFormField _emailField(BuildContext context) {
     return TextFormField(
-      controller: context.read<LoginCubit>().emailController,
+      controller: context.read<SignInCubit>().emailController,
       validator: (value) => TValidator.validateEmail(value),
       decoration: const InputDecoration(
         labelText: TTexts.email,
@@ -99,18 +106,44 @@ class TLoginForm extends StatelessWidget {
   SizedBox _signIn(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          if (context.read<LoginCubit>().validateForm()) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const NavigationMenu(),
-              ),
+      child: BlocListener<SignInCubit, SignInState>(
+        listener: (context, state) {
+          if (state is RememberMeErrorState) {
+            TLoaders.warningSnackBar(
+              title: 'Select RememberMe',
+              message: state.errorMessage,
+            );
+          }
+          if (state is SignInLoadingState) {
+            TFullScreenLoader.openLoadingDialog(
+              'We are processing your information...',
+              TImages.docerAnimation,
+            );
+          } else if (state is SignInErrorState) {
+            TFullScreenLoader.stopLoading();
+            TLoaders.errorSnackBar(
+              title: 'Error',
+              message: state.errorMessage,
+            );
+          } else if (state is SignInSuccessState) {
+            _navigateToMenuPage(context);
+            TLoaders.successSnackBar(
+              title: 'Congratulations',
+              message: state.successMessage,
             );
           }
         },
-        child: const Text(TTexts.signIn),
+        child: Builder(builder: (context) {
+          return ElevatedButton(
+            onPressed: () {
+              var isRememberMe =
+                  context.read<PasswordAndSelectionCubit>().state.isRememberMe;
+              // Call signIn method from SigninCubit to handle the logic of sign in.
+              context.read<SignInCubit>().signIn(isRememberMe);
+            },
+            child: const Text(TTexts.signIn),
+          );
+        }),
       ),
     );
   }
@@ -131,5 +164,9 @@ class TLoginForm extends StatelessWidget {
         child: const Text(TTexts.createAccount),
       ),
     );
+  }
+
+  _navigateToMenuPage(BuildContext context) {
+    context.removeAll(const NavigationMenu());
   }
 }

@@ -84,6 +84,7 @@ class AuthenticationFirebaseServicesImpl
         email: userSigninModel.uerEmail,
         password: userSigninModel.password,
       );
+
       return const Right(
         'Successfully signed in',
       );
@@ -94,6 +95,7 @@ class AuthenticationFirebaseServicesImpl
       } else if (e.code == 'wrong-password') {
         message = 'Wrong password provided for that user.';
       }
+
       return Left(message);
     } catch (e) {
       return const Left('There was an error, please try again');
