@@ -21,15 +21,15 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
         (errorMessage) => emit(VerifyEmailErrorState(errorMessage)),
         (successMessage) {
           emit(SuccessSendVerifyEmailState(successMessage));
-          startVerificationCheck();
+          checkEmailVerification();
         },
       );
     } else {
-      startVerificationCheck();
+      checkEmailVerification();
     }
   }
 
-  void startVerificationCheck() {
+  void checkEmailVerification() {
     Timer.periodic(
       const Duration(seconds: 1),
       (timer) async {

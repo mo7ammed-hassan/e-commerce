@@ -8,4 +8,12 @@ extension NavigationX on BuildContext {
       (Route<dynamic> route) => false, // remove all pages from memory "stack"
     );
   }
+
+  void removeAllSaveStack(Widget page) {
+    Navigator.pushAndRemoveUntil(
+      this,
+      MaterialPageRoute(builder: (context) => page), 
+      (Route<dynamic> route) => true, // remove all pages from memory "stack"
+    );
+  }
 }

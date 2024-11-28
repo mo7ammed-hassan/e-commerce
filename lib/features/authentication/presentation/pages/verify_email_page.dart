@@ -46,7 +46,7 @@ class VerifyEmailPage extends StatelessWidget {
               //     message: state.errorMessage.toString(),
               //   );
             } else if (state is VerifiyEmailSuccessState) {
-              context.removeAll(
+              context.removeAllSaveStack(
                 SuccessPage(
                   title: TTexts.yourAccountCreatedTitle,
                   subtitle: TTexts.yourAccountCreatedSubTitle,

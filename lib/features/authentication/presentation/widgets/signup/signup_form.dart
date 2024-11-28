@@ -10,6 +10,7 @@ import 'package:t_store/features/authentication/presentation/widgets/signup/term
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
 import 'package:t_store/utils/popups/full_screen_loader.dart';
 import 'package:t_store/utils/popups/loaders.dart';
 import 'package:t_store/utils/validators/validation.dart';
@@ -165,14 +166,8 @@ class TSignupForm extends StatelessWidget {
   }
 
   void _navigateToVerifyEmail(BuildContext context, email) {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (context) => VerifyEmailPage(
-          email: email,
-        ),
-      ),
-      (route) => false,
+    context.removeAll(
+      VerifyEmailPage(email: email),
     );
   }
 }
