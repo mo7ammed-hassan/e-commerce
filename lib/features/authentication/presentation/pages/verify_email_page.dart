@@ -40,11 +40,11 @@ class VerifyEmailPage extends StatelessWidget {
               TLoaders.successSnackBar(
                   title: 'Email Sent',
                   message: 'Please Check your inbox and verify email.');
-            } else if (state is VerifyEmailErrorState) {
-              TLoaders.errorSnackBar(
-                title: 'Oh Snap!',
-                message: state.errorMessage.toString(),
-              );
+              // } else if (state is VerifyEmailErrorState) {
+              //   TLoaders.errorSnackBar(
+              //     title: 'Oh Snap!',
+              //     message: state.errorMessage.toString(),
+              //   );
             } else if (state is VerifiyEmailSuccessState) {
               // navigator to success screen and remove all page
               Navigator.pushReplacement(

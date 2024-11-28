@@ -12,15 +12,21 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
   void sendVerifyEmail() async {
     emit(VerifyEmailLoadingState());
 
-    var result = await getIt<VerifyEmailUsecase>().call();
+    bool isVerified = await getIt<IsVerifiedEmailUseCase>().call();
 
-    result.fold(
-      (errorMessage) => emit(VerifyEmailErrorState(errorMessage)),
-      (successMessage) {
-        emit(SuccessSendVerifyEmailState(successMessage));
-        startVerificationCheck();
-      },
-    );
+    if (!isVerified) {
+      var result = await getIt<VerifyEmailUsecase>().call();
+
+      result.fold(
+        (errorMessage) => emit(VerifyEmailErrorState(errorMessage)),
+        (successMessage) {
+          emit(SuccessSendVerifyEmailState(successMessage));
+          startVerificationCheck();
+        },
+      );
+    } else {
+      startVerificationCheck();
+    }
   }
 
   void startVerificationCheck() {
@@ -28,7 +34,6 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
       const Duration(seconds: 1),
       (timer) async {
         bool isVerified = await getIt<IsVerifiedEmailUseCase>().call();
-
         if (isVerified) {
           timer.cancel();
           emit(VerifiyEmailSuccessState("Email Verified!"));
