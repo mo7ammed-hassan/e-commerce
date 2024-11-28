@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:t_store/app_entry_point.dart';
 import 'package:t_store/common/manager/cubits/launch_app/launch_app_cubit.dart';
-import 'package:t_store/features/authentication/presentation/pages/verify_email_page.dart';
 import 'package:t_store/firebase_options.dart';
 import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/theme/theme.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,
         theme: TAppTheme.lightTheme,
         darkTheme: TAppTheme.darkTheme,
-        home: const VerifyEmailPage(),
+        home: const AppEntryPoint(),
       ),
     );
   }
