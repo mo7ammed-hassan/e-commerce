@@ -10,7 +10,6 @@ import 'package:t_store/features/authentication/domain/use_cases/logout_use_case
 import 'package:t_store/features/authentication/domain/use_cases/reset_password_usecase.dart';
 import 'package:t_store/features/authentication/domain/use_cases/signin_usecase.dart';
 import 'package:t_store/features/authentication/domain/use_cases/signup_usecase.dart';
-import 'package:t_store/features/authentication/domain/use_cases/verify_email_usecase.dart';
 
 final getIt = GetIt.instance;
 
@@ -35,9 +34,7 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<SignupUsecase>(
     SignupUsecase(),
   );
-  getIt.registerSingleton<VerifyEmailUsecase>(
-    VerifyEmailUsecase(),
-  );
+
   getIt.registerSingleton<IsVerifiedEmailUseCase>(
     IsVerifiedEmailUseCase(),
   );
