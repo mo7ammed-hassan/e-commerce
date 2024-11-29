@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/features/authentication/presentation/pages/login_page.dart';
 import 'package:t_store/features/authentication/presentation/pages/reset_password_page.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
 
 class ForgetPasswordPage extends StatelessWidget {
   const ForgetPasswordPage({super.key});
@@ -17,12 +17,7 @@ class ForgetPasswordPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(CupertinoIcons.clear),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const LoginPage(),
-              ),
-            ),
+            onPressed: () => context.removePage(const ForgetPasswordPage()),
           ),
         ],
       ),

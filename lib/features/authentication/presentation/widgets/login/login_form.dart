@@ -85,12 +85,7 @@ class TLoginForm extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ForgetPasswordPage(),
-              ),
-            );
+            context.pushPage(const ForgetPasswordPage());
           },
           child: const Text(
             TTexts.forgetPassword,
@@ -148,18 +143,13 @@ class TLoginForm extends StatelessWidget {
     );
   }
 
-  SizedBox _createAccount(context) {
+  SizedBox _createAccount(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: OutlinedButton(
         onPressed: () {
           // Navigate to Sign Up screen
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SignupPage(),
-            ),
-          );
+          context.pushPage(const SignupPage());
         },
         child: const Text(TTexts.createAccount),
       ),

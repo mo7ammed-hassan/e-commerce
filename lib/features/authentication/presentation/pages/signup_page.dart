@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/login_signup/form_divider.dart';
 import 'package:t_store/common/widgets/login_signup/social_buttons.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/signup_cubit.dart';
 import 'package:t_store/features/authentication/presentation/widgets/signup/signup_form.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
@@ -15,7 +17,14 @@ class SignupPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => SignupCubit(),
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          leading: GestureDetector(
+            onTap: () {
+              context.removePage(const SignupPage());
+            },
+            child: const Icon(Iconsax.arrow_left),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(TSizes.defaultSpace),
