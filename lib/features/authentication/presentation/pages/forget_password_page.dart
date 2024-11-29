@@ -23,7 +23,7 @@ class ForgetPasswordPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(TSizes.spaceBtwItems),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -39,7 +39,7 @@ class ForgetPasswordPage extends StatelessWidget {
               const SizedBox(height: TSizes.spaceBtwSections * 2),
               _emailField(),
               const SizedBox(height: TSizes.spaceBtwSections),
-              _continueButton(context),
+              _submitButton(context),
             ],
           ),
         ),
@@ -56,15 +56,11 @@ class ForgetPasswordPage extends StatelessWidget {
     );
   }
 
-  Widget _continueButton(context) {
+  Widget _submitButton(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () => Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const ResetPasswordPage()),
-          (route) => false,
-        ),
+        onPressed: () => context.pushPage(const ResetPasswordPage()),
         child: const Text(TTexts.submit),
       ),
     );

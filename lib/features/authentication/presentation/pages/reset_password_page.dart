@@ -5,6 +5,7 @@ import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
@@ -17,13 +18,13 @@ class ResetPasswordPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(CupertinoIcons.clear),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => context.removePage(const ResetPasswordPage()),
           ),
         ],
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(TSizes.spaceBtwItems),
           child: Column(
             children: [
               Image(
@@ -43,7 +44,7 @@ class ResetPasswordPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
-              _continueButton(context),
+              _doneButton(context),
               const SizedBox(height: TSizes.spaceBtwItems),
               _resendEmail(context),
             ],
@@ -53,15 +54,11 @@ class ResetPasswordPage extends StatelessWidget {
     );
   }
 
-  Widget _continueButton(context) {
+  Widget _doneButton(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () => Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginPage()),
-          (route) => false,
-        ),
+        onPressed: () => context.removeAll(const LoginPage()),
         child: const Text(TTexts.done),
       ),
     );
