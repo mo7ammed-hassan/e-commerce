@@ -25,7 +25,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Either> sigin(UserSigninModel userSigninModel) async {
+  Future<Either> signIn(UserSigninModel userSigninModel) async {
     var returnedData =
         await getIt<AuthenticationFirebaseServices>().signin(userSigninModel);
 

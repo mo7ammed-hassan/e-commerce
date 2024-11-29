@@ -7,6 +7,6 @@ import 'package:t_store/service_locator.dart';
 class SignInUsecase extends UseCases<Either, UserSigninModel> {
   @override
   Future<Either> call({UserSigninModel? params}) async {
-    return await getIt<AuthenticationRepository>().sigin(params!);
+    return await getIt<AuthenticationRepository>().signIn(params!);
   }
 }
