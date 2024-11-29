@@ -6,7 +6,7 @@ abstract class AuthenticationRepository {
   Future<Either> signup(UserCreationModel userCreationModel);
   Future<Either> signIn(UserSigninModel userSigninModel);
   Future<bool> isLoggedIn();
-  Future<Either> logout();
+  Future<void> logout();
   Future<Either> resetPassword({required String email});
   Future<Either> sendEmailVerification();
   Future<bool> isVerifiedEmail();

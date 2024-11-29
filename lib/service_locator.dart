@@ -6,6 +6,7 @@ import 'package:t_store/features/authentication/domain/repository/authentication
 import 'package:t_store/features/authentication/domain/repository/onboarding_repository.dart';
 import 'package:t_store/features/authentication/domain/use_cases/is_first_launch_use_case.dart';
 import 'package:t_store/features/authentication/domain/use_cases/is_verified_email_use_case.dart';
+import 'package:t_store/features/authentication/domain/use_cases/logout_use_case.dart';
 import 'package:t_store/features/authentication/domain/use_cases/reset_password_usecase.dart';
 import 'package:t_store/features/authentication/domain/use_cases/signin_usecase.dart';
 import 'package:t_store/features/authentication/domain/use_cases/signup_usecase.dart';
@@ -46,5 +47,8 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<ResetPasswordUsecase>(
     ResetPasswordUsecase(),
+  );
+  getIt.registerSingleton<LogoutUseCase>(
+    LogoutUseCase(),
   );
 }

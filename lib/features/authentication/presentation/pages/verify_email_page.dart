@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/success_pages/success_page.dart';
+import 'package:t_store/features/authentication/domain/use_cases/logout_use_case.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/verify_email_cubit.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/verify_email_state.dart';
 import 'package:t_store/features/authentication/presentation/pages/login_page.dart';
 import 'package:t_store/navigation_menu.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
@@ -25,12 +27,10 @@ class VerifyEmailPage extends StatelessWidget {
           actions: [
             IconButton(
               icon: const Icon(CupertinoIcons.clear),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
-                ),
-              ),
+              onPressed: () {
+                getIt<LogoutUseCase>().call();
+                context.removeAll(const LoginPage());
+              },
             ),
           ],
         ),
