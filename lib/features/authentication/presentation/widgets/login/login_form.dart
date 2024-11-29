@@ -118,7 +118,7 @@ class TLoginForm extends StatelessWidget {
           }
           if (state is SignInLoadingState) {
             TFullScreenLoader.openLoadingDialog(
-              'We are processing your information...',
+              'Logging you in...',
               TImages.docerAnimation,
             );
           } else if (state is SignInErrorState) {
@@ -129,10 +129,6 @@ class TLoginForm extends StatelessWidget {
             );
           } else if (state is SignInSuccessState) {
             _navigateToMenuPage(context);
-            TLoaders.successSnackBar(
-              title: 'Congratulations',
-              message: state.successMessage,
-            );
           } else if (state is NotVerifiedErrorState) {
             context.removeAll(VerifyEmailPage(email: state.email));
             TLoaders.successSnackBar(

@@ -9,7 +9,7 @@ abstract class AuthenticationFirebaseServices {
   Future<Either> signup(UserCreationModel userCreationModel);
   Future<Either> signin(UserSigninModel userSigninModel);
   Future<Either> isLoggedIn();
-  Future<void> logout();
+  Future<Either> logout();
   Future<Either> resetPassword({required String email});
   Future<Either> sendEmailVerification();
   Future<bool> isVerifiedEmail();
@@ -27,8 +27,13 @@ class AuthenticationFirebaseServicesImpl
   }
 
   @override
-  Future<void> logout() async {
-    return await _user.signOut();
+  Future<Either> logout() async {
+    try {
+      await _user.signOut();
+      return const Right('Success Logout');
+    } catch (e) {
+      return const Left('There was an error, please try again');
+    }
   }
 
   @override

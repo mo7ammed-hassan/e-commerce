@@ -13,11 +13,6 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<void> logout() async {
-    await getIt<AuthenticationFirebaseServices>().logout();
-  }
-
-  @override
   Future<Either> resetPassword({required String email}) async {
     var returnedData = await getIt<AuthenticationFirebaseServices>()
         .resetPassword(email: email);
@@ -79,5 +74,18 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   @override
   Future<bool> isVerifiedEmail() async {
     return await getIt<AuthenticationFirebaseServices>().isVerifiedEmail();
+  }
+
+  @override
+  Future<Either> logout() async {
+    var result = await getIt<AuthenticationFirebaseServices>().logout();
+    return result.fold(
+      (errorMessage) {
+        return Left(errorMessage);
+      },
+      (successMessage) {
+        return Right(successMessage);
+      },
+    );
   }
 }

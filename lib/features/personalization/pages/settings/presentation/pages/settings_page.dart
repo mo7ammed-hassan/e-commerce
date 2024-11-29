@@ -5,11 +5,16 @@ import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/primary_header_conatiner.dart';
 import 'package:t_store/common/widgets/list_tiles/user_profile_tile.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
+import 'package:t_store/features/authentication/domain/use_cases/logout_use_case.dart';
+import 'package:t_store/features/authentication/presentation/pages/login_page.dart';
 import 'package:t_store/features/personalization/pages/address/presentation/pages/address_page.dart';
 import 'package:t_store/features/shop/features/cart/presentation/pages/cart_page.dart';
 import 'package:t_store/features/shop/features/order/presentation/pages/order_page.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
+import 'package:t_store/utils/popups/loaders.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -155,7 +160,20 @@ class SettingsPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        var result = await getIt<LogoutUseCase>().call();
+                        return result.fold(
+                          (errorMessage) {
+                            TLoaders.errorSnackBar(
+                              title: 'Error',
+                              message: errorMessage,
+                            );
+                          },
+                          (successMessage) {
+                            context.removeAll(const LoginPage());
+                          },
+                        );
+                      },
                       child: const Text('Logout'),
                     ),
                   ),

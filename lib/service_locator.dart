@@ -8,6 +8,7 @@ import 'package:t_store/features/authentication/domain/use_cases/is_first_launch
 import 'package:t_store/features/authentication/domain/use_cases/is_verified_email_use_case.dart';
 import 'package:t_store/features/authentication/domain/use_cases/logout_use_case.dart';
 import 'package:t_store/features/authentication/domain/use_cases/reset_password_usecase.dart';
+import 'package:t_store/features/authentication/domain/use_cases/send_email_verification_usecase.dart';
 import 'package:t_store/features/authentication/domain/use_cases/signin_usecase.dart';
 import 'package:t_store/features/authentication/domain/use_cases/signup_usecase.dart';
 
@@ -33,6 +34,9 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<SignupUsecase>(
     SignupUsecase(),
+  );
+  getIt.registerSingleton<SendEmailVerificationUsecase>(
+    SendEmailVerificationUsecase(),
   );
 
   getIt.registerSingleton<IsVerifiedEmailUseCase>(
