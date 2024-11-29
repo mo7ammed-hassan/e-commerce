@@ -19,9 +19,17 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Either> resetPassword({required String email}) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<Either> resetPassword({required String email}) async {
+    var returnedData = await getIt<AuthenticationFirebaseServices>()
+        .resetPassword(email: email);
+    return returnedData.fold(
+      (errorMessage) {
+        return Left(errorMessage);
+      },
+      (successMessage) {
+        return Right(successMessage);
+      },
+    );
   }
 
   @override

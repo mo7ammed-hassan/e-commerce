@@ -33,9 +33,19 @@ class AuthenticationFirebaseServicesImpl
   }
 
   @override
-  Future<Either> resetPassword({required String email}) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<Either> resetPassword({required String email}) async {
+    try {
+      await _user.sendPasswordResetEmail(email: email);
+      return const Right('Password reset email sent');
+    } on FirebaseAuthException catch (e) {
+      String message = '';
+      if (e.code == 'user-not-found') {
+        message = 'No user found for that email.';
+      }
+      return Left(message);
+    } catch (e) {
+      return const Left('There was an error, please try again');
+    }
   }
 
   @override
