@@ -5,6 +5,7 @@ import 'package:t_store/common/manager/cubits/password_and_selection/password_an
 import 'package:t_store/common/manager/cubits/password_and_selection/password_and_selection_state.dart';
 import 'package:t_store/common/widgets/checkbox/custom_checkbox.dart';
 import 'package:t_store/common/widgets/text_filed/password_field.dart';
+import 'package:t_store/features/authentication/presentation/manager/cubits/forget_password/reset_password_cubit.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signin/signin_cubit.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signin/signin_state.dart';
 import 'package:t_store/features/authentication/presentation/pages/forget_password_page.dart';
@@ -85,7 +86,12 @@ class TLoginForm extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            context.pushPage(const ForgetPasswordPage());
+            context.pushPage(
+              BlocProvider(
+                create: (context) => ResetPasswordCubit(),
+                child: const ForgetPasswordPage(),
+              ),
+            );
           },
           child: const Text(
             TTexts.forgetPassword,

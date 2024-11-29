@@ -48,4 +48,12 @@ class SignInCubit extends Cubit<SignInState> {
       (successMessage) => emit(SignInSuccessState(successMessage)),
     );
   }
+
+  @override
+  Future<void> close() {
+    // Dispose controllers to prevent memory leaks
+    emailController.dispose();
+    passwordController.dispose();
+    return super.close();
+  }
 }

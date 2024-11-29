@@ -64,17 +64,21 @@ class ResetPasswordPage extends StatelessWidget {
     );
   }
 
-  Widget _resendEmail(context) {
+  Widget _resendEmail(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: TextButton(
-        onPressed: () {},
-        child: Text(
-          TTexts.resendEmail,
-          style: const TextStyle()
-              .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
-        ),
-      ),
+      child: Builder(builder: (context) {
+        return TextButton(
+          onPressed: () {
+            context.removePage(const ResetPasswordPage());
+          },
+          child: Text(
+            TTexts.resendEmail,
+            style: const TextStyle()
+                .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+          ),
+        );
+      }),
     );
   }
 }
