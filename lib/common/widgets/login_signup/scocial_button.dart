@@ -4,9 +4,11 @@ import 'package:t_store/utils/constants/sizes.dart';
 
 class TSocialButton extends StatelessWidget {
   final String socialIcon;
+  final void Function()? onPressed;
   const TSocialButton({
     super.key,
     required this.socialIcon,
+     this.onPressed,
   });
 
   @override
@@ -17,7 +19,7 @@ class TSocialButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(100),
       ),
       child: IconButton(
-        onPressed: () {},
+        onPressed: onPressed,
         icon: Image(
           width: TSizes.iconLg,
           height: TSizes.iconLg,

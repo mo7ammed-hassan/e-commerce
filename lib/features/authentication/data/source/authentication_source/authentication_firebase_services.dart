@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:t_store/features/authentication/data/models/user_creation_model.dart';
+import 'package:t_store/features/authentication/data/models/user_model.dart';
 import 'package:t_store/features/authentication/data/models/user_signin_model.dart';
 import 'package:t_store/utils/helpers/password_helper.dart';
 
@@ -12,7 +14,7 @@ abstract class AuthenticationFirebaseServices {
   Future<Either> resetPassword({required String email});
   Future<Either> sendEmailVerification();
   Future<bool> isVerifiedEmail(User? user);
-  Future<UserCredential> signInWithGoogle();
+  Future<Either<String, UserCredential>> signInWithGoogle();
 }
 
 class AuthenticationFirebaseServicesImpl
@@ -23,6 +25,7 @@ class AuthenticationFirebaseServicesImpl
   @override
   Future<Either> logout() async {
     try {
+      await GoogleSignIn().signOut();
       await _user.signOut();
       return const Right('Success Logout');
     } catch (e) {
@@ -132,8 +135,62 @@ class AuthenticationFirebaseServicesImpl
   }
 
   @override
-  Future<UserCredential> signInWithGoogle() {
-    // TODO: implement signInWithGoogle
-    throw UnimplementedError();
+  Future<Either<String, UserCredential>> signInWithGoogle() async {
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      // Storage User Data to Firestore
+      await saveUserRecord(userCredential);
+
+      return Right(userCredential);
+    } catch (e) {
+      return const Left('Google sign-in failed');
+    }
+  }
+
+  Future<void> saveUserRecord(UserCredential userCredential) async {
+    // Storage User Data to Firestore
+    final nameParts = userCredential.user!.displayName!.split(" ");
+    final userName = generateUsername(userCredential.user!.displayName ?? "");
+
+    final userData = UserModel(
+      userId: userCredential.user!.uid,
+      firstName: nameParts[0],
+      lastName: nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
+      userName: userName,
+      userEmail: userCredential.user!.email ?? '',
+      userPhone: userCredential.user!.phoneNumber ?? '',
+      userImage: userCredential.user!.photoURL ?? '',
+    );
+
+    await _firebaseFirestore
+        .collection('Users')
+        .doc(userCredential.user!.uid)
+        .set(userData.toMap());
+  }
+
+  String generateUsername(fullName) {
+    List<String> nameParts = fullName.split(' ');
+    String firstName = nameParts[0].toLowerCase();
+    String lastName = nameParts.length > 1 ? nameParts[0].toLowerCase() : "";
+
+    String username = "swg_$lastName$firstName";
+
+    return username;
   }
 }

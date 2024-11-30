@@ -10,5 +10,5 @@ abstract class AuthenticationRepository {
   Future<Either> resetPassword({required String email});
   Future<Either> sendEmailVerification();
   Future<bool> isVerifiedEmail(User? user);
-  Future<UserCredential> signInWithGoogle();
+  Future<Either<String, UserCredential>> signInWithGoogle();
 }

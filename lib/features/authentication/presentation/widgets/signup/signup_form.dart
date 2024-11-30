@@ -123,6 +123,7 @@ class TSignupForm extends StatelessWidget {
       child: BlocListener<SignupCubit, SignupState>(
         listener: (context, state) {
           if (state is PrivacyValidationErrorState) {
+            TFullScreenLoader.stopLoading();
             TLoaders.warningSnackBar(
               title: 'Accept Privacy Policy',
               message: state.errorMessage,
@@ -139,6 +140,7 @@ class TSignupForm extends StatelessWidget {
               message: state.errorMessage,
             );
           } else if (state is SignupSuccessState) {
+            TFullScreenLoader.stopLoading();
             _navigateToVerifyEmail(
               context,
               context.read<SignupCubit>().emailController.text.trim(),

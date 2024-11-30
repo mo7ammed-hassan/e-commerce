@@ -24,7 +24,7 @@ class UserCreationModel {
       'userID': userID,
       'firstName': firstName,
       'lastName': lastName,
-      'emailmail': userEmail,
+      'email': userEmail,
       'username': username,
       'password': password,
       'phone': userPhone,

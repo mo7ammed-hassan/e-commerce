@@ -85,8 +85,16 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<UserCredential> signInWithGoogle() {
-    // TODO: implement signInWithGoogle
-    throw UnimplementedError();
+  Future<Either<String, UserCredential>> signInWithGoogle() async {
+    var result =
+        await getIt<AuthenticationFirebaseServices>().signInWithGoogle();
+    return result.fold(
+      (errorMessage) {
+        return Left(errorMessage);
+      },
+      (successMessage) {
+        return Right(successMessage);
+      },
+    );
   }
 }

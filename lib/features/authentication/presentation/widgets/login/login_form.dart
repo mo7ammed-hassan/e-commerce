@@ -110,12 +110,6 @@ class TLoginForm extends StatelessWidget {
       width: double.infinity,
       child: BlocListener<SignInCubit, SignInState>(
         listener: (context, state) {
-          if (state is RememberMeErrorState) {
-            TLoaders.warningSnackBar(
-              title: 'Select RememberMe',
-              message: state.errorMessage,
-            );
-          }
           if (state is SignInLoadingState) {
             TFullScreenLoader.openLoadingDialog(
               'Logging you in...',
@@ -128,8 +122,10 @@ class TLoginForm extends StatelessWidget {
               message: state.errorMessage,
             );
           } else if (state is SignInSuccessState) {
+            TFullScreenLoader.stopLoading();
             _navigateToMenuPage(context);
           } else if (state is NotVerifiedState) {
+            TFullScreenLoader.stopLoading();
             context.removeAll(VerifyEmailPage(email: state.email));
             TLoaders.successSnackBar(
               title: 'Email Not Verified',

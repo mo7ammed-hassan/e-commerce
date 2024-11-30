@@ -10,6 +10,7 @@ import 'package:t_store/features/authentication/domain/use_cases/logout_use_case
 import 'package:t_store/features/authentication/domain/use_cases/reset_password_usecase.dart';
 import 'package:t_store/features/authentication/domain/use_cases/send_email_verification_usecase.dart';
 import 'package:t_store/features/authentication/domain/use_cases/signin_usecase.dart';
+import 'package:t_store/features/authentication/domain/use_cases/signin_with_google.dart';
 import 'package:t_store/features/authentication/domain/use_cases/signup_usecase.dart';
 
 final getIt = GetIt.instance;
@@ -51,5 +52,8 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<LogoutUseCase>(
     LogoutUseCase(),
+  );
+  getIt.registerSingleton<SigninWithGoogle>(
+    SigninWithGoogle(),
   );
 }
