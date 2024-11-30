@@ -12,6 +12,7 @@ abstract class AuthenticationFirebaseServices {
   Future<Either> resetPassword({required String email});
   Future<Either> sendEmailVerification();
   Future<bool> isVerifiedEmail(User? user);
+  Future<UserCredential> signInWithGoogle();
 }
 
 class AuthenticationFirebaseServicesImpl
@@ -123,11 +124,16 @@ class AuthenticationFirebaseServicesImpl
 
   @override
   Future<bool> isVerifiedEmail(User? user) async {
-    //User? user = _user.currentUser;
     if (user != null) {
       await user.reload(); // Refresh user data
       return user.emailVerified;
     }
     return false;
+  }
+
+  @override
+  Future<UserCredential> signInWithGoogle() {
+    // TODO: implement signInWithGoogle
+    throw UnimplementedError();
   }
 }
