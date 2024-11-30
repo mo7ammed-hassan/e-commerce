@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
             const TLoginHeader(),
             // Form
             BlocProvider(
-              create: (context) => SignInCubit(),
+              create: (context) => SignInCubit()..getStorageEmailAndPassword(),
               child: const TLoginForm(),
             ),
             // Divider

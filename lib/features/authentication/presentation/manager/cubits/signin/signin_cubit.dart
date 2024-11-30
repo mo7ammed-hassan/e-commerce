@@ -26,9 +26,9 @@ class SignInCubit extends Cubit<SignInState> {
   }
 
   // show email and password that is storage in get storage
-  Future<void> getStorageEmailAndPassword() async {
-    emailController.text = await _storage.read('REMEMBER_ME_EMAIL');
-    passwordController.text = await _storage.read('REMEMBER_ME_PASSWORD');
+  void getStorageEmailAndPassword() {
+    emailController.text = _storage.read('REMEMBER_ME_EMAIL') ?? '';
+    passwordController.text = _storage.read('REMEMBER_ME_PASSWORD') ?? '';
   }
 
   void signIn(isRememberMe) async {
@@ -37,9 +37,12 @@ class SignInCubit extends Cubit<SignInState> {
     // Start Loading
     emit(SignInLoadingState());
 
-    if (!isRememberMe) {
+    if (isRememberMe) {
       _storage.write('REMEMBER_ME_EMAIL', emailController.text.trim());
       _storage.write('REMEMBER_ME_PASSWORD', passwordController.text.trim());
+    } else {
+      _storage.remove('REMEMBER_ME_EMAIL');
+      _storage.remove('REMEMBER_ME_PASSWORD');
     }
 
     // Construct user creation model
