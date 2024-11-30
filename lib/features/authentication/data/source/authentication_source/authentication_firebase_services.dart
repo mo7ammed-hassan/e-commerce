@@ -8,7 +8,6 @@ import 'package:t_store/utils/helpers/password_helper.dart';
 abstract class AuthenticationFirebaseServices {
   Future<Either> signup(UserCreationModel userCreationModel);
   Future<Either> signin(UserSigninModel userSigninModel);
-  Future<Either> isLoggedIn();
   Future<Either> logout();
   Future<Either> resetPassword({required String email});
   Future<Either> sendEmailVerification();
@@ -19,12 +18,6 @@ class AuthenticationFirebaseServicesImpl
     extends AuthenticationFirebaseServices {
   final FirebaseAuth _user = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-
-  @override
-  Future<Either> isLoggedIn() {
-    // TODO: implement isLoggedIn
-    throw UnimplementedError();
-  }
 
   @override
   Future<Either> logout() async {

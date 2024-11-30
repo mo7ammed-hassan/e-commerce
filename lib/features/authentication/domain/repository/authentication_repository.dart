@@ -6,7 +6,6 @@ import 'package:t_store/features/authentication/data/models/user_signin_model.da
 abstract class AuthenticationRepository {
   Future<Either> signup(UserCreationModel userCreationModel);
   Future<Either> signIn(UserSigninModel userSigninModel);
-  Future<bool> isLoggedIn();
   Future<Either> logout();
   Future<Either> resetPassword({required String email});
   Future<Either> sendEmailVerification();

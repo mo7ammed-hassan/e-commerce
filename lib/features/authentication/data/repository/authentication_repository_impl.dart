@@ -7,12 +7,7 @@ import 'package:t_store/features/authentication/domain/repository/authentication
 import 'package:t_store/service_locator.dart';
 
 class AuthenticationRepositoryImpl extends AuthenticationRepository {
-  @override
-  Future<bool> isLoggedIn() {
-    // TODO: implement isLoggedIn
-    throw UnimplementedError();
-  }
-
+  
   @override
   Future<Either> resetPassword({required String email}) async {
     var returnedData = await getIt<AuthenticationFirebaseServices>()
