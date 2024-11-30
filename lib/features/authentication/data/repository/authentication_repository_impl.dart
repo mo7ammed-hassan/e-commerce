@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:t_store/features/authentication/data/models/user_creation_model.dart';
 import 'package:t_store/features/authentication/data/models/user_signin_model.dart';
 import 'package:t_store/features/authentication/data/source/authentication_source/authentication_firebase_services.dart';
@@ -72,8 +73,8 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<bool> isVerifiedEmail() async {
-    return await getIt<AuthenticationFirebaseServices>().isVerifiedEmail();
+  Future<bool> isVerifiedEmail(User? user) async {
+    return await getIt<AuthenticationFirebaseServices>().isVerifiedEmail(user);
   }
 
   @override

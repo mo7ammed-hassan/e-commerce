@@ -7,6 +7,7 @@ class UserCreationModel {
   String password;
   final String userPhone;
   final String? profilePicture;
+
   UserCreationModel({
     this.userID,
     required this.firstName,

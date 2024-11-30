@@ -12,7 +12,7 @@ abstract class AuthenticationFirebaseServices {
   Future<Either> logout();
   Future<Either> resetPassword({required String email});
   Future<Either> sendEmailVerification();
-  Future<bool> isVerifiedEmail();
+  Future<bool> isVerifiedEmail(User? user);
 }
 
 class AuthenticationFirebaseServicesImpl
@@ -94,14 +94,12 @@ class AuthenticationFirebaseServicesImpl
   @override
   Future<Either> signin(UserSigninModel userSigninModel) async {
     try {
-      await _user.signInWithEmailAndPassword(
+      UserCredential user = await _user.signInWithEmailAndPassword(
         email: userSigninModel.uerEmail,
         password: userSigninModel.password,
       );
 
-      return const Right(
-        'Successfully signed in',
-      );
+      return Right(user.user);
     } on FirebaseAuthException catch (e) {
       String message = '';
       if (e.code == 'user-not-found') {
@@ -131,8 +129,8 @@ class AuthenticationFirebaseServicesImpl
   }
 
   @override
-  Future<bool> isVerifiedEmail() async {
-    User? user = _user.currentUser;
+  Future<bool> isVerifiedEmail(User? user) async {
+    //User? user = _user.currentUser;
     if (user != null) {
       await user.reload(); // Refresh user data
       return user.emailVerified;

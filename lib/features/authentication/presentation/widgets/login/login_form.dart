@@ -129,7 +129,7 @@ class TLoginForm extends StatelessWidget {
             );
           } else if (state is SignInSuccessState) {
             _navigateToMenuPage(context);
-          } else if (state is NotVerifiedErrorState) {
+          } else if (state is NotVerifiedState) {
             context.removeAll(VerifyEmailPage(email: state.email));
             TLoaders.successSnackBar(
               title: 'Email Not Verified',
@@ -142,7 +142,7 @@ class TLoginForm extends StatelessWidget {
             onPressed: () {
               var isRememberMe =
                   context.read<PasswordAndSelectionCubit>().state.isRememberMe;
-              // Call signIn method from SigninCubit to handle the logic of sign in.
+
               context.read<SignInCubit>().signIn(isRememberMe);
             },
             child: const Text(TTexts.signIn),

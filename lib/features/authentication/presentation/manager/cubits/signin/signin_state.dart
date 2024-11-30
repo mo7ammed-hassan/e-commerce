@@ -21,8 +21,8 @@ class RememberMeErrorState extends SignInState {
   RememberMeErrorState(this.errorMessage);
 }
 
-class NotVerifiedErrorState extends SignInState {
+class NotVerifiedState extends SignInState {
   final String email;
 
-  NotVerifiedErrorState(this.email);
+  NotVerifiedState(this.email);
 }

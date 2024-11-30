@@ -19,7 +19,9 @@ class VerifyEmailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => VerifyEmailCubit()..sendVerifyEmail(),
+      create: (context) => VerifyEmailCubit()
+        ..checkEmailVerification()
+        ..sendVerifyEmail(),
       child: Scaffold(
         appBar: AppBar(
           actions: [
@@ -102,16 +104,14 @@ class VerifyEmailPage extends StatelessWidget {
   SizedBox _continueButton(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Builder(
-        builder: (context) {
-          return ElevatedButton(
-            onPressed: () {
-              context.read<VerifyEmailCubit>().checkEmailVerification();
-            },
-            child: const Text(TTexts.tContinue),
-          );
-        }
-      ),
+      child: Builder(builder: (context) {
+        return ElevatedButton(
+          onPressed: () {
+            context.read<VerifyEmailCubit>().checkEmailVerification();
+          },
+          child: const Text(TTexts.tContinue),
+        );
+      }),
     );
   }
 
