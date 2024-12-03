@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/shimmer/shimmer_profile_menu.dart';
 import 'package:t_store/features/personalization/manager/fetch_user_data_cubit.dart';
 import 'package:t_store/features/personalization/manager/fetch_user_data_state.dart';
+import 'package:t_store/features/personalization/pages/profile/presentation/pages/change_name_page.dart';
 import 'package:t_store/features/personalization/pages/profile/presentation/widgets/profile_menu.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
 
 class ProfileInformationSection extends StatelessWidget {
   const ProfileInformationSection({
@@ -20,7 +22,9 @@ class ProfileInformationSection extends StatelessWidget {
               ProfileMenu(
                 title: 'Name',
                 value: '${state.userData.firstName} ${state.userData.lastName}',
-                onPressed: () {},
+                onPressed: () {
+                  context.pushPage(const ChangeNamePage());
+                },
               ),
               ProfileMenu(
                 title: 'Username',
