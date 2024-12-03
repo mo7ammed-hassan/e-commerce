@@ -3,10 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:t_store/features/authentication/data/models/user_creation_model.dart';
-import 'package:t_store/features/authentication/data/models/user_model.dart';
 import 'package:t_store/features/authentication/data/models/user_signin_model.dart';
 import 'package:t_store/features/authentication/data/source/authentication_source/save_user_data_to_firestore.dart';
-import 'package:t_store/utils/helpers/password_helper.dart';
 
 abstract class AuthenticationFirebaseServices {
   Future<Either> signup(UserCreationModel userCreationModel);
@@ -57,16 +55,16 @@ class AuthenticationFirebaseServicesImpl
       final UserCredential credential =
           await _user.createUserWithEmailAndPassword(
         email: userCreationModel.userEmail,
-        password: userCreationModel.password,
+        password: userCreationModel.password!,
       );
 
       // --  Hash the password --
-      final hashedPassword =
-          TPasswordHelper.hashPassword(userCreationModel.password);
+      // final hashedPassword =
+      //     TPasswordHelper.hashPassword(userCreationModel.password);
 
       // Store user in Firestore
       userCreationModel.userID = credential.user!.uid;
-      userCreationModel.password = hashedPassword; // Store hashed password
+      //userCreationModel.password = hashedPassword; // Store hashed password
       await _firebaseFirestore
           .collection('Users')
           .doc(credential.user!.uid)

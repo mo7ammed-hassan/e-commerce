@@ -1,43 +1,44 @@
 class UserModel {
-  final String userId;
+  String? userID;
   final String firstName;
   final String lastName;
-  final String userName;
   final String userEmail;
+  final String username;
   final String userPhone;
-  final String? userImage;
+  final String? profilePicture;
 
   UserModel({
-    required this.userId,
+    this.userID,
     required this.firstName,
     required this.lastName,
-    required this.userName,
     required this.userEmail,
+    required this.username,
     required this.userPhone,
-    required this.userImage,
+    required this.profilePicture,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'userID': userId,
+      'userId': userID,
       'firstName': firstName,
       'lastName': lastName,
-      'username': userName,
+      'username': username,
       'email': userEmail,
       'phone': userPhone,
-      'profilePicture': userImage,
+      'profilePicture': profilePicture,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      userId: map['userId'] as String,
+      userID: map['userId'] as String,
       firstName: map['firstName'] as String,
       lastName: map['lastName'] as String,
-      userName: map['userName'] as String,
-      userEmail: map['userEmail'] as String,
-      userPhone: map['userPhone'] as String,
-      userImage: map['userImage'] != null ? map['userImage'] as String : null,
+      username: map['username'] as String,
+      userEmail: map['email'] as String,
+      userPhone: map['phone'] as String,
+      profilePicture:
+          map['profilePicture'] != null ? map['profilePicture'] as String : '',
     );
   }
 }
