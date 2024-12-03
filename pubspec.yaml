@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore: ^5.5.0
   crypto: ^3.0.6
   google_sign_in: ^6.2.2
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

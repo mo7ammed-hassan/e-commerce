@@ -3,8 +3,8 @@ import 'package:t_store/features/personalization/domain/use_cases/fetch_user_dat
 import 'package:t_store/features/personalization/manager/fetch_user_data_state.dart';
 import 'package:t_store/service_locator.dart';
 
-class FetchUserDataCubit extends Cubit<FetchUserDataState> {
-  FetchUserDataCubit() : super(FetchUserDataLoadingState());
+class UserDataCubit extends Cubit<UserDataState> {
+  UserDataCubit() : super(FetchUserDataLoadingState());
 
   void fetchUserData() async {
     emit(FetchUserDataLoadingState());
@@ -16,7 +16,7 @@ class FetchUserDataCubit extends Cubit<FetchUserDataState> {
         emit(FetchUserDataFailedState(error));
       },
       (userData) {
-        emit(FetchUserDataLoadedState(userData));
+         emit(FetchUserDataLoadedState(userData));
       },
     );
   }

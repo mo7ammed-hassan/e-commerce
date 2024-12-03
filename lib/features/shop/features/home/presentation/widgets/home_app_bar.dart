@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/products/cart/cart_menu_icon.dart';
+import 'package:t_store/common/widgets/shimmer/shimmer_widget.dart';
+import 'package:t_store/features/personalization/manager/fetch_user_data_cubit.dart';
+import 'package:t_store/features/personalization/manager/fetch_user_data_state.dart';
 import 'package:t_store/features/shop/features/cart/presentation/pages/cart_page.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
@@ -23,12 +27,22 @@ class THomeAppBar extends StatelessWidget {
                 .labelMedium!
                 .apply(color: TColors.grey),
           ),
-          Text(
-            TTexts.homeAppbarSubTitle,
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall!
-                .apply(color: TColors.grey, fontSizeFactor: 1.1),
+          BlocBuilder<UserDataCubit, UserDataState>(
+            builder: (context, state) {
+              if (state is FetchUserDataLoadedState) {
+                return Text(
+                  "${state.userData.firstName} ${state.userData.lastName}",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .apply(color: TColors.grey, fontSizeFactor: 1.1),
+                );
+              }
+              return const Padding(
+                padding: EdgeInsets.only(top: 4),
+                child: ShimmerWidget(height: 18),
+              );
+            },
           ),
         ],
       ),

@@ -34,10 +34,12 @@ class TCircularImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(100),
       ),
       child: Center(
-        child: Image(
-          image: isNetworkImage ? NetworkImage(image) : AssetImage(image),
-          fit: fit,
-          color: isDark ? TColors.white : TColors.dark,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          child: Image(
+            image: isNetworkImage ? NetworkImage(image) : AssetImage(image),
+            fit: fit,
+          ),
         ),
       ),
     );
