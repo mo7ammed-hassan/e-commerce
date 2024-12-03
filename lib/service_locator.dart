@@ -12,6 +12,10 @@ import 'package:t_store/features/authentication/domain/use_cases/send_email_veri
 import 'package:t_store/features/authentication/domain/use_cases/signin_usecase.dart';
 import 'package:t_store/features/authentication/domain/use_cases/signin_with_google.dart';
 import 'package:t_store/features/authentication/domain/use_cases/signup_usecase.dart';
+import 'package:t_store/features/personalization/data/repository/user_repository_impl.dart';
+import 'package:t_store/features/personalization/data/source/user_firebase_services.dart';
+import 'package:t_store/features/personalization/domain/repository/user_repository.dart';
+import 'package:t_store/features/personalization/domain/use_cases/fetch_user_data_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -20,6 +24,9 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<AuthenticationFirebaseServices>(
     AuthenticationFirebaseServicesImpl(),
   );
+  getIt.registerSingleton<UserFirebaseServices>(
+    UserFirebaseServiceImpl(),
+  );
 
   // ------Repositories------
   getIt.registerSingleton<OnboardingRepository>(
@@ -27,6 +34,9 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<AuthenticationRepository>(
     AuthenticationRepositoryImpl(),
+  );
+  getIt.registerSingleton<UserRepository>(
+    UserRepositoryImpl(),
   );
 
   // ------Usecases------
@@ -55,5 +65,8 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<SigninWithGoogle>(
     SigninWithGoogle(),
+  );
+  getIt.registerSingleton<FetchUserDataUseCase>(
+    FetchUserDataUseCase(),
   );
 }

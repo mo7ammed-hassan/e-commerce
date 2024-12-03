@@ -1,3 +1,5 @@
+import 'package:t_store/features/personalization/domain/entites/user_entity.dart';
+
 class UserModel {
   String? userID;
   final String firstName;
@@ -39,6 +41,20 @@ class UserModel {
       userPhone: map['phone'] as String,
       profilePicture:
           map['profilePicture'] != null ? map['profilePicture'] as String : '',
+    );
+  }
+}
+
+extension UserXModel on UserModel {
+  UserEntity toEntity() {
+    return UserEntity(
+      userId: userID,
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      userEmail: userEmail,
+      userPhone: userPhone,
+      profilePicture: profilePicture,
     );
   }
 }
