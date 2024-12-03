@@ -20,6 +20,7 @@ class PasswordField extends StatelessWidget {
           obscureText: state.isPasswordHidden,
           controller: controller,
           validator: (value) => TValidator.validatePassword(value),
+          textInputAction: TextInputAction.done,
           decoration: InputDecoration(
             labelText: TTexts.password,
             prefixIcon: const Icon(Iconsax.password_check),

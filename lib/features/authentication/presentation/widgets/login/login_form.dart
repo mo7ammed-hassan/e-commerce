@@ -58,6 +58,7 @@ class TLoginForm extends StatelessWidget {
     return TextFormField(
       controller: context.read<SignInCubit>().emailController,
       validator: (value) => TValidator.validateEmail(value),
+      textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
         labelText: TTexts.email,
         prefixIcon: Icon(Iconsax.direct_right),

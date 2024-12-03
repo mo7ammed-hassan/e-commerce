@@ -61,6 +61,7 @@ class TSignupForm extends StatelessWidget {
         expands: false,
         controller: context.read<SignupCubit>().firstNameController,
         validator: (value) => TValidator.validateEmptyText('First Name', value),
+        textInputAction: TextInputAction.next,
         decoration: const InputDecoration(
           labelText: TTexts.firstName,
           prefixIcon: Icon(Iconsax.user),
@@ -74,6 +75,7 @@ class TSignupForm extends StatelessWidget {
       child: TextFormField(
         controller: context.read<SignupCubit>().lastNameController,
         validator: (value) => TValidator.validateEmptyText('Last Name', value),
+        textInputAction: TextInputAction.next,
         expands: false,
         decoration: const InputDecoration(
           labelText: TTexts.lastName,
@@ -87,6 +89,7 @@ class TSignupForm extends StatelessWidget {
     return TextFormField(
       controller: context.read<SignupCubit>().usernameController,
       validator: (value) => TValidator.validateEmptyText('username', value),
+      textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
         labelText: TTexts.username,
         prefixIcon: Icon(Iconsax.user_edit),
@@ -98,6 +101,7 @@ class TSignupForm extends StatelessWidget {
     return TextFormField(
       controller: context.read<SignupCubit>().emailController,
       validator: (value) => TValidator.validateEmail(value),
+      textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
         labelText: TTexts.email,
         prefixIcon: Icon(Iconsax.direct),
@@ -109,6 +113,7 @@ class TSignupForm extends StatelessWidget {
     return TextFormField(
       controller: context.read<SignupCubit>().phoneController,
       validator: (value) => TValidator.validatePhoneNumber(value),
+      textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
         errorMaxLines: 2,
         labelText: TTexts.phoneNo,
@@ -123,7 +128,6 @@ class TSignupForm extends StatelessWidget {
       child: BlocListener<SignupCubit, SignupState>(
         listener: (context, state) {
           if (state is PrivacyValidationErrorState) {
-            TFullScreenLoader.stopLoading();
             TLoaders.warningSnackBar(
               title: 'Accept Privacy Policy',
               message: state.errorMessage,
