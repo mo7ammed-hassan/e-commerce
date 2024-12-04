@@ -10,7 +10,7 @@ class SignInWithGoogleCubit extends Cubit<SignInWithGoogleState> {
   void signInWithGoogle() async {
     emit(SignInWithGoogleLoadingState());
 
-    var result = await getIt<SigninWithGoogle>().call();
+    var result = await getIt<SigninWithGoogleUseCase>().call();
 
     result.fold(
       (error) {

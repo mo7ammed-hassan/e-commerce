@@ -15,7 +15,10 @@ import 'package:t_store/features/authentication/domain/use_cases/signup_usecase.
 import 'package:t_store/features/personalization/data/repository/user_repository_impl.dart';
 import 'package:t_store/features/personalization/data/source/user_firebase_services.dart';
 import 'package:t_store/features/personalization/domain/repository/user_repository.dart';
+import 'package:t_store/features/personalization/domain/use_cases/delete_account_use_case.dart';
+import 'package:t_store/features/personalization/domain/use_cases/delete_user_account_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/fetch_user_data_use_case.dart';
+import 'package:t_store/features/personalization/domain/use_cases/re_auth_user_account_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/update_user_filed_use_case.dart';
 
 final getIt = GetIt.instance;
@@ -64,13 +67,22 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<LogoutUseCase>(
     LogoutUseCase(),
   );
-  getIt.registerSingleton<SigninWithGoogle>(
-    SigninWithGoogle(),
+  getIt.registerSingleton<SigninWithGoogleUseCase>(
+    SigninWithGoogleUseCase(),
   );
   getIt.registerSingleton<FetchUserDataUseCase>(
     FetchUserDataUseCase(),
   );
   getIt.registerSingleton<UpdateUserFiledUseCase>(
     UpdateUserFiledUseCase(),
+  );
+  getIt.registerSingleton<ReAuthUserAccountUseCase>(
+    ReAuthUserAccountUseCase(),
+  );
+  getIt.registerSingleton<DeleteUserAccountUseCase>(
+    DeleteUserAccountUseCase(),
+  );
+  getIt.registerSingleton<DeleteAccountUseCase>(
+    DeleteAccountUseCase(),
   );
 }

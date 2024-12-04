@@ -4,7 +4,7 @@ import 'package:t_store/common/core/usecases/use_cases.dart';
 import 'package:t_store/features/authentication/domain/repository/authentication_repository.dart';
 import 'package:t_store/service_locator.dart';
 
-class SigninWithGoogle
+class SigninWithGoogleUseCase
     extends UseCases<Either<String, UserCredential>, dynamic> {
   @override
   Future<Either<String, UserCredential>> call({params}) async {

@@ -32,4 +32,48 @@ class UserRepositoryImpl extends UserRepository {
       },
     );
   }
+
+  @override
+  Future<Either> reAuthenticateWithEmailAndPassword(
+      String email, String password) async {
+    var result = await getIt<UserFirebaseServices>()
+        .reAuthenticateWithEmailAndPassword(email, password);
+    return result.fold(
+      (error) {
+        return Left(error);
+      },
+      (success) {
+        return Right(success);
+      },
+    );
+  }
+
+  @override
+  Future<Either> deleteUserAccount() async {
+    var result =
+        await getIt<UserFirebaseServices>().deleteUserAccount();
+
+    return result.fold(
+      (error) {
+        return Left(error);
+      },
+      (success) {
+        return Right(success);
+      },
+    );
+  }
+
+  @override
+  Future<Either> deleteAccount() async {
+    var result = await getIt<UserFirebaseServices>().deleteAccount();
+
+    return result.fold(
+      (error) {
+        return Left(error);
+      },
+      (success) {
+        return Right(success);
+      },
+    );
+  }
 }
