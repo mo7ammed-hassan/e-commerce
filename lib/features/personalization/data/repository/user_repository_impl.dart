@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:t_store/features/personalization/data/models/user_model.dart';
 import 'package:t_store/features/personalization/data/source/user_firebase_services.dart';
 import 'package:t_store/features/personalization/domain/entites/user_entity.dart';
@@ -50,8 +51,7 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   Future<Either> deleteUserAccount() async {
-    var result =
-        await getIt<UserFirebaseServices>().deleteUserAccount();
+    var result = await getIt<UserFirebaseServices>().deleteUserAccount();
 
     return result.fold(
       (error) {
@@ -75,5 +75,11 @@ class UserRepositoryImpl extends UserRepository {
         return Right(success);
       },
     );
+  }
+
+  @override
+  Future<Either> uploadImage(String path, XFile image) {
+    // TODO: implement uploadImage
+    throw UnimplementedError();
   }
 }

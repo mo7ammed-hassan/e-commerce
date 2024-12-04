@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:t_store/utils/exceptions/firebase_auth_exceptions.dart';
 
 abstract class UserFirebaseServices {
@@ -11,6 +12,7 @@ abstract class UserFirebaseServices {
       String email, String password);
   Future<Either> deleteUserAccount();
   Future<Either> deleteAccount();
+  Future<Either> uploadImage(String path, XFile image);
 }
 
 class UserFirebaseServiceImpl implements UserFirebaseServices {
@@ -105,5 +107,11 @@ class UserFirebaseServiceImpl implements UserFirebaseServices {
     } catch (e) {
       return Left('Error deleting user Account: $e');
     }
+  }
+
+  @override
+  Future<Either> uploadImage(String path, XFile image) async {
+    // TODO: implement uploadImage
+    throw UnimplementedError();
   }
 }
