@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/images/circular_image.dart';
 import 'package:t_store/common/widgets/shimmer/shimmer_list_tile.dart';
-import 'package:t_store/features/personalization/manager/fetch_user_data_cubit.dart';
-import 'package:t_store/features/personalization/manager/fetch_user_data_state.dart';
+import 'package:t_store/features/personalization/cubit/user_cubit.dart';
+import 'package:t_store/features/personalization/cubit/user_state.dart';
 import 'package:t_store/features/personalization/pages/profile/presentation/pages/profile_page.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
@@ -15,7 +15,7 @@ class UserProfileTile extends StatelessWidget {
   // user model
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserDataCubit, UserDataState>(
+    return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         if (state is FetchUserDataLoadedState) {
           return ListTile(
@@ -52,6 +52,7 @@ class UserProfileTile extends StatelessWidget {
             ),
           );
         }
+
         return const ShimmerListTile();
       },
     );

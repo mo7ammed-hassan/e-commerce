@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
+import 'package:t_store/features/personalization/pages/profile/presentation/widgets/change_name_form.dart';
 import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/constants/text_strings.dart';
-import 'package:t_store/utils/validators/validation.dart';
 
 class ChangeNamePage extends StatelessWidget {
   const ChangeNamePage({super.key});
@@ -28,37 +26,7 @@ class ChangeNamePage extends StatelessWidget {
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: TSizes.spaceBtwSections),
-            Form(
-              child: Column(
-                children: [
-                  TextFormField(
-                    validator: (value) =>
-                        TValidator.validateEmptyText('First Name', value),
-                    decoration: const InputDecoration(
-                      labelText: TTexts.firstName,
-                      prefixIcon: Icon(Iconsax.user),
-                    ),
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwInputFields),
-                  TextFormField(
-                    validator: (value) =>
-                        TValidator.validateEmptyText('Last Name', value),
-                    decoration: const InputDecoration(
-                      labelText: TTexts.lastName,
-                      prefixIcon: Icon(Iconsax.user),
-                    ),
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwSections),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Save'),
-                    ),
-                  )
-                ],
-              ),
-            ),
+            const ChangNameForm(),
           ],
         ),
       ),

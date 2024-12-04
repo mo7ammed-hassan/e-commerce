@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/manager/cubits/navigation_menu_cubit.dart';
 import 'package:t_store/common/widgets/navigation_menu/bottom_navigation_bar.dart';
 import 'package:t_store/common/widgets/navigation_menu/navigation_body.dart';
-import 'package:t_store/features/personalization/manager/fetch_user_data_cubit.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -12,12 +11,9 @@ class NavigationMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => NavigationMenuCubit(),
-      child: Scaffold(
-        bottomNavigationBar: const TBottomNavigationBar(),
-        body: BlocProvider(
-          create: (context) => UserDataCubit()..fetchUserData(),
-          child: const TNavigationBody(),
-        ),
+      child: const Scaffold(
+        bottomNavigationBar: TBottomNavigationBar(),
+        body: TNavigationBody(),
       ),
     );
   }

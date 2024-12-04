@@ -18,4 +18,18 @@ class UserRepositoryImpl extends UserRepository {
       },
     );
   }
+
+  @override
+  Future<Either> updateUserField(Map<String, dynamic> data) async {
+    var result =
+        await getIt<UserFirebaseServices>().updateUserField(data: data);
+    return result.fold(
+      (error) {
+        return Left(error);
+      },
+      (success) {
+        return Right(success);
+      },
+    );
+  }
 }

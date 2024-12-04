@@ -13,7 +13,7 @@ extension NavigationX on BuildContext {
     Navigator.pushAndRemoveUntil(
       this,
       MaterialPageRoute(builder: (context) => page),
-      (Route<dynamic> route) => true, // remove all pages from memory "stack"
+      (Route<dynamic> route) => true, // not remove all pages from memory "stack"
     );
   }
 

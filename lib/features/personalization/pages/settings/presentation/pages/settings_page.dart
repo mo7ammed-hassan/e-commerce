@@ -44,7 +44,7 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
             ),
-
+    
             // --Body
             Padding(
               padding: const EdgeInsets.all(TSizes.defaultSpace),
@@ -154,7 +154,7 @@ class SettingsPage extends StatelessWidget {
                     subtitle: 'The image quality will be high',
                     trailing: Switch(value: false, onChanged: (value) {}),
                   ),
-
+    
                   const SizedBox(height: TSizes.spaceBtwSections),
                   // Logout Button
                   SizedBox(
