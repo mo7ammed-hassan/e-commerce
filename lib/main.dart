@@ -42,8 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserCubit()
-        ..fetchUserData(), // reduce number of read and creat on instanse
+      create: (context) => UserCubit()..fetchUserData(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'T-Store',
