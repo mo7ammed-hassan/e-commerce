@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:t_store/features/authentication/data/models/user_creation_model.dart';
 import 'package:t_store/features/authentication/data/models/user_signin_model.dart';
@@ -126,11 +127,29 @@ class AuthenticationFirebaseServicesImpl
 
   @override
   Future<bool> isVerifiedEmail(User? user) async {
-    if (user != null) {
-      await user.reload(); // Refresh user data
-      return user.emailVerified;
+    try {
+      if (user != null) {
+        await user.reload(); // Refresh user data
+        return user.emailVerified;
+      }
+      return false;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        if (kDebugMode) {
+          print('User not found: ${e.message}');
+        }
+      } else {
+        if (kDebugMode) {
+          print('FirebaseAuthException: ${e.message}');
+        }
+      }
+      return false;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Unexpected error: $e');
+      }
+      return false;
     }
-    return false;
   }
 
   @override
