@@ -7,10 +7,12 @@ import 'package:t_store/common/widgets/texts/section_heading.dart';
 import 'package:t_store/features/personalization/domain/entites/user_entity.dart';
 import 'package:t_store/features/personalization/cubit/user_cubit.dart';
 import 'package:t_store/features/personalization/cubit/user_state.dart';
+import 'package:t_store/features/personalization/pages/profile/presentation/pages/re_authentication_user_login_from.dart';
 import 'package:t_store/features/personalization/pages/profile/presentation/widgets/personal_information_section.dart';
 import 'package:t_store/features/personalization/pages/profile/presentation/widgets/profile_information_section.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key, this.userData});
@@ -36,10 +38,9 @@ class ProfilePage extends StatelessWidget {
                       builder: (context, state) {
                         if (state is FetchUserDataLoadedState) {
                           return TCircularImage(
-                            isNetworkImage:
-                                state.userData.profilePicture != ''
-                                    ? true
-                                    : false,
+                            isNetworkImage: state.userData.profilePicture != ''
+                                ? true
+                                : false,
                             width: 80,
                             height: 80,
                             image: state.userData.profilePicture != ''
@@ -73,7 +74,7 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(height: TSizes.spaceBtwItems),
               const Divider(),
               const SizedBox(height: TSizes.spaceBtwItems),
-    
+
               ///Heading
               const TSectionHeading(
                 title: 'Personal Information',
@@ -86,7 +87,9 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(height: TSizes.spaceBtwItems),
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.pushPage(const ReAuthLoginFrom());
+                  },
                   child: const Text(
                     'Close Account',
                     style: TextStyle(
