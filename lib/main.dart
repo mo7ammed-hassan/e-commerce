@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:t_store/app_entry_point.dart';
-import 'package:t_store/common/manager/cubits/launch_app/launch_app_cubit.dart';
+import 'package:t_store/common/cubits/launch_app/launch_app_cubit.dart';
 import 'package:t_store/features/personalization/cubit/user_cubit.dart';
 import 'package:t_store/firebase_options.dart';
 import 'package:t_store/service_locator.dart';

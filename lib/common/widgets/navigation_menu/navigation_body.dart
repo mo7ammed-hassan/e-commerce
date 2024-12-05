@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:t_store/common/manager/cubits/navigation_menu_cubit.dart';
+import 'package:t_store/common/cubits/navigation_menu_cubit.dart';
 
 class TNavigationBody extends StatelessWidget {
   const TNavigationBody({super.key});
