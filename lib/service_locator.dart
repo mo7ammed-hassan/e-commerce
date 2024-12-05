@@ -20,7 +20,7 @@ import 'package:t_store/features/personalization/domain/use_cases/delete_user_ac
 import 'package:t_store/features/personalization/domain/use_cases/fetch_user_data_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/re_auth_user_account_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/update_user_filed_use_case.dart';
-import 'package:t_store/features/personalization/domain/use_cases/upload_image_use_case.dart';
+import 'package:t_store/features/personalization/domain/use_cases/upload_user_image_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -86,7 +86,7 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<DeleteAccountUseCase>(
     DeleteAccountUseCase(),
   );
-  getIt.registerSingleton<UploadImageUseCase>(
-    UploadImageUseCase(),
+  getIt.registerSingleton<UploadUserImageUseCase>(
+    UploadUserImageUseCase(),
   );
 }

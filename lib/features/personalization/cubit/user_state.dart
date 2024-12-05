@@ -16,7 +16,6 @@ class FetchUserDataFailedState extends UserState {
   FetchUserDataFailedState(this.errorMessage);
 }
 
-///// update states
 class UpdateUserSuccessState extends UserState {
   final String message;
 

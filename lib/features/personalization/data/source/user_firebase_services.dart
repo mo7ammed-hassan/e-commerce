@@ -15,7 +15,7 @@ abstract class UserFirebaseServices {
       String email, String password);
   Future<Either> deleteUserAccount();
   Future<Either> deleteAccount();
-  Future<Either> uploadImage(String path, XFile image);
+  Future<Either> uploadUserImage(String path, XFile image);
 }
 
 class UserFirebaseServiceImpl implements UserFirebaseServices {
@@ -114,13 +114,18 @@ class UserFirebaseServiceImpl implements UserFirebaseServices {
   }
 
   @override
-  Future<Either> uploadImage(String path, XFile image) async {
+  Future<Either> uploadUserImage(String path, XFile image) async {
     try {
       final ref = _storage.ref(path).child(image.name);
 
       await ref.putFile(File(image.path));
 
       final url = await ref.getDownloadURL();
+
+      // Update user document with image URL
+      await updateUserField(data: {
+        'profilePicture': url,
+      });
 
       return Right(url);
     } on FirebaseException catch (e) {

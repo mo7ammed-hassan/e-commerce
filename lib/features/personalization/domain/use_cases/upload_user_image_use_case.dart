@@ -4,10 +4,10 @@ import 'package:t_store/features/personalization/data/models/upload_image_model.
 import 'package:t_store/features/personalization/domain/repository/user_repository.dart';
 import 'package:t_store/service_locator.dart';
 
-class UploadImageUseCase extends UseCases<Either, UploadImageModel> {
+class UploadUserImageUseCase extends UseCases<Either, UploadImageModel> {
   @override
   Future<Either> call({UploadImageModel? params}) async {
     return await getIt<UserRepository>()
-        .uploadImage(params!.path, params.image);
+        .uploadUserImage(params!.path, params.image);
   }
 }

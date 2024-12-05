@@ -9,5 +9,5 @@ abstract class UserRepository {
       String email, String password);
   Future<Either> deleteUserAccount();
   Future<Either> deleteAccount();
-  Future<Either> uploadImage(String path, XFile image);
+  Future<Either> uploadUserImage(String path, XFile? image);
 }
