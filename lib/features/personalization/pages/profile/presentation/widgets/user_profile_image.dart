@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/images/circular_image.dart';
+import 'package:t_store/common/widgets/shimmer/shimmer_widget.dart';
 import 'package:t_store/features/personalization/cubit/user_cubit.dart';
 import 'package:t_store/features/personalization/pages/profile/cuits/upload_user_profile_image_cubit.dart';
 import 'package:t_store/features/personalization/pages/profile/cuits/upload_user_profile_image_state.dart';
@@ -58,6 +59,12 @@ class UserProfileImage extends StatelessWidget {
                       : TImages.user,
                   width: width ?? 75,
                   height: height ?? 75,
+                );
+              } else if (state is UplaodUserProfileImageLoadingState) {
+                return ShimmerWidget(
+                  height: height ?? 75,
+                  width: width ?? 75,
+                  shapeBorder: const CircleBorder(),
                 );
               } else {
                 return TCircularImage(

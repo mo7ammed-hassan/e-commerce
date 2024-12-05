@@ -6,7 +6,7 @@ import 'package:t_store/features/personalization/pages/profile/cuits/upload_user
 import 'package:t_store/service_locator.dart';
 
 class UploadUserProfileImageCubit extends Cubit<UploadUserProfileImageState> {
-  UploadUserProfileImageCubit() : super(UplaodUserProfileImageLoadingState());
+  UploadUserProfileImageCubit() : super(UploadUserProfileImageInitialState());
 
   void uploadUserImage() async {
     // Pick image
