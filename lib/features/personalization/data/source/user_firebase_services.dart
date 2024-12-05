@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:t_store/utils/exceptions/firebase_auth_exceptions.dart';
@@ -18,6 +21,7 @@ abstract class UserFirebaseServices {
 class UserFirebaseServiceImpl implements UserFirebaseServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _store = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   @override
   Future<Either<String, Map<String, dynamic>>> fetchUserData() async {
@@ -108,10 +112,21 @@ class UserFirebaseServiceImpl implements UserFirebaseServices {
       return Left('Error deleting user Account: $e');
     }
   }
-    
+
   @override
   Future<Either> uploadImage(String path, XFile image) async {
-    // TODO: implement uploadImage
-    throw UnimplementedError();
+    try {
+      final ref = _storage.ref(path).child(image.name);
+
+      await ref.putFile(File(image.path));
+
+      final url = await ref.getDownloadURL();
+
+      return Right(url);
+    } on FirebaseException catch (e) {
+      return Left('Error uploading image: $e');
+    } catch (e) {
+      return Left('Error uploading image: $e');
+    }
   }
 }

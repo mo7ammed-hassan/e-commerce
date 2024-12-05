@@ -78,8 +78,16 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<Either> uploadImage(String path, XFile image) {
-    // TODO: implement uploadImage
-    throw UnimplementedError();
+  Future<Either> uploadImage(String path, XFile image) async {
+    var result = await getIt<UserFirebaseServices>().uploadImage(path, image);
+
+    return result.fold(
+      (error) {
+        return Left(error);
+      },
+      (url) {
+        return Right(url);
+      },
+    );
   }
 }
