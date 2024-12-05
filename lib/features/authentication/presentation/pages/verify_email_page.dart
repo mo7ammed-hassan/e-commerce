@@ -5,7 +5,9 @@ import 'package:t_store/common/widgets/success_pages/success_page.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/verify_email_cubit.dart';
 import 'package:t_store/features/authentication/presentation/manager/cubits/signup/verify_email_state.dart';
 import 'package:t_store/features/authentication/presentation/pages/login_page.dart';
+import 'package:t_store/features/personalization/domain/use_cases/delete_account_use_case.dart';
 import 'package:t_store/navigation_menu.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
@@ -29,6 +31,7 @@ class VerifyEmailPage extends StatelessWidget {
               icon: const Icon(CupertinoIcons.clear),
               onPressed: () async {
                 context.removeAll(const LoginPage());
+                await getIt<DeleteAccountUseCase>().call();
               },
             ),
           ],
