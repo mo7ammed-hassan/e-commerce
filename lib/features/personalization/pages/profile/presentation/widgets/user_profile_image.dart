@@ -69,8 +69,8 @@ class UserProfileImage extends StatelessWidget {
               } else {
                 return TCircularImage(
                   padding: 0,
-                  isNetworkImage: image != '',
-                  image: image != ''
+                  isNetworkImage: (image != '') ? true : false,
+                  image: (image != '')
                       ? context.read<UserCubit>().previousImage
                       : TImages.user,
                   width: width ?? 75,

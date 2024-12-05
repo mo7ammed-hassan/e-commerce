@@ -35,9 +35,7 @@ class UploadUserProfileImageCubit extends Cubit<UploadUserProfileImageState> {
         },
       );
     } else {
-      emit(
-        UploadUserProfileImageFailureState('Failed to select image'),
-      );
+      emit(NotSelectImageState());
     }
   }
 }

@@ -59,19 +59,15 @@ class AuthenticationFirebaseServicesImpl
         password: userCreationModel.password!,
       );
 
-      // --  Hash the password --
-      // final hashedPassword =
-      //     TPasswordHelper.hashPassword(userCreationModel.password);
-
       // Store user in Firestore
       userCreationModel.userID = credential.user!.uid;
-      //userCreationModel.password = hashedPassword; // Store hashed password
       await _firebaseFirestore
           .collection('Users')
           .doc(credential.user!.uid)
           .set(
             userCreationModel.toMap(),
           );
+
       return const Right(
         'Your Account has been created! Verify email to continue',
       );
@@ -129,7 +125,7 @@ class AuthenticationFirebaseServicesImpl
   Future<bool> isVerifiedEmail(User? user) async {
     try {
       if (user != null) {
-        await user.reload(); // Refresh user data
+        // await user.reload(); // Refresh user data
         return user.emailVerified;
       }
       return false;

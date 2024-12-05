@@ -15,3 +15,4 @@ class UploadUserProfileImageFailureState extends UploadUserProfileImageState {
 }
 
 class UplaodUserProfileImageLoadingState extends UploadUserProfileImageState {}
+class NotSelectImageState extends UploadUserProfileImageState {}

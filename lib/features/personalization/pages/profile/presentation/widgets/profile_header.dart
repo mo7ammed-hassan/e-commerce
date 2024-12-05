@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:t_store/features/personalization/cubit/user_cubit.dart';
 import 'package:t_store/features/personalization/pages/profile/presentation/widgets/user_profile_image.dart';
 
 class ProfileHeader extends StatelessWidget {
@@ -6,6 +8,9 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const UserProfileImage(showEditBtn: true);
+    return UserProfileImage(
+      showEditBtn: true,
+      image: context.read<UserCubit>().previousImage,
+    );
   }
 }
