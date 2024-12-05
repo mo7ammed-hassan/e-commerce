@@ -108,7 +108,7 @@ class UserFirebaseServiceImpl implements UserFirebaseServices {
       return Left('Error deleting user Account: $e');
     }
   }
-
+    
   @override
   Future<Either> uploadImage(String path, XFile image) async {
     // TODO: implement uploadImage
