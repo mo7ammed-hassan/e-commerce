@@ -5,11 +5,13 @@ import 'package:t_store/utils/helpers/helper_functions.dart';
 class ShimmerWidget extends StatelessWidget {
   final double? width, height;
   final ShapeBorder shapeBorder;
+  final EdgeInsets? padding;
   const ShimmerWidget({
     super.key,
     this.width = double.infinity,
     required this.height,
     this.shapeBorder = const RoundedRectangleBorder(),
+    this.padding,
   });
 
   @override
@@ -20,6 +22,7 @@ class ShimmerWidget extends StatelessWidget {
       highlightColor: isDark ? Colors.grey[600]! : Colors.grey[100]!,
       period: const Duration(milliseconds: 1550),
       child: Container(
+        padding: padding,
         width: width,
         height: height ?? 20,
         decoration: ShapeDecoration(
