@@ -21,6 +21,10 @@ import 'package:t_store/features/personalization/domain/use_cases/fetch_user_dat
 import 'package:t_store/features/personalization/domain/use_cases/re_auth_user_account_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/update_user_filed_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_user_image_use_case.dart';
+import 'package:t_store/features/shop/features/home/data/repository/category_repositoy_impl.dart';
+import 'package:t_store/features/shop/features/home/data/source/category_firebase_services.dart';
+import 'package:t_store/features/shop/features/home/domain/repository/category_repositoy.dart';
+import 'package:t_store/features/shop/features/home/domain/use_cases/category_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -32,6 +36,9 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<UserFirebaseServices>(
     UserFirebaseServiceImpl(),
   );
+  getIt.registerSingleton<CategoryFirebaseServices>(
+    CategoryFirebaseServicesImpl(),
+  );
 
   // ------Repositories------
   getIt.registerSingleton<OnboardingRepository>(
@@ -42,6 +49,9 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<UserRepository>(
     UserRepositoryImpl(),
+  );
+  getIt.registerSingleton<CategoryRepositoy>(
+    CategoryRepositoyImpl(),
   );
 
   // ------Usecases------
@@ -88,5 +98,8 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<UploadUserImageUseCase>(
     UploadUserImageUseCase(),
+  );
+  getIt.registerSingleton<CategoryUseCase>(
+    CategoryUseCase(),
   );
 }

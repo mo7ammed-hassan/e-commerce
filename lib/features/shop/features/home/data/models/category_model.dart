@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:t_store/features/shop/features/home/domain/entites/category_entity.dart';
 
 class CategoryModel {
   String id;
@@ -45,5 +46,19 @@ class CategoryModel {
     } else {
       return CategoryModel.empty();
     }
+  }
+}
+
+// Convert CategoryModel to CategoryEntity
+
+extension CategoryXModel on CategoryModel {
+  CategoryEntity toEntity() {
+    return CategoryEntity(
+      id: id,
+      name: name,
+      image: image,
+      parentId: parentId,
+      isFeatured: isFeatured,
+    );
   }
 }
