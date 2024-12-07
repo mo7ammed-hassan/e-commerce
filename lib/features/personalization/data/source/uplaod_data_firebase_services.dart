@@ -12,25 +12,22 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
   @override
   Future<void> uploadCategoriesDummyData(List<CategoryModel> categories) async {
     try {
-      categories.map(
-        (category) async {
-          final file = await getIt<FirebaseStorageServices>()
-              .getImageDataFromAssets(category.image);
+      for (var category in categories) {
+        final file = await getIt<FirebaseStorageServices>()
+            .getImageDataFromAssets(category.image);
 
-          final url = await getIt<FirebaseStorageServices>()
-              .uploadImageData('Categories', file, category.name);
+        final url = await getIt<FirebaseStorageServices>()
+            .uploadImageData('Categories', file, category.name);
 
-          category.image = url;
+        category.image = url;
 
-          //storage
-          await FirebaseFirestore.instance
-              .collection('Categories')
-              .doc(category.id)
-              .set(
-                category.toJson(),
-              );
-        },
-      );
+        await FirebaseFirestore.instance
+            .collection('Categories')
+            .doc(category.id)
+            .set(
+              category.toJson(),
+            );
+      }
     } catch (e) {
       print('Error uploading categories: $e');
       throw 'Something went wrong';

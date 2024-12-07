@@ -22,7 +22,6 @@ class FirebaseStorageServicesImpl extends FirebaseStorageServices {
 
       return imageData;
     } catch (e) {
-      print('Error assets folder: $e');
       throw 'Error Loading image data: $e';
     }
   }
@@ -37,7 +36,6 @@ class FirebaseStorageServicesImpl extends FirebaseStorageServices {
       final url = await ref.getDownloadURL();
       return url;
     } catch (e) {
-      print('Error uploading storess: $e');
       throw 'Error uploading image: $e';
     }
   }

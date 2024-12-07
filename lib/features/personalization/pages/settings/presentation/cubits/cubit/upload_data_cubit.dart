@@ -15,7 +15,6 @@ class UploadDataCubit extends Cubit<UploadDataState> {
       emit(UploadDataSuccess('Successfully uploaded'));
     } catch (e) {
       emit(UploadDataFailure(e.toString()));
-      throw 'Error uploading $e';
     }
   }
 }

@@ -38,9 +38,15 @@ class THomeAppBar extends StatelessWidget {
                       .apply(color: TColors.grey, fontSizeFactor: 1.1),
                 );
               }
-              return const Padding(
-                padding: EdgeInsets.only(top: 4),
-                child: ShimmerWidget(height: 18),
+              return Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: ShimmerWidget(
+                  height: 18,
+                  width: 8,
+                  shapeBorder: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               );
             },
           ),
