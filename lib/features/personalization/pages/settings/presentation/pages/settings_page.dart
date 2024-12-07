@@ -8,6 +8,7 @@ import 'package:t_store/common/widgets/texts/section_heading.dart';
 import 'package:t_store/features/authentication/domain/use_cases/logout_use_case.dart';
 import 'package:t_store/features/authentication/presentation/pages/login_page.dart';
 import 'package:t_store/features/personalization/pages/address/presentation/pages/address_page.dart';
+import 'package:t_store/features/personalization/pages/settings/presentation/pages/load_data_page.dart';
 import 'package:t_store/features/shop/features/cart/presentation/pages/cart_page.dart';
 import 'package:t_store/features/shop/features/order/presentation/pages/order_page.dart';
 import 'package:t_store/service_locator.dart';
@@ -44,7 +45,7 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
             ),
-    
+
             // --Body
             Padding(
               padding: const EdgeInsets.all(TSizes.defaultSpace),
@@ -131,10 +132,13 @@ class SettingsPage extends StatelessWidget {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  const TSettingMenuTile(
+                  TSettingMenuTile(
                     icon: Iconsax.document_upload,
                     title: 'Load Data',
                     subtitle: 'Upload your data to server',
+                    onTap: () {
+                      context.pushPage(const LoadDataPage());
+                    },
                   ),
                   TSettingMenuTile(
                     icon: Iconsax.location,
@@ -154,7 +158,7 @@ class SettingsPage extends StatelessWidget {
                     subtitle: 'The image quality will be high',
                     trailing: Switch(value: false, onChanged: (value) {}),
                   ),
-    
+
                   const SizedBox(height: TSizes.spaceBtwSections),
                   // Logout Button
                   SizedBox(
