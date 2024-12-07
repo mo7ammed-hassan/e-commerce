@@ -41,8 +41,8 @@ class THomeAppBar extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: ShimmerWidget(
-                  height: 18,
-                  width: 8,
+                  height: 16,
+                  width: 80,
                   shapeBorder: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),

@@ -27,7 +27,7 @@ class ShimmerListTile extends StatelessWidget {
           height: 16,
           decoration: BoxDecoration(
             color: Colors.grey,
-            borderRadius: BorderRadius.circular(1),
+            borderRadius: BorderRadius.circular(5),
           ),
         ),
         subtitle: Container(
@@ -35,7 +35,7 @@ class ShimmerListTile extends StatelessWidget {
           height: 14,
           decoration: BoxDecoration(
             color: Colors.grey,
-            borderRadius: BorderRadius.circular(1),
+            borderRadius: BorderRadius.circular(5),
           ),
         ),
         trailing: IconButton(

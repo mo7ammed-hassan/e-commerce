@@ -15,12 +15,14 @@ class TCircularImage extends StatelessWidget {
     this.backgroundColor,
     this.fit = BoxFit.cover,
     this.isNetworkImage = false,
+    this.imageColor,
   });
 
   final String image;
   final double width, height, padding;
 
   final Color? backgroundColor;
+  final Color? imageColor;
   final BoxFit fit;
   final bool isNetworkImage;
 
@@ -42,6 +44,7 @@ class TCircularImage extends StatelessWidget {
               ? CachedNetworkImage(
                   imageUrl: image,
                   fit: fit,
+                  color: (isDark ? TColors.light : TColors.dark),
                   progressIndicatorBuilder: (context, url, progress) =>
                       const ShimmerWidget(
                     height: 75,
@@ -53,6 +56,7 @@ class TCircularImage extends StatelessWidget {
               : Image(
                   fit: fit,
                   image: AssetImage(image),
+                  color: imageColor,
                 ),
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/images/circular_image.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
+import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TVerticalImageText extends StatelessWidget {
   final String image, title;
@@ -21,7 +22,7 @@ class TVerticalImageText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -34,6 +35,7 @@ class TVerticalImageText extends StatelessWidget {
               isNetworkImage: isNetworkImage,
               backgroundColor: backgroundColor,
               padding: TSizes.sm * 1.4,
+              imageColor: (isDark ? TColors.light : TColors.dark),
             ),
             // Container(
             //   width: 56,

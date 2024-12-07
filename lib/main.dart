@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserCubit()..fetchUserData(),
+      create: (context) => UserCubit(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'T-Store',
