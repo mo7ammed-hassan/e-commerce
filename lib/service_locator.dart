@@ -26,9 +26,13 @@ import 'package:t_store/features/personalization/domain/use_cases/re_auth_user_a
 import 'package:t_store/features/personalization/domain/use_cases/update_user_filed_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_data_usecases/upload_categories_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_user_image_use_case.dart';
+import 'package:t_store/features/shop/features/home/data/repository/banner_repository_impl.dart';
 import 'package:t_store/features/shop/features/home/data/repository/category_repositoy_impl.dart';
+import 'package:t_store/features/shop/features/home/data/source/banner_firebase_services.dart';
 import 'package:t_store/features/shop/features/home/data/source/category_firebase_services.dart';
+import 'package:t_store/features/shop/features/home/domain/repository/banner_repository.dart';
 import 'package:t_store/features/shop/features/home/domain/repository/category_repositoy.dart';
+import 'package:t_store/features/shop/features/home/domain/use_cases/banner_use_case.dart';
 import 'package:t_store/features/shop/features/home/domain/use_cases/category_use_case.dart';
 
 final getIt = GetIt.instance;
@@ -50,6 +54,9 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<UploadDataFirebaseServices>(
     UploadDataFirebaseServicesImpl(),
   );
+  getIt.registerSingleton<BannerFirebaseServices>(
+    BannerFirebaseServicesImpl(),
+  );
 
   // ------Repositories------
   getIt.registerSingleton<OnboardingRepository>(
@@ -66,6 +73,9 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<UploadDataRepository>(
     UploadDataRepositoryImpl(),
+  );
+  getIt.registerSingleton<BannerRepository>(
+    BannerRepositoryImpl(),
   );
 
   // ------Usecases------
@@ -118,5 +128,8 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<UploadCategoriesUseCase>(
     UploadCategoriesUseCase(),
+  );
+  getIt.registerSingleton<BannerUseCase>(
+    BannerUseCase(),
   );
 }
