@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:t_store/features/shop/features/home/domain/entites/banner_entity.dart';
 
 class BannerModel {
   String imageUrl;
@@ -27,6 +28,16 @@ class BannerModel {
       imageUrl: data['ImageUrl'] ?? '',
       targetScreen: data['TargetScreen'] ?? '',
       active: data['Active'] ?? false,
+    );
+  }
+}
+
+extension BannerXModel on BannerModel {
+  BannerEntity toEntity() {
+    return BannerEntity(
+      imageUrl: imageUrl,
+      targetScreen: targetScreen,
+      active: active,
     );
   }
 }
