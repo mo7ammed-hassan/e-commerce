@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/image_text_widgets/vertical_iamge_text.dart';
 import 'package:t_store/common/widgets/shimmer/category_shimmer.dart';
-import 'package:t_store/features/shop/features/home/presentation/manger/cubits/home/category/category_cubit.dart';
+import 'package:t_store/features/shop/features/home/presentation/cubits/category/category_cubit.dart';
 import 'package:t_store/features/shop/features/sub_category/presentation/pages/sub_category_page.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/helpers/navigation.dart';
