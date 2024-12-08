@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/features/shop/features/home/presentation/widgets/popular_products_section.dart';
-import 'package:t_store/features/shop/features/home/presentation/widgets/promo_slider.dart';
+import 'package:t_store/features/shop/features/home/presentation/widgets/slider/promo_slider.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class HomeBodySection extends StatelessWidget {

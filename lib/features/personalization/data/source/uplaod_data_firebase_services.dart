@@ -29,7 +29,6 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
             );
       }
     } catch (e) {
-      print('Error uploading categories: $e');
       throw 'Something went wrong';
     }
   }
