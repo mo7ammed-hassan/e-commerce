@@ -1,3 +1,4 @@
+import 'package:t_store/features/shop/features/home/data/models/banner_model.dart';
 import 'package:t_store/features/shop/features/home/data/models/category_model.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 
@@ -72,8 +73,8 @@ class DummyData {
         parentId: '5',
         image: TImages.furnitureIcon,
         isFeatured: false),
-    
-   // electornics 
+
+    // electornics
     CategoryModel(
         id: '14',
         name: 'Mobiles',
@@ -87,12 +88,28 @@ class DummyData {
         image: TImages.electronicsIcon,
         isFeatured: false),
 
-        
-   CategoryModel(
+    CategoryModel(
         id: '16',
         name: 'Shirts',
         parentId: '3',
         image: TImages.electronicsIcon,
         isFeatured: false),
+  ];
+
+  static final List<BannerModel> banners = [
+    BannerModel(
+        imageUrl: TImages.banner1, targetScreen: '/order', active: false),
+    BannerModel(
+        imageUrl: TImages.banner2, targetScreen: '/cart', active: true),
+    BannerModel(
+        imageUrl: TImages.banner3, targetScreen: '/favorite', active: true),
+    BannerModel(
+        imageUrl: TImages.banner4, targetScreen: '/search', active: true),
+    BannerModel(
+        imageUrl: TImages.banner5, targetScreen: '/settings', active: true),
+    BannerModel(
+        imageUrl: TImages.banner6, targetScreen: '/userAddress', active: true),
+    BannerModel(
+        imageUrl: TImages.banner8, targetScreen: '/checout', active: false),
   ];
 }
