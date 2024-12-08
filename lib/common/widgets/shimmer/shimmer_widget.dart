@@ -6,12 +6,14 @@ class ShimmerWidget extends StatelessWidget {
   final double? width, height;
   final ShapeBorder shapeBorder;
   final EdgeInsets? padding;
+  final EdgeInsets? margin;
   const ShimmerWidget({
     super.key,
     this.width = double.infinity,
-    required this.height,
+    this.height,
     this.shapeBorder = const RoundedRectangleBorder(),
     this.padding,
+    this.margin,
   });
 
   @override
@@ -25,6 +27,7 @@ class ShimmerWidget extends StatelessWidget {
         padding: padding,
         width: width,
         height: height ?? 20,
+        margin: margin,
         decoration: ShapeDecoration(
           color: Colors.grey,
           shape: shapeBorder,

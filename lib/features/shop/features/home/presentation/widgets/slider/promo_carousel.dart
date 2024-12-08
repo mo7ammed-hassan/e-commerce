@@ -5,16 +5,19 @@ import 'package:t_store/common/widgets/images/rounded_image.dart';
 import 'package:t_store/features/shop/features/home/presentation/cubits/home/promo_slider/promo_slider_cubit.dart';
 
 class TPromoCarousel extends StatelessWidget {
-  final List<String> banners;
-  const TPromoCarousel({
-    super.key,
-    required this.banners,
-  });
-
+  const TPromoCarousel({super.key, required this.banners});
+   final List<String> banners;
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      items: banners.map((url) => TRoundedImage(imageUrl: url)).toList(),
+      items: banners
+          .map(
+            (banner) => TRoundedImage(
+              imageUrl: banner,
+              //isNetworkImage: true,
+            ),
+          )
+          .toList(),
       options: CarouselOptions(
         autoPlay: true,
         autoPlayCurve: Curves.fastOutSlowIn,
