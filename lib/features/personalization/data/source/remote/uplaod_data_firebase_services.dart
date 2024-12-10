@@ -27,7 +27,7 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
             );
       }
     } catch (e) {
-      throw 'Something went wrong';
+      throw 'Something went wrong $e';
     }
   }
 }

@@ -98,18 +98,19 @@ class DummyData {
 
   static final List<BannerModel> banners = [
     BannerModel(
-        imageUrl: TImages.banner1, targetScreen: '/order', active: false),
+        id: '1', image: TImages.banner1, targetScreen: '/order', active: false),
     BannerModel(
-        imageUrl: TImages.banner2, targetScreen: '/cart', active: true),
+        id: '2', image: TImages.banner2, targetScreen: '/cart', active: false),
     BannerModel(
-        imageUrl: TImages.banner3, targetScreen: '/favorite', active: true),
+        image: TImages.banner3, targetScreen: '/favorite', active: true),
+    BannerModel(image: TImages.banner4, targetScreen: '/search', active: true),
     BannerModel(
-        imageUrl: TImages.banner4, targetScreen: '/search', active: true),
+        image: TImages.banner5, targetScreen: '/settings', active: true),
     BannerModel(
-        imageUrl: TImages.banner5, targetScreen: '/settings', active: true),
+        image: TImages.banner6, targetScreen: '/userAddress', active: true),
     BannerModel(
-        imageUrl: TImages.banner6, targetScreen: '/userAddress', active: true),
-    BannerModel(
-        imageUrl: TImages.banner8, targetScreen: '/checout', active: false),
+        image: TImages.banner8, targetScreen: '/checout', active: false),
   ];
+
+  //static final List<ProductModel> products = [];
 }
