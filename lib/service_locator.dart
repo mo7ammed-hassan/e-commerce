@@ -126,8 +126,8 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<CategoryUseCase>(
     CategoryUseCase(),
   );
-  getIt.registerSingleton<UploadCategoriesUseCase>(
-    UploadCategoriesUseCase(),
+  getIt.registerSingleton<UploadDummyDataUseCase>(
+    UploadDummyDataUseCase(),
   );
   getIt.registerSingleton<BannerUseCase>(
     BannerUseCase(),

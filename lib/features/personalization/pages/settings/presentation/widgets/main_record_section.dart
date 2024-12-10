@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:t_store/common/models/dummy_data.dart';
 import 'package:t_store/features/personalization/pages/settings/presentation/cubits/cubit/upload_data_cubit.dart';
 import 'package:t_store/features/personalization/pages/settings/presentation/widgets/upload_data_card.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
@@ -15,7 +16,7 @@ class MainRecordSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<UploadDataCubit, UploadDataState>(
       listener: (context, state) {
-        if (state is UploadDataUploading) {
+        if (state is UploadDataloading) {
           TFullScreenLoader.openLoadingDialog(
             'We are uploading ${state.message} data...',
             TImages.docerAnimation,
@@ -39,7 +40,8 @@ class MainRecordSection extends StatelessWidget {
       child: Column(
         children: [
           UploadDataCard(
-            onTap: () => context.read<UploadDataCubit>().uploadCategoryData(),
+            onTap: () => context.read<UploadDataCubit>().uploadDummyData(
+                data: DummyData.categories, collection: 'Categories'),
             leadingIcon: Iconsax.menu,
             title: 'Upload Categories',
           ),
@@ -51,7 +53,9 @@ class MainRecordSection extends StatelessWidget {
             leadingIcon: Iconsax.shopping_cart,
             title: 'Upload Products',
           ),
-          const UploadDataCard(
+          UploadDataCard(
+            onTap: () => context.read<UploadDataCubit>().uploadDummyData(
+                data: DummyData.banners, collection: 'Banners'),
             leadingIcon: Iconsax.image,
             title: 'Upload Banners',
           ),

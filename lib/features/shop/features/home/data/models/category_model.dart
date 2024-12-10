@@ -24,7 +24,7 @@ class CategoryModel {
   Map<String, dynamic> toJson() {
     return {
       'Name': name,
-      'Image': image,
+      'ImageUrl': image,
       'ParentId': parentId,
       'IsFeatured': isFeatured,
     };
@@ -39,7 +39,7 @@ class CategoryModel {
       return CategoryModel(
         id: document.id,
         name: data['Name'] ?? '',
-        image: data['Image'] ?? '',
+        image: data['ImageUrl'] ?? '',
         parentId: data['ParentId'] ?? '',
         isFeatured: data['IsFeatured'] ?? false,
       );

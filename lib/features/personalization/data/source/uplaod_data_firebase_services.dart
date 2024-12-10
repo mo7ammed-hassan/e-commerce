@@ -1,35 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:t_store/features/personalization/data/source/firebase_storage_services.dart';
-import 'package:t_store/features/shop/features/home/data/models/category_model.dart';
 import 'package:t_store/service_locator.dart';
 
 abstract class UploadDataFirebaseServices {
-  // upload categories
-  Future<void> uploadCategoriesDummyData(List<CategoryModel> categories);
+ 
+  Future<void> uploadDummyData(List<dynamic> data,String collection);
+ 
 }
 
 class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
   @override
-  Future<void> uploadCategoriesDummyData(List<CategoryModel> categories) async {
+  Future<void> uploadDummyData(List<dynamic> data,String collection) async {
     try {
-      for (var category in categories) {
+      for (var item in data) {
         final file = await getIt<FirebaseStorageServices>()
-            .getImageDataFromAssets(category.image);
+            .getImageDataFromAssets(item.image);
 
         final url = await getIt<FirebaseStorageServices>()
-            .uploadImageData('Categories', file, category.name);
+            .uploadImageData(collection, file, item.name);
 
-        category.image = url;
+        item.image = url;
 
         await FirebaseFirestore.instance
-            .collection('Categories')
-            .doc(category.id)
+            .collection(collection)
+            .doc(item.id)
             .set(
-              category.toJson(),
+              item.toJson(),
             );
       }
     } catch (e) {
       throw 'Something went wrong';
     }
   }
+  
+ 
 }

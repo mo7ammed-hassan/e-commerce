@@ -17,7 +17,7 @@ void main() async {
       WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-// Initialize Firebase App with custom options
+  // Initialize Firebase App with custom options
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

@@ -4,10 +4,10 @@ sealed class UploadDataState {}
 
 final class UploadDataInitial extends UploadDataState {}
 
-final class UploadDataUploading extends UploadDataState {
+final class UploadDataloading extends UploadDataState {
    final String message;
 
-  UploadDataUploading(this.message);
+  UploadDataloading(this.message);
 }
 
 final class UploadDataSuccess extends UploadDataState {
