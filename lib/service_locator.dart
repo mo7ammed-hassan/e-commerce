@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:t_store/common/services/local_storage_services.dart';
 import 'package:t_store/features/authentication/data/repository/authentication_repository_impl.dart';
 import 'package:t_store/features/authentication/data/repository/onboarding_repository_impl.dart';
 import 'package:t_store/features/authentication/data/source/authentication_source/authentication_firebase_services.dart';
@@ -14,9 +15,9 @@ import 'package:t_store/features/authentication/domain/use_cases/signin_with_goo
 import 'package:t_store/features/authentication/domain/use_cases/signup_usecase.dart';
 import 'package:t_store/features/personalization/data/repository/upload_data_repository_impl.dart';
 import 'package:t_store/features/personalization/data/repository/user_repository_impl.dart';
-import 'package:t_store/features/personalization/data/source/firebase_storage_services.dart';
-import 'package:t_store/features/personalization/data/source/uplaod_data_firebase_services.dart';
-import 'package:t_store/features/personalization/data/source/user_firebase_services.dart';
+import 'package:t_store/features/personalization/data/source/remote/firebase_storage_services.dart';
+import 'package:t_store/features/personalization/data/source/remote/uplaod_data_firebase_services.dart';
+import 'package:t_store/features/personalization/data/source/remote/user_firebase_services.dart';
 import 'package:t_store/features/personalization/domain/repository/upload_data_repository.dart';
 import 'package:t_store/features/personalization/domain/repository/user_repository.dart';
 import 'package:t_store/features/personalization/domain/use_cases/delete_account_use_case.dart';
@@ -28,8 +29,8 @@ import 'package:t_store/features/personalization/domain/use_cases/upload_data_us
 import 'package:t_store/features/personalization/domain/use_cases/upload_user_image_use_case.dart';
 import 'package:t_store/features/shop/features/home/data/repository/banner_repository_impl.dart';
 import 'package:t_store/features/shop/features/home/data/repository/category_repositoy_impl.dart';
-import 'package:t_store/features/shop/features/home/data/source/banner_firebase_services.dart';
-import 'package:t_store/features/shop/features/home/data/source/category_firebase_services.dart';
+import 'package:t_store/features/shop/features/home/data/source/remote/banner_firebase_services.dart';
+import 'package:t_store/features/shop/features/home/data/source/remote/category_firebase_services.dart';
 import 'package:t_store/features/shop/features/home/domain/repository/banner_repository.dart';
 import 'package:t_store/features/shop/features/home/domain/repository/category_repositoy.dart';
 import 'package:t_store/features/shop/features/home/domain/use_cases/banner_use_case.dart';
@@ -39,6 +40,7 @@ final getIt = GetIt.instance;
 
 Future<void> initializeDependencies() async {
   // ------Services------
+  // --Remote
   getIt.registerSingleton<AuthenticationFirebaseServices>(
     AuthenticationFirebaseServicesImpl(),
   );
@@ -56,6 +58,10 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<BannerFirebaseServices>(
     BannerFirebaseServicesImpl(),
+  );
+  // --Local
+  getIt.registerSingleton<LocalStorageServices>(
+    LocalStorageServicesImpl(),
   );
 
   // ------Repositories------

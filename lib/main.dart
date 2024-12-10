@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:t_store/app_entry_point.dart';
 import 'package:t_store/common/cubits/launch_app/launch_app_cubit.dart';
 import 'package:t_store/features/personalization/cubit/user_cubit.dart';
+import 'package:t_store/features/shop/features/home/domain/entites/category_entity.dart';
 import 'package:t_store/firebase_options.dart';
 import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/theme/theme.dart';
@@ -15,6 +17,13 @@ void main() async {
   // Preserve the native splash screen.
   final WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
+
+  // Initializes Hive
+  await Hive.initFlutter();
+
+  // Register Adapters
+  Hive.registerAdapter(CategoryEntityAdapter());
+
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Initialize Firebase App with custom options

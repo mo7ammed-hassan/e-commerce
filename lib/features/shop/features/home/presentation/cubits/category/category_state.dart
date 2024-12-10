@@ -1,25 +1,25 @@
-part of 'category_cubit.dart';
+import 'package:t_store/features/shop/features/home/domain/entites/category_entity.dart';
 
-sealed class CategoryState {
+abstract class CategoryState {
   const CategoryState();
 }
 
-final class CategoryInitial extends CategoryState {
+class CategoryInitial extends CategoryState {
   const CategoryInitial();
 }
 
-final class CategoryLoadingState extends CategoryState {
+class CategoryLoadingState extends CategoryState {
   const CategoryLoadingState();
 }
 
-final class CategoryLoadedState extends CategoryState {
+class CategoryLoadedState extends CategoryState {
   final List<CategoryEntity> allCategories;
   final List<CategoryEntity> featuredCategories;
 
   const CategoryLoadedState(this.allCategories, this.featuredCategories);
 }
 
-final class CategoryFailureState extends CategoryState {
+class CategoryFailureState extends CategoryState {
   final String errorMessage;
 
   const CategoryFailureState(this.errorMessage);

@@ -1,4 +1,4 @@
-import 'package:t_store/features/personalization/data/source/uplaod_data_firebase_services.dart';
+import 'package:t_store/features/personalization/data/source/remote/uplaod_data_firebase_services.dart';
 import 'package:t_store/features/personalization/domain/repository/upload_data_repository.dart';
 import 'package:t_store/service_locator.dart';
 
