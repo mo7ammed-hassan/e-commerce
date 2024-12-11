@@ -1,9 +1,9 @@
 import 'package:t_store/features/shop/features/all_brands/data/brand_model.dart';
 import 'package:t_store/features/shop/features/home/data/models/banner_model.dart';
 import 'package:t_store/features/shop/features/home/data/models/category_model.dart';
-import 'package:t_store/features/shop/features/home/data/models/product_attribute_model.dart';
-import 'package:t_store/features/shop/features/home/data/models/product_model.dart';
-import 'package:t_store/features/shop/features/home/data/models/product_variation_model.dart';
+import 'package:t_store/features/shop/features/all_products/data/models/product_attribute_model.dart';
+import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
+import 'package:t_store/features/shop/features/all_products/data/models/product_variation_model.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 
 class DummyData {

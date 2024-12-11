@@ -1,5 +1,5 @@
 import 'package:t_store/features/personalization/domain/repository/upload_data_repository.dart';
-import 'package:t_store/features/shop/features/home/data/models/product_model.dart';
+import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
 import 'package:t_store/service_locator.dart';
 
 class UploadProductUseCase {

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:t_store/features/personalization/data/source/remote/firebase_storage_services.dart';
-import 'package:t_store/features/shop/features/home/data/models/product_model.dart';
+import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
 import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/enums.dart';
 
