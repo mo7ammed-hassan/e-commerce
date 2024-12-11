@@ -1,21 +1,21 @@
 
 class ProductVariationModel {
   final String id;
-  String sku;
+  String? sku;
   String image;
   String? description;
   double price;
-  double salePrice;
+  double? salePrice;
   int stock;
   Map<String, String> attributeValues;
 
   ProductVariationModel({
     required this.id,
-    required this.sku,
+     this.sku,
     required this.image,
     this.description,
     required this.price,
-    required this.salePrice,
+     this.salePrice,
     required this.stock,
     required this.attributeValues,
   });

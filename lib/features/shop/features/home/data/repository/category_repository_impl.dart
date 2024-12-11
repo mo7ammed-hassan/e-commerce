@@ -5,7 +5,7 @@ import 'package:t_store/features/shop/features/home/domain/entites/category_enti
 import 'package:t_store/features/shop/features/home/domain/repository/category_repositoy.dart';
 import 'package:t_store/service_locator.dart';
 
-class CategoryRepositoyImpl extends CategoryRepositoy {
+class CategoryRepositoyImpl extends CategoryRepository {
   @override
   Future<Either<String, List<CategoryEntity>>> getAllCategories() async {
     var returnedData =

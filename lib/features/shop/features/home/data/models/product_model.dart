@@ -73,8 +73,20 @@ class ProductModel {
       'categoryId': categoryId,
       'images': images,
       'productType': productType,
-      'productAttributes': productAttributes,
-      'productVariations': productVariations,
+      'productAttributes': productAttributes != null
+          ? productAttributes!
+              .map(
+                (e) => e.toJson(),
+              )
+              .toList()
+          : [],
+      'productVariations': productVariations != null
+          ? productVariations!
+              .map(
+                (e) => e.toJson(),
+              )
+              .toList()
+          : [],
     };
   }
 

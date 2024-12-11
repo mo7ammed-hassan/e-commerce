@@ -49,7 +49,9 @@ class MainRecordSection extends StatelessWidget {
             leadingIcon: Iconsax.shop,
             title: 'Upload Brands',
           ),
-          const UploadDataCard(
+          UploadDataCard(
+            onTap: () => context.read<UploadDataCubit>().uploadProductDummyData(
+                data: DummyData.products, collection: 'Products'),
             leadingIcon: Iconsax.shopping_cart,
             title: 'Upload Products',
           ),

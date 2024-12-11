@@ -26,9 +26,10 @@ import 'package:t_store/features/personalization/domain/use_cases/fetch_user_dat
 import 'package:t_store/features/personalization/domain/use_cases/re_auth_user_account_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/update_user_filed_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_data_usecases/upload_categories_use_case.dart';
+import 'package:t_store/features/personalization/domain/use_cases/upload_data_usecases/upload_product_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_user_image_use_case.dart';
 import 'package:t_store/features/shop/features/home/data/repository/banner_repository_impl.dart';
-import 'package:t_store/features/shop/features/home/data/repository/category_repositoy_impl.dart';
+import 'package:t_store/features/shop/features/home/data/repository/category_repository_impl.dart';
 import 'package:t_store/features/shop/features/home/data/source/remote/banner_firebase_services.dart';
 import 'package:t_store/features/shop/features/home/data/source/remote/category_firebase_services.dart';
 import 'package:t_store/features/shop/features/home/domain/repository/banner_repository.dart';
@@ -74,7 +75,7 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<UserRepository>(
     UserRepositoryImpl(),
   );
-  getIt.registerSingleton<CategoryRepositoy>(
+  getIt.registerSingleton<CategoryRepository>(
     CategoryRepositoyImpl(),
   );
   getIt.registerSingleton<UploadDataRepository>(
@@ -134,6 +135,9 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<UploadDummyDataUseCase>(
     UploadDummyDataUseCase(),
+  );
+  getIt.registerSingleton<UploadProductUseCase>(
+    UploadProductUseCase(),
   );
   getIt.registerSingleton<BannerUseCase>(
     BannerUseCase(),

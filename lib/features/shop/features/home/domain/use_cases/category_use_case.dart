@@ -8,6 +8,6 @@ class CategoryUseCase
     extends UseCases<Either<String, List<CategoryEntity>>, dynamic> {
   @override
   Future<Either<String, List<CategoryEntity>>> call({params}) async {
-    return await getIt<CategoryRepositoy>().getAllCategories();
+    return await getIt<CategoryRepository>().getAllCategories();
   }
 }

@@ -24,21 +24,30 @@ class THomeCategories extends StatelessWidget {
           if (state is CategoryLoadedState) {
             return SizedBox(
               height: 85,
-              child: ListView.builder(
-                itemCount: state.featuredCategories.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (_, index) {
-                  final category = state.featuredCategories[index];
-                   
-                  return TVerticalImageText(
-                    isNetworkImage: false,
-                    image: category.image,
-                    title: category.name,
-                    onTap: () {
-                      context.pushPage(const SubCategoryPage());
-                    },
-                  );
+              child: NotificationListener<ScrollNotification>(
+                onNotification: (scrollNotification) {
+                  if (scrollNotification.metrics.pixels ==
+                      scrollNotification.metrics.maxScrollExtent) {
+                    context.read<CategoryCubit>().getAllCategories();
+                  }
+                  return true;
                 },
+                child: ListView.builder(
+                  itemCount: state.featuredCategories.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (_, index) {
+                    final category = state.featuredCategories[index];
+
+                    return TVerticalImageText(
+                      isNetworkImage: false,
+                      image: category.image,
+                      title: category.name,
+                      onTap: () {
+                        context.pushPage(const SubCategoryPage());
+                      },
+                    );
+                  },
+                ),
               ),
             );
           } else {

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/features/shop/features/home/domain/entites/category_entity.dart';
 import 'package:t_store/features/shop/features/home/domain/use_cases/category_use_case.dart';
@@ -36,10 +35,6 @@ class CategoryCubit extends Cubit<CategoryState> {
               )
               .toList(),
         );
-        if (kDebugMode) {
-          print(
-              '=====================done Fetch Categories======================');
-        }
 
         emit(CategoryLoadedState(allCategories, featuredCategories));
       },

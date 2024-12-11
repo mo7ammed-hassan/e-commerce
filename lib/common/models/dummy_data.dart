@@ -1,5 +1,9 @@
+import 'package:t_store/features/shop/features/all_brands/data/brand_model.dart';
 import 'package:t_store/features/shop/features/home/data/models/banner_model.dart';
 import 'package:t_store/features/shop/features/home/data/models/category_model.dart';
+import 'package:t_store/features/shop/features/home/data/models/product_attribute_model.dart';
+import 'package:t_store/features/shop/features/home/data/models/product_model.dart';
+import 'package:t_store/features/shop/features/home/data/models/product_variation_model.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 
 class DummyData {
@@ -112,5 +116,372 @@ class DummyData {
         image: TImages.banner8, targetScreen: '/checout', active: false),
   ];
 
-  //static final List<ProductModel> products = [];
+  static final List<ProductModel> products = [
+    ProductModel(
+      id: '001',
+      price: 135,
+      title: 'Green Nike sports shoe',
+      sku: 'ABR4568',
+      salePrice: 30,
+      description: 'This is a Product description for Green Nike sport shoe',
+      categoryId: '1',
+      productType: 'ProductVariable.value',
+      images: [
+        TImages.productImage60,
+        TImages.productImage62,
+        TImages.productImage63
+      ],
+      thumbnail: TImages.productImage1,
+      isFeatured: true,
+      brand: BrandModel(
+        id: '6',
+        name: 'Nike',
+        image: TImages.nikeLogo,
+        isFeatured: true,
+        productCount: 2,
+      ),
+      productAttributes: [
+        ProductAttributeModel(
+          name: 'Color',
+          values: ['Green', 'Black', 'Red'],
+        ),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 30', 'EU 32', 'EU 34'],
+        ),
+      ],
+      productVariations: [
+        ProductVariationModel(
+            id: '1',
+            image: TImages.productImage1,
+            price: 134,
+            salePrice: 122.6,
+            stock: 34,
+            attributeValues: {'Color': 'Green', 'Size': 'EU 34'},
+            description:
+                'This is a Product description for Green Nike sport shoe'),
+        ProductVariationModel(
+          id: '2',
+          image: TImages.productImage23,
+          price: 132,
+          stock: 15,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+          description:
+              'This is a Product description for Green Nike sport shoe',
+        ),
+        ProductVariationModel(
+          id: '3',
+          image: TImages.productImage23,
+          price: 234,
+          stock: 0,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+        ),
+      ],
+    ),
+    ProductModel(
+      id: '002',
+      price: 135,
+      title: 'Green Nike sports shoe',
+      sku: 'ABR4568',
+      salePrice: 30,
+      productType: 'ProductVariable.value',
+      description: 'This is a Product description for Green Nike sport shoe',
+      categoryId: '1',
+      images: [
+        TImages.productImage60,
+        TImages.productImage62,
+        TImages.productImage63
+      ],
+      thumbnail: TImages.productImage1,
+      isFeatured: true,
+      brand: BrandModel(
+        id: '6',
+        name: 'Nike',
+        image: TImages.nikeLogo,
+        isFeatured: true,
+        productCount: 2,
+      ),
+      productAttributes: [
+        ProductAttributeModel(
+          name: 'Color',
+          values: ['Green', 'Black', 'Red'],
+        ),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 30', 'EU 32', 'EU 34'],
+        ),
+      ],
+      productVariations: [
+        ProductVariationModel(
+            id: '1',
+            image: TImages.productImage1,
+            price: 134,
+            salePrice: 122.6,
+            stock: 34,
+            attributeValues: {'Color': 'Green', 'Size': 'EU 34'},
+            description:
+                'This is a Product description for Green Nike sport shoe'),
+        ProductVariationModel(
+          id: '2',
+          image: TImages.productImage23,
+          price: 132,
+          stock: 15,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+          description:
+              'This is a Product description for Green Nike sport shoe',
+        ),
+        ProductVariationModel(
+          id: '3',
+          image: TImages.productImage23,
+          price: 234,
+          stock: 0,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+        ),
+      ],
+    ),
+    ProductModel(
+      id: '003',
+      price: 135,
+      productType: 'ProductVariable.value',
+      title: 'Green Nike sports shoe',
+      sku: 'ABR4568',
+      salePrice: 30,
+      description: 'This is a Product description for Green Nike sport shoe',
+      categoryId: '1',
+      images: [
+        TImages.productImage60,
+        TImages.productImage62,
+        TImages.productImage63
+      ],
+      thumbnail: TImages.productImage1,
+      isFeatured: true,
+      brand: BrandModel(
+        id: '6',
+        name: 'Nike',
+        image: TImages.nikeLogo,
+        isFeatured: true,
+        productCount: 2,
+      ),
+      productAttributes: [
+        ProductAttributeModel(
+          name: 'Color',
+          values: ['Green', 'Black', 'Red'],
+        ),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 30', 'EU 32', 'EU 34'],
+        ),
+      ],
+      productVariations: [
+        ProductVariationModel(
+            id: '1',
+            image: TImages.productImage1,
+            price: 134,
+            salePrice: 122.6,
+            stock: 34,
+            attributeValues: {'Color': 'Green', 'Size': 'EU 34'},
+            description:
+                'This is a Product description for Green Nike sport shoe'),
+        ProductVariationModel(
+          id: '2',
+          image: TImages.productImage23,
+          price: 132,
+          stock: 15,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+          description:
+              'This is a Product description for Green Nike sport shoe',
+        ),
+        ProductVariationModel(
+          id: '3',
+          image: TImages.productImage23,
+          price: 234,
+          stock: 0,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+        ),
+      ],
+    ),
+    ProductModel(
+      id: '004',
+      price: 135,
+      title: 'Green Nike sports shoe',
+      sku: 'ABR4568',
+      productType: 'ProductVariable.value',
+      salePrice: 30,
+      description: 'This is a Product description for Green Nike sport shoe',
+      categoryId: '1',
+      images: [
+        TImages.productImage60,
+        TImages.productImage62,
+        TImages.productImage63
+      ],
+      thumbnail: TImages.productImage1,
+      isFeatured: true,
+      brand: BrandModel(
+        id: '6',
+        name: 'Nike',
+        image: TImages.nikeLogo,
+        isFeatured: true,
+        productCount: 2,
+      ),
+      productAttributes: [
+        ProductAttributeModel(
+          name: 'Color',
+          values: ['Green', 'Black', 'Red'],
+        ),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 30', 'EU 32', 'EU 34'],
+        ),
+      ],
+      productVariations: [
+        ProductVariationModel(
+            id: '1',
+            image: TImages.productImage1,
+            price: 134,
+            salePrice: 122.6,
+            stock: 34,
+            attributeValues: {'Color': 'Green', 'Size': 'EU 34'},
+            description:
+                'This is a Product description for Green Nike sport shoe'),
+        ProductVariationModel(
+          id: '2',
+          image: TImages.productImage23,
+          price: 132,
+          stock: 15,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+          description:
+              'This is a Product description for Green Nike sport shoe',
+        ),
+        ProductVariationModel(
+          id: '3',
+          image: TImages.productImage23,
+          price: 234,
+          stock: 0,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+        ),
+      ],
+    ),
+    ProductModel(
+      id: '005',
+      price: 135,
+      title: 'Green Nike sports shoe',
+      productType: 'ProductVariable.value',
+      sku: 'ABR4568',
+      salePrice: 30,
+      description: 'This is a Product description for Green Nike sport shoe',
+      categoryId: '1',
+      images: [
+        TImages.productImage60,
+        TImages.productImage62,
+        TImages.productImage63
+      ],
+      thumbnail: TImages.productImage1,
+      isFeatured: true,
+      brand: BrandModel(
+        id: '6',
+        name: 'Nike',
+        image: TImages.nikeLogo,
+        isFeatured: true,
+        productCount: 2,
+      ),
+      productAttributes: [
+        ProductAttributeModel(
+          name: 'Color',
+          values: ['Green', 'Black', 'Red'],
+        ),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 30', 'EU 32', 'EU 34'],
+        ),
+      ],
+      productVariations: [
+        ProductVariationModel(
+            id: '1',
+            image: TImages.productImage1,
+            price: 134,
+            salePrice: 122.6,
+            stock: 34,
+            attributeValues: {'Color': 'Green', 'Size': 'EU 34'},
+            description:
+                'This is a Product description for Green Nike sport shoe'),
+        ProductVariationModel(
+          id: '2',
+          image: TImages.productImage23,
+          price: 132,
+          stock: 15,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+          description:
+              'This is a Product description for Green Nike sport shoe',
+        ),
+        ProductVariationModel(
+          id: '3',
+          image: TImages.productImage23,
+          price: 234,
+          stock: 0,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+        ),
+      ],
+    ),
+    ProductModel(
+      id: '006',
+      price: 135,
+      title: 'Green Nike sports shoe',
+      sku: 'ABR4568',
+      salePrice: 30,
+      description: 'This is a Product description for Green Nike sport shoe',
+      productType: 'ProductVariable.value',
+      categoryId: '1',
+      images: [
+        TImages.productImage60,
+        TImages.productImage62,
+        TImages.productImage63
+      ],
+      thumbnail: TImages.productImage1,
+      isFeatured: true,
+      brand: BrandModel(
+        id: '6',
+        name: 'Nike',
+        image: TImages.nikeLogo,
+        isFeatured: true,
+        productCount: 2,
+      ),
+      productAttributes: [
+        ProductAttributeModel(
+          name: 'Color',
+          values: ['Green', 'Black', 'Red'],
+        ),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 30', 'EU 32', 'EU 34'],
+        ),
+      ],
+      productVariations: [
+        ProductVariationModel(
+            id: '1',
+            image: TImages.productImage1,
+            price: 134,
+            salePrice: 122.6,
+            stock: 34,
+            attributeValues: {'Color': 'Green', 'Size': 'EU 34'},
+            description:
+                'This is a Product description for Green Nike sport shoe'),
+        ProductVariationModel(
+          id: '2',
+          image: TImages.productImage23,
+          price: 132,
+          stock: 15,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+          description:
+              'This is a Product description for Green Nike sport shoe',
+        ),
+        ProductVariationModel(
+          id: '3',
+          image: TImages.productImage23,
+          price: 234,
+          stock: 0,
+          attributeValues: {'Color': 'Black', 'Size': 'EU 32'},
+        ),
+      ],
+    ),
+  ];
 }
