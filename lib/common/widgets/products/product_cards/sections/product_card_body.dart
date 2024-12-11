@@ -6,21 +6,23 @@ import 'package:t_store/utils/constants/sizes.dart';
 class TProductCardBody extends StatelessWidget {
   const TProductCardBody({
     super.key,
+    this.title,
+    this.brandTitle,
   });
-
+  final String? title, brandTitle;
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(left: TSizes.sm),
+    return Padding(
+      padding: const EdgeInsets.only(left: TSizes.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TProductTitleText(
-            title: 'Green Nike Air Shose',
+            title: title ?? 'Green Nike Air Shose',
             smallSize: true,
           ),
-          SizedBox(height: TSizes.spaceBtwItems / 2),
-          TBrandTitleWithVerifiedIcon(title: 'Nike'),
+          const SizedBox(height: TSizes.spaceBtwItems / 2),
+          TBrandTitleWithVerifiedIcon(title: brandTitle ?? 'Nike'),
         ],
       ),
     );

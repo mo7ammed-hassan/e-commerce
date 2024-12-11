@@ -6,18 +6,19 @@ import 'package:t_store/utils/constants/sizes.dart';
 class TProductCartFooter extends StatelessWidget {
   const TProductCartFooter({
     super.key,
+    this.price,
   });
-
+  final double? price;
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: TSizes.sm),
-          child: TProductPriceText(price: '35.0', isLarge: true),
+          padding: const EdgeInsets.only(left: TSizes.sm),
+          child: TProductPriceText(price: price.toString(), isLarge: true),
         ),
-        TAddIcon(),
+        const TAddIcon(),
       ],
     );
   }

@@ -9,6 +9,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   ProductsCubit() : super(ProductsInitialState());
 
   final List<ProductEntity> allProducts = [];
+  final List<ProductEntity> feturedProducts = [];
 
   void fetchAllProducts() async {
     emit(AllProductsLoadingState());
@@ -37,8 +38,8 @@ class ProductsCubit extends Cubit<ProductsState> {
         emit(FeaturedProductsFailureState(error));
       },
       (products) {
-        allProducts.clear();
-        allProducts.addAll(products);
+        feturedProducts.clear();
+        feturedProducts.addAll(products);
         emit(FeaturedProductsLoadedState(products));
       },
     );

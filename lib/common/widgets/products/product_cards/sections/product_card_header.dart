@@ -10,10 +10,8 @@ import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TProductCardHeader extends StatelessWidget {
-  const TProductCardHeader({
-    super.key,
-  });
-
+  const TProductCardHeader({super.key, this.thumbnail});
+  final String? thumbnail;
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);

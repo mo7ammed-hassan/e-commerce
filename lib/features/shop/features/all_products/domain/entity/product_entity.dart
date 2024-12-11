@@ -5,7 +5,7 @@ import 'package:t_store/features/shop/features/all_products/domain/entity/produc
 class ProductEntity {
   String id;
   int? stock;
-  double price;
+  num price;
   String title;
   String sku;
   DateTime? date;

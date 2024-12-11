@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/features/shop/features/home/domain/entites/banner_entity.dart';
 import 'package:t_store/features/shop/features/home/domain/use_cases/banner_use_case.dart';
@@ -26,10 +25,6 @@ class BannerCubit extends Cubit<BannerState> {
       (categories) {
         allBanners.clear();
         allBanners.addAll(categories);
-        if (kDebugMode) {
-          print(
-              '=====================done Fetch Banners======================');
-        }
         emit(BannerLoadedState(allBanners));
       },
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:t_store/common/widgets/shimmer/shimmer_slider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import 'package:t_store/features/shop/features/home/data/models/banner_model.dart';
 import 'package:t_store/features/shop/features/home/domain/entites/banner_entity.dart';
 import 'package:t_store/features/shop/features/home/presentation/cubits/banner/banner_cubit.dart';
 import 'package:t_store/features/shop/features/home/presentation/cubits/home/promo_slider/promo_slider_cubit.dart';
@@ -34,7 +35,21 @@ class TPromoSlider extends StatelessWidget {
               ],
             );
           }
-          return const ShimmerSlider();
+          // return const ShimmerSlider();
+          return Skeletonizer(
+            child: Column(
+              children: [
+                TPromoCarousel(
+                  isLoading: true,
+                  banners: [
+                    BannerModel.empty().toEntity(),
+                  ],
+                ),
+                const SizedBox(height: TSizes.spaceBtwItems),
+                const TPromoSliderIndicators(length: 1),
+              ],
+            ),
+          );
         },
       ),
     );

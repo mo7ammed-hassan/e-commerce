@@ -7,7 +7,7 @@ import 'package:t_store/features/shop/features/all_products/domain/entity/produc
 class ProductModel {
   String id;
   int? stock;
-  double price;
+  num price;
   String title;
   String sku;
   DateTime? date;
@@ -41,23 +41,26 @@ class ProductModel {
     this.productVariations,
   });
 
-  ProductModel.empty()
-      : id = '',
-        stock = null,
-        price = 0.0,
-        title = '',
-        sku = '',
-        date = null,
-        salePrice = 0.0,
-        thumbnail = '',
-        isFeatured = false,
-        brand = null,
-        description = null,
-        categoryId = null,
-        images = null,
-        productType = '',
-        productAttributes = null,
-        productVariations = null;
+  static ProductModel empty() {
+    return ProductModel(
+      id: '',
+      stock: null,
+      price: 0.0,
+      title: '',
+      sku: '',
+      date: null,
+      salePrice: 0.0,
+      thumbnail: '',
+      isFeatured: false,
+      brand: BrandModel.empty(),
+      description: '',
+      categoryId: '',
+      images: [],
+      productType: '',
+      productAttributes: [],
+      productVariations: [],
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{

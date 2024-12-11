@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/products/cart/cart_menu_icon.dart';
-import 'package:t_store/common/widgets/shimmer/shimmer_widget.dart';
 import 'package:t_store/features/personalization/cubit/user_cubit.dart';
 import 'package:t_store/features/personalization/cubit/user_state.dart';
 import 'package:t_store/features/shop/features/cart/presentation/pages/cart_page.dart';
@@ -56,21 +56,33 @@ class THomeAppBar extends StatelessWidget {
                 .apply(color: TColors.grey, fontSizeFactor: 1.1),
           );
         }
-        return _buildShimmer();
+        return _loadingWidget(context);
       },
     );
   }
 
-  Widget _buildShimmer() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 4),
-      child: ShimmerWidget(
-        height: 16,
-        width: 80,
-        shapeBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+  Skeletonizer _loadingWidget(BuildContext context) {
+    return Skeletonizer(
+      child: Text(
+        "",
+        style: Theme.of(context)
+            .textTheme
+            .headlineSmall!
+            .apply(color: TColors.grey, fontSizeFactor: 1.1),
       ),
     );
   }
+
+  // Widget _buildShimmer() {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(top: 4),
+  //     child: ShimmerWidget(
+  //       height: 16,
+  //       width: 80,
+  //       shapeBorder: RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.circular(10),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

@@ -6,8 +6,10 @@ import 'package:t_store/features/shop/features/home/domain/entites/banner_entity
 import 'package:t_store/features/shop/features/home/presentation/cubits/home/promo_slider/promo_slider_cubit.dart';
 
 class TPromoCarousel extends StatelessWidget {
-  const TPromoCarousel({super.key, required this.banners});
-   final List<BannerEntity> banners;
+  const TPromoCarousel(
+      {super.key, required this.banners, this.isLoading = false});
+  final List<BannerEntity> banners;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
@@ -20,7 +22,7 @@ class TPromoCarousel extends StatelessWidget {
           )
           .toList(),
       options: CarouselOptions(
-        autoPlay: true,
+        autoPlay: isLoading ? false : true,
         autoPlayCurve: Curves.fastOutSlowIn,
         viewportFraction: 1,
         onPageChanged: (index, _) =>

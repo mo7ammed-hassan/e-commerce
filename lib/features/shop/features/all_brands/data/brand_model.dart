@@ -15,6 +15,12 @@ class BrandModel {
     required this.productCount,
   });
 
+  // empty
+  static BrandModel empty() {
+    return BrandModel(
+        id: '', name: '', image: '', isFeatured: false, productCount: 0);
+  }
+
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
