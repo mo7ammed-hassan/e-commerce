@@ -28,6 +28,9 @@ import 'package:t_store/features/personalization/domain/use_cases/update_user_fi
 import 'package:t_store/features/personalization/domain/use_cases/upload_data_usecases/upload_categories_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_data_usecases/upload_product_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_user_image_use_case.dart';
+import 'package:t_store/features/shop/features/all_products/data/repository/product_repository_impl.dart';
+import 'package:t_store/features/shop/features/all_products/data/source/product_fire_base_services.dart';
+import 'package:t_store/features/shop/features/all_products/domain/repository/product_repository.dart';
 import 'package:t_store/features/shop/features/home/data/repository/banner_repository_impl.dart';
 import 'package:t_store/features/shop/features/home/data/repository/category_repository_impl.dart';
 import 'package:t_store/features/shop/features/home/data/source/remote/banner_firebase_services.dart';
@@ -60,6 +63,10 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<BannerFirebaseServices>(
     BannerFirebaseServicesImpl(),
   );
+  getIt.registerSingleton<ProductFirebaseServices>(
+    ProductFirebaseServicesImpl(),
+  );
+
   // --Local
   getIt.registerSingleton<LocalStorageServices>(
     LocalStorageServicesImpl(),
@@ -83,6 +90,9 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<BannerRepository>(
     BannerRepositoryImpl(),
+  );
+  getIt.registerSingleton<ProductRepository>(
+    ProductRepositoryImpl(),
   );
 
   // ------Usecases------

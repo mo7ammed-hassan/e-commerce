@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:t_store/features/shop/features/all_brands/data/brand_model.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_attribute_model.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_variation_model.dart';
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 
 class ProductModel {
   String id;
@@ -116,6 +117,29 @@ class ProductModel {
       productVariations: (data['productVariations'] as List<dynamic>)
           .map((e) => ProductVariationModel.fromJson(e))
           .toList(),
+    );
+  }
+}
+
+extension ProductXModel on ProductModel {
+  ProductEntity toEntity() {
+    return ProductEntity(
+      id: id,
+      stock: stock,
+      price: price,
+      title: title,
+      sku: sku,
+      // date: date,
+      salePrice: salePrice,
+      thumbnail: thumbnail,
+      isFeatured: isFeatured,
+      brand: brand?.toEntity(),
+      description: description,
+      categoryId: categoryId,
+      images: images,
+      productType: productType,
+      productAttributes: productAttributes?.map((e) => e.toEntity()).toList(),
+      productVariations: productVariations?.map((e) => e.toEntity()).toList(),
     );
   }
 }

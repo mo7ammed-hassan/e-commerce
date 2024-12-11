@@ -1,3 +1,4 @@
+import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_entity.dart';
 
 class BrandModel {
   String id;
@@ -31,6 +32,18 @@ class BrandModel {
       image: map['image'] as String,
       isFeatured: map['isFeatured'] as bool,
       productCount: map['productCount'] as int,
+    );
+  }
+}
+
+extension BrandXModel on BrandModel {
+  BrandEntity toEntity() {
+    return BrandEntity(
+      id: id,
+      name: name,
+      image: image,
+      isFeatured: isFeatured ?? false,
+      productCount: productCount ?? 0,
     );
   }
 }

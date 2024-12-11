@@ -1,3 +1,4 @@
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_attribute_entity.dart';
 
 class ProductAttributeModel {
   String? name;
@@ -26,6 +27,15 @@ class ProductAttributeModel {
       values: List<String>.from(
         (data['values']),
       ),
+    );
+  }
+}
+
+extension ProductAttributeXModel on ProductAttributeModel {
+  ProductAttributeEntity toEntity() {
+    return ProductAttributeEntity(
+      name: name,
+      values: values,
     );
   }
 }

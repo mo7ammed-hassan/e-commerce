@@ -1,3 +1,4 @@
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_variation_entity.dart';
 
 class ProductVariationModel {
   final String id;
@@ -11,11 +12,11 @@ class ProductVariationModel {
 
   ProductVariationModel({
     required this.id,
-     this.sku,
+    this.sku,
     required this.image,
     this.description,
     required this.price,
-     this.salePrice,
+    this.salePrice,
     required this.stock,
     required this.attributeValues,
   });
@@ -57,6 +58,21 @@ class ProductVariationModel {
       attributeValues: Map<String, String>.from(
         (data['attributeValues']),
       ),
+    );
+  }
+}
+
+extension ProductVariationXModel on ProductVariationModel {
+  ProductVariationEntity toEntity() {
+    return ProductVariationEntity(
+      id: id,
+      sku: sku,
+      image: image,
+      description: description,
+      price: price,
+      salePrice: salePrice,
+      stock: stock,
+      attributeValues: attributeValues,
     );
   }
 }

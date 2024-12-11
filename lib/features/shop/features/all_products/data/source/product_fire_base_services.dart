@@ -3,7 +3,10 @@ import 'package:dartz/dartz.dart';
 
 abstract class ProductFirebaseServices {
   Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
-      getProducts();
+      getAllProducts();
+
+  Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
+      getFeaturedProducts();
 }
 
 class ProductFirebaseServicesImpl implements ProductFirebaseServices {
@@ -11,8 +14,29 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
 
   @override
   Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
-      getProducts() async {
-    // TODO: implement getProducts
-    throw UnimplementedError();
+      getAllProducts() async {
+    try {
+      var data = await _firestore.collection('Products').limit(20).get();
+
+      return Right(data.docs);
+    } catch (e) {
+      return Left(e);
+    }
+  }
+
+  @override
+  Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
+      getFeaturedProducts() async {
+    try {
+      var data = await _firestore
+          .collection('Products')
+          .where('isFeatured', isEqualTo: true)
+          .limit(4)
+          .get();
+
+      return Right(data.docs);
+    } catch (e) {
+      return Left(e);
+    }
   }
 }
