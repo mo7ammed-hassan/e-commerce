@@ -54,6 +54,12 @@ class TImages {
       "assets/images/animations/sammy-line-man-receives-a-mail.png";
   static const String verifyIllustration =
       "assets/images/animations/sammy-line-travel-backpack-with-passport-and-air-ticket.gif";
+  static const String cloudUploading =
+      "assets/images/animations/cloud-uploading-animation.json";
+  static const String packaging =
+      "assets/images/animations/98783-packaging-in-progress.json";
+  static const String paperPlane =
+      "assets/images/animations/110052-paper-plane.json";
 
   // --Lottie Animation
   static const String cartAnimation =
@@ -65,6 +71,8 @@ class TImages {
 
   static const String successfullRegisterAnimation =
       "assets/images/animations/72462-check-register.json";
+  static const String loadingJuggle =
+      "assets/images/animations/141397-loading-juggle.json";
 
   // -- OnBoarding Texts
   static const String onBoardingImage1 =

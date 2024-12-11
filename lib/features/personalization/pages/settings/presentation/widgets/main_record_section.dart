@@ -19,7 +19,7 @@ class MainRecordSection extends StatelessWidget {
         if (state is UploadDataloading) {
           TFullScreenLoader.openLoadingDialog(
             'We are uploading ${state.message} data...',
-            TImages.docerAnimation,
+            TImages.packaging,
           );
         }
         if (state is UploadDataSuccess) {

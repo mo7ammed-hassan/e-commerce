@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:t_store/features/personalization/data/source/remote/firebase_storage_services.dart';
 import 'package:t_store/features/shop/features/home/data/models/product_model.dart';
 import 'package:t_store/service_locator.dart';
+import 'package:t_store/utils/constants/enums.dart';
 
 abstract class UploadDataFirebaseServices {
   Future<void> uploadDummyData(List<dynamic> data, String collection);
@@ -16,10 +17,10 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
         final file = await getIt<FirebaseStorageServices>()
             .getImageDataFromAssets(item.image);
 
-        final url = await getIt<FirebaseStorageServices>()
-            .uploadImageData(collection, file, item.name);
+        // final url = await getIt<FirebaseStorageServices>()
+        //     .uploadImageData(collection, file, item.name);
 
-        item.image = url;
+        // item.image = url;
 
         await FirebaseFirestore.instance
             .collection(collection)
@@ -63,6 +64,18 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
 
           product.images!.clear();
           product.images!.addAll(imagesUrl);
+        }
+
+        if (product.productType == ProductType.variable.toString()) {
+          for (var varition in product.productVariations!) {
+            final assetsImage = await getIt<FirebaseStorageServices>()
+                .getImageDataFromAssets(varition.image);
+
+            final url = await getIt<FirebaseStorageServices>()
+                .uploadImageData(collection, assetsImage, varition.image);
+
+            varition.image = url;
+          }
         }
 
         await FirebaseFirestore.instance
