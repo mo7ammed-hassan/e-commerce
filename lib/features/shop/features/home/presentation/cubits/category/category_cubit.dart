@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/features/shop/features/home/domain/entites/category_entity.dart';
 import 'package:t_store/features/shop/features/home/domain/use_cases/category_use_case.dart';
@@ -5,15 +6,31 @@ import 'package:t_store/features/shop/features/home/presentation/cubits/category
 import 'package:t_store/service_locator.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
-  CategoryCubit() : super(const CategoryInitial());
+  // Singleton instance..
+  static final CategoryCubit _singleton = CategoryCubit._internal();
+
+  // (Factory Constructor) Singleton..
+  factory CategoryCubit() {
+    return _singleton;
+  }
+
+  // private constructor.. 'create one instance only'
+  CategoryCubit._internal() : super(const CategoryInitial());
 
   final List<CategoryEntity> allCategories = [];
   final List<CategoryEntity> featuredCategories = [];
+  bool _hasFetched = false;
 
-  void getAllCategories() async {
+  Future<void> getAllCategories() async {
+    if (_hasFetched && allCategories.isNotEmpty) {
+      if (kDebugMode) {
+        print("Categories already fetched, no need to fetch again.");
+      }
+      return;
+    }
+
     emit(const CategoryLoadingState());
 
-    // fetch categories
     var result = await getIt<CategoryUseCase>().call();
 
     result.fold(
@@ -21,23 +38,26 @@ class CategoryCubit extends Cubit<CategoryState> {
         emit(CategoryFailureState(error));
       },
       (categories) {
-        // Replace category list content
         allCategories.clear();
         allCategories.addAll(categories);
 
-        // Filter featured categories and replace their list content
         featuredCategories.clear();
         featuredCategories.addAll(
           categories
-              .where(
-                (category) =>
-                    (category.isFeatured && category.parentId.isEmpty),
-              )
+              .where((category) =>
+                  category.isFeatured && category.parentId.isEmpty)
               .toList(),
         );
 
         emit(CategoryLoadedState(allCategories, featuredCategories));
+
+        _hasFetched = true;
       },
     );
+  }
+
+  Future<void> refreshCategories() async {
+    _hasFetched = false;
+    await getAllCategories();
   }
 }
