@@ -7,16 +7,16 @@ import 'package:t_store/features/shop/features/all_products/data/models/product_
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_state.dart';
 
-class PopularProductsSection extends StatefulWidget {
-  const PopularProductsSection({
+class FeaturedProductSection extends StatefulWidget {
+  const FeaturedProductSection({
     super.key,
   });
 
   @override
-  State<PopularProductsSection> createState() => _PopularProductsSectionState();
+  State<FeaturedProductSection> createState() => _FeaturedProductSectionState();
 }
 
-class _PopularProductsSectionState extends State<PopularProductsSection> {
+class _FeaturedProductSectionState extends State<FeaturedProductSection> {
   @override
   void initState() {
     super.initState();

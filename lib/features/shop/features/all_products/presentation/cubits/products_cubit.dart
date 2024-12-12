@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_all_products_use_case.dart';
@@ -6,12 +7,24 @@ import 'package:t_store/features/shop/features/all_products/presentation/cubits/
 import 'package:t_store/service_locator.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
-  ProductsCubit() : super(ProductsInitialState());
+  static final ProductsCubit _singleton = ProductsCubit._internal();
+
+  factory ProductsCubit() => _singleton;
+
+  ProductsCubit._internal() : super(ProductsInitialState());
 
   final List<ProductEntity> allProducts = [];
   final List<ProductEntity> feturedProducts = [];
+  bool _hasFetched = false;
 
-  void fetchAllProducts() async {
+  Future<void> fetchAllProducts() async {
+    if (_hasFetched && allProducts.isNotEmpty) {
+      if (kDebugMode) {
+        print("Categories already fetched, no need to fetch again.");
+      }
+      return;
+    }
+
     emit(AllProductsLoadingState());
 
     var result = await getIt<GetAllProductsUseCase>().call();
@@ -24,11 +37,19 @@ class ProductsCubit extends Cubit<ProductsState> {
         allProducts.clear();
         allProducts.addAll(products);
         emit(AllProductsLoadedState(products));
+        _hasFetched = true;
       },
     );
   }
 
-  void fetchFeaturedProducts() async {
+  Future<void> fetchFeaturedProducts() async {
+    if (_hasFetched && feturedProducts.isNotEmpty) {
+      if (kDebugMode) {
+        print("Categories already fetched, no need to fetch again.");
+      }
+      return;
+    }
+
     emit(FeaturedProductsLoadingState());
 
     var result = await getIt<GetFeturedProductsUseCase>().call();
@@ -41,12 +62,22 @@ class ProductsCubit extends Cubit<ProductsState> {
         feturedProducts.clear();
         feturedProducts.addAll(products);
         emit(FeaturedProductsLoadedState(products));
+        _hasFetched = true;
       },
     );
   }
 
-  void refreshProducts() {
-    fetchAllProducts();
-    fetchFeaturedProducts();
+  void refreshProducts() async {
+    _hasFetched = false;
+    await fetchAllProducts();
+    await fetchFeaturedProducts();
+  }
+
+  @override
+  Future<void> close() {
+    if (kDebugMode) {
+      print('Products cubit closed');
+    }
+    return super.close();
   }
 }

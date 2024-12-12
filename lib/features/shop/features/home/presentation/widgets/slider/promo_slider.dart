@@ -20,7 +20,7 @@ class TPromoSlider extends StatelessWidget {
           create: (context) => PromoSliderCubit(),
         ),
         BlocProvider(
-          create: (context) => BannerCubit(),
+          create: (context) => BannerCubit()..fetchBanners(),
         ),
       ],
       child: BlocBuilder<BannerCubit, BannerState>(

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/features/shop/features/home/domain/entites/banner_entity.dart';
 import 'package:t_store/features/shop/features/home/domain/use_cases/banner_use_case.dart';
@@ -6,16 +7,25 @@ import 'package:t_store/service_locator.dart';
 part 'banner_state.dart';
 
 class BannerCubit extends Cubit<BannerState> {
-  BannerCubit() : super(const BannerInitial()) {
-    fetchBanners();
-  }
+  static final BannerCubit _singleton = BannerCubit._internal();
+
+  factory BannerCubit() => _singleton;
+
+  BannerCubit._internal() : super(const BannerInitial());
 
   final List<BannerEntity> allBanners = [];
+  bool _hasFetched = false;
 
-  void fetchBanners() async {
+  Future<void> fetchBanners() async {
+    if (_hasFetched && allBanners.isNotEmpty) {
+      if (kDebugMode) {
+        print("Banners already fetched, no need to fetch again.");
+      }
+      return;
+    }
+
     emit(const BannerLoadingState());
 
-    // fetch banners
     var result = await getIt<BannerUseCase>().call();
 
     result.fold(
@@ -26,7 +36,21 @@ class BannerCubit extends Cubit<BannerState> {
         allBanners.clear();
         allBanners.addAll(categories);
         emit(BannerLoadedState(allBanners));
+        _hasFetched = true;
       },
     );
+  }
+
+  Future<void> refreshCategories() async {
+    _hasFetched = false;
+    await fetchBanners();
+  }
+
+  @override
+  Future<void> close() {
+    if (kDebugMode) {
+      print('Category cubit closed');
+    }
+    return super.close();
   }
 }
