@@ -16,9 +16,9 @@ class TProductCartFooter extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: TSizes.sm),
-          child: TProductPriceText(price: price.toString(), isLarge: true),
+          child: TProductPriceText(price: price.toString(), isLarge: false),
         ),
-        const TAddIcon(),
+        const Flexible(child: TAddIcon()),
       ],
     );
   }

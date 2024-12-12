@@ -33,6 +33,7 @@ class TProductCardVertical extends StatelessWidget {
           color: isDark ? TColors.darkerGrey : TColors.white,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TProductCardHeader(thumbnail: product.thumbnail),
             const SizedBox(height: TSizes.spaceBtwItems / 2),
