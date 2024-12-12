@@ -2,25 +2,28 @@ import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_attribute_entity.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_variation_entity.dart';
 
+/// final >>  immutabl
 class ProductEntity {
-  String id;
-  int? stock;
-  num price;
-  String title;
-  String sku;
-  DateTime? date;
-  double salePrice;
-  String thumbnail;
-  bool? isFeatured;
-  BrandEntity? brand;
-  String? description;
-  String? categoryId;
-  List<String>? images;
-  String productType;
-  List<ProductAttributeEntity>? productAttributes;
-  List<ProductVariationEntity>? productVariations;
+  final String id;
+  final int? stock;
+  final num price;
+  final String title;
+  final String sku;
+  final DateTime? date;
+  final double salePrice;
+  final String thumbnail;
+  final bool? isFeatured;
+  final BrandEntity? brand;
+  final String? description;
+  final String? categoryId;
+  final List<String> images; // Defaults to an empty list
+  final String productType;
+  final List<ProductAttributeEntity>
+      productAttributes; // Defaults to an empty list
+  final List<ProductVariationEntity>
+      productVariations; // Defaults to an empty list
 
-  ProductEntity({
+  const ProductEntity({
     required this.id,
     this.stock,
     required this.price,
@@ -33,9 +36,9 @@ class ProductEntity {
     this.brand,
     this.description,
     this.categoryId,
-    this.images,
+    this.images = const [],
     required this.productType,
-    this.productAttributes,
-    this.productVariations,
+    this.productAttributes = const [],
+    this.productVariations = const [],
   });
 }

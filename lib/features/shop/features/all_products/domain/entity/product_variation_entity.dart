@@ -1,14 +1,14 @@
 class ProductVariationEntity {
   final String id;
-  String? sku;
-  String image;
-  String? description;
-  double price;
-  double? salePrice;
-  int stock;
-  Map<String, String> attributeValues;
+  final String? sku;
+  final String image;
+  final String? description;
+  final double price;
+  final double? salePrice;
+  final int stock;
+  final Map<String, String> attributeValues; // Defaults to an empty map
 
-  ProductVariationEntity({
+  const ProductVariationEntity({
     required this.id,
     this.sku,
     required this.image,
@@ -16,6 +16,6 @@ class ProductVariationEntity {
     required this.price,
     this.salePrice,
     required this.stock,
-    required this.attributeValues,
+    this.attributeValues = const {},
   });
 }

@@ -38,7 +38,7 @@ class TProductCardVertical extends StatelessWidget {
             const SizedBox(height: TSizes.spaceBtwItems / 2),
             TProductCardBody(
               title: product.title,
-              brandTitle: product.brand!.name,
+              brandTitle: 'nie' //product.brand!.name nike,
             ),
             const Spacer(),
             TProductCartFooter(price: product.price.toDouble()),

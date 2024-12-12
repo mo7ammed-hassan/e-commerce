@@ -1,9 +1,9 @@
 class ProductAttributeEntity {
-  String? name;
-  List<String>? values;
+  final String name; // Defaults to an empty string
+  final List<String> values; // Defaults to an empty list
 
-  ProductAttributeEntity({
-    this.name,
-    this.values,
+  const ProductAttributeEntity({
+    this.name = '',
+    this.values = const [],
   });
 }

@@ -5,24 +5,24 @@ import 'package:t_store/features/shop/features/all_products/data/models/product_
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 
 class ProductModel {
-  String id;
-  int? stock;
-  num price;
-  String title;
-  String sku;
-  DateTime? date;
-  double salePrice;
-  String thumbnail;
-  bool? isFeatured;
-  BrandModel? brand;
-  String? description;
-  String? categoryId;
-  List<String>? images;
-  String productType;
-  List<ProductAttributeModel>? productAttributes;
-  List<ProductVariationModel>? productVariations;
+  final String id;
+  final int? stock;
+  final num price;
+  final String title;
+  final String sku;
+  final DateTime? date;
+  final double salePrice;
+  final String thumbnail;
+  final bool? isFeatured;
+  final BrandModel? brand;
+  final String? description;
+  final String? categoryId;
+  final List<String> images;
+  final String productType;
+  final List<ProductAttributeModel> productAttributes;
+  final List<ProductVariationModel> productVariations;
 
-  ProductModel({
+  const ProductModel({
     required this.id,
     this.stock,
     required this.price,
@@ -35,14 +35,14 @@ class ProductModel {
     this.brand,
     this.description,
     this.categoryId,
-    this.images,
+    this.images = const [],
     required this.productType,
-    this.productAttributes,
-    this.productVariations,
+    this.productAttributes = const [],
+    this.productVariations = const [],
   });
 
   static ProductModel empty() {
-    return ProductModel(
+    return const ProductModel(
       id: '',
       stock: null,
       price: 0.0,
@@ -52,13 +52,10 @@ class ProductModel {
       salePrice: 0.0,
       thumbnail: '',
       isFeatured: false,
-      brand: BrandModel.empty(),
+      brand: null,
       description: '',
       categoryId: '',
-      images: [],
       productType: '',
-      productAttributes: [],
-      productVariations: [],
     );
   }
 
@@ -68,7 +65,6 @@ class ProductModel {
       'price': price,
       'title': title,
       'sku': sku,
-      //'date': date?.toIso8601String(),
       'salePrice': salePrice,
       'thumbnail': thumbnail,
       'isFeatured': isFeatured,
@@ -77,20 +73,10 @@ class ProductModel {
       'categoryId': categoryId,
       'images': images,
       'productType': productType,
-      'productAttributes': productAttributes != null
-          ? productAttributes!
-              .map(
-                (e) => e.toJson(),
-              )
-              .toList()
-          : [],
-      'productVariations': productVariations != null
-          ? productVariations!
-              .map(
-                (e) => e.toJson(),
-              )
-              .toList()
-          : [],
+      'productAttributes':
+          productAttributes.map((e) => e.toJson()).toList(),
+      'productVariations':
+          productVariations.map((e) => e.toJson()).toList(),
     };
   }
 
@@ -101,25 +87,28 @@ class ProductModel {
     return ProductModel(
       id: document.id,
       stock: data['stock'] ?? 0,
-      price: data['price'] ?? 0.0,
+      price: (data['price'] ?? 0.0) as num,
       title: data['title'] ?? '',
       sku: data['sku'] ?? '',
-      // date:
-      //     data['date'] != null ? DateTime.parse(data['date'] as String) : null,
-      salePrice: data['salePrice'] as double,
+      date: data['date'] != null
+          ? DateTime.tryParse(data['date'] as String)
+          : null,
+      salePrice: (data['salePrice'] ?? 0.0).toDouble(),
       thumbnail: data['thumbnail'] ?? '',
       isFeatured: data['isFeatured'] ?? false,
-      brand: BrandModel.fromJson(data['brand']),
+      brand: data['brand'] != null ? BrandModel.fromJson(data['brand']) : null,
       description: data['description'] ?? '',
       categoryId: data['categoryId'] ?? '',
-      images: data['images'] != null ? List.from(data['images']) : [],
+      images: List<String>.from(data['images'] ?? []),
       productType: data['productType'] ?? '',
-      productAttributes: (data['productAttributes'] as List<dynamic>)
-          .map((e) => ProductAttributeModel.fromJson(e))
-          .toList(),
-      productVariations: (data['productVariations'] as List<dynamic>)
-          .map((e) => ProductVariationModel.fromJson(e))
-          .toList(),
+      productAttributes: (data['productAttributes'] as List<dynamic>?)
+              ?.map((e) => ProductAttributeModel.fromJson(e))
+              .toList() ??
+          const [],
+      productVariations: (data['productVariations'] as List<dynamic>?)
+              ?.map((e) => ProductVariationModel.fromJson(e))
+              .toList() ??
+          const [],
     );
   }
 }
@@ -132,7 +121,6 @@ extension ProductXModel on ProductModel {
       price: price,
       title: title,
       sku: sku,
-      // date: date,
       salePrice: salePrice,
       thumbnail: thumbnail,
       isFeatured: isFeatured,
@@ -141,8 +129,10 @@ extension ProductXModel on ProductModel {
       categoryId: categoryId,
       images: images,
       productType: productType,
-      productAttributes: productAttributes?.map((e) => e.toEntity()).toList(),
-      productVariations: productVariations?.map((e) => e.toEntity()).toList(),
+      productAttributes:
+          productAttributes.map((e) => e.toEntity()).toList(),
+      productVariations:
+          productVariations.map((e) => e.toEntity()).toList(),
     );
   }
 }

@@ -1,6 +1,6 @@
+import 'package:t_store/features/personalization/data/models/products/product_upload_model.dart';
 import 'package:t_store/features/personalization/data/source/remote/uplaod_data_firebase_services.dart';
 import 'package:t_store/features/personalization/domain/repository/upload_data_repository.dart';
-import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
 import 'package:t_store/service_locator.dart';
 
 class UploadDataRepositoryImpl extends UploadDataRepository {
@@ -12,7 +12,7 @@ class UploadDataRepositoryImpl extends UploadDataRepository {
 
   @override
   Future<void> uploadProductData(
-      List<ProductModel> data, String collection) async {
+      List<ProductUploadModel> data, String collection) async {
     return await getIt<UploadDataFirebaseServices>()
         .uploadProductData(data, collection);
   }

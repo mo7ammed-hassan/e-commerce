@@ -1,18 +1,15 @@
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_attribute_entity.dart';
 
 class ProductAttributeModel {
-  String? name;
-  List<String>? values;
+  final String name;
+  final List<String> values;
 
-  ProductAttributeModel({
-    required this.name,
-    required this.values,
+  const ProductAttributeModel({
+    this.name = '',
+    this.values = const [],
   });
 
-  static ProductAttributeModel empty() => ProductAttributeModel(
-        name: '',
-        values: [],
-      );
+  static ProductAttributeModel empty() => const ProductAttributeModel();
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
@@ -24,9 +21,7 @@ class ProductAttributeModel {
   factory ProductAttributeModel.fromJson(Map<String, dynamic> data) {
     return ProductAttributeModel(
       name: data['name'] ?? '',
-      values: List<String>.from(
-        (data['values']),
-      ),
+      values: List<String>.from(data['values'] ?? []),
     );
   }
 }

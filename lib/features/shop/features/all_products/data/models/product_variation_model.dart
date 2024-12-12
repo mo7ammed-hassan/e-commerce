@@ -2,15 +2,15 @@ import 'package:t_store/features/shop/features/all_products/domain/entity/produc
 
 class ProductVariationModel {
   final String id;
-  String? sku;
-  String image;
-  String? description;
-  double price;
-  double? salePrice;
-  int stock;
-  Map<String, String> attributeValues;
+  final String? sku;
+  final String image;
+  final String? description;
+  final double price;
+  final double? salePrice;
+  final int stock;
+  final Map<String, String> attributeValues;
 
-  ProductVariationModel({
+  const ProductVariationModel({
     required this.id,
     this.sku,
     required this.image,
@@ -18,19 +18,21 @@ class ProductVariationModel {
     required this.price,
     this.salePrice,
     required this.stock,
-    required this.attributeValues,
+    this.attributeValues = const {},
   });
 
-  static ProductVariationModel empty() => ProductVariationModel(
-        id: '',
-        sku: '',
-        image: '',
-        description: '',
-        price: 0.0,
-        salePrice: 0.0,
-        stock: 0,
-        attributeValues: {},
-      );
+  static ProductVariationModel empty() {
+    return const ProductVariationModel(
+      id: '',
+      sku: '',
+      image: '',
+      description: '',
+      price: 0.0,
+      salePrice: 0.0,
+      stock: 0,
+      attributeValues: {},
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
@@ -48,16 +50,13 @@ class ProductVariationModel {
   factory ProductVariationModel.fromJson(Map<String, dynamic> data) {
     return ProductVariationModel(
       id: data['id'] ?? '',
-      sku: data['sku'] ?? '',
+      sku: data['sku'],
       image: data['image'] ?? '',
-      description:
-          data['description'] != null ? data['description'] ?? '' : null,
-      price: double.parse((data['price'] ?? 0.0).toString()),
-      salePrice: double.parse((data['salePrice'] ?? 0.0).toString()),
+      description: data['description'],
+      price: (data['price'] ?? 0.0).toDouble(),
+      salePrice: data['salePrice'] != null ? (data['salePrice'] as num).toDouble() : null,
       stock: data['stock'] ?? 0,
-      attributeValues: Map<String, String>.from(
-        (data['attributeValues']),
-      ),
+      attributeValues: Map<String, String>.from(data['attributeValues'] ?? {}),
     );
   }
 }
