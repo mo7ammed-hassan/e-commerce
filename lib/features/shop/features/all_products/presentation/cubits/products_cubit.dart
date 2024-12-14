@@ -14,8 +14,8 @@ class ProductsCubit extends Cubit<ProductsState> {
   final List<ProductEntity> feturedProducts = [];
   bool _hasFetched = false;
 
-  Future<void> fetchAllProducts() async {
-    if (_hasFetched && allProducts.isNotEmpty) {
+  Future<void> fetchAllProducts({bool forceRefresh = false}) async {
+    if (!forceRefresh && _hasFetched && allProducts.isNotEmpty) {
       if (kDebugMode) {
         print("Categories already fetched, no need to fetch again.");
       }
@@ -40,8 +40,8 @@ class ProductsCubit extends Cubit<ProductsState> {
     );
   }
 
-  Future<void> fetchFeaturedProducts() async {
-    if (_hasFetched && feturedProducts.isNotEmpty) {
+  Future<void> fetchFeaturedProducts({bool forceRefresh = false}) async {
+    if (!forceRefresh && _hasFetched && feturedProducts.isNotEmpty) {
       if (kDebugMode) {
         print("Categories already fetched, no need to fetch again.");
       }
@@ -65,7 +65,20 @@ class ProductsCubit extends Cubit<ProductsState> {
     );
   }
 
-  // calulate product price ..
+  Future<void> refreshProducts() async {
+    _hasFetched = false;
+    await fetchAllProducts(forceRefresh: true);
+    await fetchFeaturedProducts(forceRefresh: true);
+  }
+
+  @override
+  Future<void> close() {
+    if (kDebugMode) {
+      print('Products cubit closed');
+    }
+    return super.close();
+  }
+
   String getProductPrice(ProductEntity product) {
     double smllestPrice = double.infinity;
     double largePrice = 0;
@@ -94,7 +107,6 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
   }
 
-  // calculate product discount..
   String? calculateProductDiscount(double originalPrice, double salePrice) {
     if (salePrice <= 0.0) return null;
     if (originalPrice <= 0) return null;
@@ -102,19 +114,5 @@ class ProductsCubit extends Cubit<ProductsState> {
     double percentage = ((originalPrice - salePrice) / originalPrice) * 100;
 
     return percentage.toStringAsFixed(0);
-  }
-
-  void refreshProducts() async {
-    _hasFetched = false;
-    await fetchAllProducts();
-    await fetchFeaturedProducts();
-  }
-
-  @override
-  Future<void> close() {
-    if (kDebugMode) {
-      print('Products cubit closed');
-    }
-    return super.close();
   }
 }

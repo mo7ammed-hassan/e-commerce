@@ -6,6 +6,9 @@ import 'package:t_store/features/shop/features/all_products/domain/repository/pr
 import 'package:t_store/service_locator.dart';
 
 class ProductRepositoryImpl extends ProductRepository {
+  static List<ProductEntity> allProducts = [];
+  static List<ProductEntity> feturedProducts = [];
+
   @override
   Future<Either<dynamic, List<ProductEntity>>> getAllProducts() async {
     var retunedData = await getIt<ProductFirebaseServices>().getAllProducts();
@@ -18,7 +21,7 @@ class ProductRepositoryImpl extends ProductRepository {
         List<ProductEntity> products = List.from(data)
             .map((document) => ProductModel.fromJson(document).toEntity())
             .toList();
-
+        allProducts = products;
         return Right(products);
       },
     );
@@ -37,6 +40,7 @@ class ProductRepositoryImpl extends ProductRepository {
         List<ProductEntity> products = List.from(data)
             .map((document) => ProductModel.fromJson(document).toEntity())
             .toList();
+        feturedProducts = products;
 
         return Right(products);
       },

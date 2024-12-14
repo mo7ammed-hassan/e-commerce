@@ -31,7 +31,7 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
       var data = await _firestore
           .collection('Products')
           .where('isFeatured', isEqualTo: true)
-          .limit(4)
+          //.limit(4)
           .get();
 
       return Right(data.docs);

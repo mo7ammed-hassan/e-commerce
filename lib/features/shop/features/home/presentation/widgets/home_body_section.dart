@@ -23,6 +23,8 @@ class _HomeBodySectionState extends State<HomeBodySection> {
     super.dispose();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     final productsCubit = getIt.get<ProductsCubit>();
