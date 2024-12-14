@@ -164,5 +164,7 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<GetFeturedProductsUseCase>(
     GetFeturedProductsUseCase(),
   );
+
+  // -- Cubits--
   GetIt.instance.registerLazySingleton<ProductsCubit>(() => ProductsCubit());
 }

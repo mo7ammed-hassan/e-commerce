@@ -16,4 +16,10 @@ class UploadDataRepositoryImpl extends UploadDataRepository {
     return await getIt<UploadDataFirebaseServices>()
         .uploadProductData(data, collection);
   }
+
+  @override
+  Future<void> deleteDummyData(String collection) async {
+    return await getIt<UploadDataFirebaseServices>()
+        .deleteDummyData(collection);
+  }
 }

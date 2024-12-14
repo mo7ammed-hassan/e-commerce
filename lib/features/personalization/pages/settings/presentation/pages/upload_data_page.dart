@@ -33,6 +33,22 @@ class UploadDataPage extends StatelessWidget {
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
               const RelationshipsSection(),
+              const SizedBox(height: TSizes.spaceBtwSections * 2),
+              Builder(
+                builder: (context) {
+                  return SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        context
+                            .read<UploadDataCubit>()
+                            .deleteDummyData(collection: 'Products');
+                      },
+                      child: const Text('Delete Products'),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
