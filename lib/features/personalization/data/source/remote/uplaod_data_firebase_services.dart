@@ -43,9 +43,9 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
         // Upload thumbnail image
         final thumbnailFile = await getIt<FirebaseStorageServices>()
             .getImageDataFromAssets(product.thumbnail);
-        final thumbnailUrl = await getIt<FirebaseStorageServices>()
-            .uploadImageData(collection, thumbnailFile, product.thumbnail);
-        product.thumbnail = thumbnailUrl;
+        // final thumbnailUrl = await getIt<FirebaseStorageServices>()
+        //     .uploadImageData(collection, thumbnailFile, product.thumbnail);
+        // product.thumbnail = thumbnailUrl;
 
         // Upload product images (if available)
         if (product.images.isNotEmpty) {
@@ -53,9 +53,9 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
           for (var image in product.images) {
             final assetsImage = await getIt<FirebaseStorageServices>()
                 .getImageDataFromAssets(image);
-            final imageUrl = await getIt<FirebaseStorageServices>()
-                .uploadImageData(collection, assetsImage, image);
-            imagesUrl.add(imageUrl);
+            // final imageUrl = await getIt<FirebaseStorageServices>()
+            //     .uploadImageData(collection, assetsImage, image);
+            // imagesUrl.add(imageUrl);
           }
           product.images.clear();
           product.images.addAll(imagesUrl);
@@ -66,10 +66,10 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
           for (var variation in product.productVariations) {
             final variationImageFile = await getIt<FirebaseStorageServices>()
                 .getImageDataFromAssets(variation.image);
-            final variationImageUrl = await getIt<FirebaseStorageServices>()
-                .uploadImageData(
-                    collection, variationImageFile, variation.image);
-            variation.image = variationImageUrl;
+            // final variationImageUrl = await getIt<FirebaseStorageServices>()
+            //     .uploadImageData(
+            //         collection, variationImageFile, variation.image);
+            // variation.image = variationImageUrl;
           }
         }
 

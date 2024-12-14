@@ -53,4 +53,10 @@ class BannerCubit extends Cubit<BannerState> {
     }
     return super.close();
   }
+
+  // @override
+  // Future<void> close() {
+  //   // Prevent closing if singleton
+  //   return Future.value();
+  // }
 }

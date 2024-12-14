@@ -5,16 +5,29 @@ import 'package:t_store/features/shop/features/all_products/presentation/cubits/
 import 'package:t_store/features/shop/features/all_products/presentation/pages/all_products_page.dart';
 import 'package:t_store/features/shop/features/home/presentation/widgets/popular_products_section.dart';
 import 'package:t_store/features/shop/features/home/presentation/widgets/slider/promo_slider.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/navigation.dart';
 
-class HomeBodySection extends StatelessWidget {
+class HomeBodySection extends StatefulWidget {
   const HomeBodySection({super.key});
 
   @override
+  State<HomeBodySection> createState() => _HomeBodySectionState();
+}
+
+class _HomeBodySectionState extends State<HomeBodySection> {
+  @override
+  void dispose() {
+    ProductsCubit().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProductsCubit(),
+    final productsCubit = getIt.get<ProductsCubit>();
+    return BlocProvider.value(
+      value: productsCubit,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: TSizes.spaceBtwItems,

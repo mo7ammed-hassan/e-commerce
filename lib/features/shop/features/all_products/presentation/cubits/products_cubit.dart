@@ -8,11 +8,7 @@ import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/enums.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
-  static final ProductsCubit _singleton = ProductsCubit._internal();
-
-  factory ProductsCubit() => _singleton;
-
-  ProductsCubit._internal() : super(ProductsInitialState());
+  ProductsCubit() : super(ProductsInitialState());
 
   final List<ProductEntity> allProducts = [];
   final List<ProductEntity> feturedProducts = [];
@@ -37,6 +33,7 @@ class ProductsCubit extends Cubit<ProductsState> {
       (products) {
         allProducts.clear();
         allProducts.addAll(products);
+
         emit(AllProductsLoadedState(products));
         _hasFetched = true;
       },

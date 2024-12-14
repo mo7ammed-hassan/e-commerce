@@ -33,6 +33,7 @@ import 'package:t_store/features/shop/features/all_products/data/source/product_
 import 'package:t_store/features/shop/features/all_products/domain/repository/product_repository.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_all_products_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_fetured_products_use_case.dart';
+import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
 import 'package:t_store/features/shop/features/home/data/repository/banner_repository_impl.dart';
 import 'package:t_store/features/shop/features/home/data/repository/category_repository_impl.dart';
 import 'package:t_store/features/shop/features/home/data/source/remote/banner_firebase_services.dart';
@@ -163,4 +164,5 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<GetFeturedProductsUseCase>(
     GetFeturedProductsUseCase(),
   );
+  GetIt.instance.registerLazySingleton<ProductsCubit>(() => ProductsCubit());
 }
