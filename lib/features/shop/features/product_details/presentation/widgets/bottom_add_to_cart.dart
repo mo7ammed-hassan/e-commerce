@@ -13,7 +13,7 @@ class TBottomAddToCart extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: TSizes.defaultSpace,
-        vertical: TSizes.defaultSpace / 2,
+        vertical: TSizes.spaceBtwItems / 2,
       ),
       decoration: BoxDecoration(
         color: isDark ? TColors.darkerGrey : TColors.light,

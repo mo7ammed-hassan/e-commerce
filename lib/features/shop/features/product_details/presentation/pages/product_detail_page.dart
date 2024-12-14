@@ -14,8 +14,10 @@ class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({super.key});
 
   @override
+  @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       bottomNavigationBar: const TBottomAddToCart(),
       body: SingleChildScrollView(

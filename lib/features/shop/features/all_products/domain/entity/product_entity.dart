@@ -10,7 +10,7 @@ class ProductEntity {
   final String title;
   final String sku;
   final DateTime? date;
-  final double salePrice;
+  final double? salePrice;
   final String thumbnail;
   final bool? isFeatured;
   final BrandEntity? brand;

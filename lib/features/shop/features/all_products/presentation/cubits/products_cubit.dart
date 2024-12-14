@@ -5,6 +5,7 @@ import 'package:t_store/features/shop/features/all_products/domain/usecases/get_
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_fetured_products_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_state.dart';
 import 'package:t_store/service_locator.dart';
+import 'package:t_store/utils/constants/enums.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   static final ProductsCubit _singleton = ProductsCubit._internal();
@@ -65,6 +66,45 @@ class ProductsCubit extends Cubit<ProductsState> {
         _hasFetched = true;
       },
     );
+  }
+
+  // calulate product price ..
+  String getProductPrice(ProductEntity product) {
+    double smllestPrice = double.infinity;
+    double largePrice = 0;
+    // if have a sale price ..
+    if (product.productType == ProductType.single.toString()) {
+      return (product.salePrice! > 0 ? product.salePrice : product.price)
+          .toString();
+    } else {
+      for (var variation in product.productVariations) {
+        double priceToConsider =
+            (variation.salePrice > 0.0) ? variation.salePrice : variation.price;
+
+        if (priceToConsider < smllestPrice) {
+          smllestPrice = priceToConsider;
+        }
+
+        if (priceToConsider > largePrice) {
+          largePrice = priceToConsider;
+        }
+      }
+      if (smllestPrice == largePrice) {
+        return largePrice.toString();
+      } else {
+        return '${smllestPrice.toString()} - ${largePrice.toString()}';
+      }
+    }
+  }
+
+  // calculate product discount..
+  String? calculateProductDiscount(double originalPrice, double salePrice) {
+    if (salePrice <= 0.0) return null;
+    if (originalPrice <= 0) return null;
+
+    double percentage = ((originalPrice - salePrice) / originalPrice) * 100;
+
+    return percentage.toStringAsFixed(0);
   }
 
   void refreshProducts() async {

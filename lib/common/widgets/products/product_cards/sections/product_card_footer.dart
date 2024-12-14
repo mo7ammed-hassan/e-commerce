@@ -8,7 +8,7 @@ class TProductCartFooter extends StatelessWidget {
     super.key,
     this.price,
   });
-  final double? price;
+  final String? price;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -16,7 +16,7 @@ class TProductCartFooter extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: TSizes.sm),
-          child: TProductPriceText(price: price.toString(), isLarge: false),
+          child: TProductPriceText(price: price ?? '', isLarge: false),
         ),
         const Flexible(child: TAddIcon()),
       ],

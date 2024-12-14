@@ -29,6 +29,12 @@ class ReAuthForm extends StatelessWidget {
         } else if (state is ReAuthSuccessState) {
           TFullScreenLoader.stopLoading();
           context.removeAll(const LoginPage());
+        } else {
+          TFullScreenLoader.stopLoading();
+          TFullScreenLoader.openLoadingDialog(
+            'Email or Password is incorrect, Please, try again.',
+            TImages.docerAnimation,
+          );
         }
       },
       child: Form(
@@ -42,7 +48,7 @@ class ReAuthForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: cubit.reauthenticate,
+                onPressed: () => cubit.reauthenticate(),
                 child: const Text('Verify'),
               ),
             ),

@@ -54,7 +54,9 @@ class ProductVariationModel {
       image: data['image'] ?? '',
       description: data['description'],
       price: (data['price'] ?? 0.0).toDouble(),
-      salePrice: data['salePrice'] != null ? (data['salePrice'] as num).toDouble() : null,
+      salePrice: data['salePrice'] != null
+          ? (data['salePrice'] as num).toDouble()
+          : null,
       stock: data['stock'] ?? 0,
       attributeValues: Map<String, String>.from(data['attributeValues'] ?? {}),
     );
@@ -69,7 +71,7 @@ extension ProductVariationXModel on ProductVariationModel {
       image: image,
       description: description,
       price: price,
-      salePrice: salePrice,
+      salePrice: salePrice ?? 0.0,
       stock: stock,
       attributeValues: attributeValues,
     );

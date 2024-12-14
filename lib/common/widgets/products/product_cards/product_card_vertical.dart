@@ -4,6 +4,7 @@ import 'package:t_store/common/widgets/products/product_cards/sections/product_c
 import 'package:t_store/common/widgets/products/product_cards/sections/product_card_footer.dart';
 import 'package:t_store/common/widgets/products/product_cards/sections/product_card_header.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
+import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/pages/product_detail_page.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
@@ -12,8 +13,10 @@ import 'package:t_store/utils/helpers/helper_functions.dart';
 class TProductCardVertical extends StatelessWidget {
   const TProductCardVertical({super.key, required this.product});
   final ProductEntity product;
+
   @override
   Widget build(BuildContext context) {
+    ProductsCubit productCubit = ProductsCubit();
     final isDark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () {
@@ -42,7 +45,7 @@ class TProductCardVertical extends StatelessWidget {
               brandTitle: product.brand?.name ?? '',
             ),
             const Spacer(),
-            TProductCartFooter(price: product.price.toDouble()),
+            TProductCartFooter(price: productCubit.getProductPrice(product)),
           ],
         ),
       ),

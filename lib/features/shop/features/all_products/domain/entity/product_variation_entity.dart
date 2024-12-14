@@ -4,7 +4,7 @@ class ProductVariationEntity {
   final String image;
   final String? description;
   final double price;
-  final double? salePrice;
+  final double salePrice;
   final int stock;
   final Map<String, String> attributeValues; // Defaults to an empty map
 
@@ -14,7 +14,7 @@ class ProductVariationEntity {
     required this.image,
     this.description,
     required this.price,
-    this.salePrice,
+    required this.salePrice,
     required this.stock,
     this.attributeValues = const {},
   });
