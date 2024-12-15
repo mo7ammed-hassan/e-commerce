@@ -55,6 +55,7 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
           for (var image in product.images) {
             final assetsImage = await getIt<FirebaseStorageServices>()
                 .getImageDataFromAssets(image);
+            imagesUrl.add(image);
             // final imageUrl = await getIt<FirebaseStorageServices>()
             //     .uploadImageData(collection, assetsImage, image);
             // imagesUrl.add(imageUrl);

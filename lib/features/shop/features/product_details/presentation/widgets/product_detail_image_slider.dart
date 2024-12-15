@@ -4,13 +4,14 @@ import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/curved_edges/curved_edges_widgets.dart';
 import 'package:t_store/common/widgets/icons/circular_icon.dart';
 import 'package:t_store/common/widgets/images/rounded_image.dart';
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TProductDetailImageSlider extends StatelessWidget {
-  const TProductDetailImageSlider({super.key});
+  final ProductEntity product;
+  const TProductDetailImageSlider({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +24,11 @@ class TProductDetailImageSlider extends StatelessWidget {
           children: [
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.45,
-              child: const Center(
+              child: Center(
                 child: Padding(
-                  padding: EdgeInsets.all(TSizes.productImageRadius * 2),
+                  padding: const EdgeInsets.all(TSizes.productImageRadius * 2),
                   child: Image(
-                    image: AssetImage(TImages.productImage1),
+                    image: AssetImage(product.thumbnail),
                   ),
                 ),
               ),
@@ -41,13 +42,13 @@ class TProductDetailImageSlider extends StatelessWidget {
                 height: 80,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: product.images.length,
                   physics: const AlwaysScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return TRoundedImage(
                       width: 80,
                       padding: const EdgeInsets.all(TSizes.xs),
-                      imageUrl: TImages.productImage10,
+                      imageUrl: product.images[index],
                       backgroundColor: isDark ? TColors.dark : TColors.white,
                       border: Border.all(color: TColors.primary),
                     );

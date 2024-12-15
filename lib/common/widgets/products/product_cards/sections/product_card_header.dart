@@ -31,9 +31,9 @@ class TProductCardHeader extends StatelessWidget {
   }
 
   Widget _productImage() {
-    return const Center(
+    return Center(
       child: TRoundedImage(
-        imageUrl: TImages.productImage1,
+        imageUrl: thumbnail ?? TImages.productImage1,
       ),
     );
   }

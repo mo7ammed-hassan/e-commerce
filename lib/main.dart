@@ -39,10 +39,12 @@ void main() async {
   // Remove the splash screen once initialization is complete.
   FlutterNativeSplash.remove();
 
-  runApp(BlocProvider(
-    create: (context) => LaunchAppCubit()..launchApp(),
-    child: const MyApp(),
-  ));
+  runApp(
+    BlocProvider(
+      create: (context) => LaunchAppCubit()..launchApp(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -8,6 +8,7 @@ import 'package:t_store/common/widgets/products/product_cards/sections/discount_
 import 'package:t_store/common/widgets/texts/brand_title_with_verified_icon.dart';
 import 'package:t_store/common/widgets/texts/product_price.dart';
 import 'package:t_store/common/widgets/texts/product_title_text.dart';
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/pages/product_detail_page.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
@@ -15,7 +16,8 @@ import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class ProductCardHorizantal extends StatelessWidget {
-  const ProductCardHorizantal({super.key});
+  final ProductEntity product;
+  const ProductCardHorizantal({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class ProductCardHorizantal extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ProductDetailPage(),
+            builder: (context) => ProductDetailPage(product: product),
           ),
         );
       },
@@ -82,8 +84,8 @@ class ProductCardHorizantal extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                            child:
-                                TProductPriceText(price: '40.0', maxLines: 2)),
+                          child: TProductPriceText(price: '40.0', maxLines: 2),
+                        ),
                         TAddIcon(),
                       ],
                     )

@@ -11,8 +11,8 @@ import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TProductCardVertical extends StatelessWidget {
-  const TProductCardVertical({super.key, required this.product});
   final ProductEntity product;
+  const TProductCardVertical({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class TProductCardVertical extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ProductDetailPage(),
+            builder: (context) => ProductDetailPage(product: product),
           ),
         );
       },
@@ -38,7 +38,7 @@ class TProductCardVertical extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TProductCardHeader(thumbnail: product.thumbnail),
+            TProductCardHeader(thumbnail: product.thumbnail ),
             const SizedBox(height: TSizes.spaceBtwItems / 2),
             TProductCardBody(
               title: product.title,

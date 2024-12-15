@@ -3,6 +3,7 @@ import 'package:t_store/features/shop/features/all_brands/data/brand_model.dart'
 import 'package:t_store/features/shop/features/all_products/data/models/product_attribute_model.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_variation_model.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
+import 'package:t_store/utils/constants/images_strings.dart';
 
 class ProductModel {
   final String id;
@@ -50,7 +51,7 @@ class ProductModel {
       sku: '',
       date: null,
       salePrice: 0.0,
-      thumbnail: '',
+      thumbnail: TImages.productImage1,
       isFeatured: false,
       brand: null,
       description: '',

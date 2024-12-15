@@ -41,4 +41,7 @@ class ProductEntity {
     this.productAttributes = const [],
     this.productVariations = const [],
   });
+
+  
+      
 }

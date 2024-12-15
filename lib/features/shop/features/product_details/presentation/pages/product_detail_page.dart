@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/product_reviews/presentation/pages/product_review_page.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/bottom_add_to_cart.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/product_attribute.dart';
@@ -11,9 +12,9 @@ import 'package:t_store/features/shop/features/product_details/presentation/widg
 import 'package:t_store/utils/constants/sizes.dart';
 
 class ProductDetailPage extends StatelessWidget {
-  const ProductDetailPage({super.key});
+  final ProductEntity product;
+  const ProductDetailPage({super.key, required this.product});
 
-  @override
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -23,7 +24,7 @@ class ProductDetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const TProductDetailImageSlider(),
+            TProductDetailImageSlider(product: product),
             Padding(
               padding: const EdgeInsets.only(
                 bottom: TSizes.defaultSpace,

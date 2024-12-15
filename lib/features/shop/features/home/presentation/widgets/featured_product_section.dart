@@ -7,29 +7,19 @@ import 'package:t_store/features/shop/features/all_products/data/models/product_
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_state.dart';
 
-class FeaturedProductSection extends StatefulWidget {
+class FeaturedProductSection extends StatelessWidget {
   const FeaturedProductSection({
     super.key,
   });
 
   @override
-  State<FeaturedProductSection> createState() => _FeaturedProductSectionState();
-}
-
-class _FeaturedProductSectionState extends State<FeaturedProductSection> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<ProductsCubit>().fetchFeaturedProducts();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    context.read<ProductsCubit>().fetchFeaturedProducts();
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
-        if (state is FeaturedProductsFailureState) {
-          return _errorWidget(state.errorMessage);
-        } else if (state is FeaturedProductsLoadedState) {
+        if (state is ProductsFailureState) {
+          return _errorWidget(state.featuredProductsError!);
+        } else if (state is ProductsLoadedState) {
           return TGridLayout(
             itemCount: state.featuredProducts.length,
             itemBuilder: (context, index) => TProductCardVertical(
