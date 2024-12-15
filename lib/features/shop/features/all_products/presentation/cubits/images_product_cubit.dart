@@ -39,40 +39,7 @@ class ImagesProductCubit extends Cubit<String> {
   }
 
   /// Displays an enlarged version of the selected image in a fullscreen dialog
-  void showEnlargedImage(String image, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (_) => Dialog.fullscreen(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: TSizes.defaultSpace * 2,
-                horizontal: TSizes.defaultSpace,
-              ),
-              child: Image(
-                image: AssetImage(image),
-                fit: BoxFit.contain,
-              ),
-            ),
-            const SizedBox(height: TSizes.spaceBtwSections),
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: 150,
-                child: OutlinedButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Close'),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+ 
 
   /// Updates the selected image and emits its value
   void selectImage(String image) {

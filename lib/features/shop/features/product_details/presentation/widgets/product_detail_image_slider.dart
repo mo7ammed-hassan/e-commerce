@@ -7,6 +7,7 @@ import 'package:t_store/common/widgets/icons/circular_icon.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/images_product_cubit.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/build_images_slider.dart';
+import 'package:t_store/features/shop/features/product_details/presentation/widgets/show_enlarrged_image.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
@@ -44,14 +45,13 @@ class TProductDetailImageSlider extends StatelessWidget {
   Widget _buildMainImage(BuildContext context) {
     return BlocBuilder<ImagesProductCubit, String>(
       builder: (context, selectedImage) {
-        final cubit = context.read<ImagesProductCubit>();
         return SizedBox(
           height: MediaQuery.sizeOf(context).height * 0.45,
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(TSizes.productImageRadius * 2),
               child: GestureDetector(
-                onTap: () => cubit.showEnlargedImage(selectedImage, context),
+                onTap: () => showEnlargedImage(selectedImage, context),
                 child: Image.asset(
                   selectedImage.isEmpty
                       ? product.thumbnail.isNotEmpty

@@ -22,7 +22,7 @@ class OpenContainerWrapper extends StatelessWidget {
       ),
       closedColor: isDark ? Colors.black : TColors.white,
       transitionType: ContainerTransitionType.fade,
-      transitionDuration: const Duration(milliseconds: 850),
+      transitionDuration: const Duration(milliseconds: 800), //850
       closedBuilder: (_, VoidCallback openContainer) {
         return InkWell(onTap: openContainer, child: child);
       },
