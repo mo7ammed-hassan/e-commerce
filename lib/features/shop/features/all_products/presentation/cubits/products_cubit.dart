@@ -18,6 +18,9 @@ class ProductsCubit extends Cubit<ProductsState> {
 
   Future<void> fetchAllProducts({bool forceRefresh = false}) async {
     if (!forceRefresh && _hasFetchedAllProducts && allProducts.isNotEmpty) {
+      if (kDebugMode) {
+        print('Products Already fetched');
+      }
       return;
     }
 

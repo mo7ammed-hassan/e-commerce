@@ -13,7 +13,8 @@ class UploadDataCubit extends Cubit<UploadDataState> {
 
   void uploadDummyData(
       {required List<dynamic> data, required String collection}) async {
-    emit(UploadDataloading(collection, TImages.packaging));
+    emit(UploadDataloading(
+        'We are uploading $collection data...', TImages.packaging));
     try {
       await getIt<UploadDummyDataUseCase>()
           .call(data: data, collection: collection);
@@ -26,7 +27,8 @@ class UploadDataCubit extends Cubit<UploadDataState> {
   void uploadProductDummyData(
       {required List<ProductUploadModel> data,
       required String collection}) async {
-    emit(UploadDataloading(collection, TImages.packaging));
+    emit(UploadDataloading(
+        'We are uploading $collection data...', TImages.packaging));
     try {
       await getIt<UploadProductUseCase>()
           .call(data: data, collection: collection);

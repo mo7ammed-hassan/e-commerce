@@ -49,7 +49,7 @@ class BannerCubit extends Cubit<BannerState> {
   @override
   Future<void> close() {
     if (kDebugMode) {
-      print('Category cubit closed');
+      print('Banner cubit closed');
     }
     return super.close();
   }

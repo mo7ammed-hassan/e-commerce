@@ -17,7 +17,7 @@ class MainRecordSection extends StatelessWidget {
       listener: (context, state) {
         if (state is UploadDataloading) {
           TFullScreenLoader.openLoadingDialog(
-            'We are uploading ${state.message} data...',
+            state.message,
             state.animation,
           );
         }
