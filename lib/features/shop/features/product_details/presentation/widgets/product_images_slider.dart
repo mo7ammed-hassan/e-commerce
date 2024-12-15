@@ -15,41 +15,36 @@ class BuildImagesSlider extends StatelessWidget {
     final cubit = context.read<ImagesProductCubit>();
     final images = cubit.getAllProductImages(product);
     final isDark = THelperFunctions.isDarkMode(context);
-    return Positioned(
-      bottom: 30,
-      right: 0,
-      left: TSizes.defaultSpace,
-      child: SizedBox(
-        height: 80,
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemCount: images.length,
-          physics: const AlwaysScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            final image = images[index];
-            return BlocBuilder<ImagesProductCubit, String>(
-              builder: (context, selectedImage) {
-                return GestureDetector(
-                  onTap: () => cubit.selectImage(image),
-                  child: TRoundedImage(
-                    width: 80,
-                    padding: const EdgeInsets.all(TSizes.xs),
-                    imageUrl: image,
-                    backgroundColor: isDark ? TColors.dark : TColors.white,
-                    border: Border.all(
-                      color: selectedImage == image
-                          ? TColors.primary
-                          : TColors.grey,
-                      width: 2,
-                    ),
+    return SizedBox(
+      height: 80,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: images.length,
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          final image = images[index];
+          return BlocBuilder<ImagesProductCubit, String>(
+            builder: (context, selectedImage) {
+              return GestureDetector(
+                onTap: () => cubit.selectImage(image),
+                child: TRoundedImage(
+                  width: 80,
+                  padding: const EdgeInsets.all(TSizes.xs),
+                  imageUrl: image,
+                  backgroundColor: isDark ? TColors.dark : TColors.white,
+                  border: Border.all(
+                    color: selectedImage == image
+                        ? TColors.primary
+                        : TColors.grey,
+                    width: 2,
                   ),
-                );
-              },
-            );
-          },
-          separatorBuilder: (context, index) =>
-              const SizedBox(width: TSizes.spaceBtwItems),
-        ),
+                ),
+              );
+            },
+          );
+        },
+        separatorBuilder: (context, index) =>
+            const SizedBox(width: TSizes.spaceBtwItems),
       ),
     );
   }
