@@ -1,5 +1,8 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:t_store/features/personalization/data/models/products/product_upload_model.dart';
 import 'package:t_store/features/personalization/data/source/remote/firebase_storage_services.dart';
 import 'package:t_store/service_locator.dart';
@@ -98,22 +101,35 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
         // Get the data from each document
         var data = document.data();
 
-        // Assuming the document has an 'image' field to store the file URL
-        if (data.containsKey('image')) {
+        // Check if the document contains an 'image' field
+        if (data.containsKey('image') && data['image'] != null) {
           String imageUrl = data['image'];
 
-          // Get a reference to the Firebase Storage location
-          final storageRef = FirebaseStorage.instance.refFromURL(imageUrl);
-
-          // Delete the image from Firebase Storage
-          await storageRef.delete();
-        }
-
-        // If the document has multiple images (like in the product case)
-        if (data.containsKey('images') && data['images'] is List) {
-          for (var imageUrl in data['images']) {
+          try {
+            // Get a reference to the Firebase Storage location and delete the image
             final storageRef = FirebaseStorage.instance.refFromURL(imageUrl);
             await storageRef.delete();
+          } catch (e) {
+            if (kDebugMode) {
+              print('Error deleting image from Firebase Storage: $e');
+            }
+          }
+        }
+
+        // Check if the document contains an 'images' field (for multiple images)
+        if (data.containsKey('images') && data['images'] is List) {
+          for (var imageUrl in data['images']) {
+            if (imageUrl != null && imageUrl.isNotEmpty) {
+              try {
+                final storageRef =
+                    FirebaseStorage.instance.refFromURL(imageUrl);
+                await storageRef.delete();
+              } catch (e) {
+                if (kDebugMode) {
+                  print('Error deleting image from Firebase Storage: $e');
+                }
+              }
+            }
           }
         }
 

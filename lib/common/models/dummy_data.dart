@@ -128,11 +128,11 @@ class DummyData {
       categoryId: '1',
       productType: 'Shoes',
       images: [
-        TImages.productImage1,
-        TImages.productImage62,
-        TImages.productImage63
+        TImages.productImage21,
+        TImages.productImage22,
+        TImages.productImage23
       ],
-      thumbnail: TImages.productImage1,
+      thumbnail: TImages.productImage21,
       isFeatured: true,
       brand: BrandModel(
         id: '6',
@@ -291,7 +291,7 @@ class DummyData {
       stock: 15,
       id: '004',
       price: 999,
-      title: 'Apple iPhone 13 Pro',
+      title: 'Apple iPhone 14 Pro',
       sku: 'APL1313',
       salePrice: 899,
       description: 'The latest iPhone with advanced features.',
@@ -300,7 +300,6 @@ class DummyData {
       images: [
         TImages.productImage51,
         TImages.productImage52,
-        TImages.productImage53
       ],
       thumbnail: TImages.productImage51,
       isFeatured: true,
@@ -349,7 +348,7 @@ class DummyData {
         TImages.productImage62
       ],
       thumbnail: TImages.productImage60,
-      isFeatured: false,
+      isFeatured: true,
       brand: BrandModel(
         id: '10',
         name: 'Puma',
@@ -442,7 +441,7 @@ class DummyData {
         TImages.productImage77,
       ],
       thumbnail: TImages.productImage74,
-     isFeatured: false,
+      isFeatured: false,
       brand: BrandModel(
         id: '12',
         name: 'Kenwood',
@@ -483,13 +482,12 @@ class DummyData {
       categoryId: '6',
       productType: 'Furniture',
       images: [
-        TImages.productImage64,
-        TImages.productImage65,
-        TImages.productImage66,
-        TImages.productImage67,
+        TImages.productImage39,
+        TImages.productImage40,
+        
       ],
-      thumbnail: TImages.productImage64,
-      isFeatured: true,
+      thumbnail: TImages.productImage39,
+      isFeatured: false,
       brand: BrandModel(
         id: '13',
         name: 'Herman Miller',
@@ -577,12 +575,12 @@ class DummyData {
       categoryId: '3',
       productType: 'Electronics',
       images: [
-        TImages.productImage51,
-        TImages.productImage52,
-        TImages.productImage53,
-        TImages.productImage54,
+        TImages.productImage47,
+        TImages.productImage48,
+        TImages.productImage49,
+        TImages.productImage50,
       ],
-      thumbnail: TImages.productImage51,
+      thumbnail: TImages.productImage47,
       isFeatured: true,
       brand: BrandModel(
         id: '15',
