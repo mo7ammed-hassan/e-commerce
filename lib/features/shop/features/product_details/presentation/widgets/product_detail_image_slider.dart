@@ -52,15 +52,15 @@ class TProductDetailImageSlider extends StatelessWidget {
               padding: const EdgeInsets.all(TSizes.productImageRadius * 2),
               child: GestureDetector(
                 onTap: () => cubit.showEnlargedImage(selectedImage, context),
-                child: Image(
-                  image: AssetImage(
-                    selectedImage.isEmpty
-                        ? product.thumbnail.isEmpty
-                            ? TImages.productImage1
-                            : TImages.animalIcon
-                        : selectedImage,
-                  ),
+                child: Image.asset(
+                  selectedImage.isEmpty
+                      ? product.thumbnail.isNotEmpty
+                          ? product.thumbnail
+                          : TImages.animalIcon
+                      : selectedImage,
                   fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.error_rounded),
                 ),
               ),
             ),

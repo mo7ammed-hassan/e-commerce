@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:t_store/common/widgets/animation_containers/open_container_wrapper.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:t_store/common/widgets/icons/add_icon.dart';
 import 'package:t_store/common/widgets/icons/circular_icon.dart';
@@ -22,15 +23,9 @@ class ProductCardHorizantal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetailPage(product: product),
-          ),
-        );
-      },
+    return OpenContainerWrapper(
+      radius: const Radius.circular(TSizes.productImageRadius),
+      nextScreen: ProductDetailPage(product: product),
       child: Container(
         width: 310,
         padding: const EdgeInsets.all(1),

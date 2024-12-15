@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/styles/shadows.dart';
+import 'package:t_store/common/widgets/animation_containers/open_container_wrapper.dart';
 import 'package:t_store/common/widgets/products/product_cards/sections/product_card_body.dart';
 import 'package:t_store/common/widgets/products/product_cards/sections/product_card_footer.dart';
 import 'package:t_store/common/widgets/products/product_cards/sections/product_card_header.dart';
@@ -18,15 +19,9 @@ class TProductCardVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     ProductsCubit productCubit = ProductsCubit();
     final isDark = THelperFunctions.isDarkMode(context);
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetailPage(product: product),
-          ),
-        );
-      },
+    return OpenContainerWrapper(
+      radius: const Radius.circular(TSizes.productImageRadius),
+      nextScreen: ProductDetailPage(product: product),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
