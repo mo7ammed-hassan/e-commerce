@@ -10,8 +10,10 @@ import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TProductCardHeader extends StatelessWidget {
-  const TProductCardHeader({super.key, this.thumbnail});
+  const TProductCardHeader(
+      {super.key, this.thumbnail, required this.discountPrice});
   final String? thumbnail;
+  final String discountPrice;
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
@@ -47,10 +49,10 @@ class TProductCardHeader extends StatelessWidget {
   }
 
   Widget _discountText(BuildContext context) {
-    return const Positioned(
+    return Positioned(
       top: 12,
       child: TDiscountRate(
-        rate: '25%',
+        rate: '$discountPrice%',
       ),
     );
   }

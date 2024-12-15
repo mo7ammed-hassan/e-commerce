@@ -17,7 +17,7 @@ class TProductCardVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProductsCubit productCubit = ProductsCubit();
+    ProductsCubit cubit = ProductsCubit();
     final isDark = THelperFunctions.isDarkMode(context);
     return OpenContainerWrapper(
       radius: const Radius.circular(TSizes.productImageRadius),
@@ -33,14 +33,19 @@ class TProductCardVertical extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TProductCardHeader(thumbnail: product.thumbnail),
+            TProductCardHeader(
+              thumbnail: product.thumbnail,
+              discountPrice: cubit.calculateProductDiscount(
+                      product.price.toDouble(), product.salePrice!) ??
+                  '0',
+            ),
             const SizedBox(height: TSizes.spaceBtwItems / 2),
             TProductCardBody(
               title: product.title,
               brandTitle: product.brand?.name ?? '',
             ),
             const Spacer(),
-            TProductCartFooter(price: productCubit.getProductPrice(product)),
+            TProductCartFooter(price: cubit.getProductPrice(product)),
           ],
         ),
       ),

@@ -7,7 +7,7 @@ import 'package:t_store/utils/constants/images_strings.dart';
 
 class ProductModel {
   final String id;
-  final int? stock;
+  final int stock;
   final num price;
   final String title;
   final String sku;
@@ -25,7 +25,7 @@ class ProductModel {
 
   const ProductModel({
     required this.id,
-    this.stock,
+    required this.stock,
     required this.price,
     required this.title,
     required this.sku,
@@ -45,7 +45,7 @@ class ProductModel {
   static ProductModel empty() {
     return const ProductModel(
       id: '',
-      stock: null,
+      stock: 0,
       price: 0.0,
       title: '',
       sku: '',
@@ -63,7 +63,7 @@ class ProductModel {
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'stock': stock,
-      'price': price,
+      'price': price.toDouble(),
       'title': title,
       'sku': sku,
       'salePrice': salePrice,
@@ -74,10 +74,8 @@ class ProductModel {
       'categoryId': categoryId,
       'images': images,
       'productType': productType,
-      'productAttributes':
-          productAttributes.map((e) => e.toJson()).toList(),
-      'productVariations':
-          productVariations.map((e) => e.toJson()).toList(),
+      'productAttributes': productAttributes.map((e) => e.toJson()).toList(),
+      'productVariations': productVariations.map((e) => e.toJson()).toList(),
     };
   }
 
@@ -88,7 +86,7 @@ class ProductModel {
     return ProductModel(
       id: document.id,
       stock: data['stock'] ?? 0,
-      price: (data['price'] ?? 0.0) as num,
+      price: data['price'] ?? 0.0,
       title: data['title'] ?? '',
       sku: data['sku'] ?? '',
       date: data['date'] != null
@@ -130,10 +128,8 @@ extension ProductXModel on ProductModel {
       categoryId: categoryId,
       images: images,
       productType: productType,
-      productAttributes:
-          productAttributes.map((e) => e.toEntity()).toList(),
-      productVariations:
-          productVariations.map((e) => e.toEntity()).toList(),
+      productAttributes: productAttributes.map((e) => e.toEntity()).toList(),
+      productVariations: productVariations.map((e) => e.toEntity()).toList(),
     );
   }
 }

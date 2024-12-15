@@ -4,19 +4,17 @@ import 'package:t_store/common/widgets/custom_shapes/containers/rounded_containe
 import 'package:t_store/common/widgets/texts/product_price.dart';
 import 'package:t_store/common/widgets/texts/product_title_text.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class TProductAttributes extends StatelessWidget {
-  const TProductAttributes({
-    super.key,
-    required this.isDark,
-  });
-
-  final bool isDark;
+  final ProductEntity product;
+  const TProductAttributes({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         TRoundedContainer(
@@ -90,93 +88,36 @@ class TProductAttributes extends StatelessWidget {
         const SizedBox(height: TSizes.spaceBtwItems),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TSectionHeading(
-              title: 'Colors',
-              showActionButton: false,
-            ),
-            const SizedBox(height: TSizes.spaceBtwItems / 2),
-            Wrap(
-              children: [
-                TChoiceChip(
-                  text: 'Red',
-                  selected: false,
-                  onSelected: (selected) {},
+          children: product.productAttributes
+              .asMap()
+              .entries
+              .map(
+                (attribute) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (attribute.key.isOdd)
+                      const SizedBox(height: TSizes.spaceBtwItems),
+                    TSectionHeading(
+                      title: attribute.value.name,
+                      showActionButton: false,
+                    ),
+                    const SizedBox(height: TSizes.spaceBtwItems / 2),
+                    Wrap(
+                      spacing: 8,
+                      children: attribute.value.values
+                          .map(
+                            (value) => TChoiceChip(
+                              text: value,
+                              selected: false,
+                              onSelected: (selected) {},
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
                 ),
-                TChoiceChip(
-                  text: 'Green',
-                  selected: true,
-                  onSelected: (selected) {},
-                ),
-                TChoiceChip(
-                  text: 'Blue',
-                  selected: false,
-                  onSelected: (selected) {},
-                ),
-                TChoiceChip(
-                  text: 'Yellow',
-                  selected: false,
-                  onSelected: (selected) {},
-                ),
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(height: TSizes.spaceBtwItems / 2),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TSectionHeading(
-              title: 'Size',
-              showActionButton: false,
-            ),
-            const SizedBox(height: TSizes.spaceBtwItems / 2),
-            Wrap(
-              spacing: 8,
-              children: [
-                TChoiceChip(
-                  text: 'EU 34',
-                  selected: false,
-                  onSelected: (selected) {},
-                ),
-                TChoiceChip(
-                  text: 'EU 34',
-                  selected: true,
-                  onSelected: (selected) {},
-                ),
-                TChoiceChip(
-                  text: 'EU 36',
-                  selected: false,
-                  onSelected: (selected) {},
-                ),
-                TChoiceChip(
-                  text: 'EU 38',
-                  selected: false,
-                  onSelected: (selected) {},
-                ),
-                TChoiceChip(
-                  text: 'EU 36',
-                  selected: false,
-                  onSelected: (selected) {},
-                ),
-                TChoiceChip(
-                  text: 'EU 38',
-                  selected: false,
-                  onSelected: (selected) {},
-                ),
-                TChoiceChip(
-                  text: 'EU 36',
-                  selected: true,
-                  onSelected: (selected) {},
-                ),
-                TChoiceChip(
-                  text: 'EU 38',
-                  selected: false,
-                  onSelected: (selected) {},
-                ),
-              ],
-            ),
-          ],
+              )
+              .toList(),
         ),
       ],
     );

@@ -18,11 +18,11 @@ class TProductCardBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TProductTitleText(
-            title: title ?? 'Green Nike Air Shose',
+            title: title ?? '',
             smallSize: true,
           ),
           const SizedBox(height: TSizes.spaceBtwItems / 2),
-          TBrandTitleWithVerifiedIcon(title: brandTitle ?? 'Nike'),
+          TBrandTitleWithVerifiedIcon(title: brandTitle ?? ''),
         ],
       ),
     );

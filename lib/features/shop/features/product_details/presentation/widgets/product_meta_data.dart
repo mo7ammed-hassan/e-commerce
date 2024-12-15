@@ -4,6 +4,9 @@ import 'package:t_store/common/widgets/products/product_cards/sections/discount_
 import 'package:t_store/common/widgets/texts/brand_title_with_verified_icon.dart';
 import 'package:t_store/common/widgets/texts/product_price.dart';
 import 'package:t_store/common/widgets/texts/product_title_text.dart';
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
+import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/enums.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
@@ -13,26 +16,48 @@ import 'package:t_store/utils/helpers/helper_functions.dart';
 class TProductMetaData extends StatelessWidget {
   const TProductMetaData({
     super.key,
+    required this.product,
   });
-
+  final ProductEntity product;
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
+    final cubit = getIt.get<ProductsCubit>();
+    final salePersentage = cubit.calculateProductDiscount(
+        product.price.toDouble(), product.salePrice!);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Row(
+        Row(
           children: [
-            TDiscountRate(rate: '25%'),
-            SizedBox(width: TSizes.spaceBtwItems),
-            TProductPriceText(price: '250', isLarge: true),
-            SizedBox(width: TSizes.spaceBtwItems / 2),
-            TProductPriceText(price: '200', lineThrough: true),
+            product.salePrice! > 0
+                ? TDiscountRate(
+                    rate: '$salePersentage%',
+                  )
+                : const SizedBox(),
+            const SizedBox(width: TSizes.spaceBtwItems),
+
+            // Discount price
+            if (product.productType == ProductType.single.toString() &&
+                product.salePrice! > 0)
+              Text(
+                product.price.toDouble().toString(),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .apply(decoration: TextDecoration.lineThrough),
+              ),
+            if (product.productType == ProductType.single.toString() &&
+                product.salePrice! > 0)
+              const SizedBox(width: TSizes.spaceBtwItems / 2),
+
+            TProductPriceText(
+                price: cubit.getProductPrice(product), isLarge: true),
           ],
         ),
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
-        const TProductTitleText(
-          title: 'Green Nike Sport Sneakers',
+        TProductTitleText(
+          title: product.title,
         ),
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
         Row(
@@ -44,7 +69,7 @@ class TProductMetaData extends StatelessWidget {
               width: TSizes.spaceBtwItems,
             ),
             Text(
-              'In Stock',
+              cubit.getPrroductStockStatus(product.stock),
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
@@ -53,14 +78,14 @@ class TProductMetaData extends StatelessWidget {
         Row(
           children: [
             TCircularImage(
-              image: TImages.nikeLogo,
+              image: product.brand?.image ?? TImages.nikeLogo,
               width: 32,
               height: 32,
               backgroundColor: isDark ? TColors.black : TColors.white,
             ),
-            const SizedBox(width: TSizes.spaceBtwItems / 2),
-            const TBrandTitleWithVerifiedIcon(
-              title: 'Nike',
+            const SizedBox(width: 5),
+            TBrandTitleWithVerifiedIcon(
+              title: product.brand?.name ?? '',
               brandTextSize: TextSizes.medium,
             ),
           ],

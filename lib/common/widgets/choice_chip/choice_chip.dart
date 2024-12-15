@@ -25,8 +25,8 @@ class TChoiceChip extends StatelessWidget {
         labelStyle: TextStyle(color: selected ? TColors.white : null),
         avatar: isColor != null
             ? TCircularContainer(
-                width: 50,
-                height: 50,
+                width: 55,
+                height: 55,
                 backgroundColor: isColor,
               )
             : null,

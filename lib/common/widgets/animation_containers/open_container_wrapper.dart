@@ -9,18 +9,22 @@ class OpenContainerWrapper extends StatelessWidget {
     required this.child,
     required this.nextScreen,
     required this.radius,
+    this.closedElevation = 0.5,
   });
   final Widget child;
   final Widget nextScreen;
   final Radius radius;
+  final double closedElevation;
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
     return OpenContainer(
+      closedElevation: closedElevation,
       closedShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(radius),
       ),
       closedColor: isDark ? Colors.black : TColors.white,
+
       transitionType: ContainerTransitionType.fade,
       transitionDuration: const Duration(milliseconds: 800), //850
       closedBuilder: (_, VoidCallback openContainer) {

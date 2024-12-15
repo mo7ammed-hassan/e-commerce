@@ -140,6 +140,10 @@ class ProductsCubit extends Cubit<ProductsState> {
     double percentage = ((originalPrice - salePrice) / originalPrice) * 100;
     return percentage.toStringAsFixed(0);
   }
+
+  String getPrroductStockStatus(int stock) {
+    return stock > 0 ? 'In stock' : 'Out stock';
+  }
 }
 
 

@@ -5,7 +5,7 @@ import 'package:t_store/features/shop/features/all_products/domain/entity/produc
 /// final >>  immutabl
 class ProductEntity {
   final String id;
-  final int? stock;
+  final int stock;
   final num price;
   final String title;
   final String sku;
@@ -25,7 +25,7 @@ class ProductEntity {
 
   const ProductEntity({
     required this.id,
-    this.stock,
+    required this.stock,
     required this.price,
     required this.title,
     required this.sku,
@@ -41,7 +41,4 @@ class ProductEntity {
     this.productAttributes = const [],
     this.productVariations = const [],
   });
-
-  
-      
 }
