@@ -33,9 +33,8 @@ class BuildImagesSlider extends StatelessWidget {
                   imageUrl: image,
                   backgroundColor: isDark ? TColors.dark : TColors.white,
                   border: Border.all(
-                    color: selectedImage == image
-                        ? TColors.primary
-                        : TColors.grey,
+                    color:
+                        selectedImage == image ? TColors.primary : TColors.grey,
                     width: 2,
                   ),
                 ),

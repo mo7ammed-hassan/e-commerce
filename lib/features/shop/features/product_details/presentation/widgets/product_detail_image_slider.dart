@@ -6,7 +6,7 @@ import 'package:t_store/common/widgets/curved_edges/curved_edges_widgets.dart';
 import 'package:t_store/common/widgets/icons/circular_icon.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/images_product_cubit.dart';
-import 'package:t_store/features/shop/features/product_details/presentation/widgets/product_images_slider.dart';
+import 'package:t_store/features/shop/features/product_details/presentation/widgets/build_images_slider.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
