@@ -16,8 +16,8 @@ class BannerCubit extends Cubit<BannerState> {
   final List<BannerEntity> allBanners = [];
   bool _hasFetched = false;
 
-  Future<void> fetchBanners({bool forceRefresh = false}) async {
-    if (!forceRefresh && _hasFetched && allBanners.isNotEmpty) {
+  Future<void> fetchBanners() async {
+    if (_hasFetched && allBanners.isNotEmpty) {
       if (kDebugMode) {
         print("Banners already fetched, no need to fetch again.");
       }
@@ -35,7 +35,9 @@ class BannerCubit extends Cubit<BannerState> {
       (categories) {
         allBanners.clear();
         allBanners.addAll(categories);
+
         emit(BannerLoadedState(allBanners));
+
         _hasFetched = true;
       },
     );
@@ -43,7 +45,7 @@ class BannerCubit extends Cubit<BannerState> {
 
   Future<void> refreshBanners() async {
     _hasFetched = false;
-    await fetchBanners(forceRefresh: true);
+    await fetchBanners();
   }
 
   @override

@@ -117,7 +117,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     double smallestPrice = double.infinity;
     double largestPrice = 0;
 
-    for (var variation in product.productVariations) {
+    for (var variation in product.productVariations!) {
       double priceToConsider =
           (variation.salePrice > 0.0) ? variation.salePrice : variation.price;
 

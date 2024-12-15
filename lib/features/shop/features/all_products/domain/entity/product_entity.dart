@@ -16,11 +16,11 @@ class ProductEntity {
   final BrandEntity? brand;
   final String? description;
   final String? categoryId;
-  final List<String> images; // Defaults to an empty list
+  final List<String>? images; // Defaults to an empty list
   final String productType;
   final List<ProductAttributeEntity>
       productAttributes; // Defaults to an empty list
-  final List<ProductVariationEntity>
+  final List<ProductVariationEntity>?
       productVariations; // Defaults to an empty list
 
   const ProductEntity({
