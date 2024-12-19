@@ -20,8 +20,8 @@ class TBottomNavigationBar extends StatelessWidget {
           onDestinationSelected: context.read<NavigationMenuCubit>().setScreen,
           backgroundColor: isDark ? TColors.black : TColors.white,
           indicatorColor: isDark
-              ? TColors.white.withOpacity(0.1)
-              : TColors.black.withOpacity(0.1),
+              ? TColors.white.withValues(alpha:0.1)
+              : TColors.black.withValues(alpha:0.1),
           destinations: const [
             NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
             NavigationDestination(icon: Icon(Iconsax.shop), label: 'Store'),

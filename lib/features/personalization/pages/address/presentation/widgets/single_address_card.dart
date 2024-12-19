@@ -14,7 +14,7 @@ class SingleAddressCard extends StatelessWidget {
     return TRoundedContainer(
       width: double.infinity,
       backgroundColor: isSelectedAddress
-          ? TColors.primary.withOpacity(0.5)
+          ? TColors.primary.withValues(alpha:0.5)
           : Colors.transparent,
       padding: const EdgeInsets.all(TSizes.md),
       showBorder: true,

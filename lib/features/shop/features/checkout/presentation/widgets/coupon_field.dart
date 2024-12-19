@@ -40,11 +40,11 @@ class CouponFiled extends StatelessWidget {
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 foregroundColor: isDark
-                    ? TColors.white.withOpacity(0.5)
-                    : TColors.dark.withOpacity(0.5),
-                backgroundColor: Colors.grey.withOpacity(0.2),
+                    ? TColors.white.withValues(alpha:0.5)
+                    : TColors.dark.withValues(alpha:0.5),
+                backgroundColor: Colors.grey.withValues(alpha:0.2),
                 side: BorderSide(
-                  color: TColors.grey.withOpacity(0.1),
+                  color: TColors.grey.withValues(alpha:0.1),
                 ),
               ),
               child: const Text('Apply'),
