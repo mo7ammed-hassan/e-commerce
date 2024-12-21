@@ -17,7 +17,7 @@ class TProductAttributes extends StatelessWidget {
     return BlocProvider(
       create: (context) {
         final cubit = ProductVariationCubit();
-        cubit.initializeWithDefault(product); // Initialize with default
+         cubit.initializeWithDefault(product); // Initialize with default
         return cubit;
       },
       child: Column(
