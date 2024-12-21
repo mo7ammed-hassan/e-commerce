@@ -4,6 +4,7 @@ import 'package:t_store/features/personalization/data/models/products/product_va
 import 'package:t_store/features/shop/features/all_brands/data/brand_model.dart';
 import 'package:t_store/features/shop/features/home/data/models/banner_model.dart';
 import 'package:t_store/features/shop/features/home/data/models/category_model.dart';
+import 'package:t_store/utils/constants/enums.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 
 class DummyData {
@@ -126,7 +127,7 @@ class DummyData {
       salePrice: 30,
       description: 'This is a Product description for Green Nike sports shoe',
       categoryId: '1',
-      productType: 'Shoes',
+      productType: ProductType.variable.toString(),
       images: [
         TImages.productImage21,
         TImages.productImage22,
@@ -188,7 +189,7 @@ class DummyData {
       salePrice: 45,
       description: 'A stylish blue denim jacket for all occasions.',
       categoryId: '2',
-      productType: 'Jackets',
+      productType: ProductType.variable.toString(),
       images: [
         TImages.productImage3,
         TImages.productImage64,
@@ -242,7 +243,7 @@ class DummyData {
       salePrice: 120,
       description: 'Lightweight and comfortable running shoes from Adidas.',
       categoryId: '1',
-      productType: 'Shoes',
+      productType: ProductType.variable.toString(),
       images: [
         TImages.productImage19,
         TImages.productImage20,
@@ -484,7 +485,6 @@ class DummyData {
       images: [
         TImages.productImage39,
         TImages.productImage40,
-        
       ],
       thumbnail: TImages.productImage39,
       isFeatured: false,

@@ -18,4 +18,14 @@ class ProductVariationEntity {
     required this.stock,
     this.attributeValues = const {},
   });
+
+  static ProductVariationEntity empty() {
+    return const ProductVariationEntity(
+      id: '',
+      image: '',
+      price: 0.0,
+      salePrice: 0.0,
+      stock: 0,
+    );
+  }
 }

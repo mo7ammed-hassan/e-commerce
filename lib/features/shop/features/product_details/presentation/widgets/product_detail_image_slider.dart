@@ -20,23 +20,20 @@ class TProductDetailImageSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
-    return BlocProvider(
-      create: (_) => ImagesProductCubit(),
-      child: TCurvedEdgeWidget(
-        child: Container(
-          color: isDark ? TColors.darkerGrey : TColors.light,
-          child: Stack(
-            children: [
-              _buildMainImage(context),
-              Positioned(
-                bottom: 30,
-                right: 0,
-                left: TSizes.defaultSpace,
-                child: BuildImagesSlider(product: product),
-              ),
-              _appBar(),
-            ],
-          ),
+    return TCurvedEdgeWidget(
+      child: Container(
+        color: isDark ? TColors.darkerGrey : TColors.light,
+        child: Stack(
+          children: [
+            _buildMainImage(context),
+            Positioned(
+              bottom: 30,
+              right: 0,
+              left: TSizes.defaultSpace,
+              child: BuildImagesSlider(product: product),
+            ),
+            _appBar(),
+          ],
         ),
       ),
     );

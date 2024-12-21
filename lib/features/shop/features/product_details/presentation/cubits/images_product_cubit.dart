@@ -4,10 +4,8 @@ import 'package:t_store/features/shop/features/all_products/domain/entity/produc
 class ImagesProductCubit extends Cubit<String> {
   ImagesProductCubit() : super('');
 
-  /// Stores the currently selected image
   String selectedImage = '';
 
-  /// Retrieves all unique product images, including from variations
   List<String> getAllProductImages(ProductEntity product) {
     final Set<String> images = {};
 
@@ -36,9 +34,11 @@ class ImagesProductCubit extends Cubit<String> {
     return images.toList();
   }
 
-  /// Updates the selected image and emits its value
   void selectImage(String image) {
-    selectedImage = image;
-    emit(selectedImage);
+    // Only update if a valid image is provided
+    if (image.isNotEmpty) {
+      selectedImage = image;
+      emit(selectedImage);
+    }
   }
 }
