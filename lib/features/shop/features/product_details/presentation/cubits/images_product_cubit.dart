@@ -36,9 +36,6 @@ class ImagesProductCubit extends Cubit<String> {
     return images.toList();
   }
 
-  /// Displays an enlarged version of the selected image in a fullscreen dialog
- 
-
   /// Updates the selected image and emits its value
   void selectImage(String image) {
     selectedImage = image;
