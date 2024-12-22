@@ -24,7 +24,7 @@ class BrandProductsPage extends StatelessWidget {
               SizedBox(height: TSizes.spaceBtwSections),
               TSectionHeading(title: 'Products', showActionButton: false),
               SizedBox(height: TSizes.spaceBtwItems),
-              TSortableProducts(),
+              TSortableProducts(products: [],),
             ],
           ),
         ),

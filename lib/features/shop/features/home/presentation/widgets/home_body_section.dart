@@ -41,7 +41,9 @@ class _HomeBodySectionState extends State<HomeBodySection> {
             TSectionHeading(
               title: 'Featured Products',
               onPressed: () {
-                context.pushPage(const AllProductsPage());
+                context.pushPage(
+                  AllProductsPage(products: productsCubit.featuredProducts),
+                );
               },
             ),
             const SizedBox(height: TSizes.spaceBtwItems),
@@ -50,7 +52,9 @@ class _HomeBodySectionState extends State<HomeBodySection> {
             TSectionHeading(
               title: 'Popular Products',
               onPressed: () {
-                context.pushPage(const AllProductsPage());
+                context.pushPage(
+                  AllProductsPage(products: productsCubit.allProducts),
+                );
               },
             ),
             const SizedBox(height: TSizes.spaceBtwItems),
