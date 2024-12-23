@@ -41,4 +41,23 @@ class ProductEntity {
     this.productAttributes = const [],
     this.productVariations = const [],
   });
+
+  // Empty product entity
+  const ProductEntity.empty()
+      : id = '',
+        stock = 0,
+        price = 0,
+        title = '',
+        sku = '',
+        date = null,
+        salePrice = 0,
+        thumbnail = '',
+        isFeatured = false,
+        brand = null,
+        description = '',
+        categoryId = '',
+        images = const [],
+        productType = '',
+        productAttributes = const [],
+        productVariations = const [];
 }

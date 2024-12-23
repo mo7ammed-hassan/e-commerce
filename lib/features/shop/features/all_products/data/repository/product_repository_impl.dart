@@ -6,11 +6,8 @@ import 'package:t_store/features/shop/features/all_products/domain/repository/pr
 import 'package:t_store/service_locator.dart';
 
 class ProductRepositoryImpl extends ProductRepository {
-  static List<ProductEntity> allProducts = [];
-  static List<ProductEntity> feturedProducts = [];
-
   @override
-  Future<Either<dynamic, List<ProductEntity>>> getAllProducts() async {
+  Future<Either<dynamic, List<ProductEntity>>> getPopularProducts() async {
     var retunedData = await getIt<ProductFirebaseServices>().getAllProducts();
 
     return retunedData.fold(
@@ -21,16 +18,17 @@ class ProductRepositoryImpl extends ProductRepository {
         List<ProductEntity> products = List.from(data)
             .map((document) => ProductModel.fromJson(document).toEntity())
             .toList();
-        allProducts = products;
+
         return Right(products);
       },
     );
   }
 
   @override
-  Future<Either<dynamic, List<ProductEntity>>> getFeaturedProducts() async {
-    var retunedData =
-        await getIt<ProductFirebaseServices>().getFeaturedProducts();
+  Future<Either<dynamic, List<ProductEntity>>> getFeaturedProducts(
+      {int limit = 4}) async {
+    var retunedData = await getIt<ProductFirebaseServices>()
+        .getFeaturedProducts(limit: limit);
 
     return retunedData.fold(
       (error) {
@@ -40,7 +38,46 @@ class ProductRepositoryImpl extends ProductRepository {
         List<ProductEntity> products = List.from(data)
             .map((document) => ProductModel.fromJson(document).toEntity())
             .toList();
-        feturedProducts = products;
+
+        return Right(products);
+      },
+    );
+  }
+
+  @override
+  Future<Either<dynamic, List<ProductEntity>>> getAllFeaturedProducts(
+      {required int limit}) async {
+    var retunedData = await getIt<ProductFirebaseServices>()
+        .getAllFeaturedProducts(limit: limit);
+
+    return retunedData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        List<ProductEntity> products = List.from(data)
+            .map((document) => ProductModel.fromJson(document).toEntity())
+            .toList();
+
+        return Right(products);
+      },
+    );
+  }
+
+  @override
+  Future<Either<dynamic, List<ProductEntity>>> getAllPopularProducts(
+      {required int limit}) async {
+    var retunedData = await getIt<ProductFirebaseServices>()
+        .getAllPopularProducts(limit: limit);
+
+    return retunedData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        List<ProductEntity> products = List.from(data)
+            .map((document) => ProductModel.fromJson(document).toEntity())
+            .toList();
 
         return Right(products);
       },

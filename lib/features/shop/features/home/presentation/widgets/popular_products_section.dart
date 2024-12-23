@@ -14,7 +14,7 @@ class PopularProductsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProductsCubit>().fetchAllProducts();
+    context.read<ProductsCubit>().fetchPopularProducts();
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
         if (state is ProductsFailureState) {

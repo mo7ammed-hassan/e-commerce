@@ -8,9 +8,7 @@ import 'package:t_store/features/shop/features/all_products/presentation/cubits/
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_state.dart';
 
 class FeaturedProductSection extends StatelessWidget {
-  const FeaturedProductSection({
-    super.key,
-  });
+  const FeaturedProductSection({super.key});
 
   @override
   Widget build(BuildContext context) {

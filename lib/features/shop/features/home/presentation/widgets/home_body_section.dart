@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
+import 'package:t_store/features/shop/features/all_products/domain/usecases/get_all_popular_prroducts_use_case.dart';
+import 'package:t_store/features/shop/features/all_products/domain/usecases/get_fetured_products_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/pages/all_products_page.dart';
 import 'package:t_store/features/shop/features/home/presentation/widgets/featured_product_section.dart';
@@ -40,9 +42,13 @@ class _HomeBodySectionState extends State<HomeBodySection> {
             const SizedBox(height: TSizes.spaceBtwSections),
             TSectionHeading(
               title: 'Featured Products',
-              onPressed: () {
+              onPressed: () async {
                 context.pushPage(
-                  AllProductsPage(products: productsCubit.featuredProducts),
+                  AllProductsPage(
+                    title: 'Featured Products',
+                    products: productsCubit.featuredProducts,
+                    useCase: GetFeturedProductsUseCase(),
+                  ),
                 );
               },
             ),
@@ -53,7 +59,11 @@ class _HomeBodySectionState extends State<HomeBodySection> {
               title: 'Popular Products',
               onPressed: () {
                 context.pushPage(
-                  AllProductsPage(products: productsCubit.allProducts),
+                  AllProductsPage(
+                    title: 'Popular Products',
+                    products: productsCubit.allProducts,
+                    useCase: GetAllPopularProductsUseCase(),
+                  ),
                 );
               },
             ),
