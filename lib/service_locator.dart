@@ -31,8 +31,6 @@ import 'package:t_store/features/personalization/domain/use_cases/upload_user_im
 import 'package:t_store/features/shop/features/all_products/data/repository/product_repository_impl.dart';
 import 'package:t_store/features/shop/features/all_products/data/source/product_fire_base_services.dart';
 import 'package:t_store/features/shop/features/all_products/domain/repository/product_repository.dart';
-import 'package:t_store/features/shop/features/all_products/domain/usecases/get_all_featured_products_use_case.dart';
-import 'package:t_store/features/shop/features/all_products/domain/usecases/get_all_popular_prroducts_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_popular_products_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_fetured_products_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
@@ -165,12 +163,6 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<GetFeturedProductsUseCase>(
     GetFeturedProductsUseCase(),
-  );
-  getIt.registerSingleton<GetAllPopularProductsUseCase>(
-    GetAllPopularProductsUseCase(),
-  );
-  getIt.registerSingleton<GetAllFeturedProductsUseCase>(
-    GetAllFeturedProductsUseCase(),
   );
 
   // -- Cubits--
