@@ -2,7 +2,7 @@
 
 import 'package:t_store/features/personalization/data/models/products/product_attribute_upload_model.dart';
 import 'package:t_store/features/personalization/data/models/products/product_variation_upload_model.dart';
-import 'package:t_store/features/shop/features/all_brands/data/brand_model.dart';
+import 'package:t_store/features/shop/features/all_brands/data/models/brand_model.dart';
 
 class ProductUploadModel {
   String id;

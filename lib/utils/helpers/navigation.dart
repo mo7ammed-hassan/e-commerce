@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:t_store/common/widgets/animation_containers/open_container_wrapper.dart';
 
 extension NavigationX on BuildContext {
   void removeAll(Widget page) {
@@ -30,6 +31,14 @@ extension NavigationX on BuildContext {
     Navigator.push(
       this,
       MaterialPageRoute(builder: (context) => page),
+    );
+  }
+
+  void animatedPushPage({required Widget page, Widget? child, Radius? radius}) {
+    OpenContainerWrapper(
+      nextScreen: page,
+      radius: radius ?? const Radius.circular(15),
+      child: child!,
     );
   }
 

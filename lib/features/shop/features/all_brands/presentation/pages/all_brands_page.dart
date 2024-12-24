@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
-import 'package:t_store/common/widgets/brands/brand_card.dart';
-import 'package:t_store/common/widgets/layouts/grid_layout.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
-import 'package:t_store/features/shop/features/all_brands/presentation/pages/brand_products_page.dart';
+import 'package:t_store/features/shop/features/all_brands/presentation/widgets/build_brands_list.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class AllBrandsPage extends StatelessWidget {
@@ -13,33 +11,20 @@ class AllBrandsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: TSizes.spaceBtwItems,
             vertical: TSizes.defaultSpace,
           ),
           child: Column(
             children: [
-              const TSectionHeading(
+              TSectionHeading(
                 title: 'Brands',
                 showActionButton: false,
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
-              TGridLayout(
-                itemCount: 10,
-                mainAxisExtent: 80,
-                itemBuilder: (context, index) => TBrandCard(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const BrandProductsPage(),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              SizedBox(height: TSizes.spaceBtwItems),
+              BuildBrandsList(),
             ],
           ),
         ),

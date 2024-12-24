@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import 'package:t_store/common/widgets/brands/brand_card.dart';
+import 'package:t_store/common/widgets/layouts/grid_layout.dart';
+import 'package:t_store/common/widgets/texts/section_heading.dart';
+import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_entity.dart';
+import 'package:t_store/features/shop/features/all_brands/presentation/cubits/brand_cubit.dart';
+import 'package:t_store/features/shop/features/all_brands/presentation/cubits/brand_state.dart';
+import 'package:t_store/features/shop/features/all_brands/presentation/pages/all_brands_page.dart';
+import 'package:t_store/service_locator.dart';
+import 'package:t_store/utils/constants/sizes.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
+
+class FeaturedBrandsSection extends StatelessWidget {
+  const FeaturedBrandsSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<BrandCubit>()..fetchFeaturedBrands(),
+      child: Column(
+        children: [
+          TSectionHeading(
+            title: 'Future Brands',
+            onPressed: () {
+              context.pushPage(const AllBrandsPage());
+            },
+          ),
+          const SizedBox(height: TSizes.spaceBtwItems / 2),
+          BlocBuilder<BrandCubit, BrandState>(
+            builder: (context, state) {
+              if (state is BrandLoading || state is BrandInitial) {
+                return _loadingBrandsList();
+              }
+
+              if (state is BrandError) {
+                return Center(child: Text(state.message));
+              }
+
+              if (state is BrandLoaded) {
+                if (state.brands.isEmpty) {
+                  return const Center(child: Text('No brands found!'));
+                }
+                return _buildBrandsListItems(state.brands);
+              }
+
+              return const Center(child: Text('Something went wrong!'));
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBrandsListItems(List<BrandEntity> brands) {
+    return TGridLayout(
+      itemCount: brands.length,
+      mainAxisExtent: 80,
+      itemBuilder: (_, index) => TBrandCard(brand: brands[index]),
+    );
+  }
+
+  Widget _loadingBrandsList() {
+    return Skeletonizer(
+      child: _buildBrandsListItems(
+        List.generate(
+          4,
+          (index) => BrandEntity.empty(),
+        ),
+      ),
+    );
+  }
+}

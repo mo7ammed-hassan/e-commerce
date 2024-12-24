@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:t_store/features/shop/features/all_brands/data/brand_model.dart';
+import 'package:t_store/features/shop/features/all_brands/data/models/brand_model.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_attribute_model.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_variation_model.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';

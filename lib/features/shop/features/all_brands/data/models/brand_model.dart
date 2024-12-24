@@ -33,11 +33,11 @@ class BrandModel {
 
   factory BrandModel.fromJson(Map<String, dynamic> map) {
     return BrandModel(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      image: map['image'] as String,
-      isFeatured: map['isFeatured'] as bool,
-      productCount: map['productCount'] as int,
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      image: map['image'] ?? '',
+      isFeatured: map['isFeatured'] ?? false,
+      productCount: map['productCount'] ?? 0,
     );
   }
 }

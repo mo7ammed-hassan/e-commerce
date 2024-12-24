@@ -28,8 +28,13 @@ import 'package:t_store/features/personalization/domain/use_cases/update_user_fi
 import 'package:t_store/features/personalization/domain/use_cases/upload_data_usecases/upload_categories_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_data_usecases/upload_product_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_user_image_use_case.dart';
+import 'package:t_store/features/shop/features/all_brands/data/repository/brands_repository_impl.dart';
+import 'package:t_store/features/shop/features/all_brands/data/source/brands_firebase_services.dart';
+import 'package:t_store/features/shop/features/all_brands/domain/usecases/get_all_brands_use_case.dart';
+import 'package:t_store/features/shop/features/all_brands/domain/usecases/get_featured_brands_use_case.dart';
+import 'package:t_store/features/shop/features/all_brands/presentation/cubits/brand_cubit.dart';
 import 'package:t_store/features/shop/features/all_products/data/repository/product_repository_impl.dart';
-import 'package:t_store/features/shop/features/all_products/data/source/product_fire_base_services.dart';
+import 'package:t_store/features/shop/features/all_products/data/source/product_firebase_services.dart';
 import 'package:t_store/features/shop/features/all_products/domain/repository/product_repository.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_popular_products_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_fetured_products_use_case.dart';
@@ -146,6 +151,20 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<CategoryUseCase>(
     CategoryUseCase(),
   );
+  getIt.registerSingleton<GetAllBrandsUseCase>(
+    GetAllBrandsUseCase(
+      BrandsRepositoryImpl(
+        BrandsFirebaseServicesImpl(),
+      ),
+    ),
+  );
+  getIt.registerSingleton<GetFeaturedBrandsUseCase>(
+    GetFeaturedBrandsUseCase(
+      BrandsRepositoryImpl(
+        BrandsFirebaseServicesImpl(),
+      ),
+    ),
+  );
   // --Upload Data
   getIt.registerSingleton<UploadDummyDataUseCase>(
     UploadDummyDataUseCase(),
@@ -167,4 +186,5 @@ Future<void> initializeDependencies() async {
 
   // -- Cubits--
   GetIt.instance.registerLazySingleton<ProductsCubit>(() => ProductsCubit());
+  GetIt.instance.registerLazySingleton<BrandCubit>(() => BrandCubit());
 }

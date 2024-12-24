@@ -1,7 +1,7 @@
 import 'package:t_store/features/personalization/data/models/products/product_attribute_upload_model.dart';
 import 'package:t_store/features/personalization/data/models/products/product_upload_model.dart';
 import 'package:t_store/features/personalization/data/models/products/product_variation_upload_model.dart';
-import 'package:t_store/features/shop/features/all_brands/data/brand_model.dart';
+import 'package:t_store/features/shop/features/all_brands/data/models/brand_model.dart';
 import 'package:t_store/features/shop/features/home/data/models/banner_model.dart';
 import 'package:t_store/features/shop/features/home/data/models/category_model.dart';
 import 'package:t_store/utils/constants/enums.dart';
@@ -610,6 +610,65 @@ class DummyData {
           description: 'Acer Aspire Laptop - Silver - 512GB SSD',
         ),
       ],
+    ),
+  ];
+
+  static List<BrandModel> brands = [
+    BrandModel(
+      id: '1',
+      name: 'Nike',
+      image: TImages.nikeLogo,
+      isFeatured: true,
+      productCount: 2,
+    ),
+    BrandModel(
+      id: '2',
+      name: 'Adidas',
+      image: TImages.adidasLogo,
+      isFeatured: true,
+      productCount: 5,
+    ),
+    BrandModel(
+      id: '3',
+      name: 'Apple',
+      image: TImages.appleLogo,
+      isFeatured: false,
+      productCount: 10,
+    ),
+    BrandModel(
+      id: '4',
+      name: 'Puma',
+      image: TImages.pumaLogo,
+      isFeatured: true,
+      productCount: 8,
+    ),
+    BrandModel(
+      id: '5',
+      name: 'Zara',
+      image: TImages.zaraLogo,
+      isFeatured: true,
+      productCount: 7,
+    ),
+    BrandModel(
+      id: '6',
+      name: 'Kenwood',
+      image: TImages.kenwoodLogo,
+      isFeatured: true,
+      productCount: 15,
+    ),
+    BrandModel(
+      id: '7',
+      name: 'Herman Miller',
+      image: TImages.hermanMillerLogo,
+      isFeatured: false,
+      productCount: 10,
+    ),
+    BrandModel(
+      id: '8',
+      name: 'IKEA',
+      image: TImages.ikeaLogo,
+      isFeatured: false,
+      productCount: 20,
     ),
   ];
 }

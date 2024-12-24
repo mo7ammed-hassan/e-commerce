@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/brands/brand_card.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_entity.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
@@ -22,7 +23,7 @@ class TBrandShowcase extends StatelessWidget {
       child: Column(
         children: [
           // Brand with Product Conunt
-          TBrandCard(onTap: () {}, showBorder: false),
+          TBrandCard(brand: BrandEntity.empty(), showBorder: false),
           const SizedBox(height: TSizes.spaceBtwItems),
           //Brand Top 3 Product Image
           Row(

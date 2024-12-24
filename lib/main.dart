@@ -5,6 +5,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:t_store/app_entry_point.dart';
+import 'package:t_store/bloc_observier.dart';
 import 'package:t_store/common/cubits/launch_app/launch_app_cubit.dart';
 import 'package:t_store/features/personalization/cubit/user_cubit.dart';
 import 'package:t_store/features/shop/features/home/domain/entites/category_entity.dart';
@@ -38,7 +39,10 @@ void main() async {
 
   // Remove the splash screen once initialization is complete.
   FlutterNativeSplash.remove();
+  // Initialize Bloc Observer
+  Bloc.observer = MyBlocObserver();
 
+  // Run the app
   runApp(
     BlocProvider(
       create: (context) => LaunchAppCubit()..launchApp(),
@@ -63,5 +67,16 @@ class MyApp extends StatelessWidget {
         home: const AppEntryPoint(),
       ),
     );
+  }
+}
+
+class AppLifecycleObserver extends WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
+      // Cleanup logic when app is closed
+      getIt
+          .reset(); // This will reset and dispose all objects registered with getIt
+    }
   }
 }

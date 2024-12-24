@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
-import 'package:t_store/features/shop/features/all_products/data/source/product_fire_base_services.dart';
+import 'package:t_store/features/shop/features/all_products/data/source/product_firebase_services.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/all_products/domain/repository/product_repository.dart';
 import 'package:t_store/service_locator.dart';

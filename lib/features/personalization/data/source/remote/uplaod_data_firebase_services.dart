@@ -23,10 +23,10 @@ class UploadDataFirebaseServicesImpl extends UploadDataFirebaseServices {
         final file = await getIt<FirebaseStorageServices>()
             .getImageDataFromAssets(item.image);
 
-        final url = await getIt<FirebaseStorageServices>()
-            .uploadImageData(collection, file, item.name);
+        // final url = await getIt<FirebaseStorageServices>()
+        //     .uploadImageData(collection, file, item.name);
 
-        item.image = url;
+        // item.image = url;
 
         await FirebaseFirestore.instance
             .collection(collection)
