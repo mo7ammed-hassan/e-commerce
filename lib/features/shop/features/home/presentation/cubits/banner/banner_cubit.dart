@@ -47,18 +47,4 @@ class BannerCubit extends Cubit<BannerState> {
     _hasFetched = false;
     await fetchBanners();
   }
-
-  @override
-  Future<void> close() {
-    if (kDebugMode) {
-      print('Banner cubit closed');
-    }
-    return super.close();
-  }
-
-  // @override
-  // Future<void> close() {
-  //   // Prevent closing if singleton
-  //   return Future.value();
-  // }
 }

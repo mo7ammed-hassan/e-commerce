@@ -60,12 +60,4 @@ class CategoryCubit extends Cubit<CategoryState> {
     _hasFetched = false;
     await getAllCategories();
   }
-
-  @override
-  Future<void> close() {
-    if (kDebugMode) {
-      print('Category cubit closed');
-    }
-    return super.close();
-  }
 }

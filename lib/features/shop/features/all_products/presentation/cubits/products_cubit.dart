@@ -94,8 +94,6 @@ class ProductsCubit extends Cubit<ProductsState> {
     ]);
   }
 
-
-
   // This method is used to refresh the products
   Future<void> refreshProducts() async {
     _hasFetchedFeaturedProducts = false;
@@ -104,14 +102,6 @@ class ProductsCubit extends Cubit<ProductsState> {
     featuredProducts.clear();
     await fetchPopularProducts(forceRefresh: true);
     await fetchFeaturedProducts(forceRefresh: true);
-  }
-
-  @override
-  Future<void> close() {
-    if (kDebugMode) {
-      print('Products cubit closed');
-    }
-    return super.close();
   }
 
   String getProductPrice(ProductEntity product) {
