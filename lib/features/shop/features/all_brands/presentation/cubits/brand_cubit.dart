@@ -7,11 +7,7 @@ import 'package:t_store/features/shop/features/all_brands/presentation/cubits/br
 import 'package:t_store/service_locator.dart';
 
 class BrandCubit extends Cubit<BrandState> {
-  BrandCubit() : super(BrandInitial()) {
-    if (kDebugMode) {
-      print('BrandCubit instance created');
-    }
-  }
+  BrandCubit() : super(BrandInitial());
 
   final List<BrandEntity> featuredBrands = [];
   final List<BrandEntity> allBrands = [];
@@ -83,10 +79,19 @@ class BrandCubit extends Cubit<BrandState> {
     );
   }
 
+  // -- Refresh Brands --
   void refreshBrands() {
     isAllBrandsLoaded = false;
     isFeaturedBrandsLoaded = false;
     fetchAllBrands();
     fetchFeaturedBrands();
+  }
+
+  // -- Clear Brands --
+  void clearBrands() {
+    allBrands.clear();
+    featuredBrands.clear();
+    isAllBrandsLoaded = false;
+    isFeaturedBrandsLoaded = false;
   }
 }

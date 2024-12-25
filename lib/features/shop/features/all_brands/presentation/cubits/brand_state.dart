@@ -1,8 +1,6 @@
 import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_entity.dart';
 
-abstract class BrandState {
-  const BrandState();
-}
+abstract class BrandState {}
 
 class BrandInitial extends BrandState {}
 

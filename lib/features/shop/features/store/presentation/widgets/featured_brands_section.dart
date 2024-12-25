@@ -35,14 +35,17 @@ class FeaturedBrandsSection extends StatelessWidget {
             const SizedBox(height: TSizes.spaceBtwItems / 2),
             BlocBuilder<BrandCubit, BrandState>(
               builder: (context, state) {
+                // Handle loading state
                 if (state is BrandLoading || state is BrandInitial) {
                   return _loadingBrandsList();
                 }
 
+                // Handle error state
                 if (state is BrandError) {
                   return Center(child: Text(state.featuredBrandsMessage!));
                 }
 
+                // Handle loaded state
                 if (state is BrandLoaded) {
                   if (state.featuredBrands.isEmpty) {
                     return const Center(child: Text('No brands found!'));
@@ -51,6 +54,7 @@ class FeaturedBrandsSection extends StatelessWidget {
                   return _buildBrandsListItems(state.featuredBrands);
                 }
 
+                // Handle unknown state
                 return const Center(child: Text('Something went wrong!'));
               },
             ),
