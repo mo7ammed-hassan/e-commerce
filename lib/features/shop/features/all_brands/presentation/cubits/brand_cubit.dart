@@ -7,7 +7,11 @@ import 'package:t_store/features/shop/features/all_brands/presentation/cubits/br
 import 'package:t_store/service_locator.dart';
 
 class BrandCubit extends Cubit<BrandState> {
-  BrandCubit() : super(BrandInitial());
+  BrandCubit() : super(BrandInitial()) {
+    if (kDebugMode) {
+      print('BrandCubit instance created');
+    }
+  }
 
   final List<BrandEntity> featuredBrands = [];
   final List<BrandEntity> allBrands = [];
@@ -18,15 +22,24 @@ class BrandCubit extends Cubit<BrandState> {
 
   // -- Get Featured Brands --
   Future<void> fetchFeaturedBrands() async {
-    if (isFeaturedBrandsLoaded) return;
+    if (isFeaturedBrandsLoaded) {
+      if (kDebugMode) {
+        print('Featured Brands: Already Loaded');
+      }
 
-    emit(BrandLoading());
+      return;
+    }
+
+    emit(BrandLoading(
+      isLoadingAllBrands: false,
+      isLoadingFeaturedBrands: true,
+    ));
 
     var result = await getIt.get<GetFeaturedBrandsUseCase>().call(params: 4);
 
     result.fold(
       (error) => emit(
-        BrandError(message: error),
+        BrandError(featuredBrandsMessage: error),
       ),
       (brands) {
         featuredBrands.clear();
@@ -35,23 +48,29 @@ class BrandCubit extends Cubit<BrandState> {
           print('Featured Brands: Success');
         }
         isFeaturedBrandsLoaded = true;
-        emit(BrandLoaded(brands: brands));
+        emit(BrandLoaded(featuredBrands: brands, allbrands: allBrands));
       },
     );
   }
 
   // -- Get All Brands --
   Future<void> fetchAllBrands() async {
-    if (isAllBrandsLoaded) return;
+    if (isAllBrandsLoaded) {
+      if (kDebugMode) {
+        print('All Brands: Already Loaded');
+      }
+      return;
+    }
 
-    emit(BrandLoading());
+    emit(BrandLoading(
+      isLoadingAllBrands: true,
+      isLoadingFeaturedBrands: false,
+    ));
 
     var result = await getIt.get<GetAllBrandsUseCase>().call(params: 16);
 
     result.fold(
-      (error) => emit(
-        BrandError(message: error),
-      ),
+      (error) => emit(BrandError(allBrandsMessage: error)),
       (brands) {
         allBrands.clear();
         allBrands.addAll(brands);
@@ -59,7 +78,7 @@ class BrandCubit extends Cubit<BrandState> {
           print('All Brands: Success');
         }
         isAllBrandsLoaded = true;
-        emit(BrandLoaded(brands: brands));
+        emit(BrandLoaded(allbrands: brands, featuredBrands: featuredBrands));
       },
     );
   }

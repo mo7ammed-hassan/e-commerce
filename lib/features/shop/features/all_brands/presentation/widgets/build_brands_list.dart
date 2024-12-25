@@ -12,30 +12,29 @@ import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class BuildBrandsList extends StatelessWidget {
-  const BuildBrandsList({
-    super.key,
-  });
+  const BuildBrandsList({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final brandCubit = getIt.get<BrandCubit>();
     return BlocProvider(
-      create: (context) => getIt<BrandCubit>()..fetchAllBrands(),
+      create: (context) => brandCubit..fetchAllBrands(),
       child: BlocBuilder<BrandCubit, BrandState>(
-        // bloc: brandCubit,
         builder: (context, state) {
-          if (state is BrandLoading || state is BrandInitial) {
+          if (state is BrandLoading) {
             return _loadingBrandsList();
           }
 
           if (state is BrandError) {
-            return Center(child: Text(state.message));
+            return Center(child: Text(state.allBrandsMessage!));
           }
 
           if (state is BrandLoaded) {
-            if (state.brands.isEmpty) {
+            if (state.allbrands.isEmpty) {
               return const Center(child: Text('No brands found!'));
             }
-            return _buildBrandsListItems(state.brands);
+
+            return _buildBrandsListItems(state.allbrands);
           }
 
           return const Center(child: Text('Something went wrong!'));
@@ -49,7 +48,9 @@ class BuildBrandsList extends StatelessWidget {
       itemCount: brands.length,
       mainAxisExtent: 80,
       itemBuilder: (context, index) => OpenContainerWrapper(
-        nextScreen: const BrandProductsPage(),
+        nextScreen: BrandProductsPage(
+          brand: brands[index],
+        ),
         radius: const Radius.circular(TSizes.cardRadiusLg),
         child: TBrandCard(
           brand: brands[index],
@@ -62,7 +63,7 @@ class BuildBrandsList extends StatelessWidget {
     return Skeletonizer(
       child: _buildBrandsListItems(
         List.generate(
-          16,
+          12,
           (index) => BrandEntity.empty(),
         ),
       ),

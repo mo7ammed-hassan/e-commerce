@@ -24,27 +24,30 @@ class StorePage extends StatelessWidget {
             return [
               SliverAppBar(
                 automaticallyImplyLeading: false,
+                //stretch: true,
                 pinned: true,
                 floating: true,
                 backgroundColor: THelperFunctions.isDarkMode(context)
                     ? TColors.black
                     : TColors.white,
-                expandedHeight: 440,
-                flexibleSpace: Padding(
-                  padding: const EdgeInsets.all(TSizes.defaultSpace),
-                  child: ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    children: const [
-                      SizedBox(height: TSizes.spaceBtwItems),
-                      TSearchConatiner(
-                        text: 'Search in Store',
-                        padding: EdgeInsets.zero,
-                        showBackground: false,
-                      ),
-                      SizedBox(height: TSizes.spaceBtwSections),
-                      FeaturedBrandsSection(),
-                    ],
+                expandedHeight: 420, //440
+                flexibleSpace: const Padding(
+                  padding: EdgeInsets.all(TSizes.defaultSpace),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      //physics: const NeverScrollableScrollPhysics(),
+                      //shrinkWrap: true,
+                      children: [
+                        SizedBox(height: TSizes.spaceBtwItems),
+                        TSearchConatiner(
+                          text: 'Search in Store',
+                          padding: EdgeInsets.zero,
+                          showBackground: false,
+                        ),
+                        SizedBox(height: TSizes.spaceBtwSections),
+                        FeaturedBrandsSection(),
+                      ],
+                    ),
                   ),
                 ),
 

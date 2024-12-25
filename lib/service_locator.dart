@@ -36,6 +36,7 @@ import 'package:t_store/features/shop/features/all_brands/presentation/cubits/br
 import 'package:t_store/features/shop/features/all_products/data/repository/product_repository_impl.dart';
 import 'package:t_store/features/shop/features/all_products/data/source/product_firebase_services.dart';
 import 'package:t_store/features/shop/features/all_products/domain/repository/product_repository.dart';
+import 'package:t_store/features/shop/features/all_products/domain/usecases/get_all_products_by_brand_use_cse.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_popular_products_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_fetured_products_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
@@ -71,9 +72,6 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<BannerFirebaseServices>(
     BannerFirebaseServicesImpl(),
   );
-  getIt.registerSingleton<ProductFirebaseServices>(
-    ProductFirebaseServicesImpl(),
-  );
 
   // --Local
   getIt.registerSingleton<LocalStorageServices>(
@@ -93,14 +91,14 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<CategoryRepository>(
     CategoryRepositoyImpl(),
   );
+  getIt.registerSingleton<ProductRepository>(
+    ProductRepositoryImpl(ProductFirebaseServicesImpl()),
+  );
   getIt.registerSingleton<UploadDataRepository>(
     UploadDataRepositoryImpl(),
   );
   getIt.registerSingleton<BannerRepository>(
     BannerRepositoryImpl(),
-  );
-  getIt.registerSingleton<ProductRepository>(
-    ProductRepositoryImpl(),
   );
 
   // ------Usecases------
@@ -183,8 +181,11 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<GetFeturedProductsUseCase>(
     GetFeturedProductsUseCase(),
   );
+  getIt.registerSingleton<GetAllProductsByBrandUseCse>(
+    GetAllProductsByBrandUseCse(),
+  );
 
   // -- Cubits--
-  GetIt.instance.registerLazySingleton<ProductsCubit>(() => ProductsCubit());
-  GetIt.instance.registerLazySingleton<BrandCubit>(() => BrandCubit());
+  getIt.registerLazySingleton<ProductsCubit>(() => ProductsCubit());
+  getIt.registerLazySingleton<BrandCubit>(() => BrandCubit());
 }

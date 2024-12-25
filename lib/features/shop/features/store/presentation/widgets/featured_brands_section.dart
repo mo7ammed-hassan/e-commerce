@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:t_store/common/widgets/animation_containers/open_container_wrapper.dart';
 import 'package:t_store/common/widgets/brands/brand_card.dart';
 import 'package:t_store/common/widgets/layouts/grid_layout.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
@@ -8,6 +9,7 @@ import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_
 import 'package:t_store/features/shop/features/all_brands/presentation/cubits/brand_cubit.dart';
 import 'package:t_store/features/shop/features/all_brands/presentation/cubits/brand_state.dart';
 import 'package:t_store/features/shop/features/all_brands/presentation/pages/all_brands_page.dart';
+import 'package:t_store/features/shop/features/all_brands/presentation/pages/brand_products_page.dart';
 import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/navigation.dart';
@@ -17,38 +19,43 @@ class FeaturedBrandsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brandCubit = getIt.get<BrandCubit>();
     return BlocProvider(
-      create: (context) => getIt<BrandCubit>()..fetchFeaturedBrands(),
-      child: Column(
-        children: [
-          TSectionHeading(
-            title: 'Future Brands',
-            onPressed: () {
-              context.pushPage(const AllBrandsPage());
-            },
-          ),
-          const SizedBox(height: TSizes.spaceBtwItems / 2),
-          BlocBuilder<BrandCubit, BrandState>(
-            builder: (context, state) {
-              if (state is BrandLoading || state is BrandInitial) {
-                return _loadingBrandsList();
-              }
-
-              if (state is BrandError) {
-                return Center(child: Text(state.message));
-              }
-
-              if (state is BrandLoaded) {
-                if (state.brands.isEmpty) {
-                  return const Center(child: Text('No brands found!'));
+      create: (context) => brandCubit..fetchFeaturedBrands(),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: TSizes.sm),
+        child: Column(
+          children: [
+            TSectionHeading(
+              title: 'Future Brands',
+              onPressed: () {
+                context.pushPage(const AllBrandsPage());
+              },
+            ),
+            const SizedBox(height: TSizes.spaceBtwItems / 2),
+            BlocBuilder<BrandCubit, BrandState>(
+              builder: (context, state) {
+                if (state is BrandLoading || state is BrandInitial) {
+                  return _loadingBrandsList();
                 }
-                return _buildBrandsListItems(state.brands);
-              }
 
-              return const Center(child: Text('Something went wrong!'));
-            },
-          ),
-        ],
+                if (state is BrandError) {
+                  return Center(child: Text(state.featuredBrandsMessage!));
+                }
+
+                if (state is BrandLoaded) {
+                  if (state.featuredBrands.isEmpty) {
+                    return const Center(child: Text('No brands found!'));
+                  }
+
+                  return _buildBrandsListItems(state.featuredBrands);
+                }
+
+                return const Center(child: Text('Something went wrong!'));
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -57,7 +64,13 @@ class FeaturedBrandsSection extends StatelessWidget {
     return TGridLayout(
       itemCount: brands.length,
       mainAxisExtent: 80,
-      itemBuilder: (_, index) => TBrandCard(brand: brands[index]),
+      itemBuilder: (_, index) => OpenContainerWrapper(
+        nextScreen: BrandProductsPage(
+          brand: brands[index],
+        ),
+        radius: const Radius.circular(TSizes.cardRadiusLg),
+        child: TBrandCard(brand: brands[index]),
+      ),
     );
   }
 

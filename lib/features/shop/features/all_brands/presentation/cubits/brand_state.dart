@@ -6,16 +6,32 @@ abstract class BrandState {
 
 class BrandInitial extends BrandState {}
 
-class BrandLoading extends BrandState {}
+class BrandLoading extends BrandState {
+  final bool isLoadingAllBrands;
+  final bool isLoadingFeaturedBrands;
+
+  BrandLoading({
+    this.isLoadingAllBrands = false,
+    this.isLoadingFeaturedBrands = false,
+  });
+}
 
 class BrandLoaded extends BrandState {
-  final List<BrandEntity> brands;
+  final List<BrandEntity> allbrands;
+  final List<BrandEntity> featuredBrands;
 
-  const BrandLoaded({required this.brands});
+  BrandLoaded({
+    required this.allbrands,
+    required this.featuredBrands,
+  });
 }
 
 class BrandError extends BrandState {
-  final String message;
+  final String? allBrandsMessage;
+  final String? featuredBrandsMessage;
 
-  const BrandError({required this.message});
+  BrandError({
+    this.allBrandsMessage,
+    this.featuredBrandsMessage,
+  });
 }

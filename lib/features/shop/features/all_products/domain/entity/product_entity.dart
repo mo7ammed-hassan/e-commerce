@@ -1,6 +1,7 @@
 import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_entity.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_attribute_entity.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_variation_entity.dart';
+import 'package:t_store/utils/constants/images_strings.dart';
 
 /// final >>  immutabl
 class ProductEntity {
@@ -51,7 +52,7 @@ class ProductEntity {
         sku = '',
         date = null,
         salePrice = 0,
-        thumbnail = '',
+        thumbnail = TImages.productImage1,
         isFeatured = false,
         brand = null,
         description = '',
