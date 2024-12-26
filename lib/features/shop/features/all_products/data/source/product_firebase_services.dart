@@ -16,7 +16,8 @@ abstract class ProductFirebaseServices {
       getAllPopularProducts({required int limit});
 
   // --get all products by category--
-  // Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>> getAllProductsByCategory();
+  Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
+      getAllProductsSpecificCategory({required String categoryId, required int limit});
 
   // --get all products by sub category--
   // Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>> getAllProductsBySubCategory();
@@ -101,6 +102,31 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
           .get();
 
       return Right(data.docs);
+    } catch (e) {
+      return Left(e);
+    }
+  }
+
+  @override
+  Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
+      getAllProductsSpecificCategory(
+          {required String categoryId, required int limit}) async {
+    try {
+      var productCategoryQuary = await _firestore
+          .collection('ProductCategory')
+          .where('categoryId', isEqualTo: categoryId)
+          .get();
+
+      var productIds =
+          productCategoryQuary.docs.map((product) => product['productId']).toList();
+
+      var products = await _firestore
+          .collection('Products')
+          .where(FieldPath.documentId, whereIn: productIds)
+          .limit(limit)
+          .get();
+
+      return Right(products.docs);
     } catch (e) {
       return Left(e);
     }

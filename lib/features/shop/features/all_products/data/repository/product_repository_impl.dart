@@ -106,4 +106,24 @@ class ProductRepositoryImpl extends ProductRepository {
       },
     );
   }
+
+  @override
+  Future<Either<dynamic, List<ProductEntity>>> getAllProductsSpecificCategory(
+      {required String categoryId, required int limit}) async {
+    var retunedData = await productFirebaseServices
+        .getAllProductsSpecificCategory(categoryId: categoryId, limit: limit);
+
+    return retunedData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        List<ProductEntity> products = List.from(data)
+            .map((document) => ProductModel.fromJson(document).toEntity())
+            .toList();
+
+        return Right(products);
+      },
+    );
+  }
 }

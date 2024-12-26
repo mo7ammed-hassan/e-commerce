@@ -14,7 +14,8 @@ abstract class ProductRepository {
       {required int limit});
 
   // --get all products by category--
-  // Future<Either<dynamic, List<ProductEntity>>> getAllProductsByCategory();
+  Future<Either<dynamic, List<ProductEntity>>> getAllProductsSpecificCategory(
+      {required String categoryId, required int limit});
 
   // --get all products by sub category--
   // Future<Either<dynamic, List<ProductEntity>>> getAllProductsBySubCategory();
