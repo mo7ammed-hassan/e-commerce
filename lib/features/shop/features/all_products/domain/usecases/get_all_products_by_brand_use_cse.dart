@@ -5,11 +5,11 @@ import 'package:t_store/features/shop/features/all_products/domain/entity/produc
 import 'package:t_store/features/shop/features/all_products/domain/repository/product_repository.dart';
 import 'package:t_store/service_locator.dart';
 
-class GetAllProductsByBrandUseCse extends UseCases<
-    Either<dynamic, List<ProductEntity>>, GetAllProductsParams> {
+class GetAllProductsByBrandUseCse
+    extends UseCases<Either<dynamic, List<ProductEntity>>, GetAllParams> {
   @override
   Future<Either<dynamic, List<ProductEntity>>> call(
-      {GetAllProductsParams? params}) async {
+      {GetAllParams? params}) async {
     return await getIt<ProductRepository>()
         .getAllProductsByBrand(brandId: params!.id, limit: params.limit);
   }

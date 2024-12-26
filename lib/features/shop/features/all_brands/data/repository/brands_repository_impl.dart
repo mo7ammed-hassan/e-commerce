@@ -41,4 +41,22 @@ class BrandsRepositoryImpl extends BrandsRepository {
       },
     );
   }
+
+  @override
+  Future<Either<String, List<BrandEntity>>> getBrandSpecificCategory(
+      {required String categoryId, required int limit}) async {
+    var data = await brandsServices.getBrandSpecificCategory(
+        categoryId: categoryId, limit: limit);
+
+    return data.fold(
+      (error) => Left(error),
+      (data) {
+        List<BrandEntity> brands = List.from(data)
+            .map((document) => BrandModel.fromJson(document.data()).toEntity())
+            .toList();
+
+        return Right(brands);
+      },
+    );
+  }
 }

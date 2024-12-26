@@ -12,7 +12,7 @@ class ProductsByBrandCubit extends Cubit<ProductsByBrandState> {
 
   Future<void> fetchProductsByBrand({required String brandId}) async {
     var result = await getIt.get<GetAllProductsByBrandUseCse>().call(
-          params: GetAllProductsParams(id: brandId, limit: 20),
+          params: GetAllParams(id: brandId, limit: 20),
         );
 
     result.fold(

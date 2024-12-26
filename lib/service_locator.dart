@@ -30,7 +30,9 @@ import 'package:t_store/features/personalization/domain/use_cases/upload_data_us
 import 'package:t_store/features/personalization/domain/use_cases/upload_user_image_use_case.dart';
 import 'package:t_store/features/shop/features/all_brands/data/repository/brands_repository_impl.dart';
 import 'package:t_store/features/shop/features/all_brands/data/source/brands_firebase_services.dart';
+import 'package:t_store/features/shop/features/all_brands/domain/repository/brands_repository.dart';
 import 'package:t_store/features/shop/features/all_brands/domain/usecases/get_all_brands_use_case.dart';
+import 'package:t_store/features/shop/features/all_brands/domain/usecases/get_brands_specific_category.dart';
 import 'package:t_store/features/shop/features/all_brands/domain/usecases/get_featured_brands_use_case.dart';
 import 'package:t_store/features/shop/features/all_brands/presentation/cubits/brand_cubit.dart';
 import 'package:t_store/features/shop/features/all_products/data/repository/product_repository_impl.dart';
@@ -149,20 +151,24 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<CategoryUseCase>(
     CategoryUseCase(),
   );
+
+  // --Brands--
+  getIt.registerSingleton<BrandsRepository>(
+    BrandsRepositoryImpl(
+      BrandsFirebaseServicesImpl(),
+    ),
+  );
   getIt.registerSingleton<GetAllBrandsUseCase>(
-    GetAllBrandsUseCase(
-      BrandsRepositoryImpl(
-        BrandsFirebaseServicesImpl(),
-      ),
-    ),
+    GetAllBrandsUseCase(getIt.get<BrandsRepository>()),
   );
+
   getIt.registerSingleton<GetFeaturedBrandsUseCase>(
-    GetFeaturedBrandsUseCase(
-      BrandsRepositoryImpl(
-        BrandsFirebaseServicesImpl(),
-      ),
-    ),
+    GetFeaturedBrandsUseCase(getIt.get<BrandsRepository>()),
   );
+  getIt.registerSingleton<GetBrandsSpecificCategory>(
+    GetBrandsSpecificCategory(getIt.get<BrandsRepository>()),
+  );
+
   // --Upload Data
   getIt.registerSingleton<UploadDummyDataUseCase>(
     UploadDummyDataUseCase(),

@@ -7,4 +7,7 @@ abstract class BrandsRepository {
 
   // --Get All Brands--
   Future<Either<String, List<BrandEntity>>> getAllBrands({required int limit});
+
+  // --Get Brand Specific Category--
+  Future<Either<String, List<BrandEntity>>> getBrandSpecificCategory({required String categoryId, required int limit});
 }
