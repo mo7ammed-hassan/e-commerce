@@ -4,11 +4,12 @@ import 'package:t_store/common/widgets/layouts/grid_layout.dart';
 import 'package:t_store/common/widgets/products/product_cards/product_card_vertical.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
+import 'package:t_store/features/shop/features/home/domain/entites/category_entity.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class TCategoryTab extends StatelessWidget {
   const TCategoryTab({
-    super.key,
+    super.key, required CategoryEntity category,
   });
 
   @override

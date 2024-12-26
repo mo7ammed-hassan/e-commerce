@@ -4,6 +4,7 @@ import 'package:t_store/common/widgets/appbar/tabbar.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:t_store/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:t_store/features/shop/features/cart/presentation/pages/cart_page.dart';
+import 'package:t_store/features/shop/features/home/presentation/cubits/category/category_cubit.dart';
 import 'package:t_store/features/shop/features/store/presentation/widgets/category_tab.dart';
 import 'package:t_store/features/shop/features/store/presentation/widgets/featured_brands_section.dart';
 import 'package:t_store/utils/constants/colors.dart';
@@ -15,8 +16,13 @@ class StorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categories = CategoryCubit().featuredCategories;
+    final categoryTabs =
+        categories.map((category) => Tab(child: Text(category.name))).toList();
+    final categoryViews =
+        categories.map((category) => TCategoryTab(category: category)).toList();
     return DefaultTabController(
-      length: 5,
+      length: categories.length,
       child: Scaffold(
         appBar: _storeAppBar(context),
         body: NestedScrollView(
@@ -24,7 +30,6 @@ class StorePage extends StatelessWidget {
             return [
               SliverAppBar(
                 automaticallyImplyLeading: false,
-                //stretch: true,
                 pinned: true,
                 floating: true,
                 backgroundColor: THelperFunctions.isDarkMode(context)
@@ -52,26 +57,14 @@ class StorePage extends StatelessWidget {
                 ),
 
                 // Tabs --
-                bottom: const TTabBar(
-                  tabs: [
-                    Tab(child: Text('Sports')),
-                    Tab(child: Text('Furniture')),
-                    Tab(child: Text('Electronics')),
-                    Tab(child: Text('Cosmetics')),
-                    Tab(child: Text('Clothes')),
-                  ],
+                bottom: TTabBar(
+                  tabs: categoryTabs,
                 ),
               ),
             ];
           },
-          body: const TabBarView(
-            children: [
-              TCategoryTab(),
-              TCategoryTab(),
-              TCategoryTab(),
-              TCategoryTab(),
-              TCategoryTab(),
-            ],
+          body: TabBarView(
+            children: categoryViews,
           ),
         ),
       ),
