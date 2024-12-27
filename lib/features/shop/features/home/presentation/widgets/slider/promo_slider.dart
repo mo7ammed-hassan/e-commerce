@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:t_store/features/shop/features/home/data/models/banner_model.dart';
-import 'package:t_store/features/shop/features/home/domain/entites/banner_entity.dart';
 import 'package:t_store/features/shop/features/home/presentation/cubits/banner/banner_cubit.dart';
 import 'package:t_store/features/shop/features/home/presentation/cubits/home/promo_slider/promo_slider_cubit.dart';
 import 'package:t_store/features/shop/features/home/presentation/widgets/slider/promo_carousel.dart';
@@ -25,32 +24,51 @@ class TPromoSlider extends StatelessWidget {
       ],
       child: BlocBuilder<BannerCubit, BannerState>(
         builder: (context, state) {
+          if (state is BannerFailureState) {
+            return Center(
+              child: Text(state.errorMessage),
+            );
+          }
+
+          if (state is BannerLoadingState || state is BannerInitial) {
+            return _buildLoadingBanners();
+          }
+
           if (state is BannerLoadedState) {
-            final List<BannerEntity> banners = state.allBanners;
+            if (state.allBanners.isEmpty) {
+              return const Center(
+                child: Text('No banners found!'),
+              );
+            }
+
             return Column(
               children: [
-                TPromoCarousel(banners: banners),
+                TPromoCarousel(banners: state.allBanners),
                 const SizedBox(height: TSizes.spaceBtwItems),
-                TPromoSliderIndicators(length: banners.length),
+                TPromoSliderIndicators(length: state.allBanners.length),
               ],
             );
           }
-          // return const ShimmerSlider();
-          return Skeletonizer(
-            child: Column(
-              children: [
-                TPromoCarousel(
-                  isLoading: true,
-                  banners: [
-                    BannerModel.empty().toEntity(),
-                  ],
-                ),
-                const SizedBox(height: TSizes.spaceBtwItems),
-                const TPromoSliderIndicators(length: 1),
-              ],
-            ),
-          );
+
+          return const Center(child: Text('Something went wrong!'));
         },
+      ),
+    );
+  }
+
+  Widget _buildLoadingBanners() {
+    return Skeletonizer(
+      child: Column(
+        children: [
+          TPromoCarousel(
+            isLoading: true,
+            banners: [
+              BannerModel.empty().toEntity(),
+            ],
+          ),
+          const SizedBox(height: TSizes.spaceBtwItems),
+          const TPromoSliderIndicators(length: 1),
+        ],
       ),
     );
   }

@@ -15,18 +15,25 @@ class FeaturedProductSection extends StatelessWidget {
     context.read<ProductsCubit>().fetchFeaturedProducts();
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
+        if (state is ProductsLoadingState || state is ProductsInitialState) {
+          return _loadingWidget();
+        }
         if (state is ProductsFailureState) {
           return _errorWidget(state.featuredProductsError!);
         } else if (state is ProductsLoadedState) {
+          if (state.featuredProducts.isEmpty) {
+            return const Center(child: Text('No products found!'));
+          }
+
           return TGridLayout(
             itemCount: state.featuredProducts.length,
             itemBuilder: (context, index) => TProductCardVertical(
               product: state.featuredProducts[index],
             ),
           );
-        } else {
-          return _loadingWidget();
         }
+
+        return const Center(child: Text('Something went wrong!'));
       },
     );
   }

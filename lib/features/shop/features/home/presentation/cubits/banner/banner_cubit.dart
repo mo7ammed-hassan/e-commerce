@@ -34,9 +34,9 @@ class BannerCubit extends Cubit<BannerState> {
       (error) {
         emit(BannerFailureState(error));
       },
-      (categories) {
+      (banners) {
         allBanners.clear();
-        allBanners.addAll(categories);
+        allBanners.addAll(banners);
 
         emit(BannerLoadedState(allBanners));
 

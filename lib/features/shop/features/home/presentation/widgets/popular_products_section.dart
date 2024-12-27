@@ -17,18 +17,24 @@ class PopularProductsSection extends StatelessWidget {
     context.read<ProductsCubit>().fetchPopularProducts();
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
+        if (state is ProductsLoadingState || state is ProductsInitialState) {
+          return _loadingWidget();
+        }
         if (state is ProductsFailureState) {
           return _errorWidget(state.allProductsError!);
         } else if (state is ProductsLoadedState) {
+          if (state.allProducts.isEmpty) {
+            return _errorWidget('No products found!');
+          }
           return TGridLayout(
             itemCount: state.allProducts.length,
             itemBuilder: (context, index) => TProductCardVertical(
               product: state.allProducts[index],
             ),
           );
-        } else {
-          return _loadingWidget();
         }
+
+        return const Center(child: Text('Something went wrong!'));
       },
     );
   }

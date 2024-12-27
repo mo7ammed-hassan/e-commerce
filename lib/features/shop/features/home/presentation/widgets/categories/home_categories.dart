@@ -6,9 +6,7 @@ import 'package:t_store/features/shop/features/home/presentation/cubits/category
 import 'package:t_store/features/shop/features/home/presentation/widgets/categories/categories_list_view.dart';
 
 class THomeCategories extends StatelessWidget {
-  const THomeCategories({
-    super.key,
-  });
+  const THomeCategories({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +16,17 @@ class THomeCategories extends StatelessWidget {
           return const CategoryShimmer();
         }
         if (state is CategoryLoadedState) {
+          if (state.featuredCategories.isEmpty) {
+            return _errorWiget(context);
+          }
           return CategoriesListView(categories: state.featuredCategories);
-        } else {
-          return _errorWiget(context);
         }
+
+        if (state is CategoryFailureState) {
+          return Center(child: Text(state.errorMessage));
+        }
+
+        return _errorWiget(context);
       },
     );
   }
@@ -29,7 +34,7 @@ class THomeCategories extends StatelessWidget {
   Center _errorWiget(BuildContext context) {
     return Center(
       child: Text(
-        'No Data Found!',
+        'No Categories Found!',
         style:
             Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.white),
       ),
