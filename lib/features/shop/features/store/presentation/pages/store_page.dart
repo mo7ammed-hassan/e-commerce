@@ -40,8 +40,6 @@ class StorePage extends StatelessWidget {
                   padding: EdgeInsets.all(TSizes.defaultSpace),
                   child: SingleChildScrollView(
                     child: Column(
-                      //physics: const NeverScrollableScrollPhysics(),
-                      //shrinkWrap: true,
                       children: [
                         SizedBox(height: TSizes.spaceBtwItems),
                         TSearchConatiner(
@@ -64,6 +62,7 @@ class StorePage extends StatelessWidget {
             ];
           },
           body: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
             children: categoryViews,
           ),
         ),

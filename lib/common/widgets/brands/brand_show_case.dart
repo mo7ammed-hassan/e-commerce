@@ -16,7 +16,7 @@ class TBrandShowcase extends StatelessWidget {
       showBorder: true,
       borderColor: TColors.darkGrey,
       backgroundColor: Colors.transparent,
-      margin: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
+      //margin: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
       padding: const EdgeInsets.all(TSizes.md),
       child: Column(
         children: [

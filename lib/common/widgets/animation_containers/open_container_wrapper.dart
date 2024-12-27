@@ -21,9 +21,10 @@ class OpenContainerWrapper extends StatelessWidget {
     return OpenContainer(
       closedElevation: closedElevation,
       closedShape: RoundedRectangleBorder(
+        side: const BorderSide(color: Colors.transparent),
         borderRadius: BorderRadius.all(radius),
       ),
-      closedColor: isDark ? Colors.black : TColors.white,
+      closedColor: isDark ? Colors.transparent : TColors.white,
 
       transitionType: ContainerTransitionType.fade,
       transitionDuration: const Duration(milliseconds: 800), //850
