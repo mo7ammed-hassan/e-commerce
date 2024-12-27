@@ -21,6 +21,8 @@ class AllProductsCubit extends Cubit<AllProductsState> {
     // Fetch all products
     var result = await useCase.call(params: 20);
 
+    if (isClosed) return;
+
     result.fold(
       (error) {
         emit(AllProductsFailureState(error: error));

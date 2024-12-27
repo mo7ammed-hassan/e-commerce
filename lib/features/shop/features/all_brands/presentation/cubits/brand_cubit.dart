@@ -33,6 +33,8 @@ class BrandCubit extends Cubit<BrandState> {
 
     var result = await getIt.get<GetFeaturedBrandsUseCase>().call(params: 4);
 
+    if (isClosed) return;
+
     result.fold(
       (error) => emit(
         BrandError(featuredBrandsMessage: error),
@@ -64,6 +66,8 @@ class BrandCubit extends Cubit<BrandState> {
     ));
 
     var result = await getIt.get<GetAllBrandsUseCase>().call(params: 16);
+
+    if (isClosed) return;
 
     result.fold(
       (error) => emit(BrandError(allBrandsMessage: error)),

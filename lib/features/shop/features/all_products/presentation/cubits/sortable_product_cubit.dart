@@ -34,15 +34,20 @@ class SortableProductCubit extends Cubit<List<ProductEntity>> {
       default:
         state.sort((a, b) => a.title.compareTo(b.title));
     }
+
+    if (isClosed) return;
+
     emit(List.from(state));
   }
 
   void resetProducts(List<ProductEntity> products) {
+    if (isClosed) return;
     emit(List.from(products));
   }
 
   void searchProducts(String query) {
     if (query.isEmpty) {
+      if (isClosed) return;
       emit(List.from(state));
     } else {
       emit(

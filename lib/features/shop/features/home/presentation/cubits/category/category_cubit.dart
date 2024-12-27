@@ -33,6 +33,7 @@ class CategoryCubit extends Cubit<CategoryState> {
 
     var result = await getIt<CategoryUseCase>().call();
 
+    if (isClosed) return;
     result.fold(
       (error) {
         emit(CategoryFailureState(error));

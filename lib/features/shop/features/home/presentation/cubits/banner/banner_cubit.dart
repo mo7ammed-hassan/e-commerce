@@ -28,6 +28,8 @@ class BannerCubit extends Cubit<BannerState> {
 
     var result = await getIt<BannerUseCase>().call();
 
+    if (isClosed) return;
+
     result.fold(
       (error) {
         emit(BannerFailureState(error));

@@ -32,6 +32,8 @@ class ProductsCubit extends Cubit<ProductsState> {
 
     var result = await getIt<GetPopularProductsUseCase>().call();
 
+    if (isClosed) return;
+
     result.fold(
       (error) {
         emit(ProductsFailureState(allProductsError: error));
@@ -65,6 +67,8 @@ class ProductsCubit extends Cubit<ProductsState> {
     );
 
     var result = await getIt<GetFeturedProductsUseCase>().call(params: limit);
+
+    if (isClosed) return;
 
     result.fold(
       (error) {
