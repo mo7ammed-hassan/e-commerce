@@ -10,10 +10,13 @@ class ProductsByBrandCubit extends Cubit<ProductsByBrandState> {
 
   final List<ProductEntity> products = [];
 
-  Future<void> fetchProductsByBrand({required String brandId}) async {
+  Future<void> fetchProductsByBrand(
+      {required String brandId, int limit = 10}) async {
     var result = await getIt.get<GetAllProductsByBrandUseCse>().call(
-          params: GetAllParams(id: brandId, limit: 20),
+          params: GetAllParams(id: brandId, limit: limit),
         );
+
+    if (isClosed) return;
 
     result.fold(
       (error) => emit(ProductsByBrandErrorState(message: error)),

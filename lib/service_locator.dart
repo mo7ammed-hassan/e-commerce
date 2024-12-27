@@ -41,6 +41,7 @@ import 'package:t_store/features/shop/features/all_products/domain/repository/pr
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_all_products_by_brand_use_cse.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_popular_products_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_fetured_products_use_case.dart';
+import 'package:t_store/features/shop/features/all_products/domain/usecases/get_products_specific_category_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
 import 'package:t_store/features/shop/features/home/data/repository/banner_repository_impl.dart';
 import 'package:t_store/features/shop/features/home/data/repository/category_repository_impl.dart';
@@ -189,6 +190,9 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<GetAllProductsByBrandUseCse>(
     GetAllProductsByBrandUseCse(),
+  );
+  getIt.registerSingleton<GetProductsSpecificCategoryUseCase>(
+    GetProductsSpecificCategoryUseCase(),
   );
 
   // -- Cubits--

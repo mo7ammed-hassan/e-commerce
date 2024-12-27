@@ -59,7 +59,10 @@ class BrandsFirebaseServicesImpl implements BrandsFirebaseServices {
           .get();
 
       // Extracting the brand ids
-      var brandIds = brandCategory.docs.map((brand) => brand['brandId']).toList();
+      var brandIds =
+          brandCategory.docs.map((brand) => brand['brandId']).toList();
+
+      if (brandIds.isEmpty) return const Right([]);
 
       // Getting the brands from the Brands collection
       final brandsQuery = await _firestore
@@ -70,7 +73,7 @@ class BrandsFirebaseServicesImpl implements BrandsFirebaseServices {
 
       return Right(brandsQuery.docs);
     } catch (e) {
-      return Left(e);
+      return Left(e.toString());
     }
   }
 }
