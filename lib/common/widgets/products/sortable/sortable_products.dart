@@ -15,7 +15,9 @@ class TSortableProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SortableProductCubit()..resetProducts(products),
+      create: (context) => SortableProductCubit()
+        ..resetProducts(products)
+        ..sortProducts('Name'),
       child: Builder(
         builder: (context) {
           return Column(
