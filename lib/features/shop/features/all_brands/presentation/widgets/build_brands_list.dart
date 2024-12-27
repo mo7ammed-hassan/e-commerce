@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:t_store/common/widgets/animation_containers/open_container_wrapper.dart';
 import 'package:t_store/common/widgets/brands/brand_card.dart';
@@ -17,30 +16,38 @@ class BuildBrandsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brandCubit = getIt.get<BrandCubit>();
-    return BlocProvider(
-      create: (context) => brandCubit..fetchAllBrands(),
-      child: BlocBuilder<BrandCubit, BrandState>(
-        builder: (context, state) {
-          if (state is BrandLoading) {
-            return _loadingBrandsList();
-          }
 
-          if (state is BrandError) {
-            return Center(child: Text(state.allBrandsMessage!));
-          }
+    return brandCubit.state is BrandLoaded
+        ? brandCubit.allBrands.isEmpty
+            ? const Center(child: Text('No brands found!'))
+            : _buildBrandsListItems(brandCubit.allBrands)
+        : brandCubit.state is BrandLoading
+            ? _loadingBrandsList()
+            : brandCubit.state is BrandError
+                ? const Center(child: Text('There was an error!'))
+                : const Center(child: Text('Something went wrong!'));
 
-          if (state is BrandLoaded) {
-            if (state.allbrands.isEmpty) {
-              return const Center(child: Text('No brands found!'));
-            }
+    // return BlocBuilder<BrandCubit, BrandState>(
+    //   builder: (context, state) {
+    //     if (state is BrandLoading) {
+    //       return _loadingBrandsList();
+    //     }
 
-            return _buildBrandsListItems(state.allbrands);
-          }
+    //     if (state is BrandError) {
+    //       return Center(child: Text(state.allBrandsMessage!));
+    //     }
 
-          return const Center(child: Text('Something went wrong!'));
-        },
-      ),
-    );
+    //     if (state is BrandLoaded) {
+    //       if (state.allbrands.isEmpty) {
+    //         return const Center(child: Text('No brands found!'));
+    //       }
+
+    //       return _buildBrandsListItems(getIt.get<BrandCubit>().allBrands);
+    //     }
+
+    //     return const Center(child: Text('Something went wrong!'));
+    //   },
+    // );
   }
 
   TGridLayout _buildBrandsListItems(List<BrandEntity> brands) {

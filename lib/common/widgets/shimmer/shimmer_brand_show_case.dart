@@ -8,8 +8,8 @@ import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
-class ShimmerBrandProductsImages extends StatelessWidget {
-  const ShimmerBrandProductsImages({super.key});
+class ShimmerBrandShowCase extends StatelessWidget {
+  const ShimmerBrandShowCase({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ShimmerBrandProductsImages extends StatelessWidget {
             // Brand with Product Conunt
             TBrandCard(brand: BrandEntity.empty(), showBorder: false),
             const SizedBox(height: TSizes.spaceBtwItems),
-            //Brand Top 3 Product Image
+            //Brand Top 3 Product Images
             Row(
               children: List.generate(
                 3,
@@ -36,10 +36,14 @@ class ShimmerBrandProductsImages extends StatelessWidget {
                         ? TColors.darkerGrey
                         : TColors.light,
                     margin: const EdgeInsets.only(right: TSizes.sm),
-                    padding: const EdgeInsets.all(TSizes.md),
-                    child: const Image(
-                      image: AssetImage(TImages.productImage1),
-                      fit: BoxFit.contain,
+                    padding: const EdgeInsets.all(2),
+                    child: ClipRRect(
+                      borderRadius:
+                          BorderRadius.circular(TSizes.cardRadiusLg),
+                      child: const Image(
+                        image: AssetImage(TImages.productImage1),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

@@ -21,7 +21,9 @@ class FeaturedBrandsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final brandCubit = getIt.get<BrandCubit>();
     return BlocProvider(
-      create: (context) => brandCubit..fetchFeaturedBrands(),
+      create: (context) => brandCubit
+        ..fetchFeaturedBrands()
+        ..fetchAllBrands(),
       child: Padding(
         padding: const EdgeInsets.only(bottom: TSizes.sm),
         child: Column(

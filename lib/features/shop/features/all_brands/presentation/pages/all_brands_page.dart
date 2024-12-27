@@ -6,7 +6,7 @@ import 'package:t_store/utils/constants/sizes.dart';
 
 class AllBrandsPage extends StatelessWidget {
   const AllBrandsPage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

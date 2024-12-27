@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/animation_containers/open_container_wrapper.dart';
 import 'package:t_store/common/widgets/brands/brand_show_case.dart';
-import 'package:t_store/common/widgets/shimmer/shimmer_brand_product_images.dart';
+import 'package:t_store/common/widgets/shimmer/shimmer_brand_show_case.dart';
 import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_entity.dart';
 import 'package:t_store/features/shop/features/all_brands/presentation/pages/brand_products_page.dart';
 import 'package:t_store/features/shop/features/store/presentation/cubits/store_cubit.dart';
@@ -29,7 +29,7 @@ class BuildBrandList extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is StoreBrandLoading) {
-          return const ShimmerBrandProductsImages();
+          return const ShimmerBrandShowCase();
         }
 
         if (state is StoreBrandLoaded) {

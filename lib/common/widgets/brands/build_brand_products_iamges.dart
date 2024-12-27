@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:t_store/common/widgets/shimmer/shimmer_brand_products_images.dart';
 import 'package:t_store/features/shop/features/all_brands/presentation/cubits/product_by_brand_cubit.dart';
 import 'package:t_store/features/shop/features/all_brands/presentation/cubits/product_by_brand_state.dart';
 import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
@@ -18,7 +17,7 @@ class BuildBrandProductsImages extends StatelessWidget {
       builder: (context, state) {
         if (state is ProductsByBrandLoadingState ||
             state is ProductsByBrandInitialState) {
-          return _buildLoadingProductImage(context);
+          return const ShimmerBrandProductsImages();
         }
 
         if (state is ProductsByBrandErrorState) {
@@ -44,7 +43,7 @@ class BuildBrandProductsImages extends StatelessWidget {
           );
         }
 
-        return _buildLoadingProductImage(context);
+        return const SizedBox();
       },
     );
   }
@@ -57,19 +56,11 @@ class BuildBrandProductsImages extends StatelessWidget {
           : TColors.light,
       margin: const EdgeInsets.only(right: TSizes.sm),
       padding: const EdgeInsets.all(TSizes.md),
-      child: Image(
-        image: AssetImage(image),
-        fit: BoxFit.contain,
-      ),
-    );
-  }
-
-  Widget _buildLoadingProductImage(BuildContext context) {
-    return Skeletonizer(
-      child: Row(
-        children: List.generate(
-          3,
-          (index) => _topBrandImage(context, image: TImages.productImage1),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
+        child: Image(
+          image: AssetImage(image),
+          fit: BoxFit.cover,
         ),
       ),
     );
