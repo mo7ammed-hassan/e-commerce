@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:t_store/common/widgets/animation_containers/open_container_wrapper.dart';
 import 'package:t_store/common/widgets/brands/brand_show_case.dart';
 import 'package:t_store/common/widgets/shimmer/shimmer_brand_product_images.dart';
 import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_entity.dart';
+import 'package:t_store/features/shop/features/all_brands/presentation/pages/brand_products_page.dart';
 import 'package:t_store/features/shop/features/store/presentation/cubits/store_cubit.dart';
 import 'package:t_store/features/shop/features/store/presentation/cubits/store_state.dart';
+import 'package:t_store/utils/constants/sizes.dart';
 
 class BuildBrandList extends StatelessWidget {
   final String categoryId;
@@ -50,7 +53,17 @@ class BuildBrandList extends StatelessWidget {
 
   Widget _buildBrandsListItems(List<BrandEntity> brands) {
     return Column(
-      children: brands.map((brand) => TBrandShowcase(brand: brand)).toList(),
+      children: brands
+          .map(
+            (brand) => OpenContainerWrapper(
+              nextScreen: BrandProductsPage(
+                brand: brand,
+              ),
+              radius: const Radius.circular(TSizes.cardRadiusLg),
+              child: TBrandShowcase(brand: brand),
+            ),
+          )
+          .toList(),
     );
   }
 }
