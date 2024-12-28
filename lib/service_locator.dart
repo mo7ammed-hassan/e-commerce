@@ -51,6 +51,14 @@ import 'package:t_store/features/shop/features/home/domain/repository/banner_rep
 import 'package:t_store/features/shop/features/home/domain/repository/category_repositoy.dart';
 import 'package:t_store/features/shop/features/home/domain/use_cases/banner_use_case.dart';
 import 'package:t_store/features/shop/features/home/domain/use_cases/category_use_case.dart';
+import 'package:t_store/features/shop/features/wishlist/data/repositories/wishlist_repository_impl.dart';
+import 'package:t_store/features/shop/features/wishlist/data/source/wishlist_firebase_services.dart';
+import 'package:t_store/features/shop/features/wishlist/domain/repositories/wishlist_repository.dart';
+import 'package:t_store/features/shop/features/wishlist/domain/usecases/add_items_in_wishlist_use_case.dart';
+import 'package:t_store/features/shop/features/wishlist/domain/usecases/clear_wishlist_use_case.dart';
+import 'package:t_store/features/shop/features/wishlist/domain/usecases/fetch_wishlist_items_use_case.dart';
+import 'package:t_store/features/shop/features/wishlist/domain/usecases/is_item_in_wishlist_use_cas.dart';
+import 'package:t_store/features/shop/features/wishlist/domain/usecases/remove_item_from_wishlist_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -74,6 +82,9 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<BannerFirebaseServices>(
     BannerFirebaseServicesImpl(),
+  );
+  getIt.registerSingleton<WishlistFirebaseServices>(
+    WishlistFirebaseServicesImpl(),
   );
 
   // --Local
@@ -102,6 +113,11 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<BannerRepository>(
     BannerRepositoryImpl(),
+  );
+  getIt.registerSingleton<WishlistRepository>(
+    WishlistRepositoryImpl(
+      WishlistFirebaseServicesImpl(),
+    ),
   );
 
   // ------Usecases------
@@ -193,6 +209,22 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<GetProductsSpecificCategoryUseCase>(
     GetProductsSpecificCategoryUseCase(),
+  );
+  // -- wishlist --
+  getIt.registerSingleton<AddItemsInWishlistUseCase>(
+    AddItemsInWishlistUseCase(),
+  );
+  getIt.registerSingleton<RemoveItemFromWishlistUseCase>(
+    RemoveItemFromWishlistUseCase(),
+  );
+  getIt.registerSingleton<IsItemInWishlistUseCase>(
+    IsItemInWishlistUseCase(),
+  );
+  getIt.registerSingleton<FetchWishlistItemsUseCase>(
+    FetchWishlistItemsUseCase(),
+  );
+  getIt.registerSingleton<ClearWishlistUseCase>(
+    ClearWishlistUseCase(),
   );
 
   // -- Cubits--

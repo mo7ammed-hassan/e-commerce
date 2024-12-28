@@ -4,10 +4,10 @@ import 'package:t_store/features/shop/features/all_products/domain/entity/produc
 import 'package:t_store/features/shop/features/wishlist/data/source/wishlist_firebase_services.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/repositories/wishlist_repository.dart';
 
-class WislistRepositoryImpl implements WishlistRepository {
+class WishlistRepositoryImpl implements WishlistRepository {
   final WishlistFirebaseServices wishlistFirebaseServices;
 
-  WislistRepositoryImpl(this.wishlistFirebaseServices);
+  WishlistRepositoryImpl(this.wishlistFirebaseServices);
   @override
   Future<void> addProductToWishlist(String productId) async {
     try {
