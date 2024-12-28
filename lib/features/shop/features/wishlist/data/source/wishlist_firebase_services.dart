@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:t_store/common/core/firebase_collections/collections.dart';
 
 abstract class WishlistFirebaseServices {
   Future<void> addProductToWishlist(String productId);
@@ -13,7 +14,8 @@ abstract class WishlistFirebaseServices {
 }
 
 class WishlistFirebaseServicesImpl implements WishlistFirebaseServices {
-  final _storage = FirebaseFirestore.instance.collection('Users');
+  final _storage = FirebaseFirestore.instance
+      .collection(FirebaseCollections.USER_COLLECTION);
   final _currentUser = FirebaseAuth.instance.currentUser;
 
   @override
@@ -26,7 +28,11 @@ class WishlistFirebaseServicesImpl implements WishlistFirebaseServices {
 
       final userId = _currentUser.uid;
 
-      await _storage.doc(userId).collection('Wishlist').doc(productId).set({
+      await _storage
+          .doc(userId)
+          .collection(FirebaseCollections.WISHLIST_COLLECTION)
+          .doc(productId)
+          .set({
         'productId': productId,
         'addedAt': FieldValue.serverTimestamp(),
       });
@@ -46,8 +52,10 @@ class WishlistFirebaseServicesImpl implements WishlistFirebaseServices {
       final userId = _currentUser.uid;
       var batch = FirebaseFirestore.instance.batch();
 
-      var wishlistDocs =
-          await _storage.doc(userId).collection('Wishlist').get();
+      var wishlistDocs = await _storage
+          .doc(userId)
+          .collection(FirebaseCollections.WISHLIST_COLLECTION)
+          .get();
 
       for (var doc in wishlistDocs.docs) {
         batch.delete(doc.reference);
@@ -70,7 +78,10 @@ class WishlistFirebaseServicesImpl implements WishlistFirebaseServices {
 
       final userId = _currentUser.uid;
 
-      var data = await _storage.doc(userId).collection('Wishlist').get();
+      var data = await _storage
+          .doc(userId)
+          .collection(FirebaseCollections.WISHLIST_COLLECTION)
+          .get();
       return Right(data.docs);
     } catch (e) {
       return Left(e.toString());
@@ -89,7 +100,7 @@ class WishlistFirebaseServicesImpl implements WishlistFirebaseServices {
 
       var data = await _storage
           .doc(userId)
-          .collection('Wishlist')
+          .collection(FirebaseCollections.WISHLIST_COLLECTION)
           .doc(productId)
           .get();
 
@@ -109,7 +120,11 @@ class WishlistFirebaseServicesImpl implements WishlistFirebaseServices {
 
       final userId = _currentUser.uid;
 
-      await _storage.doc(userId).collection('Wishlist').doc(productId).delete();
+      await _storage
+          .doc(userId)
+          .collection(FirebaseCollections.WISHLIST_COLLECTION)
+          .doc(productId)
+          .delete();
     } catch (e) {
       throw FirebaseException(plugin: 'Firestore', message: e.toString());
     }

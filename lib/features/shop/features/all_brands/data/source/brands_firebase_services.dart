@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:t_store/common/core/firebase_collections/collections.dart';
 
 abstract class BrandsFirebaseServices {
   // -- Get Featured Brands --
@@ -24,7 +25,7 @@ class BrandsFirebaseServicesImpl implements BrandsFirebaseServices {
       getFeaturedBrands({int limit = 4}) async {
     try {
       var data = await _firestore
-          .collection('Brands')
+          .collection(FirebaseCollections.BRANDS_COLLECTION)
           .where('isFeatured', isEqualTo: true)
           .limit(limit)
           .get();
@@ -39,7 +40,7 @@ class BrandsFirebaseServicesImpl implements BrandsFirebaseServices {
   Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
       getAllBrands({int limit = 16}) async {
     try {
-      var data = await _firestore.collection('Brands').limit(limit).get();
+      var data = await _firestore.collection(FirebaseCollections.BRANDS_COLLECTION).limit(limit).get();
 
       return Right(data.docs);
     } catch (e) {
@@ -54,7 +55,7 @@ class BrandsFirebaseServicesImpl implements BrandsFirebaseServices {
     try {
       // Getting the brand ids from the BrandCategory collection
       var brandCategory = await _firestore
-          .collection('BrandCategory')
+          .collection(FirebaseCollections.BRANDS_CATEGORY_COLLECTION)
           .where('brandId', isEqualTo: categoryId)
           .get();
 
@@ -66,7 +67,7 @@ class BrandsFirebaseServicesImpl implements BrandsFirebaseServices {
 
       // Getting the brands from the Brands collection
       final brandsQuery = await _firestore
-          .collection('Brands')
+          .collection(FirebaseCollections.BRANDS_COLLECTION)
           .where(FieldPath.documentId, whereIn: brandIds)
           .limit(limit)
           .get();

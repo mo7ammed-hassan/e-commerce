@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:t_store/common/core/firebase_collections/collections.dart';
 
 abstract class ProductFirebaseServices {
   // --get popular and featured products--
@@ -35,7 +36,10 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
   Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
       getAllProducts() async {
     try {
-      var data = await _firestore.collection('Products').limit(4).get();
+      var data = await _firestore
+          .collection(FirebaseCollections.PRODUCTS_COLLECTION)
+          .limit(4)
+          .get();
 
       return Right(data.docs);
     } catch (e) {
@@ -48,7 +52,7 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
       getFeaturedProducts({required int limit}) async {
     try {
       var data = await _firestore
-          .collection('Products')
+          .collection(FirebaseCollections.PRODUCTS_COLLECTION)
           .where('isFeatured', isEqualTo: true)
           .limit(limit)
           .get();
@@ -64,7 +68,7 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
       getAllFeaturedProducts({required int limit}) async {
     try {
       var data = await _firestore
-          .collection('Products')
+          .collection(FirebaseCollections.PRODUCTS_COLLECTION)
           .where('isFeatured', isEqualTo: true)
           .limit(limit)
           .get();
@@ -80,7 +84,7 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
       getAllPopularProducts({required int limit}) async {
     try {
       var data = await _firestore
-          .collection('Products')
+          .collection(FirebaseCollections.PRODUCTS_COLLECTION)
           //.where('isPopular', isEqualTo: true)
           .limit(limit)
           .get();
@@ -97,7 +101,7 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
           {required String brandId, required int limit}) async {
     try {
       var data = await _firestore
-          .collection('Products')
+          .collection(FirebaseCollections.PRODUCTS_COLLECTION)
           .where('brand.id', isEqualTo: brandId)
           .limit(limit)
           .get();
@@ -114,7 +118,7 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
           {required String categoryId, required int limit}) async {
     try {
       var productCategoryQuary = await _firestore
-          .collection('ProductCategory')
+          .collection(FirebaseCollections.PRODUCTS_CATEGORY_COLLECTION)
           .where('categoryId', isEqualTo: categoryId)
           .get();
 
@@ -125,7 +129,7 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
       if (productIds.isEmpty) return const Right([]);
 
       var products = await _firestore
-          .collection('Products')
+          .collection(FirebaseCollections.PRODUCTS_COLLECTION)
           .where(FieldPath.documentId, whereIn: productIds)
           .limit(limit)
           .get();
