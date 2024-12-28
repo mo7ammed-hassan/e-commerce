@@ -4,7 +4,7 @@ import 'package:t_store/features/shop/features/all_brands/data/source/brands_fir
 import 'package:t_store/features/shop/features/all_brands/domain/repository/brands_repository.dart';
 import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_entity.dart';
 
-class BrandsRepositoryImpl extends BrandsRepository {
+class BrandsRepositoryImpl implements BrandsRepository {
   final BrandsFirebaseServices brandsServices;
 
   BrandsRepositoryImpl(this.brandsServices);
