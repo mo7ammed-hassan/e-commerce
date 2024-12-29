@@ -27,6 +27,10 @@ abstract class ProductFirebaseServices {
   // --get all products by brand--
   Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
       getAllProductsByBrand({required String brandId, required int limit});
+
+  // --get Favorite products--
+  Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
+      getFavoriteProducts({required List<String> productIds});
 }
 
 class ProductFirebaseServicesImpl implements ProductFirebaseServices {
@@ -132,6 +136,23 @@ class ProductFirebaseServicesImpl implements ProductFirebaseServices {
           .collection(FirebaseCollections.PRODUCTS_COLLECTION)
           .where(FieldPath.documentId, whereIn: productIds)
           .limit(limit)
+          .get();
+
+      return Right(products.docs);
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<dynamic, List<DocumentSnapshot<Map<String, dynamic>>>>>
+      getFavoriteProducts({required List<String> productIds}) async {
+    try {
+      if (productIds.isEmpty) return const Right([]);
+
+      var products = await _firestore
+          .collection(FirebaseCollections.PRODUCTS_COLLECTION)
+          .where(FieldPath.documentId, whereIn: productIds)
           .get();
 
       return Right(products.docs);

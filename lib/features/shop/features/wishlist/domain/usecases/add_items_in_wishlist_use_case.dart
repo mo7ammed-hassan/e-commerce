@@ -7,4 +7,6 @@ class AddItemsInWishlistUseCase extends UseCases<void, String> {
   Future<void> call({String? params}) async {
     return await getIt<WishlistRepository>().addProductToWishlist(params!);
   }
+
+  clearWishlist() {}
 }

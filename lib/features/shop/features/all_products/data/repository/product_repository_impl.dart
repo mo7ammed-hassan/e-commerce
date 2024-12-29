@@ -126,4 +126,24 @@ class ProductRepositoryImpl extends ProductRepository {
       },
     );
   }
+
+  @override
+  Future<Either<dynamic, List<ProductEntity>>> fetchWishlistProducts(
+      {required List<String> productIds}) async {
+    var retunedData = await productFirebaseServices.getFavoriteProducts(
+        productIds: productIds);
+
+    return retunedData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        List<ProductEntity> products = List.from(data)
+            .map((document) => ProductModel.fromJson(document).toEntity())
+            .toList();
+
+        return Right(products);
+      },
+    );
+  }
 }

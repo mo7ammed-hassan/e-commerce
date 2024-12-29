@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/curved_edges/curved_edges_widgets.dart';
-import 'package:t_store/common/widgets/icons/circular_icon.dart';
+import 'package:t_store/common/widgets/favorite_button/favorite_button.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/cubits/images_product_cubit.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/build_images_slider.dart';
@@ -68,10 +67,10 @@ class TProductDetailImageSlider extends StatelessWidget {
   }
 
   TAppBar _appBar() {
-    return const TAppBar(
+    return TAppBar(
       showBackArrow: true,
       actions: [
-        TCircularIcon(icon: Iconsax.heart5, color: Colors.red),
+        FavoriteButton(productId: product.id),
       ],
     );
   }

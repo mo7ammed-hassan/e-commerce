@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/animation_containers/open_container_wrapper.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:t_store/common/widgets/favorite_button/favorite_button.dart';
 import 'package:t_store/common/widgets/icons/add_icon.dart';
-import 'package:t_store/common/widgets/icons/circular_icon.dart';
 import 'package:t_store/common/widgets/images/rounded_image.dart';
 import 'package:t_store/common/widgets/products/product_cards/sections/discount_rate.dart';
 import 'package:t_store/common/widgets/texts/brand_title_with_verified_icon.dart';
@@ -95,10 +94,10 @@ class ProductCardHorizantal extends StatelessWidget {
   }
 
   Positioned _favoriteButton() {
-    return const Positioned(
+    return Positioned(
       top: 0,
       right: 0,
-      child: TCircularIcon(icon: Iconsax.heart5, color: Colors.red),
+      child: FavoriteButton(productId: product.id),
     );
   }
 

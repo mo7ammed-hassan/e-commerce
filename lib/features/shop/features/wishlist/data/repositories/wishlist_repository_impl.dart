@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
-import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/wishlist/data/source/wishlist_firebase_services.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/repositories/wishlist_repository.dart';
 
@@ -27,7 +26,7 @@ class WishlistRepositoryImpl implements WishlistRepository {
   }
 
   @override
-  Future<Either<dynamic, List<ProductEntity>>> fetchWishlist() async {
+  Future<Either<dynamic, List<String>>> fetchWishlist() async {
     var returnedData = await wishlistFirebaseServices.fetchWishlist();
 
     return returnedData.fold(
@@ -35,8 +34,8 @@ class WishlistRepositoryImpl implements WishlistRepository {
         return Left(e);
       },
       (data) {
-        List<ProductEntity> products = List.from(data)
-            .map((document) => ProductModel.fromJson(document).toEntity())
+        List<String> products = List.from(data)
+            .map((document) => ProductModel.fromJson(document).id)
             .toList();
 
         return Right(products);

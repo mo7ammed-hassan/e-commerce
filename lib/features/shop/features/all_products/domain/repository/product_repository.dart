@@ -23,4 +23,7 @@ abstract class ProductRepository {
   // --get all products by brand--
   Future<Either<dynamic, List<ProductEntity>>> getAllProductsByBrand(
       {required String brandId, required int limit});
+
+  Future<Either<dynamic, List<ProductEntity>>> fetchWishlistProducts(
+      {required List<String> productIds});
 }

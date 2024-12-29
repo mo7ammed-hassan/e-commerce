@@ -1,10 +1,11 @@
+import 'package:dartz/dartz.dart';
 import 'package:t_store/common/core/usecases/use_cases.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/repositories/wishlist_repository.dart';
 import 'package:t_store/service_locator.dart';
 
-class FetchWishlistItemsUseCase extends UseCases {
+class FetchWishlistItemsUseCase extends UseCases<Either<dynamic, List<String>>, dynamic> {
   @override
-  Future call({params}) async {
+  Future<Either<dynamic, List<String>>> call({dynamic params}) async {
     return await getIt<WishlistRepository>().fetchWishlist();
   }
 }

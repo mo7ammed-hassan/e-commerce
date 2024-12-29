@@ -60,6 +60,8 @@ class TImages {
       "assets/images/animations/98783-packaging-in-progress.json";
   static const String paperPlane =
       "assets/images/animations/110052-paper-plane.json";
+  static const String pencilAnimation =
+      "assets/images/animations/140429-pencil-drawing.json";
 
   // --Lottie Animation
   static const String cartAnimation =

@@ -6,9 +6,11 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:t_store/app_entry_point.dart';
 import 'package:t_store/bloc_observier.dart';
+import 'package:t_store/common/core/hive_boxes/open_boxes.dart';
 import 'package:t_store/common/cubits/launch_app/launch_app_cubit.dart';
 import 'package:t_store/features/personalization/cubit/user_cubit.dart';
 import 'package:t_store/features/shop/features/home/domain/entites/category_entity.dart';
+import 'package:t_store/features/shop/features/wishlist/data/model/wishlist_model.dart';
 import 'package:t_store/firebase_options.dart';
 import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/theme/theme.dart';
@@ -25,6 +27,8 @@ void main() async {
   // Register Adapters
   Hive.registerAdapter(CategoryEntityAdapter());
 
+  Hive.registerAdapter(WishlistModelAdapter());
+
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Initialize Firebase App with custom options
@@ -33,6 +37,9 @@ void main() async {
   );
   // Initialize GetX Local Storage
   await GetStorage.init();
+
+  // open the user's wishlist box
+  await OpenBoxes().openUserWishlistBox();
 
   // Initialize Service Locator
   await initializeDependencies();

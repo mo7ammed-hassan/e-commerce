@@ -84,6 +84,8 @@ class ProductsCubit extends Cubit<ProductsState> {
     );
   }
 
+ 
+
   Future<void> fetchInitialData() async {
     emit(
       ProductsLoadingState(

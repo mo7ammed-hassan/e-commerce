@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:t_store/common/widgets/icons/circular_icon.dart';
+import 'package:t_store/common/widgets/favorite_button/favorite_button.dart';
 import 'package:t_store/common/widgets/images/rounded_image.dart';
 import 'package:t_store/common/widgets/products/product_cards/sections/discount_rate.dart';
 import 'package:t_store/utils/constants/colors.dart';
@@ -11,9 +10,13 @@ import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TProductCardHeader extends StatelessWidget {
   const TProductCardHeader(
-      {super.key, this.thumbnail, required this.discountPrice});
+      {super.key,
+      this.thumbnail,
+      required this.discountPrice,
+      required this.productId});
   final String? thumbnail;
   final String discountPrice;
+  final String productId;
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
@@ -41,10 +44,10 @@ class TProductCardHeader extends StatelessWidget {
   }
 
   Widget _favoriteButton() {
-    return const Positioned(
+    return Positioned(
       top: 0,
       right: 0,
-      child: TCircularIcon(icon: Iconsax.heart5, color: Colors.red),
+      child: FavoriteButton(productId: productId),
     );
   }
 

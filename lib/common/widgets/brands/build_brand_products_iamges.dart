@@ -60,7 +60,7 @@ class BuildBrandProductsImages extends StatelessWidget {
         borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
         child: Image(
           image: AssetImage(image),
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
       ),
     );

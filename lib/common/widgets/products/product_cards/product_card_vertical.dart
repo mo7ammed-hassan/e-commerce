@@ -34,6 +34,7 @@ class TProductCardVertical extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TProductCardHeader(
+              productId: product.id,
               thumbnail: product.thumbnail,
               discountPrice: cubit.calculateProductDiscount(
                       product.price.toDouble(), product.salePrice!) ??

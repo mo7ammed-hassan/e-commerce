@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class FirebaseCollections {
   static const String USER_COLLECTION = 'Users';
   static const String WISHLIST_COLLECTION = 'Wishlist';
@@ -11,6 +13,6 @@ class FirebaseCollections {
   static const String CATEGORIES_COLLECTION = 'Categories';
   static const String BRANDS_COLLECTION = 'Brands';
   static const String SHIPPING_COLLECTION = 'Shipping';
-  static const String PRODUCTS_CATEGORY_COLLECTION = 'Settings';
-  static const String BRANDS_CATEGORY_COLLECTION = 'Settings';
+  static const String PRODUCTS_CATEGORY_COLLECTION = 'ProductCategory';
+  static const String BRANDS_CATEGORY_COLLECTION = 'BrandCategory';
 }
