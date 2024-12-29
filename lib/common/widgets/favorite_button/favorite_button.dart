@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/icons/circular_icon.dart';
 import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/favorite_button_cubit.dart';
 import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/favorite_button_state.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/colors.dart';
 
 class FavoriteButton extends StatelessWidget {
@@ -13,8 +14,8 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FavoriteButtonCubit(),
+    return BlocProvider.value(
+      value: getIt.get<FavoriteButtonCubit>(),
       child: BlocBuilder<FavoriteButtonCubit, FavoriteButtonState>(
         builder: (context, state) {
           return TCircularIcon(

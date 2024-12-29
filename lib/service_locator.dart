@@ -59,6 +59,8 @@ import 'package:t_store/features/shop/features/wishlist/domain/usecases/add_item
 import 'package:t_store/features/shop/features/wishlist/domain/usecases/clear_wishlist_use_case.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/usecases/fetch_wishlist_items_use_case.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/usecases/remove_item_from_wishlist_use_case.dart';
+import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/favorite_button_cubit.dart';
+import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/wishlist_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -231,4 +233,8 @@ Future<void> initializeDependencies() async {
   // -- Cubits--
   getIt.registerLazySingleton<ProductsCubit>(() => ProductsCubit());
   getIt.registerLazySingleton<BrandCubit>(() => BrandCubit());
+  getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit());
+  getIt.registerLazySingleton<FavoriteButtonCubit>(
+    () => FavoriteButtonCubit(getIt.get<WishlistCubit>()),
+  );
 }

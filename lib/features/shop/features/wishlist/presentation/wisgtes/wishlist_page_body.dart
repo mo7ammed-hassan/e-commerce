@@ -13,11 +13,7 @@ class WishlistPageBody extends StatelessWidget {
           horizontal: TSizes.spaceBtwItems,
           vertical: TSizes.defaultSpace,
         ),
-        child: Column(
-          children: [
-            BuildWishlistItems(),
-          ],
-        ),
+        child: BuildWishlistItems(),
       ),
     );
   }

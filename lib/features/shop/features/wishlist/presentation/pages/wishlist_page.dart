@@ -6,6 +6,7 @@ import 'package:t_store/common/widgets/icons/circular_icon.dart';
 import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/wishlist_cubit.dart';
 import 'package:t_store/features/shop/features/wishlist/presentation/wisgtes/wishlist_page_body.dart';
 import 'package:t_store/navigation_menu.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/helpers/navigation.dart';
 
 class WishlistPage extends StatelessWidget {
@@ -13,8 +14,8 @@ class WishlistPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WishlistCubit()..fetchWishlist(),
+    return BlocProvider.value(
+      value: getIt.get<WishlistCubit>()..fetchWishlist(),
       child: Scaffold(
         appBar: _buildAppBar(context),
         body: const WishlistPageBody(),
