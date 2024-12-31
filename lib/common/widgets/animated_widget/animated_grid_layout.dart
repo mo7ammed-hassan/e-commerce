@@ -6,9 +6,9 @@ class AnimatedGridLayout extends StatefulWidget {
   final IndexedWidgetBuilder itemBuilder;
   final double mainAxisExtent;
   final Widget Function({
-     bool? isVisible,
-     VoidCallback? onRemove,
-     VoidCallback? onAdd,
+    bool? isVisible,
+    VoidCallback? onRemove,
+    VoidCallback? onAdd,
     required Widget child,
   }) animatedEffect;
 
@@ -35,7 +35,7 @@ class _AnimatedGridLayoutState extends State<AnimatedGridLayout> {
 
   void _animateAddItems() {
     for (int i = 0; i < widget.itemCount; i++) {
-      Future.delayed(Duration(milliseconds: i * 100), () {
+      Future.delayed(Duration(milliseconds: i * 150), () {
         if (mounted) {
           setState(
             () {
