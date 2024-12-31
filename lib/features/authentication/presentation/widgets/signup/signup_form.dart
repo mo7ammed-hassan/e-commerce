@@ -24,32 +24,34 @@ class TSignupForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PasswordAndSelectionCubit(),
-      child: Form(
-        key: context.read<SignupCubit>().formKey,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                _firstNameField(context),
-                const SizedBox(width: TSizes.spaceBtwInputFields),
-                _lastNameField(context),
-              ],
-            ),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
-            _userNameField(context),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
-            _emailField(context),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
-            _phoneNumberField(context),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
-            PasswordField(
-              controller: context.read<SignupCubit>().passwordController,
-            ),
-            const SizedBox(height: TSizes.spaceBtwSections),
-            const TTermAndCondationCheckbox(),
-            const SizedBox(height: TSizes.spaceBtwSections),
-            _createAccount(context),
-          ],
+      child: AutofillGroup(
+        child: Form(
+          key: context.read<SignupCubit>().formKey,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  _firstNameField(context),
+                  const SizedBox(width: TSizes.spaceBtwInputFields),
+                  _lastNameField(context),
+                ],
+              ),
+              const SizedBox(height: TSizes.spaceBtwInputFields),
+              _userNameField(context),
+              const SizedBox(height: TSizes.spaceBtwInputFields),
+              _emailField(context),
+              const SizedBox(height: TSizes.spaceBtwInputFields),
+              _phoneNumberField(context),
+              const SizedBox(height: TSizes.spaceBtwInputFields),
+              PasswordField(
+                controller: context.read<SignupCubit>().passwordController,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections),
+              const TTermAndCondationCheckbox(),
+              const SizedBox(height: TSizes.spaceBtwSections),
+              _createAccount(context),
+            ],
+          ),
         ),
       ),
     );
@@ -62,6 +64,7 @@ class TSignupForm extends StatelessWidget {
         controller: context.read<SignupCubit>().firstNameController,
         validator: (value) => TValidator.validateEmptyText('First Name', value),
         textInputAction: TextInputAction.next,
+        autofillHints: const [AutofillHints.givenName],
         decoration: const InputDecoration(
           labelText: TTexts.firstName,
           prefixIcon: Icon(Iconsax.user),
@@ -76,6 +79,7 @@ class TSignupForm extends StatelessWidget {
         controller: context.read<SignupCubit>().lastNameController,
         validator: (value) => TValidator.validateEmptyText('Last Name', value),
         textInputAction: TextInputAction.next,
+        autofillHints: const [AutofillHints.familyName],
         expands: false,
         decoration: const InputDecoration(
           labelText: TTexts.lastName,
@@ -90,6 +94,7 @@ class TSignupForm extends StatelessWidget {
       controller: context.read<SignupCubit>().usernameController,
       validator: (value) => TValidator.validateEmptyText('username', value),
       textInputAction: TextInputAction.next,
+      autofillHints: const [AutofillHints.username],
       decoration: const InputDecoration(
         labelText: TTexts.username,
         prefixIcon: Icon(Iconsax.user_edit),
@@ -102,6 +107,7 @@ class TSignupForm extends StatelessWidget {
       controller: context.read<SignupCubit>().emailController,
       validator: (value) => TValidator.validateEmail(value),
       textInputAction: TextInputAction.next,
+      autofillHints: const [AutofillHints.email],
       decoration: const InputDecoration(
         labelText: TTexts.email,
         prefixIcon: Icon(Iconsax.direct),
@@ -114,6 +120,7 @@ class TSignupForm extends StatelessWidget {
       controller: context.read<SignupCubit>().phoneController,
       validator: (value) => TValidator.validatePhoneNumber(value),
       textInputAction: TextInputAction.next,
+      autofillHints: const [AutofillHints.telephoneNumber],
       decoration: const InputDecoration(
         errorMaxLines: 2,
         labelText: TTexts.phoneNo,

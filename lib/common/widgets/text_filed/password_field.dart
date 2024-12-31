@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/cubits/password_and_selection/password_and_selection_cubit.dart';
@@ -21,6 +22,8 @@ class PasswordField extends StatelessWidget {
           controller: controller,
           validator: (value) => TValidator.validatePassword(value),
           textInputAction: TextInputAction.done,
+          autofillHints: const [AutofillHints.password],
+          onEditingComplete: () => TextInput.finishAutofillContext(),
           decoration: InputDecoration(
             labelText: TTexts.password,
             prefixIcon: const Icon(Iconsax.password_check),

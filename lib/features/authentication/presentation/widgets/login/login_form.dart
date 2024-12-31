@@ -28,7 +28,6 @@ class TLoginForm extends StatelessWidget {
     return BlocProvider(
       create: (context) => PasswordAndSelectionCubit(),
       child: AutofillGroup(
-        
         child: Form(
           key: context.read<SignInCubit>().formKey,
           child: Padding(
@@ -62,6 +61,7 @@ class TLoginForm extends StatelessWidget {
       controller: context.read<SignInCubit>().emailController,
       validator: (value) => TValidator.validateEmail(value),
       textInputAction: TextInputAction.next,
+      autofillHints: const [AutofillHints.email],
       decoration: const InputDecoration(
         labelText: TTexts.email,
         prefixIcon: Icon(Iconsax.direct_right),
