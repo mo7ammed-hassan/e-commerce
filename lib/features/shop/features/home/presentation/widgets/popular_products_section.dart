@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:t_store/common/widgets/layouts/grid_layout.dart';
+import 'package:t_store/common/widgets/animated_widget/animated_fade_grid_item.dart';
+import 'package:t_store/common/widgets/animated_widget/animated_grid_layout.dart';
 import 'package:t_store/common/widgets/products/product_cards/product_card_vertical.dart';
 import 'package:t_store/common/widgets/shimmer/shimmer_products_grid_layout.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
@@ -25,11 +26,19 @@ class PopularProductsSection extends StatelessWidget {
           if (state.allProducts.isEmpty) {
             return _errorWidget('No products found!');
           }
-          return TGridLayout(
+          return AnimatedGridLayout(
             itemCount: state.allProducts.length,
             itemBuilder: (context, index) => TProductCardVertical(
               product: state.allProducts[index],
             ),
+            animatedEffect: ({required child, isVisible, onAdd, onRemove}) {
+              return AnimatedFadeGridItem(
+                isVisible: isVisible!,
+                onRemove: onRemove!,
+                duration: const Duration(milliseconds: 250),
+                child: child,
+              );
+            },
           );
         }
 
