@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:t_store/common/core/hive_boxes/open_boxes.dart';
 import 'package:t_store/features/authentication/data/repository/authentication_repository_impl.dart';
 import 'package:t_store/features/authentication/data/repository/onboarding_repository_impl.dart';
 import 'package:t_store/features/authentication/data/source/authentication_source/authentication_firebase_services.dart';
@@ -53,7 +52,6 @@ import 'package:t_store/features/shop/features/home/domain/use_cases/banner_use_
 import 'package:t_store/features/shop/features/home/domain/use_cases/category_use_case.dart';
 import 'package:t_store/features/shop/features/wishlist/data/repositories/wishlist_repository_impl.dart';
 import 'package:t_store/features/shop/features/wishlist/data/source/wishlist_firebase_services.dart';
-import 'package:t_store/features/shop/features/wishlist/data/source/wislist_local_sources.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/repositories/wishlist_repository.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/usecases/add_items_in_wishlist_use_case.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/usecases/clear_wishlist_use_case.dart';
@@ -87,11 +85,6 @@ Future<void> initializeDependencies() async {
   );
   getIt.registerSingleton<WishlistFirebaseServices>(
     WishlistFirebaseServicesImpl(),
-  );
-
-  // --Local
-  getIt.registerFactory<WishlistLocalSources>(
-    () => WislistLocalSourcesImpl(),
   );
 
   // ------Repositories------
@@ -230,10 +223,8 @@ Future<void> initializeDependencies() async {
   // -- Cubits--
   getIt.registerLazySingleton<ProductsCubit>(() => ProductsCubit());
   getIt.registerLazySingleton<BrandCubit>(() => BrandCubit());
-  getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit());
-  getIt.registerLazySingleton<FavoriteButtonCubit>(
+  getIt.registerFactory<WishlistCubit>(() => WishlistCubit());
+  getIt.registerFactory<FavoriteButtonCubit>(
     () => FavoriteButtonCubit(getIt.get<WishlistCubit>()),
   );
-
-  getIt.registerFactory<OpenBoxes>(() => OpenBoxes());
 }

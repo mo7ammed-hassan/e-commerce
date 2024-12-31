@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive/hive.dart';
 
 class OpenBoxes {
-  Future<void> openUserWishlistBox({required String userID}) async {
+  Future<Box> openUserWishlistBox({required String userID}) async {
     // Open the user's main box
     Box userBox = await Hive.openBox(userID);
 
@@ -18,6 +18,8 @@ class OpenBoxes {
     if (!Hive.isBoxOpen(wishlistBoxName)) {
       await Hive.openBox(wishlistBoxName);
     }
+
+    return Hive.box(wishlistBoxName);
     // //Ensure the user has a wishlist
     // if (!userBox.containsKey('WISHLIST')) {
     //   userBox.put('WISHLIST', 'wishlist_$userID');

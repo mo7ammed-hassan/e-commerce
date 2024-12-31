@@ -7,7 +7,6 @@ import 'package:t_store/common/core/hive_boxes/open_boxes.dart';
 import 'package:t_store/features/authentication/data/models/user_creation_model.dart';
 import 'package:t_store/features/authentication/data/models/user_signin_model.dart';
 import 'package:t_store/features/authentication/data/source/authentication_source/save_user_data_to_firestore.dart';
-import 'package:t_store/service_locator.dart';
 
 abstract class AuthenticationFirebaseServices {
   Future<Either> signup(UserCreationModel userCreationModel);
@@ -27,9 +26,8 @@ class AuthenticationFirebaseServicesImpl
   @override
   Future<Either> logout() async {
     try {
-      await getIt
-          .get<OpenBoxes>()
-          .closeUserWishlistBox(userID: _user.currentUser!.uid);
+      // Close User Wishlist Box
+      await OpenBoxes().closeUserWishlistBox(userID: _user.currentUser!.uid);
 
       await GoogleSignIn().signOut();
       await _user.signOut();
@@ -75,9 +73,8 @@ class AuthenticationFirebaseServicesImpl
             userCreationModel.toMap(),
           );
 
-      await getIt
-          .get<OpenBoxes>()
-          .openUserWishlistBox(userID: userCredential.user!.uid);
+      // Open User Wishlist Box
+      await OpenBoxes().openUserWishlistBox(userID: userCredential.user!.uid);
 
       return const Right(
         'Your Account has been created! Verify email to continue',
@@ -104,9 +101,7 @@ class AuthenticationFirebaseServicesImpl
       );
 
       // Open User Wishlist Box
-      await getIt
-          .get<OpenBoxes>()
-          .openUserWishlistBox(userID: userCredential.user!.uid);
+      await OpenBoxes().openUserWishlistBox(userID: userCredential.user!.uid);
 
       return Right(userCredential.user);
     } on FirebaseAuthException catch (e) {

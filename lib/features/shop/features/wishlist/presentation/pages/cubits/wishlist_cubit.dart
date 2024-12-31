@@ -8,7 +8,7 @@ import 'package:t_store/service_locator.dart';
 class WishlistCubit extends Cubit<WishlistState> {
   WishlistCubit() : super(WishlistInitial());
 
-  final WishlistLocalSources localSources = getIt<WishlistLocalSources>();
+  final _localSources = WishlistLocalSourcesImpl();
   final ProductRepository productRepository = getIt<ProductRepository>();
 
   final _userID = FirebaseAuth.instance.currentUser!.uid;
@@ -16,7 +16,7 @@ class WishlistCubit extends Cubit<WishlistState> {
   // Fetch Wishlist items
   Future<void> fetchWishlist() async {
     // Get Wishlist Items From Local Storage
-    final wishlist = localSources.fetchWishlist(userId: _userID);
+    final wishlist = await _localSources.fetchWishlist(userId: _userID);
     wishlist.fold(
       (error) => emit(
         WishlistError(error),
@@ -41,6 +41,6 @@ class WishlistCubit extends Cubit<WishlistState> {
 
   // Clear Wishlist
   Future<void> clearWishlist() async {
-    await localSources.clearWishlist(userId: _userID);
+    await _localSources.clearWishlist(userId: _userID);
   }
 }
