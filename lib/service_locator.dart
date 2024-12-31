@@ -228,5 +228,7 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton<FavoriteButtonCubit>(
     () => FavoriteButtonCubit(getIt.get<WishlistCubit>()),
   );
+
+  // -- HIVE BOXES --
   getIt.registerLazySingleton<OpenBoxes>(() => OpenBoxes());
 }

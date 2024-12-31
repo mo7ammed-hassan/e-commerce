@@ -25,6 +25,7 @@ class BuildWishlistItems extends StatelessWidget {
           if (state.wishlist.isEmpty) {
             return _buildAnimationWidget(context);
           }
+
           return TGridLayout(
             itemCount: state.wishlist.length,
             itemBuilder: (context, index) => TProductCardVertical(
