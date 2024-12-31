@@ -27,11 +27,9 @@ class AuthenticationFirebaseServicesImpl
   @override
   Future<Either> logout() async {
     try {
-      if (_user.currentUser != null) {
-        await getIt
-            .get<OpenBoxes>()
-            .closeUserWishlistBox(userID: _user.currentUser!.uid);
-      }
+      await getIt
+          .get<OpenBoxes>()
+          .closeUserWishlistBox(userID: _user.currentUser!.uid);
 
       await GoogleSignIn().signOut();
       await _user.signOut();
