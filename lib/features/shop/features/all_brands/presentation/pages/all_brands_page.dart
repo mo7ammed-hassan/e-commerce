@@ -6,27 +6,25 @@ import 'package:t_store/utils/constants/sizes.dart';
 
 class AllBrandsPage extends StatelessWidget {
   const AllBrandsPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
-      body: const SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: TSizes.spaceBtwItems,
-            vertical: TSizes.defaultSpace,
-          ),
-          child: Column(
-            children: [
-              TSectionHeading(
-                title: 'Brands',
-                showActionButton: false,
-              ),
-              SizedBox(height: TSizes.spaceBtwItems),
-              BuildBrandsList(),
-            ],
-          ),
+      body: const Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: TSizes.spaceBtwItems,
+          vertical: TSizes.defaultSpace,
+        ),
+        child: Column(
+          children: [
+            TSectionHeading(
+              title: 'Brands',
+              showActionButton: false,
+            ),
+            SizedBox(height: TSizes.spaceBtwItems),
+            Expanded(child: BuildBrandsList()),
+          ],
         ),
       ),
     );
