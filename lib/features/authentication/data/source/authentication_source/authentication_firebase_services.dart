@@ -7,6 +7,9 @@ import 'package:t_store/common/core/hive_boxes/open_boxes.dart';
 import 'package:t_store/features/authentication/data/models/user_creation_model.dart';
 import 'package:t_store/features/authentication/data/models/user_signin_model.dart';
 import 'package:t_store/features/authentication/data/source/authentication_source/save_user_data_to_firestore.dart';
+import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/favorite_button_cubit.dart';
+import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/wishlist_cubit.dart';
+import 'package:t_store/service_locator.dart';
 
 abstract class AuthenticationFirebaseServices {
   Future<Either> signup(UserCreationModel userCreationModel);
@@ -28,6 +31,8 @@ class AuthenticationFirebaseServicesImpl
     try {
       // Close User Wishlist Box
       await OpenBoxes().closeUserWishlistBox(userID: _user.currentUser!.uid);
+      await getIt.resetLazySingleton<WishlistCubit>();
+      await getIt.resetLazySingleton<WishlistCubit>();
 
       await GoogleSignIn().signOut();
       await _user.signOut();

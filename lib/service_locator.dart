@@ -223,8 +223,8 @@ Future<void> initializeDependencies() async {
   // -- Cubits--
   getIt.registerLazySingleton<ProductsCubit>(() => ProductsCubit());
   getIt.registerLazySingleton<BrandCubit>(() => BrandCubit());
-  getIt.registerFactory<WishlistCubit>(() => WishlistCubit());
-  getIt.registerFactory<FavoriteButtonCubit>(
+  getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit());
+  getIt.registerLazySingleton<FavoriteButtonCubit>(
     () => FavoriteButtonCubit(getIt.get<WishlistCubit>()),
   );
 }
