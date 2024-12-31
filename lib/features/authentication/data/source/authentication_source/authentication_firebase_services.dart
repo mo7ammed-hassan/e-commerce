@@ -30,9 +30,13 @@ class AuthenticationFirebaseServicesImpl
   Future<Either> logout() async {
     try {
       // Close User Wishlist Box
-      await OpenBoxes().closeUserWishlistBox(userID: _user.currentUser!.uid);
+      await getIt
+          .get<OpenBoxes>()
+          .closeUserWishlistBox(userID: _user.currentUser!.uid);
+      // -- Reset Singletons to resevie new instance   
       await getIt.resetLazySingleton<WishlistCubit>();
-      await getIt.resetLazySingleton<WishlistCubit>();
+      await getIt.resetLazySingleton<FavoriteButtonCubit>();
+      await getIt.resetLazySingleton<OpenBoxes>();
 
       await GoogleSignIn().signOut();
       await _user.signOut();
@@ -79,7 +83,9 @@ class AuthenticationFirebaseServicesImpl
           );
 
       // Open User Wishlist Box
-      await OpenBoxes().openUserWishlistBox(userID: userCredential.user!.uid);
+      await getIt
+          .get<OpenBoxes>()
+          .openUserWishlistBox(userID: userCredential.user!.uid);
 
       return const Right(
         'Your Account has been created! Verify email to continue',
@@ -106,7 +112,9 @@ class AuthenticationFirebaseServicesImpl
       );
 
       // Open User Wishlist Box
-      await OpenBoxes().openUserWishlistBox(userID: userCredential.user!.uid);
+      await getIt
+          .get<OpenBoxes>()
+          .openUserWishlistBox(userID: userCredential.user!.uid);
 
       return Right(userCredential.user);
     } on FirebaseAuthException catch (e) {
@@ -142,7 +150,6 @@ class AuthenticationFirebaseServicesImpl
     try {
       if (user != null) {
         // await user.reload(); // Refresh user data
-
         return user.emailVerified;
       }
       return false;
@@ -189,7 +196,9 @@ class AuthenticationFirebaseServicesImpl
       await SaveUserDataToFirestore.saveUserRecord(userCredential);
 
       // Open User Wishlist Box
-      await OpenBoxes().openUserWishlistBox(userID: userCredential.user!.uid);
+      await getIt
+          .get<OpenBoxes>()
+          .openUserWishlistBox(userID: userCredential.user!.uid);
 
       return Right(userCredential);
     } catch (e) {

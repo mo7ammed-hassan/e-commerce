@@ -7,6 +7,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:t_store/common/core/hive_boxes/open_boxes.dart';
+import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/favorite_button_cubit.dart';
+import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/wishlist_cubit.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/exceptions/firebase_auth_exceptions.dart';
 
 abstract class UserFirebaseServices {
@@ -84,8 +88,13 @@ class UserFirebaseServiceImpl implements UserFirebaseServices {
 
       await _auth.currentUser!.delete();
 
-      await Hive.deleteBoxFromDisk('wishlist_$userId');
+      // -- Remove User Boxes --
       await Hive.deleteBoxFromDisk(userId);
+      await Hive.deleteBoxFromDisk('wishlist_$userId');
+      // -- Reset Singletons to resevie new instance --
+      await getIt.resetLazySingleton<WishlistCubit>();
+      await getIt.resetLazySingleton<FavoriteButtonCubit>();
+      await getIt.resetLazySingleton<OpenBoxes>();
 
       return const Right('User deleted successfully');
     } on TFirebaseAuthException catch (e) {

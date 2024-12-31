@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:t_store/common/core/hive_boxes/open_boxes.dart';
 import 'package:t_store/features/authentication/data/repository/authentication_repository_impl.dart';
 import 'package:t_store/features/authentication/data/repository/onboarding_repository_impl.dart';
 import 'package:t_store/features/authentication/data/source/authentication_source/authentication_firebase_services.dart';
@@ -227,4 +228,5 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton<FavoriteButtonCubit>(
     () => FavoriteButtonCubit(getIt.get<WishlistCubit>()),
   );
+  getIt.registerLazySingleton<OpenBoxes>(() => OpenBoxes());
 }
