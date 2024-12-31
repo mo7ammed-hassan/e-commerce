@@ -13,6 +13,7 @@ import 'package:t_store/features/shop/features/home/domain/entites/category_enti
 import 'package:t_store/features/shop/features/wishlist/data/model/wishlist_model.dart';
 import 'package:t_store/firebase_options.dart';
 import 'package:t_store/service_locator.dart';
+import 'package:t_store/utils/errors/widgets/custom_app_error_widget.dart';
 import 'package:t_store/utils/theme/theme.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -48,6 +49,15 @@ void main() async {
   // Initialize Bloc Observer
   Bloc.observer = MyBlocObserver();
 
+  // Set Error Handler
+  FlutterError.onError = (errorDetails) {
+    FlutterError.dumpErrorToConsole(errorDetails);
+    runApp(
+      CustomAppErrorWidget(
+        errorMessage: errorDetails.exceptionAsString(),
+      ),
+    );
+  };
   // Run the app
   runApp(
     BlocProvider(

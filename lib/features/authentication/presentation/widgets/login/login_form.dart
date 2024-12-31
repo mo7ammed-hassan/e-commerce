@@ -27,27 +27,30 @@ class TLoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PasswordAndSelectionCubit(),
-      child: Form(
-        key: context.read<SignInCubit>().formKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: TSizes.spaceBtwSections,
-          ),
-          child: Column(
-            children: [
-              _emailField(context),
-              const SizedBox(height: TSizes.spaceBtwInputFields),
-              PasswordField(
-                controller: context.read<SignInCubit>().passwordController,
-              ),
-              const SizedBox(height: TSizes.spaceBtwInputFields / 2),
-              // Remember Me & Forget Password
-              _rememberMeAndForgetPassword(context),
-              const SizedBox(height: TSizes.spaceBtwSections),
-              _signIn(context),
-              const SizedBox(height: TSizes.spaceBtwItems),
-              _createAccount(context),
-            ],
+      child: AutofillGroup(
+        
+        child: Form(
+          key: context.read<SignInCubit>().formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: TSizes.spaceBtwSections,
+            ),
+            child: Column(
+              children: [
+                _emailField(context),
+                const SizedBox(height: TSizes.spaceBtwInputFields),
+                PasswordField(
+                  controller: context.read<SignInCubit>().passwordController,
+                ),
+                const SizedBox(height: TSizes.spaceBtwInputFields / 2),
+                // Remember Me & Forget Password
+                _rememberMeAndForgetPassword(context),
+                const SizedBox(height: TSizes.spaceBtwSections),
+                _signIn(context),
+                const SizedBox(height: TSizes.spaceBtwItems),
+                _createAccount(context),
+              ],
+            ),
           ),
         ),
       ),
