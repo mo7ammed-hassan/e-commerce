@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/features/shop/features/wishlist/data/source/wislist_local_sources.dart';
 import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/favorite_button_state.dart';
@@ -10,10 +11,12 @@ class FavoriteButtonCubit extends Cubit<FavoriteButtonState> {
 
   WishlistLocalSources localSources = getIt.get<WishlistLocalSources>();
 
+  final _userID = FirebaseAuth.instance.currentUser!.uid;
+
   // Toggle Product in Wishlist
   Future<void> toggleWishlist(String productId) async {
     try {
-      await localSources.toggleProductInWishlist(productId);
+      await localSources.toggleProductInWishlist(productId, userId: _userID);
       emit(ToggleFavoriteButton());
 
       // After toggling, fetch the updated wishlist
@@ -27,7 +30,8 @@ class FavoriteButtonCubit extends Cubit<FavoriteButtonState> {
 
   // Check if Product is in Wishlist
   bool checkProductInWishlist(String productId) {
-    bool isInWishlist = localSources.isProductInWishlist(productId);
+    bool isInWishlist =
+        localSources.isProductInWishlist(productId, userId: _userID);
     return isInWishlist;
   }
 }

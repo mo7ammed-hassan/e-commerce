@@ -38,11 +38,10 @@ void main() async {
   // Initialize GetX Local Storage
   await GetStorage.init();
 
-  // open the user's wishlist box
-  await OpenBoxes().openUserWishlistBox();
-
   // Initialize Service Locator
   await initializeDependencies();
+  // Open User Box and Wishlist Box
+  await OpenBoxes().initializeUserBox();
 
   // Remove the splash screen once initialization is complete.
   FlutterNativeSplash.remove();

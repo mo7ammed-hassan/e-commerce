@@ -1,19 +1,18 @@
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 abstract class WishlistLocalSources {
-  bool isProductInWishlist(String productId);
-  Future<void> toggleProductInWishlist(String productId);
-  Future<void> clearWishlist();
-  Either<String, List<String>> fetchWishlist();
+  bool isProductInWishlist(String productId, {required String userId});
+  Future<void> toggleProductInWishlist(String productId,
+      {required String userId});
+  Future<void> clearWishlist({required String userId});
+  Either<String, List<String>> fetchWishlist({required String userId});
 }
 
 class WislistLocalSourcesImpl implements WishlistLocalSources {
-  final String userId = FirebaseAuth.instance.currentUser!.uid;
-
   @override
-  Future<void> toggleProductInWishlist(String productId) async {
+  Future<void> toggleProductInWishlist(String productId,
+      {required String userId}) async {
     final wishlistBox = Hive.box('wishlist_$userId');
     if (wishlistBox.containsKey(productId)) {
       await wishlistBox.delete(productId);
@@ -23,7 +22,7 @@ class WislistLocalSourcesImpl implements WishlistLocalSources {
   }
 
   @override
-  Either<String, List<String>> fetchWishlist() {
+  Either<String, List<String>> fetchWishlist({required String userId}) {
     // Get Box
     final wishlistBox = Hive.box('wishlist_$userId');
     try {
@@ -36,13 +35,13 @@ class WislistLocalSourcesImpl implements WishlistLocalSources {
   }
 
   @override
-  Future<void> clearWishlist() async {
+  Future<void> clearWishlist({required String userId}) async {
     final wishlistBox = Hive.box('wishlist_$userId');
     await wishlistBox.clear();
   }
 
   @override
-  bool isProductInWishlist(String productId) {
+  bool isProductInWishlist(String productId, {required String userId}) {
     //final wishlistBox = await openUserWishlistBox();
     final wishlistBox = Hive.box('wishlist_$userId');
     return wishlistBox.containsKey(productId);

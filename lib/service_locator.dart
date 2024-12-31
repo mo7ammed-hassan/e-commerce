@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:t_store/common/services/local_storage_services.dart';
+import 'package:t_store/common/core/hive_boxes/open_boxes.dart';
 import 'package:t_store/features/authentication/data/repository/authentication_repository_impl.dart';
 import 'package:t_store/features/authentication/data/repository/onboarding_repository_impl.dart';
 import 'package:t_store/features/authentication/data/source/authentication_source/authentication_firebase_services.dart';
@@ -67,17 +67,17 @@ final getIt = GetIt.instance;
 Future<void> initializeDependencies() async {
   // ------Services------
   // --Remote
-  getIt.registerSingleton<AuthenticationFirebaseServices>(
-    AuthenticationFirebaseServicesImpl(),
+  getIt.registerFactory<AuthenticationFirebaseServices>(
+    () => AuthenticationFirebaseServicesImpl(),
   );
-  getIt.registerSingleton<UserFirebaseServices>(
-    UserFirebaseServiceImpl(),
+  getIt.registerFactory<UserFirebaseServices>(
+    () => UserFirebaseServiceImpl(),
   );
   getIt.registerSingleton<CategoryFirebaseServices>(
     CategoryFirebaseServicesImpl(),
   );
-  getIt.registerSingleton<FirebaseStorageServices>(
-    FirebaseStorageServicesImpl(),
+  getIt.registerFactory<FirebaseStorageServices>(
+    () => FirebaseStorageServicesImpl(),
   );
   getIt.registerSingleton<UploadDataFirebaseServices>(
     UploadDataFirebaseServicesImpl(),
@@ -90,22 +90,19 @@ Future<void> initializeDependencies() async {
   );
 
   // --Local
-  getIt.registerSingleton<LocalStorageServices>(
-    LocalStorageServicesImpl(),
-  );
-  getIt.registerSingleton<WishlistLocalSources>(
-    WislistLocalSourcesImpl(),
+  getIt.registerFactory<WishlistLocalSources>(
+    () => WislistLocalSourcesImpl(),
   );
 
   // ------Repositories------
   getIt.registerSingleton<OnboardingRepository>(
     OnboardingRepositoryImpl(),
   );
-  getIt.registerSingleton<AuthenticationRepository>(
-    AuthenticationRepositoryImpl(),
+  getIt.registerFactory<AuthenticationRepository>(
+    () => AuthenticationRepositoryImpl(),
   );
-  getIt.registerSingleton<UserRepository>(
-    UserRepositoryImpl(),
+  getIt.registerFactory<UserRepository>(
+    () => UserRepositoryImpl(),
   );
   getIt.registerSingleton<CategoryRepository>(
     CategoryRepositoyImpl(),
@@ -129,43 +126,43 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton<IsFirstLaunchUseCase>(
     () => IsFirstLaunchUseCase(),
   );
-  getIt.registerSingleton<SignupUsecase>(
-    SignupUsecase(),
+  getIt.registerFactory<SignupUsecase>(
+    () => SignupUsecase(),
   );
-  getIt.registerSingleton<SendEmailVerificationUsecase>(
-    SendEmailVerificationUsecase(),
-  );
-
-  getIt.registerSingleton<IsVerifiedEmailUseCase>(
-    IsVerifiedEmailUseCase(),
+  getIt.registerFactory<SendEmailVerificationUsecase>(
+    () => SendEmailVerificationUsecase(),
   );
 
-  getIt.registerSingleton<SignInUsecase>(
-    SignInUsecase(),
+  getIt.registerFactory<IsVerifiedEmailUseCase>(
+    () => IsVerifiedEmailUseCase(),
+  );
+
+  getIt.registerFactory<SignInUsecase>(
+    () => SignInUsecase(),
   );
   getIt.registerSingleton<ResetPasswordUsecase>(
     ResetPasswordUsecase(),
   );
-  getIt.registerSingleton<LogoutUseCase>(
-    LogoutUseCase(),
+  getIt.registerFactory<LogoutUseCase>(
+    () => LogoutUseCase(),
   );
-  getIt.registerSingleton<SigninWithGoogleUseCase>(
-    SigninWithGoogleUseCase(),
+  getIt.registerFactory<SigninWithGoogleUseCase>(
+    () => SigninWithGoogleUseCase(),
   );
-  getIt.registerSingleton<FetchUserDataUseCase>(
-    FetchUserDataUseCase(),
+  getIt.registerFactory<FetchUserDataUseCase>(
+    () => FetchUserDataUseCase(),
   );
   getIt.registerSingleton<UpdateUserFiledUseCase>(
     UpdateUserFiledUseCase(),
   );
-  getIt.registerSingleton<ReAuthUserAccountUseCase>(
-    ReAuthUserAccountUseCase(),
+  getIt.registerFactory<ReAuthUserAccountUseCase>(
+    () => ReAuthUserAccountUseCase(),
   );
-  getIt.registerSingleton<DeleteUserAccountUseCase>(
-    DeleteUserAccountUseCase(),
+  getIt.registerFactory<DeleteUserAccountUseCase>(
+    () => DeleteUserAccountUseCase(),
   );
-  getIt.registerSingleton<DeleteAccountUseCase>(
-    DeleteAccountUseCase(),
+  getIt.registerFactory<DeleteAccountUseCase>(
+    () => DeleteAccountUseCase(),
   );
   getIt.registerSingleton<UploadUserImageUseCase>(
     UploadUserImageUseCase(),
@@ -237,4 +234,6 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton<FavoriteButtonCubit>(
     () => FavoriteButtonCubit(getIt.get<WishlistCubit>()),
   );
+
+  getIt.registerFactory<OpenBoxes>(() => OpenBoxes());
 }

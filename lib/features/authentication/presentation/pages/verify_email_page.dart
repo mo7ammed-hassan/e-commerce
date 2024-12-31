@@ -53,7 +53,7 @@ class VerifyEmailPage extends StatelessWidget {
                   title: TTexts.yourAccountCreatedTitle,
                   subtitle: TTexts.yourAccountCreatedSubTitle,
                   image: TImages.successfullRegisterAnimation,
-                  onPressed: () {
+                  onPressed: () async {
                     context.removeAll(const NavigationMenu());
                   },
                 ),

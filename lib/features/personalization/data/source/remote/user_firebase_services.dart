@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:t_store/utils/exceptions/firebase_auth_exceptions.dart';
 
@@ -82,6 +83,9 @@ class UserFirebaseServiceImpl implements UserFirebaseServices {
       await _store.collection('Users').doc(userId).delete();
 
       await _auth.currentUser!.delete();
+
+      await Hive.deleteBoxFromDisk('wishlist_$userId');
+      await Hive.deleteBoxFromDisk(userId);
 
       return const Right('User deleted successfully');
     } on TFirebaseAuthException catch (e) {

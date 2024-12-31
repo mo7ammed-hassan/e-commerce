@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/features/shop/features/all_products/domain/repository/product_repository.dart';
 import 'package:t_store/features/shop/features/wishlist/data/source/wislist_local_sources.dart';
@@ -10,10 +11,12 @@ class WishlistCubit extends Cubit<WishlistState> {
   final WishlistLocalSources localSources = getIt<WishlistLocalSources>();
   final ProductRepository productRepository = getIt<ProductRepository>();
 
+  final _userID = FirebaseAuth.instance.currentUser!.uid;
+
   // Fetch Wishlist items
   Future<void> fetchWishlist() async {
     // Get Wishlist Items From Local Storage
-    final wishlist = localSources.fetchWishlist();
+    final wishlist = localSources.fetchWishlist(userId: _userID);
     wishlist.fold(
       (error) => emit(
         WishlistError(error),
@@ -38,6 +41,6 @@ class WishlistCubit extends Cubit<WishlistState> {
 
   // Clear Wishlist
   Future<void> clearWishlist() async {
-    await localSources.clearWishlist();
+    await localSources.clearWishlist(userId: _userID);
   }
 }

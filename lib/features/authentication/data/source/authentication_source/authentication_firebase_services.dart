@@ -3,9 +3,11 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:t_store/common/core/hive_boxes/open_boxes.dart';
 import 'package:t_store/features/authentication/data/models/user_creation_model.dart';
 import 'package:t_store/features/authentication/data/models/user_signin_model.dart';
 import 'package:t_store/features/authentication/data/source/authentication_source/save_user_data_to_firestore.dart';
+import 'package:t_store/service_locator.dart';
 
 abstract class AuthenticationFirebaseServices {
   Future<Either> signup(UserCreationModel userCreationModel);
@@ -25,8 +27,15 @@ class AuthenticationFirebaseServicesImpl
   @override
   Future<Either> logout() async {
     try {
+      if (_user.currentUser != null) {
+        await getIt
+            .get<OpenBoxes>()
+            .closeUserWishlistBox(userID: _user.currentUser!.uid);
+      }
+
       await GoogleSignIn().signOut();
       await _user.signOut();
+
       return const Right('Success Logout');
     } catch (e) {
       return const Left('There was an error, please try again');
@@ -53,20 +62,24 @@ class AuthenticationFirebaseServicesImpl
   Future<Either> signup(UserCreationModel userCreationModel) async {
     try {
       // Create user in Firebase Auth
-      final UserCredential credential =
+      final UserCredential userCredential =
           await _user.createUserWithEmailAndPassword(
         email: userCreationModel.userEmail,
         password: userCreationModel.password!,
       );
 
       // Store user in Firestore
-      userCreationModel.userID = credential.user!.uid;
+      userCreationModel.userID = userCredential.user!.uid;
       await _firebaseFirestore
           .collection('Users')
-          .doc(credential.user!.uid)
+          .doc(userCredential.user!.uid)
           .set(
             userCreationModel.toMap(),
           );
+
+      await getIt
+          .get<OpenBoxes>()
+          .openUserWishlistBox(userID: userCredential.user!.uid);
 
       return const Right(
         'Your Account has been created! Verify email to continue',
@@ -87,12 +100,17 @@ class AuthenticationFirebaseServicesImpl
   @override
   Future<Either> signin(UserSigninModel userSigninModel) async {
     try {
-      UserCredential user = await _user.signInWithEmailAndPassword(
+      UserCredential userCredential = await _user.signInWithEmailAndPassword(
         email: userSigninModel.uerEmail,
         password: userSigninModel.password,
       );
 
-      return Right(user.user);
+      // Open User Wishlist Box
+      await getIt
+          .get<OpenBoxes>()
+          .openUserWishlistBox(userID: userCredential.user!.uid);
+
+      return Right(userCredential.user);
     } on FirebaseAuthException catch (e) {
       String message = '';
       if (e.code == 'user-not-found') {
@@ -126,6 +144,7 @@ class AuthenticationFirebaseServicesImpl
     try {
       if (user != null) {
         // await user.reload(); // Refresh user data
+
         return user.emailVerified;
       }
       return false;
@@ -170,6 +189,9 @@ class AuthenticationFirebaseServicesImpl
 
       // Storage User Data to Firestore
       await SaveUserDataToFirestore.saveUserRecord(userCredential);
+
+      // Open User Wishlist Box
+      await OpenBoxes().openUserWishlistBox(userID: userCredential.user!.uid);
 
       return Right(userCredential);
     } catch (e) {

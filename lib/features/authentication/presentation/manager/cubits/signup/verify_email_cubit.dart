@@ -12,6 +12,7 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
 
   Timer? _verificationTimer;
   var user = FirebaseAuth.instance.currentUser;
+
   void sendVerifyEmail() async {
     emit(VerifyEmailLoadingState());
 
