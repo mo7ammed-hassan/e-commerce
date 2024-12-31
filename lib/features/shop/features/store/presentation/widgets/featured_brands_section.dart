@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:t_store/common/widgets/animated_widget/animated_fade_grid_item.dart';
+import 'package:t_store/common/widgets/animated_widget/animated_grid_layout.dart';
 import 'package:t_store/common/widgets/animation_containers/open_container_wrapper.dart';
 import 'package:t_store/common/widgets/brands/brand_card.dart';
-import 'package:t_store/common/widgets/layouts/grid_layout.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
 import 'package:t_store/features/shop/features/all_brands/domain/entities/brand_entity.dart';
 import 'package:t_store/features/shop/features/all_brands/presentation/cubits/brand_cubit.dart';
@@ -67,7 +68,7 @@ class FeaturedBrandsSection extends StatelessWidget {
   }
 
   Widget _buildBrandsListItems(List<BrandEntity> brands) {
-    return TGridLayout(
+    return AnimatedGridLayout(
       itemCount: brands.length,
       mainAxisExtent: 80,
       itemBuilder: (_, index) => OpenContainerWrapper(
@@ -77,6 +78,13 @@ class FeaturedBrandsSection extends StatelessWidget {
         radius: const Radius.circular(TSizes.cardRadiusLg),
         child: TBrandCard(brand: brands[index]),
       ),
+      animatedEffect: ({required child, isVisible, onAdd, onRemove}) {
+        return AnimatedFadeGridItem(
+          isVisible: isVisible!,
+          onRemove: onRemove!,
+          child: child,
+        );
+      },
     );
   }
 

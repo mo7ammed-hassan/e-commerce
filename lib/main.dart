@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,57 +14,69 @@ import 'package:t_store/features/shop/features/home/domain/entites/category_enti
 import 'package:t_store/features/shop/features/wishlist/data/model/wishlist_model.dart';
 import 'package:t_store/firebase_options.dart';
 import 'package:t_store/service_locator.dart';
-import 'package:t_store/utils/errors/widgets/custom_app_error_widget.dart';
 import 'package:t_store/utils/theme/theme.dart';
 import 'package:get_storage/get_storage.dart';
 
-void main() async {
-  // Preserve the native splash screen.
-  final WidgetsBinding widgetsBinding =
-      WidgetsFlutterBinding.ensureInitialized();
+void main() {
+  // Run the app inside a Zone to catch uncaught errors
+  runZonedGuarded<Future<void>>(
+    () async {
+      // Ensure Flutter bindings are initialized
+      final WidgetsBinding widgetsBinding =
+          WidgetsFlutterBinding.ensureInitialized();
+      widgetsBinding.addObserver(AppLifecycleObserver());
 
-  // Initializes Hive
-  await Hive.initFlutter();
+      // Hive Initialization
+      await Hive.initFlutter();
 
-  // Register Adapters
-  Hive.registerAdapter(CategoryEntityAdapter());
+      // Register Adapters with duplicate check
+      if (!Hive.isAdapterRegistered(CategoryEntityAdapter().typeId)) {
+        Hive.registerAdapter(CategoryEntityAdapter());
+      }
+      if (!Hive.isAdapterRegistered(WishlistModelAdapter().typeId)) {
+        Hive.registerAdapter(WishlistModelAdapter());
+      }
 
-  Hive.registerAdapter(WishlistModelAdapter());
+      // Splash Screen
+      FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+      // Firebase Initialization
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
 
-  // Initialize Firebase App with custom options
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  // Initialize GetX Local Storage
-  await GetStorage.init();
+      // GetX Local Storage Initialization
+      await GetStorage.init();
 
-  // Initialize Service Locator
-  await initializeDependencies();
-  // Open User Box and Wishlist Box
-  await OpenBoxes().initializeUserBox();
+      // Service Locator Initialization
+      await initializeDependencies();
 
-  // Remove the splash screen once initialization is complete.
-  FlutterNativeSplash.remove();
-  // Initialize Bloc Observer
-  Bloc.observer = MyBlocObserver();
+      // Open Hive Boxes
+      await OpenBoxes().initializeUserBox();
 
-  // Set Error Handler
-  FlutterError.onError = (errorDetails) {
-    FlutterError.dumpErrorToConsole(errorDetails);
-    runApp(
-      CustomAppErrorWidget(
-        errorMessage: errorDetails.exceptionAsString(),
-      ),
-    );
-  };
-  // Run the app
-  runApp(
-    BlocProvider(
-      create: (context) => LaunchAppCubit()..launchApp(),
-      child: const MyApp(),
-    ),
+      // Remove Splash Screen after initialization
+      FlutterNativeSplash.remove();
+
+      // Bloc Observer
+      Bloc.observer = MyBlocObserver();
+
+      // Run the app
+      runApp(
+        BlocProvider(
+          create: (context) => LaunchAppCubit()..launchApp(),
+          child: const MyApp(),
+        ),
+      );
+    },
+    (error, stackTrace) {
+      // Catch and log uncaught errors
+      FlutterError.dumpErrorToConsole(
+        FlutterErrorDetails(
+          exception: error,
+          stack: stackTrace,
+        ),
+      );
+    },
   );
 }
 
@@ -90,9 +103,8 @@ class AppLifecycleObserver extends WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.detached) {
-      // Cleanup logic when app is closed
-      getIt
-          .reset(); // This will reset and dispose all objects registered with getIt
+      // Cleanup resources when the app is closed
+      getIt.reset(dispose: true); // Ensure proper resource disposal
     }
   }
 }

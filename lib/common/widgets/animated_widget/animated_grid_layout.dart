@@ -57,6 +57,9 @@ class _AnimatedGridLayoutState extends State<AnimatedGridLayout> {
   Widget build(BuildContext context) {
     return GridView.builder(
       itemCount: widget.itemCount,
+      shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: TSizes.gridViewSpacing, //vertical

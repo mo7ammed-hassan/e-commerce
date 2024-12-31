@@ -4,12 +4,14 @@ class AnimatedFadeGridItem extends StatefulWidget {
   final Widget child;
   final bool isVisible;
   final VoidCallback onRemove;
+  final Duration duration;
 
   const AnimatedFadeGridItem({
     super.key,
     required this.child,
     required this.isVisible,
     required this.onRemove,
+    this.duration = const Duration(milliseconds: 300),
   });
 
   @override
@@ -25,7 +27,7 @@ class _AnimatedFadeGridItemState extends State<AnimatedFadeGridItem>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: widget.duration,
     );
 
     if (widget.isVisible) {
