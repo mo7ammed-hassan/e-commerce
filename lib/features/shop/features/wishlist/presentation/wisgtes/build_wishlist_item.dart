@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:t_store/common/widgets/layouts/grid_layout.dart';
+import 'package:t_store/common/widgets/animated_widget/animated_grid_layout.dart';
+import 'package:t_store/common/widgets/animated_widget/animated_offset_grid_item.dart';
 import 'package:t_store/common/widgets/products/product_cards/product_card_vertical.dart';
 import 'package:t_store/common/widgets/shimmer/shimmer_products_grid_layout.dart';
 import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/wishlist_cubit.dart';
@@ -26,11 +27,23 @@ class BuildWishlistItems extends StatelessWidget {
             return _buildAnimationWidget(context);
           }
 
-          return TGridLayout(
+          return AnimatedGridLayout(
             itemCount: state.wishlist.length,
             itemBuilder: (context, index) => TProductCardVertical(
               product: state.wishlist[index],
             ),
+            animatedEffect: ({
+              required child,
+              isVisible,
+              onAdd,
+              onRemove,
+            }) {
+              return AnimatedOffsetGridItem(
+                isVisible: isVisible!,
+                onRemove: onRemove!,
+                child: child,
+              );
+            },
           );
         }
 

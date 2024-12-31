@@ -7,14 +7,12 @@ class WishlistPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: TSizes.spaceBtwItems,
-          vertical: TSizes.defaultSpace,
-        ),
-        child: BuildWishlistItems(),
+    return const Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: TSizes.spaceBtwItems,
+        vertical: TSizes.defaultSpace,
       ),
+      child: BuildWishlistItems(),
     );
   }
 }
