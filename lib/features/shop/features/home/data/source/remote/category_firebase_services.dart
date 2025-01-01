@@ -5,6 +5,8 @@ import 'package:t_store/utils/exceptions/firebase_exceptions.dart';
 abstract class CategoryFirebaseServices {
   Future<Either<String, List<QueryDocumentSnapshot<Map<String, dynamic>>>>>
       getAllCategories();
+  Future<Either<String, List<QueryDocumentSnapshot<Map<String, dynamic>>>>>
+      getSubCategories(String categoryId);
 }
 
 class CategoryFirebaseServicesImpl extends CategoryFirebaseServices {
@@ -15,6 +17,26 @@ class CategoryFirebaseServicesImpl extends CategoryFirebaseServices {
       getAllCategories() async {
     try {
       final snapshot = await _storage.collection('Categories').get();
+
+      final list = snapshot.docs.map((document) => document).toList();
+
+      return Right(list);
+    } on FirebaseException catch (e) {
+      String message = TFirebaseException(e.code).message;
+      return Left(message);
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<String, List<QueryDocumentSnapshot<Map<String, dynamic>>>>>
+      getSubCategories(String categoryId) async {
+    try {
+      final snapshot = await _storage
+          .collection('Categories')
+          .where('ParentId', isEqualTo: categoryId)
+          .get();
 
       final list = snapshot.docs.map((document) => document).toList();
 

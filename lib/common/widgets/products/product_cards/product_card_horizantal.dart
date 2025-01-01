@@ -11,7 +11,6 @@ import 'package:t_store/common/widgets/texts/product_title_text.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/pages/product_detail_page.dart';
 import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
@@ -27,25 +26,27 @@ class ProductCardHorizantal extends StatelessWidget {
       nextScreen: ProductDetailPage(product: product),
       child: Container(
         width: 310,
-        padding: const EdgeInsets.all(1),
+        padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(TSizes.productImageRadius),
           color: isDark ? TColors.darkerGrey : TColors.softGrey,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             TRoundedContainer(
               height: 120,
-              padding: const EdgeInsets.all(TSizes.sm),
+              padding: const EdgeInsets.all(TSizes.xs),
               backgroundColor: isDark ? TColors.dark : TColors.grey,
               child: Stack(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     height: 120,
                     width: 120,
                     child: TRoundedImage(
-                      imageUrl: TImages.productImage20,
+                      fit: BoxFit.contain,
+                      imageUrl: product.thumbnail,
                       aplayImageRaduis: true,
                     ),
                   ),
@@ -55,32 +56,38 @@ class ProductCardHorizantal extends StatelessWidget {
               ),
             ),
             const SizedBox(width: TSizes.spaceBtwItems / 2),
-            const Expanded(
+            Expanded(
               child: Padding(
-                padding: EdgeInsets.only(right: TSizes.sm, left: TSizes.sm),
+                padding: const EdgeInsets.only(
+                    right: TSizes.sm, left: TSizes.sm, top: TSizes.sm),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TProductTitleText(
-                          title:
-                              'Product Title is available in the product image url',
+                          title: product.title,
                           smallSize: true,
                         ),
-                        SizedBox(height: TSizes.spaceBtwItems / 2),
-                        TBrandTitleWithVerifiedIcon(title: 'Addidas'),
+                        const SizedBox(height: TSizes.spaceBtwItems / 2),
+                        TBrandTitleWithVerifiedIcon(
+                          title: product.brand?.name ?? '',
+                        ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          child: TProductPriceText(price: '40.0', maxLines: 2),
+                          child: TProductPriceText(
+                            price: product.price.toString(),
+                            maxLines: 2,
+                          ),
                         ),
-                        TAddIcon(),
+                        const TAddIcon(),
                       ],
                     )
                   ],

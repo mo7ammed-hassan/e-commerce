@@ -48,7 +48,7 @@ class ProductEntity {
       : id = '',
         stock = 0,
         price = 0,
-        title = '',
+        title = 'product title',
         sku = '',
         date = null,
         salePrice = 0,

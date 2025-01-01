@@ -3,4 +3,6 @@ import 'package:t_store/features/shop/features/home/domain/entites/category_enti
 
 abstract class CategoryRepository {
   Future<Either<String, List<CategoryEntity>>> getAllCategories();
+  Future<Either<String, List<CategoryEntity>>> getSubCategories(
+      String categoryId);
 }

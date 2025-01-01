@@ -40,6 +40,9 @@ class AllProductsPage extends StatelessWidget {
                   return _loadingWidget();
                 }
                 if (state is AllProductsLoadedState) {
+                  if (state.products!.isEmpty) {
+                    return const Center(child: Text('No products found'));
+                  }
                   return TSortableProducts(
                     products: state.products ?? products ?? [],
                   );

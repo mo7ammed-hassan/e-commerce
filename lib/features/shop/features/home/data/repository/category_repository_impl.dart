@@ -22,4 +22,22 @@ class CategoryRepositoyImpl extends CategoryRepository {
       },
     );
   }
+
+  @override
+  Future<Either<String, List<CategoryEntity>>> getSubCategories(
+      String categoryId) async {
+    var returnedData =
+        await getIt<CategoryFirebaseServices>().getSubCategories(categoryId);
+
+    return returnedData.fold(
+      (error) => Left(error),
+      (data) {
+        List<CategoryEntity> subCategories = List.from(data)
+            .map((document) => CategoryModel.fromJson(document).toEntity())
+            .toList();
+
+        return Right(subCategories);
+      },
+    );
+  }
 }
