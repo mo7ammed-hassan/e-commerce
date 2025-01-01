@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:t_store/common/core/usecases/use_cases.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/layouts/grid_layout.dart';
 import 'package:t_store/common/widgets/products/product_cards/product_card_vertical.dart';
@@ -15,19 +14,18 @@ import 'package:t_store/utils/constants/sizes.dart';
 class AllProductsPage extends StatelessWidget {
   const AllProductsPage({
     super.key,
-    required this.products,
-    required this.useCase,
+    this.products,
+    required this.future,
     required this.title,
   });
-  final List<ProductEntity> products;
-  final UseCases useCase;
+  final List<ProductEntity>? products;
+  final dynamic future;
   final String title;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          AllProductsCubit()..fetchAllProducts(useCase: useCase),
+      create: (context) => AllProductsCubit()..fetchAllProducts(future: future),
       child: Scaffold(
         appBar: _appBar(context),
         body: SingleChildScrollView(
@@ -43,7 +41,7 @@ class AllProductsPage extends StatelessWidget {
                 }
                 if (state is AllProductsLoadedState) {
                   return TSortableProducts(
-                    products: state.products ?? products,
+                    products: state.products ?? products ?? [],
                   );
                 }
                 if (state is AllProductsFailureState) {

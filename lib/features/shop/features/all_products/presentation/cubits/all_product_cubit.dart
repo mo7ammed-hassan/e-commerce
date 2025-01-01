@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:t_store/common/core/usecases/use_cases.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/all_products_state.dart';
 
@@ -12,14 +11,14 @@ class AllProductsCubit extends Cubit<AllProductsState> {
 
   final List<ProductEntity> allProducts = [];
 
-  Future<void> fetchAllProducts({required UseCases useCase}) async {
+  Future<void> fetchAllProducts({required Future<dynamic> future}) async {
     if (kDebugMode) {
       print('fetching all featured products');
     }
     emit(AllProductsLoadingState());
 
     // Fetch all products
-    var result = await useCase.call(params: 20);
+    var result = await future;
 
     if (isClosed) return;
 

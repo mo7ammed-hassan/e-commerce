@@ -47,7 +47,7 @@ class _HomeBodySectionState extends State<HomeBodySection> {
                   AllProductsPage(
                     title: 'Featured Products',
                     products: productsCubit.featuredProducts,
-                    useCase: GetFeturedProductsUseCase(),
+                    future: GetFeturedProductsUseCase().call(params: 10),
                   ),
                 );
               },
@@ -62,7 +62,7 @@ class _HomeBodySectionState extends State<HomeBodySection> {
                   AllProductsPage(
                     title: 'Popular Products',
                     products: productsCubit.allProducts,
-                    useCase: GetAllPopularProductsUseCase(),
+                    future: GetAllPopularProductsUseCase().call(params: 10),
                   ),
                 );
               },
