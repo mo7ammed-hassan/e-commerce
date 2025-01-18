@@ -30,7 +30,9 @@ import 'package:t_store/features/personalization/domain/use_cases/upload_data_us
 import 'package:t_store/features/personalization/domain/use_cases/upload_user_image_use_case.dart';
 import 'package:t_store/features/personalization/pages/address/data/repositories/address_repository_impl.dart';
 import 'package:t_store/features/personalization/pages/address/data/source/address_firebase_services.dart';
+import 'package:t_store/features/personalization/pages/address/domain/repositories/address_repository.dart';
 import 'package:t_store/features/personalization/pages/address/domain/usecases/add_address_use_case.dart';
+import 'package:t_store/features/personalization/pages/address/domain/usecases/delete_address_use_case.dart';
 import 'package:t_store/features/personalization/pages/address/domain/usecases/fetch_all_address_use_case.dart';
 import 'package:t_store/features/shop/features/all_brands/data/repository/brands_repository_impl.dart';
 import 'package:t_store/features/shop/features/all_brands/data/source/brands_firebase_services.dart';
@@ -220,20 +222,24 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<FetchWishlistItemsUseCase>(
     FetchWishlistItemsUseCase(),
   );
-  getIt.registerSingleton<FetchAllAddressUseCase>(
-    FetchAllAddressUseCase(
-      AddressRepositoryImpl(
-        AddressFirebaseServicesImpl(),
-      ),
+
+  // -- Address--
+
+  getIt.registerSingleton<AddressRepository>(
+    AddressRepositoryImpl(
+      AddressFirebaseServicesImpl(),
     ),
+  );
+  getIt.registerSingleton<FetchAllAddressUseCase>(
+    FetchAllAddressUseCase(getIt.get<AddressRepository>()),
   );
 
   getIt.registerSingleton<AddAddressUseCase>(
-    AddAddressUseCase(
-      AddressRepositoryImpl(
-        AddressFirebaseServicesImpl(),
-      ),
-    ),
+    AddAddressUseCase(getIt.get<AddressRepository>()),
+  );
+
+  getIt.registerSingleton<DeleteAddressUseCase>(
+    DeleteAddressUseCase(getIt.get<AddressRepository>()),
   );
 
   // -- Cubits--
