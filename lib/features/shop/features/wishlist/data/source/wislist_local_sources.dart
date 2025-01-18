@@ -4,7 +4,7 @@ import 'package:t_store/common/core/hive_boxes/open_boxes.dart';
 
 abstract class WishlistLocalSources {
   bool isProductInWishlist(String productId, {required String userId});
-  Future<void> toggleProductInWishlist(String productId,
+  Future<String> toggleProductInWishlist(String productId,
       {required String userId});
   Future<void> clearWishlist({required String userId});
   Future<Either<String, List<String>>> fetchWishlist({required String userId});
@@ -12,13 +12,15 @@ abstract class WishlistLocalSources {
 
 class WishlistLocalSourcesImpl implements WishlistLocalSources {
   @override
-  Future<void> toggleProductInWishlist(String productId,
+  Future<String> toggleProductInWishlist(String productId,
       {required String userId}) async {
     final wishlistBox = Hive.box('wishlist_$userId');
     if (wishlistBox.containsKey(productId)) {
       await wishlistBox.delete(productId);
+      return 'Removed from wishlist';
     } else {
       await wishlistBox.put(productId, DateTime.now().toString());
+      return 'Added to wishlist';
     }
   }
 

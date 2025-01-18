@@ -15,8 +15,10 @@ class FavoriteButtonCubit extends Cubit<FavoriteButtonState> {
   // Toggle Product in Wishlist
   Future<void> toggleWishlist(String productId) async {
     try {
-      await _localSources.toggleProductInWishlist(productId, userId: _userID);
-      emit(ToggleFavoriteButton());
+      String message = await _localSources.toggleProductInWishlist(productId,
+          userId: _userID);
+
+      emit(ToggleFavoriteButton(message));
 
       // After toggling, fetch the updated wishlist
       if (!isClosed) {

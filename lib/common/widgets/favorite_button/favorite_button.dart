@@ -16,7 +16,7 @@ class FavoriteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: getIt.get<FavoriteButtonCubit>(),
-      child: BlocBuilder<FavoriteButtonCubit, FavoriteButtonState>(
+      child: BlocConsumer<FavoriteButtonCubit, FavoriteButtonState>(
         builder: (context, state) {
           return TCircularIcon(
             onPressed: () async {
@@ -31,6 +31,14 @@ class FavoriteButton extends StatelessWidget {
                 ? Colors.red
                 : TColors.grey,
           );
+        },
+        listener: (context, state) {
+          // if (state is ToggleFavoriteButton) {
+          //   TLoaders.customToast(
+          //     message: state.message,
+          //     isMedium: false,
+          //   );
+          // }
         },
       ),
     );

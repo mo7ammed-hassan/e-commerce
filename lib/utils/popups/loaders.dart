@@ -9,7 +9,7 @@ class TLoaders {
   static hideSnackBar() =>
       ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
 
-  static customToast({required message}) {
+  static customToast({required message, bool isMedium = true}) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
@@ -28,7 +28,9 @@ class TLoaders {
           child: Center(
             child: Text(
               message,
-              style: Theme.of(Get.context!).textTheme.bodyMedium,
+              style: isMedium
+                  ? Theme.of(Get.context!).textTheme.bodyMedium
+                  : Theme.of(Get.context!).textTheme.labelLarge,
             ),
           ),
         ),
