@@ -12,6 +12,7 @@ class TLoaders {
   static customToast({required message}) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       SnackBar(
+        behavior: SnackBarBehavior.floating,
         elevation: 0,
         duration: const Duration(seconds: 3),
         backgroundColor: Colors.transparent,
@@ -21,13 +22,13 @@ class TLoaders {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: THelperFunctions.isDarkMode(Get.context!)
-                ? TColors.darkerGrey.withValues(alpha:0.9)
-                : TColors.grey.withValues(alpha:0.9),
+                ? TColors.darkerGrey.withValues(alpha: 0.9)
+                : TColors.grey.withValues(alpha: 0.9),
           ),
           child: Center(
             child: Text(
               message,
-              style: Theme.of(Get.context!).textTheme.labelLarge,
+              style: Theme.of(Get.context!).textTheme.bodyMedium,
             ),
           ),
         ),

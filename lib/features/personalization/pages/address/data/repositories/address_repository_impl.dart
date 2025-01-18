@@ -10,7 +10,7 @@ class AddressRepositoryImpl extends AddressRepository {
   AddressRepositoryImpl(this.addressFirebaseServices);
 
   @override
-  Future<Either<String, AddressEntity>> addNewAddress(
+  Future<Either<String, String>> addNewAddress(
       {required AddressModel address}) async {
     var returnedData =
         await addressFirebaseServices.addNewAddress(address: address);
@@ -27,14 +27,14 @@ class AddressRepositoryImpl extends AddressRepository {
   }
 
   @override
-  Future<Either> fetchAllAddresses() async {
+  Future<Either<String, List<AddressEntity>>> fetchAllAddresses() async {
     var returnedData = await addressFirebaseServices.fetchAddresses();
 
     return returnedData.fold(
       (error) => Left(error),
       (data) {
         List<AddressEntity> addresses = List.from(data)
-            .map((document) => AddressModel.fromJson(document).toEntity())
+            .map((document) => AddressModel.fromSnapshot(document).toEntity())
             .toList();
 
         return Right(addresses);

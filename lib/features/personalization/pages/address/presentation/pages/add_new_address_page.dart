@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
+import 'package:t_store/features/personalization/pages/address/presentation/cubits/address_cubit.dart';
+import 'package:t_store/features/personalization/pages/address/presentation/cubits/address_state.dart';
 import 'package:t_store/utils/constants/sizes.dart';
+import 'package:t_store/utils/popups/loaders.dart';
+import 'package:t_store/utils/validators/validation.dart';
 
 class AddNewAddressPage extends StatelessWidget {
   const AddNewAddressPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final addressCubit = context.read<AddressCubit>();
+
     return Scaffold(
       appBar: TAppBar(
         showBackArrow: true,
@@ -20,9 +27,15 @@ class AddNewAddressPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(TSizes.spaceBtwItems),
           child: Form(
+            key: addressCubit.formKey,
             child: Column(
               children: [
                 TextFormField(
+                  controller: addressCubit.nameController,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.name,
+                  validator: (value) =>
+                      TValidator.validateEmptyText('Name', value),
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Iconsax.user),
                     labelText: 'Name',
@@ -30,6 +43,10 @@ class AddNewAddressPage extends StatelessWidget {
                 ),
                 const SizedBox(height: TSizes.spaceBtwInputFields),
                 TextFormField(
+                  controller: addressCubit.phoneController,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.phone,
+                  validator: (value) => TValidator.validatePhoneNumber(value),
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Iconsax.mobile),
                     labelText: 'Phone Number',
@@ -40,6 +57,11 @@ class AddNewAddressPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        controller: addressCubit.streetController,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.text,
+                        validator: (value) =>
+                            TValidator.validateEmptyText('Street', value),
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Iconsax.building_31),
                           labelText: 'Street',
@@ -49,6 +71,11 @@ class AddNewAddressPage extends StatelessWidget {
                     const SizedBox(width: TSizes.spaceBtwInputFields),
                     Expanded(
                       child: TextFormField(
+                        controller: addressCubit.postalCodeController,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.number,
+                        validator: (value) =>
+                            TValidator.validateEmptyText('Postal Code', value),
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Iconsax.code),
                           labelText: 'Postal Code',
@@ -62,6 +89,11 @@ class AddNewAddressPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        controller: addressCubit.cityController,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.text,
+                        validator: (value) =>
+                            TValidator.validateEmptyText('City', value),
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Iconsax.building),
                           labelText: 'City',
@@ -71,6 +103,11 @@ class AddNewAddressPage extends StatelessWidget {
                     const SizedBox(width: TSizes.spaceBtwInputFields),
                     Expanded(
                       child: TextFormField(
+                        controller: addressCubit.stateController,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.text,
+                        validator: (value) =>
+                            TValidator.validateEmptyText('State', value),
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Iconsax.activity),
                           labelText: 'State',
@@ -81,17 +118,43 @@ class AddNewAddressPage extends StatelessWidget {
                 ),
                 const SizedBox(height: TSizes.spaceBtwInputFields),
                 TextFormField(
+                  controller: addressCubit.countryController,
+                  validator: (value) =>
+                      TValidator.validateEmptyText('Country', value),
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Iconsax.global),
                     labelText: 'Country',
                   ),
                 ),
                 const SizedBox(height: TSizes.defaultSpace),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Save'),
+                BlocListener<AddressCubit, AddressState>(
+                  listener: (context, state) {
+                    if (state is AddAddressSuccessState) {
+                      Navigator.pop(context);
+                      TLoaders.customToast(
+                        message: 'Address added successfully 🥳',
+                      );
+                    }
+
+                    if (state is AddAddressFailureState) {
+                      TLoaders.errorSnackBar(
+                        title: 'Error',
+                        message: 'There was an error adding your address',
+                      );
+                    }
+                  },
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (addressCubit.validateForm()) {
+                          await addressCubit.addNewAddress();
+                        }
+                      },
+                      child: const Text('Save'),
+                    ),
                   ),
                 ),
               ],

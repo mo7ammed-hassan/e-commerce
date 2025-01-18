@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:t_store/features/personalization/pages/address/domain/entities/address_entity.dart';
 
 class AddressModel {
-  final String id;
+  String id;
   final String name;
   final String phoneNumber;
   final String street;
   final String city;
   final String state;
   final String country;
-  final String zipCode;
+  final String postalCode;
   final DateTime? createdAt;
-  final bool selectedAddress;
+  bool selectedAddress;
 
   AddressModel({
     required this.id,
@@ -21,51 +21,51 @@ class AddressModel {
     required this.city,
     required this.state,
     required this.country,
-    required this.zipCode,
+    required this.postalCode,
     required this.createdAt,
     required this.selectedAddress,
   });
 
-  AddressModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['name'],
-        phoneNumber = json['phoneNumber'],
-        street = json['street'],
-        city = json['city'],
-        state = json['state'],
-        country = json['country'],
-        zipCode = json['zipCode'],
-        createdAt = json['createdAt'],
-        selectedAddress = json['selectedAddress'];
-
-  // factory constructor to create a AddressModel from a DocumentSnapshot
-  AddressModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot)
-      : this.fromJson(snapshot.data()!);
+  factory AddressModel.fromSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data() as Map<String, dynamic>?;
+    return AddressModel(
+      id: snapshot.id,
+      name: data?['name'] ?? '',
+      phoneNumber: data?['phoneNumber'] ?? '',
+      street: data?['street'] ?? '',
+      city: data?['city'] ?? '',
+      state: data?['state'] ?? '',
+      country: data?['country'] ?? '',
+      postalCode: data?['postalCode'] ?? '',
+      createdAt: data?['createdAt']?.toDate(),
+      selectedAddress: data?['selectedAddress'] ?? false,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
         'name': name,
         'phoneNumber': phoneNumber,
         'street': street,
         'city': city,
         'state': state,
         'country': country,
-        'zipCode': zipCode,
-        'createdAt': DateTime.now(),
+        'postalCode': postalCode,
+        'createdAt': createdAt,
         'selectedAddress': selectedAddress,
       };
 
-  AddressModel.empty()
-      : id = '1',
-        name = 'test',
-        phoneNumber = '010',
-        street = 'test',
-        city = 'test',
-        state = 'test',
-        country = 'test',
-        zipCode = '256',
-        createdAt = DateTime.now(),
-        selectedAddress = false;
+  factory AddressModel.empty() => AddressModel(
+        id: '',
+        name: '',
+        phoneNumber: '',
+        street: '',
+        city: '',
+        state: '',
+        country: '',
+        postalCode: '',
+        createdAt: DateTime.now(),
+        selectedAddress: false,
+      );
 }
 
 extension AddressXModel on AddressModel {
@@ -78,7 +78,7 @@ extension AddressXModel on AddressModel {
       city: city,
       state: state,
       country: country,
-      zipCode: zipCode,
+      postalCode: postalCode,
       createdAt: createdAt,
       selectedAddress: selectedAddress,
     );

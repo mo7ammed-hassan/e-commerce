@@ -5,7 +5,8 @@ import 'package:t_store/common/core/firebase_collections/collections.dart';
 import 'package:t_store/features/personalization/pages/address/data/models/address_model.dart';
 
 abstract class AddressFirebaseServices {
-  Future<Either> fetchAddresses();
+  Future<Either<String, List<QueryDocumentSnapshot<Map<String, dynamic>>>>>
+      fetchAddresses();
   Future<Either> addNewAddress({required AddressModel address});
   Future<void> deleteAddress({required String addressId});
   Future<void> updateSelectedAddress(
@@ -52,18 +53,21 @@ class AddressFirebaseServicesImpl extends AddressFirebaseServices {
   }
 
   @override
-  Future<Either> fetchAddresses() async {
+  Future<Either<String, List<QueryDocumentSnapshot<Map<String, dynamic>>>>>
+      fetchAddresses() async {
     try {
       final userId = _user!.uid;
 
-      var collection = _storage
+      var snapshot = await _storage
           .collection(FirebaseCollections.USER_COLLECTION)
           .doc(userId)
-          .collection(FirebaseCollections.ADDRESS_COLLECTION);
+          .collection(FirebaseCollections.ADDRESS_COLLECTION)
+          .get();
 
-      var data = await collection.get();
+      final List<QueryDocumentSnapshot<Map<String, dynamic>>> address =
+          snapshot.docs.map((address) => address).toList();
 
-      return Right(data.docs);
+      return Right(address);
     } catch (e) {
       return Left(e.toString());
     }
@@ -74,7 +78,7 @@ class AddressFirebaseServicesImpl extends AddressFirebaseServices {
       {required String addressId, required bool isSelected}) async {
     try {
       final userId = _user!.uid;
-      
+
       await _storage
           .collection(FirebaseCollections.USER_COLLECTION)
           .doc(userId)

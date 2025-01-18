@@ -6,9 +6,9 @@ class AddressEntity {
   final String city;
   final String state;
   final String country;
-  final String zipCode;
+  final String postalCode;
   final DateTime? createdAt;
-  final bool selectedAddress;
+   bool selectedAddress;
 
   AddressEntity({
     required this.id,
@@ -18,7 +18,7 @@ class AddressEntity {
     required this.city,
     required this.state,
     required this.country,
-    required this.zipCode,
+    required this.postalCode,
     required this.createdAt,
     required this.selectedAddress,
   });
@@ -32,7 +32,7 @@ class AddressEntity {
         city = '',
         state = '',
         country = '',
-        zipCode = '',
+        postalCode = '',
         createdAt = null,
         selectedAddress = false;
 }
