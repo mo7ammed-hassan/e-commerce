@@ -28,6 +28,10 @@ import 'package:t_store/features/personalization/domain/use_cases/update_user_fi
 import 'package:t_store/features/personalization/domain/use_cases/upload_data_usecases/upload_categories_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_data_usecases/upload_product_use_case.dart';
 import 'package:t_store/features/personalization/domain/use_cases/upload_user_image_use_case.dart';
+import 'package:t_store/features/personalization/pages/address/data/repositories/address_repository_impl.dart';
+import 'package:t_store/features/personalization/pages/address/data/source/address_firebase_services.dart';
+import 'package:t_store/features/personalization/pages/address/domain/usecases/add_address_use_case.dart';
+import 'package:t_store/features/personalization/pages/address/domain/usecases/fetch_all_address_use_case.dart';
 import 'package:t_store/features/shop/features/all_brands/data/repository/brands_repository_impl.dart';
 import 'package:t_store/features/shop/features/all_brands/data/source/brands_firebase_services.dart';
 import 'package:t_store/features/shop/features/all_brands/domain/repository/brands_repository.dart';
@@ -55,7 +59,6 @@ import 'package:t_store/features/shop/features/wishlist/data/repositories/wishli
 import 'package:t_store/features/shop/features/wishlist/data/source/wishlist_firebase_services.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/repositories/wishlist_repository.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/usecases/add_items_in_wishlist_use_case.dart';
-import 'package:t_store/features/shop/features/wishlist/domain/usecases/clear_wishlist_use_case.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/usecases/fetch_wishlist_items_use_case.dart';
 import 'package:t_store/features/shop/features/wishlist/domain/usecases/remove_item_from_wishlist_use_case.dart';
 import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/favorite_button_cubit.dart';
@@ -217,8 +220,20 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<FetchWishlistItemsUseCase>(
     FetchWishlistItemsUseCase(),
   );
-  getIt.registerSingleton<ClearWishlistUseCase>(
-    ClearWishlistUseCase(),
+  getIt.registerSingleton<FetchAllAddressUseCase>(
+    FetchAllAddressUseCase(
+      AddressRepositoryImpl(
+        AddressFirebaseServicesImpl(),
+      ),
+    ),
+  );
+
+  getIt.registerSingleton<AddAddressUseCase>(
+    AddAddressUseCase(
+      AddressRepositoryImpl(
+        AddressFirebaseServicesImpl(),
+      ),
+    ),
   );
 
   // -- Cubits--

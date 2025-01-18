@@ -15,4 +15,5 @@ class FirebaseCollections {
   static const String SHIPPING_COLLECTION = 'Shipping';
   static const String PRODUCTS_CATEGORY_COLLECTION = 'ProductCategory';
   static const String BRANDS_CATEGORY_COLLECTION = 'BrandCategory';
+  static const String ADDRESS_COLLECTION = 'Address';
 }
