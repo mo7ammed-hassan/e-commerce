@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
@@ -46,9 +45,12 @@ class CartMangmentServiceImpl extends CartMangmentService {
   }
 
   @override
-  Future<void> removeAllItemsFromCart() {
-    // TODO: implement removeAllItemsFromCart
-    throw UnimplementedError();
+  Future<void> removeAllItemsFromCart() async {
+    List<CartItemModel> cartItems =
+        await cartLocalStorageServices.fetchCartItems(box: _boxName);
+    cartItems.clear();
+
+    cartLocalStorageServices.storeCartItems(cartItems: cartItems);
   }
 
   @override
