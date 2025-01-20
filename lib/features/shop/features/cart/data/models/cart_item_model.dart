@@ -1,4 +1,4 @@
-import 'package:t_store/features/shop/features/cart/domain/entity/cart_item_entity.dart';
+import 'package:t_store/features/shop/features/cart/domain/entities/cart_item_entity.dart';
 
 class CartItemModel {
   String title;
@@ -7,7 +7,7 @@ class CartItemModel {
   double price;
   String? variationId;
   String productId;
-  String? brandname;
+  String? brandName;
   Map<String, dynamic>? selectedVariation;
 
   CartItemModel({
@@ -17,7 +17,7 @@ class CartItemModel {
     this.price = 0.0,
     this.variationId = '',
     required this.productId,
-    this.brandname,
+    this.brandName,
     this.selectedVariation,
   });
 
@@ -30,7 +30,7 @@ class CartItemModel {
       'price': price,
       'variationId': variationId,
       'productId': productId,
-      'brandname': brandname,
+      'brandname': brandName,
       'selectedVariation': selectedVariation,
     };
   }
@@ -44,7 +44,7 @@ class CartItemModel {
       price: json['price'] as double,
       variationId: json['variationId'] as String?,
       productId: json['productId'] as String,
-      brandname: json['brandname'] as String?,
+      brandName: json['brandname'] as String?,
       selectedVariation: json['selectedVariation'] as Map<String, dynamic>?,
     );
   }
@@ -61,7 +61,7 @@ extension CartItemModelExtension on CartItemModel {
         price: price,
         variationId: variationId,
         productId: productId,
-        brandName: brandname,
+        brandName: brandName,
         selectedVariation: selectedVariation,
       );
 }
