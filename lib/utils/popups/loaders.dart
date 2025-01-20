@@ -38,6 +38,32 @@ class TLoaders {
     );
   }
 
+  static customToastLoading() {
+    ScaffoldMessenger.of(Get.context!).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        elevation: 0,
+        duration: const Duration(seconds: 3),
+        backgroundColor: Colors.transparent,
+        content: Container(
+          padding: const EdgeInsets.all(12.0),
+          margin: const EdgeInsets.symmetric(horizontal: 30),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: THelperFunctions.isDarkMode(Get.context!)
+                ? TColors.darkerGrey.withValues(alpha: 0.9)
+                : TColors.grey.withValues(alpha: 0.9),
+          ),
+          child: const Center(
+            child: CircularProgressIndicator(
+              color: TColors.primary,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   static successSnackBar({required title, message = '', duration = 3}) {
     Get.snackbar(
       title,

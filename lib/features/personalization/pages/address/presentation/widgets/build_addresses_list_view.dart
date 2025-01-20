@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:t_store/features/personalization/pages/address/domain/entities/address_entity.dart';
 import 'package:t_store/features/personalization/pages/address/presentation/cubits/address_cubit.dart';
 import 'package:t_store/features/personalization/pages/address/presentation/cubits/address_state.dart';
 import 'package:t_store/features/personalization/pages/address/presentation/widgets/single_address_card.dart';
@@ -12,72 +13,91 @@ class BuildAddressesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddressCubit, AddressState>(
-      buildWhen: (previous, current) {
-        if (current is FetchAddressesSuccessState ||
-            current is FetchAddressesFailureState ||
-            current is FetchAddressesLoadingState) {
-          return true;
-        }
-        return false;
-      },
+      buildWhen: (previous, current) =>
+          current is FetchAddressesSuccessState ||
+          current is FetchAddressesFailureState ||
+          current is FetchAddressesLoadingState,
       builder: (context, state) {
-        // Loading state
         if (state is FetchAddressesLoadingState) {
           return _loadingWidget();
         }
 
         if (state is FetchAddressesSuccessState) {
           if (state.addresses.isEmpty) {
-            return const Center(
-              child: Text(
-                'You don\'t have any addresses yet. Add one now! 🤓',
-                style: TextStyle(fontSize: TSizes.md),
-                textAlign: TextAlign.center,
-              ),
-            );
+            return _emptyAddressesMessage();
           }
-          return ListView.separated(
-            itemCount: state.addresses.length,
-            itemBuilder: (context, index) => SingleAddressCard(
-              address: state.addresses[index],
-              onTap: () => context
-                  .read<AddressCubit>()
-                  .selecteAddress(state.addresses[index]),
-              onLongPress: () {
-                _showBottomSheet(
-                  addressCubit: context.read<AddressCubit>(),
-                  context,
-                  addressId: state.addresses[index].id,
-                );
-              },
-            ),
-            separatorBuilder: (context, index) => const SizedBox(
-              height: TSizes.spaceBtwItems,
-            ),
+          return Stack(
+            children: [
+              _buildAddressesList(state.addresses, context),
+              if (state is SelectedAddressLoadingState) _loadingWidget(),
+            ],
           );
         }
 
-        return const Center(
-          child: Text(
-            'There was an error, Please try again later 🫤',
-            style: TextStyle(fontSize: TSizes.md),
-          ),
-        );
+        if (state is FetchAddressesFailureState) {
+          return _errorMessage();
+        }
+
+        return const SizedBox();
       },
     );
   }
 
+  // Loading Widget
   Widget _loadingWidget() {
     return const Center(
-      child: CircularProgressIndicator(
-        color: TColors.primary,
+      child: CircularProgressIndicator(color: TColors.primary),
+    );
+  }
+
+  Widget _emptyAddressesMessage() {
+    return const Center(
+      child: Text(
+        'You don\'t have any addresses yet. Add one now! 🤓',
+        style: TextStyle(fontSize: TSizes.md),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  Widget _buildAddressesList(
+      List<AddressEntity> addresses, BuildContext context) {
+    return ListView.separated(
+      itemCount: addresses.length,
+      itemBuilder: (context, index) {
+        final address = addresses[index];
+        return SingleAddressCard(
+          address: address,
+          onTap: () => context.read<AddressCubit>().selecteAddress(address),
+          onLongPress: () => _showDeleteBottomSheet(
+            context: context,
+            addressCubit: context.read<AddressCubit>(),
+            addressId: address.id,
+          ),
+        );
+      },
+      separatorBuilder: (context, index) => const SizedBox(
+        height: TSizes.spaceBtwItems,
+      ),
+    );
+  }
+
+  Widget _errorMessage() {
+    return const Center(
+      child: Text(
+        'There was an error, Please try again later 🫤',
+        style: TextStyle(fontSize: TSizes.md),
+        textAlign: TextAlign.center,
       ),
     );
   }
 
   // Function to show the Bottom Sheet for deletion
-  void _showBottomSheet(BuildContext context,
-      {required AddressCubit addressCubit, required String addressId}) {
+  void _showDeleteBottomSheet({
+    required BuildContext context,
+    required AddressCubit addressCubit,
+    required String addressId,
+  }) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -96,17 +116,13 @@ class BuildAddressesListView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                    onPressed: () => Navigator.of(context).pop(),
                     child: const Text('Cancel'),
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
-                      addressCubit.deleteAddress(
-                        addressId: addressId,
-                      ); // Call deleteAddress
+                      addressCubit.deleteAddress(addressId: addressId);
                     },
                     child: const Text(
                       'Delete ❌',

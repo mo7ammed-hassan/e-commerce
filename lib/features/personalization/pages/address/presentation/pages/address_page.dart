@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/features/personalization/pages/address/presentation/cubits/address_cubit.dart';
+import 'package:t_store/features/personalization/pages/address/presentation/cubits/address_state.dart';
 import 'package:t_store/features/personalization/pages/address/presentation/pages/add_new_address_page.dart';
 import 'package:t_store/features/personalization/pages/address/presentation/widgets/build_addresses_list_view.dart';
 import 'package:t_store/utils/constants/colors.dart';
@@ -18,9 +19,23 @@ class AddressPage extends StatelessWidget {
       child: Scaffold(
         floatingActionButton: _buildFloatingActionButton(),
         appBar: _buildAppBar(context),
-        body: const Padding(
-          padding: EdgeInsets.all(TSizes.spaceBtwItems),
-          child: BuildAddressesListView(),
+        body: BlocBuilder<AddressCubit, AddressState>(
+          builder: (context, state) {
+            return Stack(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(TSizes.spaceBtwItems),
+                  child: BuildAddressesListView(),
+                ),
+                if (state is SelectedAddressLoadingState)
+                  const Center(
+                    child: CircularProgressIndicator(
+                      color: TColors.primary,
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
       ),
     );
