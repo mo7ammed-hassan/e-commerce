@@ -1,3 +1,5 @@
+import 'package:t_store/features/shop/features/cart/domain/entity/cart_item_entity.dart';
+
 class CartItemModel {
   String title;
   String? imageUrl;
@@ -49,4 +51,17 @@ class CartItemModel {
 
   // -- Empty CartItem --
   factory CartItemModel.empty() => CartItemModel(quantity: 0, productId: '');
+}
+
+extension CartItemModelExtension on CartItemModel {
+  CartItemEntity toEntity() => CartItemEntity(
+        title: title,
+        imageUrl: imageUrl,
+        quantity: quantity,
+        price: price,
+        variationId: variationId,
+        productId: productId,
+        brandName: brandname,
+        selectedVariation: selectedVariation,
+      );
 }
