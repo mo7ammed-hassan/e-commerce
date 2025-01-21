@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
+import 'package:t_store/features/shop/features/cart/domain/entities/cart_item_entity.dart';
 
 abstract class CartState extends Equatable {
   const CartState();
@@ -14,7 +14,7 @@ class CartInitialState extends CartState {}
 class CartLoadingState extends CartState {}
 
 class CartLoadedState extends CartState {
-  final List<CartItemModel> cartItems;
+  final List<CartItemEntity> cartItems;
 
   const CartLoadedState( this.cartItems);
 
