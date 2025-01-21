@@ -1,12 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
+import 'package:t_store/features/shop/features/cart/data/mappers_or_factories/cart_item_factory.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_local_storage_services.dart';
 
 abstract class CartMangmentService {
   // -- Add to cart--
-  Future<void> addToCart({required ProductModel product});
+  Future<void> addProductToCart({required ProductModel product, int quantity});
   // -- Add Single Item to cart--
   Future<void> addSingleItemToCart({required CartItemModel cartItem});
   // -- Remove Single Item from cart--
@@ -17,14 +16,13 @@ abstract class CartMangmentService {
 
 class CartMangmentServiceImpl implements CartMangmentService {
   final CartLocalStorageServices cartLocalStorageServices;
-  static final String _userId = FirebaseAuth.instance.currentUser!.uid;
-  static final String _boxName = '${_userId}Cart';
+  final CartItemFactoryInterface cartItemFactory;
 
-  CartMangmentServiceImpl(this.cartLocalStorageServices);
+  CartMangmentServiceImpl(this.cartLocalStorageServices, this.cartItemFactory);
   @override
   Future<void> addSingleItemToCart({required CartItemModel cartItem}) async {
     List<CartItemModel> cartItems =
-        await cartLocalStorageServices.fetchCartItems(box: _boxName);
+        await cartLocalStorageServices.fetchCartItems();
 
     int index = cartItems.indexWhere((item) =>
         item.productId == cartItem.productId &&
@@ -40,22 +38,28 @@ class CartMangmentServiceImpl implements CartMangmentService {
   }
 
   @override
-  Future<void> addToCart({required ProductModel product}) async {
-    // TODO: implement addToCart
-    throw UnimplementedError();
+  Future<void> addProductToCart(
+      {required ProductModel product, int quantity = 1}) async {
+    var cartItem =
+        cartItemFactory.createCartItem(product: product, quantity: quantity);
+
+    await addSingleItemToCart(cartItem: cartItem);
   }
 
   @override
   Future<void> removeAllItemsFromCart() async {
-    var cartBox = await Hive.openBox(_boxName);
-    await cartBox.clear();
+    List<CartItemModel> cartItems =
+        await cartLocalStorageServices.fetchCartItems();
+    cartItems.clear();
+
+    cartLocalStorageServices.storeCartItems(cartItems: cartItems);
   }
 
   @override
   Future<void> removeSingleItemFromCart(
       {required CartItemModel cartItem}) async {
     List<CartItemModel> cartItems =
-        await cartLocalStorageServices.fetchCartItems(box: _boxName);
+        await cartLocalStorageServices.fetchCartItems();
 
     int index = cartItems.indexWhere((item) =>
         item.productId == cartItem.productId &&

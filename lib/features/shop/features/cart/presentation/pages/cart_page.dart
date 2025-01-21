@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
+import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
+import 'package:t_store/features/shop/features/cart/data/mappers_or_factories/cart_item_factory.dart';
+import 'package:t_store/features/shop/features/cart/data/source/cart_local_storage_services.dart';
+import 'package:t_store/features/shop/features/cart/data/source/cart_mangment_service.dart';
 import 'package:t_store/features/shop/features/cart/presentation/widgets/cart_items.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/pages/checkout_page.dart';
+import 'package:t_store/features/shop/features/product_details/presentation/cubits/product_variation_cubit.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class CartPage extends StatelessWidget {
@@ -20,18 +25,26 @@ class CartPage extends StatelessWidget {
         child: CartItems(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // CartLocalStorageServicesImpl().storeCartItems(cartItems: [
-          //   CartItemModel(
-          //       productId: '1',
-          //       title: 'Product 1',
-          //       quantity: 1,
-          //       price: 100,
-          //       selectedVariation: {'color': 'red'}),
-          //   CartItemModel(productId: '2', title: 'Product 2', quantity: 2),
-          //   CartItemModel(productId: '3', title: 'Product 3', quantity: 3),
-          // ]);
+        onPressed: () async {
+          CartMangmentService cartMangmentService = CartMangmentServiceImpl(
+            CartLocalStorageServicesImpl(),
+            DefaultCartItemFactory(
+              ProductVariationCubit(),
+            ),
+          );
 
+          await cartMangmentService.addProductToCart(
+              product: ProductModel.empty());
+
+          CartLocalStorageServicesImpl().fetchCartItems().then((value) {
+            print(value.length);
+          });
+
+          await cartMangmentService.removeAllItemsFromCart();
+
+          CartLocalStorageServicesImpl().fetchCartItems().then((value) {
+            print(value.length);
+          });
         },
         child: const Icon(Icons.add),
       ),

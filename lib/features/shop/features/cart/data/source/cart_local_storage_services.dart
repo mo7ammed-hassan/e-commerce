@@ -8,14 +8,14 @@ abstract class CartLocalStorageServices {
   // -- Store items in cart--
   void storeCartItems({required List<CartItemModel> cartItems});
   // -- Fetch items from cart--
-  Future<List<CartItemModel>> fetchCartItems({required String box});
+  Future<List<CartItemModel>> fetchCartItems();
 }
 
 class CartLocalStorageServicesImpl implements CartLocalStorageServices {
   static final String _userId = FirebaseAuth.instance.currentUser!.uid;
   static final String _boxName = '${_userId}Cart';
   @override
-  Future<List<CartItemModel>> fetchCartItems({required String box}) async {
+  Future<List<CartItemModel>> fetchCartItems() async {
     var cartBox = await Hive.openBox<String>(_boxName);
     final jsonString = cartBox.get('cartItems', defaultValue: '[]');
     final List<dynamic> decodedJson = jsonDecode(jsonString!);

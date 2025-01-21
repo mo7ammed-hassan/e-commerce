@@ -44,7 +44,7 @@ class ProductModel {
 
   static ProductModel empty() {
     return const ProductModel(
-      id: '',
+      id: '100',
       stock: 0,
       price: 0.0,
       title: '',
