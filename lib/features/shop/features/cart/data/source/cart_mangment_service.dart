@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_local_storage_services.dart';
@@ -14,7 +15,7 @@ abstract class CartMangmentService {
   Future<void> removeAllItemsFromCart();
 }
 
-class CartMangmentServiceImpl extends CartMangmentService {
+class CartMangmentServiceImpl implements CartMangmentService {
   final CartLocalStorageServices cartLocalStorageServices;
   static final String _userId = FirebaseAuth.instance.currentUser!.uid;
   static final String _boxName = '${_userId}Cart';
@@ -46,11 +47,8 @@ class CartMangmentServiceImpl extends CartMangmentService {
 
   @override
   Future<void> removeAllItemsFromCart() async {
-    List<CartItemModel> cartItems =
-        await cartLocalStorageServices.fetchCartItems(box: _boxName);
-    cartItems.clear();
-
-    cartLocalStorageServices.storeCartItems(cartItems: cartItems);
+    var cartBox = await Hive.openBox(_boxName);
+    await cartBox.clear();
   }
 
   @override
