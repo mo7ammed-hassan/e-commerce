@@ -19,10 +19,6 @@ class CartPage extends StatelessWidget {
         ),
         child: CartItems(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
-        child: const Icon(Icons.add),
-      ),
     );
   }
 
