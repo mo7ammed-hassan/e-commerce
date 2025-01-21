@@ -4,8 +4,8 @@ import 'package:t_store/common/widgets/products/cart/product_quantity_button.dar
 import 'package:t_store/common/widgets/texts/brand_title_with_verified_icon.dart';
 import 'package:t_store/common/widgets/texts/product_price.dart';
 import 'package:t_store/common/widgets/texts/product_title_text.dart';
+import 'package:t_store/features/shop/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
@@ -13,8 +13,10 @@ class CartItemCard extends StatelessWidget {
   const CartItemCard({
     super.key,
     this.showAddRemoveButtons = true,
+    required this.cartItem,
   });
   final bool showAddRemoveButtons;
+  final CartItemEntity cartItem;
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
@@ -24,7 +26,7 @@ class CartItemCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TRoundedImage(
-              imageUrl: TImages.productImage1,
+              imageUrl: cartItem.imageUrl!,
               width: 60,
               height: 60,
               padding: const EdgeInsets.all(TSizes.sm),
@@ -36,8 +38,8 @@ class CartItemCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const TBrandTitleWithVerifiedIcon(title: 'Nike'),
-                  const TProductTitleText(
-                    title: 'Green Nike sports shoses',
+                  TProductTitleText(
+                    title: cartItem.title,
                     maxLines: 1,
                   ),
                   Text.rich(
@@ -48,7 +50,7 @@ class CartItemCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         TextSpan(
-                          text: 'Green  ',
+                          text: '${cartItem.selectedVariation?['color']}  ',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         TextSpan(
@@ -56,7 +58,7 @@ class CartItemCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         TextSpan(
-                          text: 'EU 88  ',
+                          text: '${cartItem.selectedVariation?['size']}  ',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],
@@ -67,8 +69,11 @@ class CartItemCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TProductQuantityButtons(isDark: isDark),
-                        const TProductPriceText(price: '134.0'),
+                        TProductQuantityButtons(
+                          isDark: isDark,
+                          cartItem: cartItem,
+                        ),
+                        TProductPriceText(price: cartItem.price.toString()),
                       ],
                     ),
                 ],

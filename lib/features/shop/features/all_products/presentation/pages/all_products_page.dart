@@ -80,7 +80,7 @@ class AllProductsPage extends StatelessWidget {
       enabled: true,
       child: TGridLayout(
         itemCount: 6,
-        itemBuilder: (p0, p1) => TProductCardVertical(
+        itemBuilder: (p0, p1) => TVerticalProductCard(
           product: ProductModel.empty().toEntity(),
         ),
       ),

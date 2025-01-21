@@ -50,6 +50,7 @@ import 'package:t_store/features/shop/features/all_products/domain/usecases/get_
 import 'package:t_store/features/shop/features/all_products/domain/usecases/get_products_specific_category_use_case.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
 import 'package:t_store/features/shop/features/cart/data/mappers_or_factories/cart_item_factory.dart';
+import 'package:t_store/features/shop/features/cart/data/repositories/cart_repository_impl.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_local_storage_services.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_mangment_service.dart';
 import 'package:t_store/features/shop/features/cart/domain/repositories/cart_repository.dart';
@@ -104,6 +105,15 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton<CartLocalStorageServices>(
     () => CartLocalStorageServicesImpl(),
   );
+  getIt.registerSingleton<DefaultCartItemFactory>(
+    DefaultCartItemFactory(ProductVariationCubit()),
+  );
+  getIt.registerLazySingleton<CartManagementService>(
+    () => CartManagementServiceImpl(
+      getIt.get<CartLocalStorageServices>(), // Use get_it to get the instance
+      getIt.get<DefaultCartItemFactory>(),
+    ),
+  );
 
   // ------Repositories------
   getIt.registerSingleton<OnboardingRepository>(
@@ -132,14 +142,11 @@ Future<void> initializeDependencies() async {
       WishlistFirebaseServicesImpl(),
     ),
   );
-  getIt.registerLazySingleton<CartManagementService>(
-    () => CartManagementServiceImpl(
-      getIt.get<CartLocalStorageServices>(), // Use get_it to get the instance
-      getIt.get<DefaultCartItemFactory>(),
+  getIt.registerSingleton<CartRepository>(
+    CartRepositoryImpl(
+      getIt.get<CartManagementService>(),
+      getIt.get<CartLocalStorageServices>(),
     ),
-  );
-  getIt.registerSingleton<DefaultCartItemFactory>(
-    DefaultCartItemFactory(ProductVariationCubit()),
   );
 
   // ------Usecases------
@@ -253,11 +260,9 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<FetchAllAddressUseCase>(
     FetchAllAddressUseCase(getIt.get<AddressRepository>()),
   );
-
   getIt.registerSingleton<AddAddressUseCase>(
     AddAddressUseCase(getIt.get<AddressRepository>()),
   );
-
   getIt.registerSingleton<DeleteAddressUseCase>(
     DeleteAddressUseCase(getIt.get<AddressRepository>()),
   );

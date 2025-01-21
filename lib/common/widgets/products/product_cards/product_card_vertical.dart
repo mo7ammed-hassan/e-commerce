@@ -6,17 +6,19 @@ import 'package:t_store/common/widgets/products/product_cards/sections/product_c
 import 'package:t_store/common/widgets/products/product_cards/sections/product_card_header.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
+import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/pages/product_detail_page.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
-class TProductCardVertical extends StatelessWidget {
+class TVerticalProductCard extends StatelessWidget {
   final ProductEntity product;
-  const TProductCardVertical({super.key, required this.product});
+  const TVerticalProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
+    final cartCubit = CartCubit();
     ProductsCubit cubit = ProductsCubit();
     final isDark = THelperFunctions.isDarkMode(context);
     return OpenContainerWrapper(
@@ -46,7 +48,12 @@ class TProductCardVertical extends StatelessWidget {
               brandTitle: product.brand?.name ?? '',
             ),
             const Spacer(),
-            TProductCartFooter(price: cubit.getProductPrice(product)),
+            TProductCartFooter(
+              price: cubit.getProductPrice(product),
+              addIconTap: () async {
+                await cartCubit.addProductToCart(product: product);
+              },
+            ),
           ],
         ),
       ),

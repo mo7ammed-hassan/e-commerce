@@ -34,14 +34,14 @@ class TSortableProducts extends StatelessWidget {
                 builder: (context, state) {
                   return AnimatedGridLayout(
                     itemCount: state.length,
-                    itemBuilder: (context, index) => TProductCardVertical(
+                    itemBuilder: (context, index) => TVerticalProductCard(
                       product: state[index],
                     ),
                     animatedEffect: ({
                       required child,
-                       isVisible,
-                       onAdd,
-                       onRemove,
+                      isVisible,
+                      onAdd,
+                      onRemove,
                     }) {
                       return AnimatedOffsetGridItem(
                         isVisible: isVisible!,

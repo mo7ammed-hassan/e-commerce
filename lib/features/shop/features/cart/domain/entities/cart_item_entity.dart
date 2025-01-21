@@ -1,3 +1,5 @@
+import 'package:t_store/utils/constants/images_strings.dart';
+
 class CartItemEntity {
   final String title;
   final String? imageUrl;
@@ -18,4 +20,15 @@ class CartItemEntity {
     required this.brandName,
     required this.selectedVariation,
   });
+
+  // --empty--
+  CartItemEntity.empty()
+      : title = '',
+        imageUrl = TImages.productImage1,
+        quantity = 0,
+        price = 0.0,
+        variationId = null,
+        productId = '',
+        brandName = null,
+        selectedVariation = {};
 }

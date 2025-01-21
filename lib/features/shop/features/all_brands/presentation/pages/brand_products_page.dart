@@ -91,7 +91,7 @@ class BrandProductsPage extends StatelessWidget {
         Skeletonizer(
           child: TGridLayout(
             itemCount: 6,
-            itemBuilder: (context, index) => const TProductCardVertical(
+            itemBuilder: (context, index) => const TVerticalProductCard(
               product: ProductEntity.empty(),
             ),
           ),

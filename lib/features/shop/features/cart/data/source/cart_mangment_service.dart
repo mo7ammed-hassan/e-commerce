@@ -1,14 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive/hive.dart';
-import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/cart/data/mappers_or_factories/cart_item_factory.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_local_storage_services.dart';
+import 'package:t_store/features/shop/features/cart/domain/entities/cart_item_entity.dart';
 
 abstract class CartManagementService {
-  Future<void> addProductToCart({required ProductModel product, int quantity});
+  Future<void> addProductToCart({required ProductEntity product, int quantity});
   Future<void> addSingleItemToCart({required CartItemModel cartItem});
-  Future<void> removeSingleItemFromCart({required CartItemModel cartItem});
+  Future<void> removeSingleItemFromCart({required CartItemEntity cartItem});
   Future<void> removeAllItemsFromCart();
 }
 
@@ -38,7 +39,7 @@ class CartManagementServiceImpl implements CartManagementService {
 
   @override
   Future<void> addProductToCart(
-      {required ProductModel product, int quantity = 1}) async {
+      {required ProductEntity product, int quantity = 1}) async {
     var cartItem =
         cartItemFactory.createCartItem(product: product, quantity: quantity);
     await addSingleItemToCart(cartItem: cartItem);
@@ -52,7 +53,7 @@ class CartManagementServiceImpl implements CartManagementService {
 
   @override
   Future<void> removeSingleItemFromCart(
-      {required CartItemModel cartItem}) async {
+      {required CartItemEntity cartItem}) async {
     var cartBox = await Hive.openBox<CartItemModel>(_boxName);
     String cartKey = '${cartItem.productId}-${cartItem.variationId}';
     if (!cartBox.containsKey(cartKey)) return;

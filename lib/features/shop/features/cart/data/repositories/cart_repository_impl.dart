@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:t_store/common/core/errors/failures.dart';
-import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_local_storage_services.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_mangment_service.dart';
@@ -15,7 +15,7 @@ class CartRepositoryImpl extends CartRepository {
 
   @override
   Future<Either<Failure, void>> addProductToCart({
-    required ProductModel product,
+    required ProductEntity product,
     int quantity = 1,
   }) async {
     try {
@@ -50,7 +50,7 @@ class CartRepositoryImpl extends CartRepository {
 
   @override
   Future<Either<Failure, void>> removeSingleItemFromCart({
-    required CartItemModel cartItem,
+    required CartItemEntity cartItem,
   }) async {
     try {
       await cartManagementService.removeSingleItemFromCart(cartItem: cartItem);

@@ -24,7 +24,7 @@ class ProductDetailPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => ImagesProductCubit(),
       child: Scaffold(
-        bottomNavigationBar: const TBottomAddToCart(),
+        bottomNavigationBar: TBottomAddToCart(product: product),
         body: SingleChildScrollView(
           child: Column(
             children: [

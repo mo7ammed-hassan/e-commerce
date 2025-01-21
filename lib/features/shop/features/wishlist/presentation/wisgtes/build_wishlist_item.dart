@@ -29,7 +29,7 @@ class BuildWishlistItems extends StatelessWidget {
 
           return AnimatedGridLayout(
             itemCount: state.wishlist.length,
-            itemBuilder: (context, index) => TProductCardVertical(
+            itemBuilder: (context, index) => TVerticalProductCard(
               product: state.wishlist[index],
             ),
             animatedEffect: ({

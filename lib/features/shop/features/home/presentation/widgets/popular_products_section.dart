@@ -26,7 +26,7 @@ class PopularProductsSection extends StatelessWidget {
           }
           return AnimatedGridLayout(
             itemCount: state.allProducts.length,
-            itemBuilder: (context, index) => TProductCardVertical(
+            itemBuilder: (context, index) => TVerticalProductCard(
               product: state.allProducts[index],
             ),
             animatedEffect: ({required child, isVisible, onAdd, onRemove}) {

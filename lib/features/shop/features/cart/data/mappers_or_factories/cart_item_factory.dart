@@ -1,4 +1,5 @@
 import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_variation_entity.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/cubits/product_variation_cubit.dart';
@@ -6,7 +7,7 @@ import 'package:t_store/features/shop/features/product_details/presentation/cubi
 // --Define an Abstract Factory--
 abstract class CartItemFactoryInterface {
   CartItemModel createCartItem(
-      {required ProductModel product, required int quantity});
+      {required ProductEntity product, required int quantity});
 }
 
 // --DIP >> Dependency Inversion Principle Applied with Factory Method Pattern
@@ -23,7 +24,7 @@ class DefaultCartItemFactory implements CartItemFactoryInterface {
 
   @override
   CartItemModel createCartItem({
-    required ProductModel product,
+    required ProductEntity product,
     required int quantity,
   }) {
     final selectedVariation = variationCubit.selectedVariation;
@@ -49,7 +50,7 @@ class DefaultCartItemFactory implements CartItemFactoryInterface {
 
   // Extracted method for price calculation
   double _calculatePrice(
-    ProductModel product,
+    ProductEntity product,
     bool isVariationSelected,
     ProductVariationEntity selectedVariation,
   ) {
@@ -59,7 +60,7 @@ class DefaultCartItemFactory implements CartItemFactoryInterface {
           : selectedVariation.price;
     }
 
-    return (product.salePrice > 0.0 ? product.salePrice : product.price)
+    return (product.salePrice! > 0.0 ? product.salePrice : product.price)!
         .toDouble();
   }
 }

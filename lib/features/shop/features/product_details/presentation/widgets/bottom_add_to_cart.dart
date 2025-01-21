@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/icons/circular_icon.dart';
+import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
+import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class TBottomAddToCart extends StatelessWidget {
-  const TBottomAddToCart({super.key});
-
+  const TBottomAddToCart({super.key, required this.product});
+  final ProductEntity product;
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -51,7 +53,9 @@ class TBottomAddToCart extends StatelessWidget {
           ),
           const SizedBox(width: TSizes.spaceBtwSections),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              await CartCubit().addProductToCart(product: product);
+            },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(TSizes.md),
               backgroundColor: TColors.black,

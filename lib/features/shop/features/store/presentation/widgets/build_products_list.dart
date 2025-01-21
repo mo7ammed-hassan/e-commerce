@@ -40,7 +40,7 @@ class BuildProductsList extends StatelessWidget {
           }
           return TGridLayout(
             itemCount: state.products.length,
-            itemBuilder: (_, index) => TProductCardVertical(
+            itemBuilder: (_, index) => TVerticalProductCard(
               product: state.products[index],
             ),
           );
@@ -55,7 +55,7 @@ class BuildProductsList extends StatelessWidget {
     return Skeletonizer(
       child: TGridLayout(
         itemCount: 4,
-        itemBuilder: (_, index) => TProductCardVertical(
+        itemBuilder: (_, index) => TVerticalProductCard(
           product: ProductModel.empty().toEntity(),
         ),
       ),
