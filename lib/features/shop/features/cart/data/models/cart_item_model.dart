@@ -1,14 +1,33 @@
+import 'package:hive/hive.dart';
 import 'package:t_store/features/shop/features/cart/domain/entities/cart_item_entity.dart';
 
+part 'cart_item_model.g.dart'; // Required for code generation
+
+@HiveType(typeId: 2) // Unique typeId for this model
 class CartItemModel {
-  String title;
-  String? imageUrl;
-  int quantity;
-  double price;
-  String? variationId;
-  String productId;
-  String? brandName;
-  Map<String, dynamic>? selectedVariation;
+  @HiveField(0)
+  final String productId;
+
+  @HiveField(1)
+  final String title;
+
+  @HiveField(2)
+  final String? imageUrl;
+
+  @HiveField(3)
+  int quantity; // Not final because we modify it
+
+  @HiveField(4)
+  final double price;
+
+  @HiveField(5)
+  final String? brandName;
+
+  @HiveField(6)
+  final String? variationId;
+
+  @HiveField(7)
+  final Map<String, dynamic>? selectedVariation;
 
   CartItemModel({
     this.title = '',

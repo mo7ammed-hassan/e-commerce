@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive/hive.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
@@ -14,20 +12,28 @@ abstract class CartLocalStorageServices {
 class CartLocalStorageServicesImpl implements CartLocalStorageServices {
   static final String _userId = FirebaseAuth.instance.currentUser!.uid;
   static final String _boxName = '${_userId}Cart';
-  @override
-  Future<List<CartItemModel>> fetchCartItems() async {
-    var cartBox = await Hive.openBox<String>(_boxName);
-    final jsonString = cartBox.get('cartItems', defaultValue: '[]');
-    final List<dynamic> decodedJson = jsonDecode(jsonString!);
 
-    return decodedJson.map((item) => CartItemModel.fromJson(item)).toList();
+  static Box<CartItemModel>? _cartBox;
+
+  Future<Box<CartItemModel>> _openBox() async {
+    _cartBox ??= await Hive.openBox<CartItemModel>(_boxName);
+    return _cartBox!;
   }
 
   @override
-  void storeCartItems({required List<CartItemModel> cartItems}) async {
-    final cartBox = await Hive.openBox<String>(_boxName);
-    final jsonString =
-        jsonEncode(cartItems.map((item) => item.toJson()).toList());
-    await cartBox.put('cartItems', jsonString);
+  Future<List<CartItemModel>> fetchCartItems() async {
+    final cartBox = await _openBox();
+    return cartBox.values.toList();
+  }
+
+  @override
+  Future<void> storeCartItems({required List<CartItemModel> cartItems}) async {
+    final box = await _openBox();
+    await box.clear();
+
+    for (var item in cartItems) {
+      String key = '${item.productId}-${item.variationId}';
+      await box.put(key, item);
+    }
   }
 }

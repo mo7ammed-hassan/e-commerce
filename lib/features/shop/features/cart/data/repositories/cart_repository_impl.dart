@@ -4,7 +4,7 @@ import 'package:t_store/features/shop/features/cart/data/source/cart_mangment_se
 import 'package:t_store/features/shop/features/cart/domain/repositories/cart_repository.dart';
 
 class CartRepositoryImpl extends CartRepository {
-  final CartMangmentService cartMangmentService;
+  final CartManagementService cartMangmentService;
 
   CartRepositoryImpl(this.cartMangmentService);
   @override

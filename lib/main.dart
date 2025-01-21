@@ -10,6 +10,7 @@ import 'package:t_store/bloc_observier.dart';
 import 'package:t_store/common/core/hive_boxes/open_boxes.dart';
 import 'package:t_store/common/cubits/launch_app/launch_app_cubit.dart';
 import 'package:t_store/features/personalization/cubit/user_cubit.dart';
+import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
 import 'package:t_store/features/shop/features/home/domain/entites/category_entity.dart';
 import 'package:t_store/features/shop/features/wishlist/data/model/wishlist_model.dart';
 import 'package:t_store/firebase_options.dart';
@@ -35,6 +36,10 @@ void main() {
       }
       if (!Hive.isAdapterRegistered(WishlistModelAdapter().typeId)) {
         Hive.registerAdapter(WishlistModelAdapter());
+      }
+
+      if (!Hive.isAdapterRegistered(CartItemModelAdapter().typeId)) {
+        Hive.registerAdapter(CartItemModelAdapter());
       }
 
       // Splash Screen

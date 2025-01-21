@@ -1,40 +1,39 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hive/hive.dart';
 import 'package:t_store/features/shop/features/all_products/data/models/product_model.dart';
 import 'package:t_store/features/shop/features/cart/data/mappers_or_factories/cart_item_factory.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_local_storage_services.dart';
 
-abstract class CartMangmentService {
-  // -- Add to cart--
+abstract class CartManagementService {
   Future<void> addProductToCart({required ProductModel product, int quantity});
-  // -- Add Single Item to cart--
   Future<void> addSingleItemToCart({required CartItemModel cartItem});
-  // -- Remove Single Item from cart--
   Future<void> removeSingleItemFromCart({required CartItemModel cartItem});
-  // -- Remove all items from cart--
   Future<void> removeAllItemsFromCart();
 }
 
-class CartMangmentServiceImpl implements CartMangmentService {
+class CartManagementServiceImpl implements CartManagementService {
   final CartLocalStorageServices cartLocalStorageServices;
   final CartItemFactoryInterface cartItemFactory;
 
-  CartMangmentServiceImpl(this.cartLocalStorageServices, this.cartItemFactory);
+  static final String _userId = FirebaseAuth.instance.currentUser!.uid;
+  static final String _boxName = '${_userId}Cart';
+
+  CartManagementServiceImpl(
+      this.cartLocalStorageServices, this.cartItemFactory);
+
   @override
   Future<void> addSingleItemToCart({required CartItemModel cartItem}) async {
-    List<CartItemModel> cartItems =
-        await cartLocalStorageServices.fetchCartItems();
+    var cartBox = await Hive.openBox<CartItemModel>(_boxName);
+    String cartKey = '${cartItem.productId}-${cartItem.variationId}';
 
-    int index = cartItems.indexWhere((item) =>
-        item.productId == cartItem.productId &&
-        item.variationId == cartItem.variationId);
-
-    if (index != -1) {
-      cartItems[index].quantity += 1;
+    if (cartBox.containsKey(cartKey)) {
+      var existingItem = cartBox.get(cartKey)!;
+      existingItem.quantity += 1;
+      await cartBox.put(cartKey, existingItem);
     } else {
-      cartItems.add(cartItem);
+      await cartBox.put(cartKey, cartItem);
     }
-
-    cartLocalStorageServices.storeCartItems(cartItems: cartItems);
   }
 
   @override
@@ -42,37 +41,30 @@ class CartMangmentServiceImpl implements CartMangmentService {
       {required ProductModel product, int quantity = 1}) async {
     var cartItem =
         cartItemFactory.createCartItem(product: product, quantity: quantity);
-
     await addSingleItemToCart(cartItem: cartItem);
   }
 
   @override
   Future<void> removeAllItemsFromCart() async {
-    List<CartItemModel> cartItems =
-        await cartLocalStorageServices.fetchCartItems();
-    cartItems.clear();
-
-    cartLocalStorageServices.storeCartItems(cartItems: cartItems);
+    var cartBox = await Hive.openBox<CartItemModel>(_boxName);
+    await cartBox.clear();
   }
 
   @override
   Future<void> removeSingleItemFromCart(
       {required CartItemModel cartItem}) async {
-    List<CartItemModel> cartItems =
-        await cartLocalStorageServices.fetchCartItems();
+    var cartBox = await Hive.openBox<CartItemModel>(_boxName);
+    String cartKey = '${cartItem.productId}-${cartItem.variationId}';
+    if (!cartBox.containsKey(cartKey)) return;
 
-    int index = cartItems.indexWhere((item) =>
-        item.productId == cartItem.productId &&
-        item.variationId == cartItem.variationId);
+    var existingItem = cartBox.get(cartKey);
+    if (existingItem == null) return;
 
-    if (index != -1) {
-      if (cartItems[index].quantity > 1) {
-        cartItems[index].quantity -= 1;
-      } else {
-        cartItems.removeAt(index);
-      }
+    if (existingItem.quantity > 1) {
+      existingItem.quantity -= 1;
+      await cartBox.put(cartKey, existingItem);
+    } else {
+      await cartBox.delete(cartKey);
     }
-
-    cartLocalStorageServices.storeCartItems(cartItems: cartItems);
   }
 }
