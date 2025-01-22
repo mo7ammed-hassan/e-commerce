@@ -14,7 +14,7 @@ class Loaders {
       SnackBar(
         behavior: SnackBarBehavior.floating,
         elevation: 0,
-        duration: const Duration(seconds: 3),
+        duration: const Duration(seconds: 1),
         backgroundColor: Colors.transparent,
         content: Container(
           padding: const EdgeInsets.all(12.0),
@@ -31,32 +31,6 @@ class Loaders {
               style: isMedium
                   ? Theme.of(AppContext.context).textTheme.bodyMedium
                   : Theme.of(AppContext.context).textTheme.labelLarge,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  static customToastLoading() {
-    ScaffoldMessenger.of(AppContext.context).showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        elevation: 0,
-        duration: const Duration(seconds: 3),
-        backgroundColor: Colors.transparent,
-        content: Container(
-          padding: const EdgeInsets.all(12.0),
-          margin: const EdgeInsets.symmetric(horizontal: 30),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: HelperFunctions.isDarkMode(AppContext.context)
-                ? AppColors.darkerGrey.withValues(alpha: 0.9)
-                : AppColors.grey.withValues(alpha: 0.9),
-          ),
-          child: const Center(
-            child: CircularProgressIndicator(
-              color: AppColors.primary,
             ),
           ),
         ),

@@ -28,8 +28,10 @@ class TProductQuantityButtons extends StatelessWidget {
           height: 32,
           size: TSizes.md,
           color: isDark ? AppColors.white : AppColors.black,
-          onPressed: () {
-            context.read<CartCubit>().removeSingleCartItem(cartItem: cartItem);
+          onPressed: () async {
+            await context
+                .read<CartCubit>()
+                .removeSingleCartItem(cartItem: cartItem.toModel());
           },
         ),
         const SizedBox(width: TSizes.spaceBtwItems),
@@ -45,8 +47,10 @@ class TProductQuantityButtons extends StatelessWidget {
           height: 32,
           size: TSizes.md,
           color: AppColors.white,
-          onPressed: () {
-            //context.read<CartCubit>().addSingleCartItem(cartItem: cartItem);
+          onPressed: () async {
+            await context
+                .read<CartCubit>()
+                .addSingleCartItem(cartItem: cartItem.toModel());
           },
         ),
       ],

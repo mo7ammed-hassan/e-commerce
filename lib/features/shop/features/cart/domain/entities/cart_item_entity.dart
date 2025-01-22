@@ -1,3 +1,4 @@
+import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 
 class CartItemEntity {
@@ -31,4 +32,8 @@ class CartItemEntity {
         productId = '',
         brandName = null,
         selectedVariation = {};
+}
+
+extension CartItemEntityExtension on CartItemEntity {
+  CartItemModel toModel() => CartItemModel.fromEntity(this);
 }

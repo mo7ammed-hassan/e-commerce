@@ -50,7 +50,7 @@ class CartRepositoryImpl extends CartRepository {
 
   @override
   Future<Either<Failure, void>> removeSingleItemFromCart({
-    required CartItemEntity cartItem,
+    required CartItemModel cartItem,
   }) async {
     try {
       await cartManagementService.removeSingleItemFromCart(cartItem: cartItem);

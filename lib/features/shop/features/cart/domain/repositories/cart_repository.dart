@@ -11,6 +11,6 @@ abstract class CartRepository {
   Future<Either<Failure, void>> addSingleItemToCart(
       {required CartItemModel cartItem});
   Future<Either<Failure, void>> removeSingleItemFromCart(
-      {required CartItemEntity cartItem});
+      {required CartItemModel cartItem});
   Future<Either<Failure, void>> removeAllItemsFromCart();
 }

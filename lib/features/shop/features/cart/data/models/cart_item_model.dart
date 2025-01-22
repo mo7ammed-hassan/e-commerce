@@ -70,6 +70,19 @@ class CartItemModel {
 
   // -- Empty CartItem --
   factory CartItemModel.empty() => CartItemModel(quantity: 0, productId: '');
+
+  static CartItemModel fromEntity(CartItemEntity cartItemEntity) {
+    return CartItemModel(
+      title: cartItemEntity.title,
+      imageUrl: cartItemEntity.imageUrl,
+      quantity: cartItemEntity.quantity,
+      price: cartItemEntity.price,
+      variationId: cartItemEntity.variationId,
+      productId: cartItemEntity.productId,
+      brandName: cartItemEntity.brandName,
+      selectedVariation: cartItemEntity.selectedVariation,
+    );
+  }
 }
 
 extension CartItemModelExtension on CartItemModel {

@@ -23,6 +23,8 @@ class CartLocalStorageServicesImpl implements CartLocalStorageServices {
   @override
   Future<List<CartItemModel>> fetchCartItems() async {
     final cartBox = await _openBox();
+    // print(
+    //     'Cart Items: ${cartBox.values.toList().map((e) => e.toJson()).toList()}');
     return cartBox.values.toList();
   }
 

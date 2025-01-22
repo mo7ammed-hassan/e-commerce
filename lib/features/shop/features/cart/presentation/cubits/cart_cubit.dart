@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
-import 'package:t_store/features/shop/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:t_store/features/shop/features/cart/domain/usecases/add_product_to_cart_use_case.dart';
 import 'package:t_store/features/shop/features/cart/domain/usecases/add_single_cart_item_use_case.dart';
 import 'package:t_store/features/shop/features/cart/domain/usecases/fetch_cart_items_use_case.dart';
@@ -39,7 +38,7 @@ class CartCubit extends Cubit<CartState> {
   }
 
   // -- Remove Single Cart Item --
-  Future<void> removeSingleCartItem({required CartItemEntity cartItem}) async {
+  Future<void> removeSingleCartItem({required CartItemModel cartItem}) async {
     var result =
         await getIt.get<RemoverSingleCartItemUseCase>().call(params: cartItem);
     result.fold(
