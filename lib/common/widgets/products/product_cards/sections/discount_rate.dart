@@ -5,7 +5,8 @@ import 'package:t_store/utils/constants/sizes.dart';
 
 class TDiscountRate extends StatelessWidget {
   const TDiscountRate({
-    super.key, required this.rate,
+    super.key,
+    required this.rate,
   });
   final String rate;
   @override
@@ -16,11 +17,11 @@ class TDiscountRate extends StatelessWidget {
         vertical: TSizes.xs,
       ),
       radius: TSizes.sm,
-      backgroundColor: TColors.secondary.withValues(alpha:0.8),
+      backgroundColor: AppColors.secondary.withValues(alpha: 0.8),
       child: Text(
         rate,
         style: Theme.of(context).textTheme.labelLarge!.apply(
-              color: TColors.black,
+              color: AppColors.black,
             ),
       ),
     );

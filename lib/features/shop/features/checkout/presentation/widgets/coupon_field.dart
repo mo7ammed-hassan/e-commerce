@@ -13,7 +13,7 @@ class CouponFiled extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return TRoundedContainer(
       showBorder: true,
-      backgroundColor: isDark ? TColors.dark : TColors.white,
+      backgroundColor: isDark ? AppColors.dark : AppColors.white,
       padding: const EdgeInsets.only(
         top: TSizes.sm,
         bottom: TSizes.sm,
@@ -40,11 +40,11 @@ class CouponFiled extends StatelessWidget {
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 foregroundColor: isDark
-                    ? TColors.white.withValues(alpha:0.5)
-                    : TColors.dark.withValues(alpha:0.5),
-                backgroundColor: Colors.grey.withValues(alpha:0.2),
+                    ? AppColors.white.withValues(alpha: 0.5)
+                    : AppColors.dark.withValues(alpha: 0.5),
+                backgroundColor: Colors.grey.withValues(alpha: 0.2),
                 side: BorderSide(
-                  color: TColors.grey.withValues(alpha:0.1),
+                  color: AppColors.grey.withValues(alpha: 0.1),
                 ),
               ),
               child: const Text('Apply'),

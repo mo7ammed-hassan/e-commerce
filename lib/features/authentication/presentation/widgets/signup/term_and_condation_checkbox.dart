@@ -12,7 +12,7 @@ class TTermAndCondationCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
 
     return Row(
       children: [
@@ -40,10 +40,10 @@ class TTermAndCondationCheckbox extends StatelessWidget {
                 TextSpan(
                   text: '${TTexts.privacyPolicy} ',
                   style: Theme.of(context).textTheme.bodyMedium!.apply(
-                        color: isDark ? TColors.white : TColors.primary,
+                        color: isDark ? AppColors.white : AppColors.primary,
                         decoration: TextDecoration.underline,
                         decorationColor:
-                            isDark ? TColors.white : TColors.primary,
+                            isDark ? AppColors.white : AppColors.primary,
                       ),
                 ),
                 TextSpan(
@@ -53,10 +53,10 @@ class TTermAndCondationCheckbox extends StatelessWidget {
                 TextSpan(
                   text: TTexts.termsOfUse,
                   style: Theme.of(context).textTheme.bodyMedium!.apply(
-                        color: isDark ? TColors.white : TColors.primary,
+                        color: isDark ? AppColors.white : AppColors.primary,
                         decoration: TextDecoration.underline,
                         decorationColor:
-                            isDark ? TColors.white : TColors.primary,
+                            isDark ? AppColors.white : AppColors.primary,
                       ),
                 ),
               ],

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/features/shop/features/wishlist/data/source/wislist_local_sources.dart';
 import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/favorite_button_state.dart';
 import 'package:t_store/features/shop/features/wishlist/presentation/pages/cubits/wishlist_cubit.dart';
+import 'package:t_store/utils/popups/loaders.dart';
 
 class FavoriteButtonCubit extends Cubit<FavoriteButtonState> {
   FavoriteButtonCubit(this._wishlistCubit) : super(FavoriteButtonInitial());
@@ -20,6 +21,7 @@ class FavoriteButtonCubit extends Cubit<FavoriteButtonState> {
 
       emit(ToggleFavoriteButton(message));
 
+      Loaders.customToast(message: message);
       // After toggling, fetch the updated wishlist
       if (!isClosed) {
         await _wishlistCubit.fetchWishlist();

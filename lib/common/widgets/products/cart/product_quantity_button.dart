@@ -22,14 +22,14 @@ class TProductQuantityButtons extends StatelessWidget {
     return Row(
       children: [
         TCircularIcon(
-          backgroundColor: isDark ? TColors.darkerGrey : TColors.light,
+          backgroundColor: isDark ? AppColors.darkerGrey : AppColors.light,
           icon: Iconsax.minus,
           width: 32,
           height: 32,
           size: TSizes.md,
-          color: isDark ? TColors.white : TColors.black,
+          color: isDark ? AppColors.white : AppColors.black,
           onPressed: () {
-             context.read<CartCubit>().removeSingleCartItem(cartItem: cartItem);
+            context.read<CartCubit>().removeSingleCartItem(cartItem: cartItem);
           },
         ),
         const SizedBox(width: TSizes.spaceBtwItems),
@@ -39,12 +39,12 @@ class TProductQuantityButtons extends StatelessWidget {
         ),
         const SizedBox(width: TSizes.spaceBtwItems),
         TCircularIcon(
-          backgroundColor: TColors.primary,
+          backgroundColor: AppColors.primary,
           icon: Iconsax.add,
           width: 32,
           height: 32,
           size: TSizes.md,
-          color: TColors.white,
+          color: AppColors.white,
           onPressed: () {
             //context.read<CartCubit>().addSingleCartItem(cartItem: cartItem);
           },

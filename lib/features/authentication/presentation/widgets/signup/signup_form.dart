@@ -135,7 +135,7 @@ class TSignupForm extends StatelessWidget {
       child: BlocListener<SignupCubit, SignupState>(
         listener: (context, state) {
           if (state is PrivacyValidationErrorState) {
-            TLoaders.warningSnackBar(
+            Loaders.warningSnackBar(
               title: 'Accept Privacy Policy',
               message: state.errorMessage,
             );
@@ -146,7 +146,7 @@ class TSignupForm extends StatelessWidget {
             );
           } else if (state is SignupErrorState) {
             TFullScreenLoader.stopLoading();
-            TLoaders.errorSnackBar(
+            Loaders.errorSnackBar(
               title: 'Error',
               message: state.errorMessage,
             );
@@ -156,7 +156,7 @@ class TSignupForm extends StatelessWidget {
               context,
               context.read<SignupCubit>().emailController.text.trim(),
             );
-            TLoaders.successSnackBar(
+            Loaders.successSnackBar(
               title: 'Congratulations',
               message: state.message,
             );

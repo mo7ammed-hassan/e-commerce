@@ -5,19 +5,20 @@ import 'package:t_store/utils/helpers/helper_functions.dart';
 class TFormDivider extends StatelessWidget {
   final String dividerText;
   const TFormDivider({
-    super.key, required this.dividerText,
+    super.key,
+    required this.dividerText,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Flexible(
           child: Divider(
-            color: isDark ? TColors.darkGrey : TColors.grey,
+            color: isDark ? AppColors.darkGrey : AppColors.grey,
             thickness: 0.5,
             indent: 60,
             endIndent: 5,
@@ -29,7 +30,7 @@ class TFormDivider extends StatelessWidget {
         ),
         Flexible(
           child: Divider(
-            color: isDark ? TColors.darkGrey : TColors.grey,
+            color: isDark ? AppColors.darkGrey : AppColors.grey,
             thickness: 0.5,
             indent: 5,
             endIndent: 60,

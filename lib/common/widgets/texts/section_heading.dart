@@ -38,7 +38,7 @@ class TSectionHeading extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge!
-                  .apply(color: TColors.primary),
+                  .apply(color: AppColors.primary),
             ),
           )
       ],

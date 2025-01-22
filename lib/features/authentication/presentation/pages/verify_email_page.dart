@@ -39,7 +39,7 @@ class VerifyEmailPage extends StatelessWidget {
         body: BlocListener<VerifyEmailCubit, VerifyEmailState>(
           listener: (context, state) {
             if (state is SuccessSendVerifyEmailState) {
-              TLoaders.successSnackBar(
+              Loaders.successSnackBar(
                   title: 'Email Sent',
                   message: 'Please Check your inbox and verify email.');
               // } else if (state is VerifyEmailErrorState) {
@@ -66,7 +66,7 @@ class VerifyEmailPage extends StatelessWidget {
               child: Column(
                 children: [
                   Image(
-                    width: THelperFunctions.screenWidth() * 0.6,
+                    width: HelperFunctions.screenWidth() * 0.6,
                     image: const AssetImage(TImages.deliveredEmailIllustration),
                   ),
                   const SizedBox(height: TSizes.spaceBtwSections),

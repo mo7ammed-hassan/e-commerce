@@ -28,7 +28,7 @@ class ResetPasswordPage extends StatelessWidget {
           child: Column(
             children: [
               Image(
-                width: THelperFunctions.screenWidth() * 0.6,
+                width: HelperFunctions.screenWidth() * 0.6,
                 image: const AssetImage(TImages.deliveredEmailIllustration),
               ),
               const SizedBox(height: TSizes.spaceBtwSections),

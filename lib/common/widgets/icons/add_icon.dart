@@ -16,7 +16,7 @@ class TAddIcon extends StatelessWidget {
             bottomRight: Radius.circular(TSizes.productImageRadius),
             topLeft: Radius.circular(TSizes.productImageRadius),
           ),
-          color: TColors.dark,
+          color: AppColors.dark,
         ),
         child: const SizedBox(
           width: TSizes.iconLg * 1.2,
@@ -24,7 +24,7 @@ class TAddIcon extends StatelessWidget {
           child: Center(
             child: Icon(
               Iconsax.add,
-              color: TColors.white,
+              color: AppColors.white,
             ),
           ),
         ),

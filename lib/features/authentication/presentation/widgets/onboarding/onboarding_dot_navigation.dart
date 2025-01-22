@@ -12,7 +12,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = THelperFunctions.isDarkMode(context);
+    final isDarkMode = HelperFunctions.isDarkMode(context);
     final cubit = context.read<OnBoardingCubit>();
 
     return Positioned(
@@ -24,7 +24,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
         count: 3,
         onDotClicked: cubit.dotNavigationClick,
         effect: ExpandingDotsEffect(
-          activeDotColor: isDarkMode ? TColors.light : TColors.dark,
+          activeDotColor: isDarkMode ? AppColors.light : AppColors.dark,
           dotHeight: 5,
         ),
       ),

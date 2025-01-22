@@ -8,14 +8,14 @@ class TSocialButton extends StatelessWidget {
   const TSocialButton({
     super.key,
     required this.socialIcon,
-     this.onPressed,
+    this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: TColors.grey),
+        border: Border.all(color: AppColors.grey),
         borderRadius: BorderRadius.circular(100),
       ),
       child: IconButton(

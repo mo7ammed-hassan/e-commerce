@@ -17,14 +17,14 @@ class OpenContainerWrapper extends StatelessWidget {
   final double closedElevation;
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return OpenContainer(
       closedElevation: closedElevation,
       closedShape: RoundedRectangleBorder(
         side: const BorderSide(color: Colors.transparent),
         borderRadius: BorderRadius.all(radius),
       ),
-      closedColor: isDark ? Colors.transparent : TColors.white,
+      closedColor: isDark ? Colors.transparent : AppColors.white,
 
       transitionType: ContainerTransitionType.fade,
       transitionDuration: const Duration(milliseconds: 800), //850

@@ -6,8 +6,8 @@ import 'package:t_store/utils/constants/sizes.dart';
 class TCircularLoader extends StatelessWidget {
   const TCircularLoader({
     super.key,
-    this.foregroundColor = TColors.white,
-    this.backgroundColor = TColors.primary,
+    this.foregroundColor = AppColors.white,
+    this.backgroundColor = AppColors.primary,
   });
 
   final Color? foregroundColor;

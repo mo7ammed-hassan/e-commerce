@@ -14,13 +14,13 @@ class TCartCounterIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return Stack(
       children: [
         IconButton(
           icon: Icon(
             Iconsax.shopping_bag,
-            color: iconColor ?? (isDark ? TColors.white : TColors.black),
+            color: iconColor ?? (isDark ? AppColors.white : AppColors.black),
           ),
           onPressed: onPressed,
         ),
@@ -30,14 +30,14 @@ class TCartCounterIcon extends StatelessWidget {
             width: 18,
             height: 18,
             decoration: BoxDecoration(
-              color: TColors.black.withValues(alpha:0.8),
+              color: AppColors.black.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(100),
             ),
             child: Center(
               child: Text(
                 '2',
                 style: Theme.of(context).textTheme.bodySmall!.apply(
-                      color: TColors.white,
+                      color: AppColors.white,
                       fontSizeFactor: 0.8,
                     ),
               ),

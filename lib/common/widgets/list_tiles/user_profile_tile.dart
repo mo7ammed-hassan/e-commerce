@@ -28,7 +28,7 @@ class UserProfileTile extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall!
-                  .apply(color: TColors.white),
+                  .apply(color: AppColors.white),
               overflow: TextOverflow.ellipsis,
             ),
             subtitle: Text(
@@ -36,7 +36,7 @@ class UserProfileTile extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
-                  .apply(color: TColors.white),
+                  .apply(color: AppColors.white),
               overflow: TextOverflow.ellipsis,
             ),
             trailing: IconButton(
@@ -45,7 +45,7 @@ class UserProfileTile extends StatelessWidget {
               },
               icon: const Icon(
                 Iconsax.edit,
-                color: TColors.white,
+                color: AppColors.white,
               ),
             ),
           );

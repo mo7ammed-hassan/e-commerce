@@ -14,7 +14,7 @@ class TVerticalImageText extends StatelessWidget {
     super.key,
     required this.image,
     required this.title,
-    this.textColor = TColors.white,
+    this.textColor = AppColors.white,
     this.backgroundColor,
     this.onTap,
     this.isNetworkImage = true,
@@ -22,7 +22,7 @@ class TVerticalImageText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -35,7 +35,7 @@ class TVerticalImageText extends StatelessWidget {
               isNetworkImage: isNetworkImage,
               backgroundColor: backgroundColor,
               padding: TSizes.sm * 1.4,
-              imageColor: (isDark ? TColors.light : TColors.dark),
+              imageColor: (isDark ? AppColors.light : AppColors.dark),
             ),
             // Container(
             //   width: 56,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
+import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_state.dart';
 import 'package:t_store/features/shop/features/cart/presentation/widgets/cart_items.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/pages/checkout_page.dart';
 import 'package:t_store/utils/constants/sizes.dart';
@@ -13,16 +14,45 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CartCubit()..fetchCartItems(),
-      child: Scaffold(
-        bottomNavigationBar: _checkoutButton(context),
-        appBar: _appBar(context),
-        body: const Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: TSizes.spaceBtwItems,
-            vertical: TSizes.defaultSpace,
-          ),
-          child: CartItems(),
-        ),
+      child: BlocBuilder<CartCubit, CartState>(
+        builder: (context, state) {
+          if (state is CartLoadedState) {
+            if (state.cartItems.isEmpty) {
+              return Scaffold(
+                appBar: _appBar(context),
+                body: const Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: TSizes.spaceBtwItems,
+                    vertical: TSizes.defaultSpace,
+                  ),
+                  child: CartItems(),
+                ),
+              );
+            }
+            return Scaffold(
+              bottomNavigationBar: _checkoutButton(context),
+              appBar: _appBar(context),
+              body: const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: TSizes.spaceBtwItems,
+                  vertical: TSizes.defaultSpace,
+                ),
+                child: CartItems(),
+              ),
+            );
+          }
+          return Scaffold(
+            bottomNavigationBar: _checkoutButton(context),
+            appBar: _appBar(context),
+            body: const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: TSizes.spaceBtwItems,
+                vertical: TSizes.defaultSpace,
+              ),
+              child: CartItems(),
+            ),
+          );
+        },
       ),
     );
   }

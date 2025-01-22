@@ -19,8 +19,8 @@ class OnBoardingView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image(
-            width: THelperFunctions.screenWidth() * 0.8,
-            height: THelperFunctions.screenWidth() * 0.7,
+            width: HelperFunctions.screenWidth() * 0.8,
+            height: HelperFunctions.screenWidth() * 0.7,
             image: AssetImage(image),
           ),
           Text(

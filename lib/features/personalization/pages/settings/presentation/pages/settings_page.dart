@@ -36,7 +36,7 @@ class SettingsPage extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
-                          .apply(color: TColors.white),
+                          .apply(color: AppColors.white),
                     ),
                   ),
                   const SizedBox(height: TSizes.spaceBtwSections),
@@ -168,7 +168,7 @@ class SettingsPage extends StatelessWidget {
                         var result = await getIt<LogoutUseCase>().call();
                         return result.fold(
                           (errorMessage) {
-                            TLoaders.errorSnackBar(
+                            Loaders.errorSnackBar(
                               title: 'Error',
                               message: errorMessage,
                             );

@@ -121,7 +121,7 @@ class TLoginForm extends StatelessWidget {
             );
           } else if (state is SignInErrorState) {
             TFullScreenLoader.stopLoading();
-            TLoaders.errorSnackBar(
+            Loaders.errorSnackBar(
               title: 'Error',
               message: state.errorMessage,
             );
@@ -131,7 +131,7 @@ class TLoginForm extends StatelessWidget {
           } else if (state is NotVerifiedState) {
             TFullScreenLoader.stopLoading();
             context.removeAll(VerifyEmailPage(email: state.email));
-            TLoaders.successSnackBar(
+            Loaders.successSnackBar(
               title: 'Email Not Verified',
               message: 'Please Check your inbox and verify email.',
             );

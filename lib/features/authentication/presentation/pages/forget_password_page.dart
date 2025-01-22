@@ -80,14 +80,14 @@ class ForgetPasswordPage extends StatelessWidget {
             );
           } else if (state is ResetPasswordErrorState) {
             TFullScreenLoader.stopLoading();
-            TLoaders.errorSnackBar(
+            Loaders.errorSnackBar(
               title: 'Error',
               message: state.errorMessage,
             );
           } else if (state is ResetPasswordSuccessState) {
             TFullScreenLoader.stopLoading();
             context.pushPage(const ResetPasswordPage());
-            TLoaders.successSnackBar(
+            Loaders.successSnackBar(
               title: 'Success',
               message: state.successMessage,
             );

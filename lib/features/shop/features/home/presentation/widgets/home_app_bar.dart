@@ -22,7 +22,7 @@ class THomeAppBar extends StatelessWidget {
       actions: [
         TCartCounterIcon(
           onPressed: () => context.pushPage(const CartPage()),
-          iconColor: TColors.white,
+          iconColor: AppColors.white,
         ),
       ],
     );
@@ -37,7 +37,7 @@ class THomeAppBar extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .labelMedium!
-              .apply(color: TColors.grey),
+              .apply(color: AppColors.grey),
         ),
         _buildUserName(context),
       ],
@@ -53,7 +53,7 @@ class THomeAppBar extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall!
-                .apply(color: TColors.grey, fontSizeFactor: 1.1),
+                .apply(color: AppColors.grey, fontSizeFactor: 1.1),
           );
         }
         return _loadingWidget(context);
@@ -68,7 +68,7 @@ class THomeAppBar extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .headlineSmall!
-            .apply(color: TColors.grey, fontSizeFactor: 1.1),
+            .apply(color: AppColors.grey, fontSizeFactor: 1.1),
       ),
     );
   }

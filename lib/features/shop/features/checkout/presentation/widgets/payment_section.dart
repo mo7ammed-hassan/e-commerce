@@ -26,7 +26,7 @@ class PaymentSection extends StatelessWidget {
             TRoundedImage(
               width: 55,
               height: 30,
-              backgroundColor: isDark ? TColors.light : TColors.white,
+              backgroundColor: isDark ? AppColors.light : AppColors.white,
               imageUrl: TImages.visa,
               fit: BoxFit.contain,
               padding: const EdgeInsets.all(2),

@@ -71,13 +71,13 @@ class ChangeNameForm extends StatelessWidget {
           } else if (state is UpdateUserSuccessState) {
             TFullScreenLoader.stopLoading();
             Navigator.of(context).pop(); // Replaces context.removePage
-            TLoaders.successSnackBar(
+            Loaders.successSnackBar(
               title: 'Success',
               message: state.message,
             );
           } else if (state is UpdateUserFailureState) {
             TFullScreenLoader.stopLoading();
-            TLoaders.errorSnackBar(
+            Loaders.errorSnackBar(
               title: 'Error',
               message: state.errorMessage,
             );

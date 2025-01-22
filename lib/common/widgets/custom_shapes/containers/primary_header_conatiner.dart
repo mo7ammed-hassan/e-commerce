@@ -16,7 +16,7 @@ class TPrimaryHeaderConatiner extends StatelessWidget {
       child: SizedBox(
         child: Container(
           decoration: const BoxDecoration(
-            color: TColors.primary,
+            color: AppColors.primary,
           ),
           child: Stack(
             children: [
@@ -24,14 +24,14 @@ class TPrimaryHeaderConatiner extends StatelessWidget {
                 top: -150,
                 right: -250,
                 child: TCircularContainer(
-                  backgroundColor: TColors.textWhite.withValues(alpha:0.1),
+                  backgroundColor: AppColors.textWhite.withValues(alpha: 0.1),
                 ),
               ),
               Positioned(
                 top: 100,
                 right: -300,
                 child: TCircularContainer(
-                  backgroundColor: TColors.textWhite.withValues(alpha:0.1),
+                  backgroundColor: AppColors.textWhite.withValues(alpha: 0.1),
                 ),
               ),
               child,

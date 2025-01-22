@@ -29,7 +29,7 @@ class FavoriteButton extends StatelessWidget {
                     .read<FavoriteButtonCubit>()
                     .checkProductInWishlist(productId)
                 ? Colors.red
-                : TColors.grey,
+                : AppColors.grey,
           );
         },
         listener: (context, state) {

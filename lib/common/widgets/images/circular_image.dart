@@ -28,13 +28,13 @@ class TCircularImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return Container(
       width: width,
       height: height,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        color: backgroundColor ?? (isDark ? TColors.black : TColors.white),
+        color: backgroundColor ?? (isDark ? AppColors.black : AppColors.white),
         borderRadius: BorderRadius.circular(100),
       ),
       child: Center(
@@ -44,7 +44,7 @@ class TCircularImage extends StatelessWidget {
               ? CachedNetworkImage(
                   imageUrl: image,
                   fit: fit,
-                  color: (isDark ? TColors.light : TColors.dark),
+                  color: (isDark ? AppColors.light : AppColors.dark),
                   progressIndicatorBuilder: (context, url, progress) =>
                       const ShimmerWidget(
                     height: 75,

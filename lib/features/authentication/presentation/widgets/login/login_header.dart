@@ -11,7 +11,7 @@ class TLoginHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -19,7 +19,7 @@ class TLoginHeader extends StatelessWidget {
           image: AssetImage(
             isDark ? TImages.lightAppLogo : TImages.darkAppLogo,
           ),
-          height: THelperFunctions.screenWidth() * 0.5,
+          height: HelperFunctions.screenWidth() * 0.5,
         ),
         Text(
           TTexts.loginTitle,

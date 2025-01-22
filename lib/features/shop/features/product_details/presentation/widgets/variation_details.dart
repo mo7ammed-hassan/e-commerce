@@ -22,7 +22,7 @@ class VariationDetails extends StatelessWidget {
 
         return TRoundedContainer(
           padding: const EdgeInsets.all(TSizes.md),
-          backgroundColor: isDark ? TColors.darkGrey : TColors.grey,
+          backgroundColor: isDark ? AppColors.darkGrey : AppColors.grey,
           child: Column(
             children: [
               _buildVariationHeader(context, state),

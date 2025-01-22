@@ -16,7 +16,7 @@ class TBrandTitleWithVerifiedIcon extends StatelessWidget {
   const TBrandTitleWithVerifiedIcon({
     super.key,
     required this.title,
-    this.iconColor = TColors.primary,
+    this.iconColor = AppColors.primary,
     this.maxLines = 1,
     this.textAlign = TextAlign.start,
     this.textColor,

@@ -14,7 +14,7 @@ class BuildImagesSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<ImagesProductCubit>();
     final images = cubit.getAllProductImages(product);
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return SizedBox(
       height: 80,
       child: ListView.separated(
@@ -31,10 +31,11 @@ class BuildImagesSlider extends StatelessWidget {
                   width: 80,
                   padding: const EdgeInsets.all(TSizes.xs),
                   imageUrl: image,
-                  backgroundColor: isDark ? TColors.dark : TColors.white,
+                  backgroundColor: isDark ? AppColors.dark : AppColors.white,
                   border: Border.all(
-                    color:
-                        selectedImage == image ? TColors.primary : TColors.grey,
+                    color: selectedImage == image
+                        ? AppColors.primary
+                        : AppColors.grey,
                     width: 2,
                   ),
                 ),

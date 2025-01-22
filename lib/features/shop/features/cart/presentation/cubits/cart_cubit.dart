@@ -8,6 +8,7 @@ import 'package:t_store/features/shop/features/cart/domain/usecases/fetch_cart_i
 import 'package:t_store/features/shop/features/cart/domain/usecases/remover_single_cart_item_use_case.dart';
 import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_state.dart';
 import 'package:t_store/service_locator.dart';
+import 'package:t_store/utils/popups/loaders.dart';
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitialState());
@@ -30,12 +31,14 @@ class CartCubit extends Cubit<CartState> {
 
     result.fold(
       (failure) => emit(CartErrorState(failure.message)),
-      (_) => fetchCartItems(),
+      (_) {
+        Loaders.customToast(message: 'Item added to cart');
+        fetchCartItems();
+      },
     );
   }
 
   // -- Remove Single Cart Item --
-
   Future<void> removeSingleCartItem({required CartItemEntity cartItem}) async {
     var result =
         await getIt.get<RemoverSingleCartItemUseCase>().call(params: cartItem);

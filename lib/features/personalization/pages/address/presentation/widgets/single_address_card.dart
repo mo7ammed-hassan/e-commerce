@@ -20,7 +20,7 @@ class SingleAddressCard extends StatelessWidget {
   final VoidCallback? onLongPress;
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
 
     return BlocBuilder<AddressCubit, AddressState>(
       buildWhen: (previous, current) {
@@ -40,15 +40,15 @@ class SingleAddressCard extends StatelessWidget {
           child: TRoundedContainer(
             width: double.infinity,
             backgroundColor: isSelectedAddress
-                ? TColors.primary.withValues(alpha: 0.4)
+                ? AppColors.primary.withValues(alpha: 0.4)
                 : Colors.transparent,
             padding: const EdgeInsets.all(TSizes.md),
             showBorder: true,
             borderColor: isSelectedAddress
                 ? Colors.transparent
                 : isDark
-                    ? TColors.darkerGrey
-                    : TColors.grey,
+                    ? AppColors.darkerGrey
+                    : AppColors.grey,
             child: Stack(
               children: [
                 Positioned(
@@ -58,8 +58,8 @@ class SingleAddressCard extends StatelessWidget {
                     isSelectedAddress ? Iconsax.tick_circle5 : null,
                     color: isSelectedAddress
                         ? isDark
-                            ? TColors.light
-                            : TColors.dark
+                            ? AppColors.light
+                            : AppColors.dark
                         : null,
                   ),
                 ),

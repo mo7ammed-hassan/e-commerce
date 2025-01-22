@@ -21,8 +21,8 @@ class UploadDataCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(leadingIcon, color: TColors.primary, size: 30),
-      trailing: Icon(trailingIcon, color: TColors.primary, size: 28),
+      leading: Icon(leadingIcon, color: AppColors.primary, size: 30),
+      trailing: Icon(trailingIcon, color: AppColors.primary, size: 28),
       title: Text(
         title,
         style: Theme.of(context).textTheme.titleMedium,

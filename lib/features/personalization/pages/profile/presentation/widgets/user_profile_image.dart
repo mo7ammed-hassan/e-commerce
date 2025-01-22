@@ -29,13 +29,13 @@ class UserProfileImage extends StatelessWidget {
               UploadUserProfileImageState>(
             listener: (context, state) {
               if (state is UploadUserProfileImageSuccessState) {
-                TLoaders.successSnackBar(
+                Loaders.successSnackBar(
                   title: 'Congratulations',
                   message: 'Success Uploaded image',
                 );
               }
               if (state is UploadUserProfileImageFailureState) {
-                TLoaders.errorSnackBar(
+                Loaders.errorSnackBar(
                   title: 'Error',
                   message: 'Failed to upload image',
                 );

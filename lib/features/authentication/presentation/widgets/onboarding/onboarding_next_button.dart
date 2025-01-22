@@ -12,7 +12,7 @@ class OnBoardingNextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return Positioned(
       bottom: TDeviceUtils.getBottomNavigationBarHeight(),
       right: TSizes.defaultSpace,
@@ -22,9 +22,9 @@ class OnBoardingNextButton extends StatelessWidget {
         },
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),
-          backgroundColor: isDark ? TColors.primary : Colors.black,
+          backgroundColor: isDark ? AppColors.primary : Colors.black,
         ),
-        child: const Icon(Iconsax.arrow_right_3, color: TColors.white),
+        child: const Icon(Iconsax.arrow_right_3, color: AppColors.white),
       ),
     );
   }

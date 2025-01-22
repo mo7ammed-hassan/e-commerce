@@ -10,7 +10,7 @@ class TBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return BlocBuilder<NavigationMenuCubit, int>(
       builder: (context, state) {
         return NavigationBar(
@@ -18,10 +18,10 @@ class TBottomNavigationBar extends StatelessWidget {
           elevation: 0,
           selectedIndex: state,
           onDestinationSelected: context.read<NavigationMenuCubit>().setScreen,
-          backgroundColor: isDark ? TColors.black : TColors.white,
+          backgroundColor: isDark ? AppColors.black : AppColors.white,
           indicatorColor: isDark
-              ? TColors.white.withValues(alpha:0.1)
-              : TColors.black.withValues(alpha:0.1),
+              ? AppColors.white.withValues(alpha: 0.1)
+              : AppColors.black.withValues(alpha: 0.1),
           destinations: const [
             NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
             NavigationDestination(icon: Icon(Iconsax.shop), label: 'Store'),

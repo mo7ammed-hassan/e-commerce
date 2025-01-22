@@ -14,7 +14,7 @@ class TBrandCard extends StatelessWidget {
   final BrandEntity brand;
   @override
   Widget build(BuildContext context) {
-    final bool isDark = THelperFunctions.isDarkMode(context);
+    final bool isDark = HelperFunctions.isDarkMode(context);
     return TRoundedContainer(
       padding: const EdgeInsets.all(TSizes.sm),
       showBorder: showBorder,
@@ -26,7 +26,7 @@ class TBrandCard extends StatelessWidget {
               isNetworkImage: false,
               image: brand.image,
               backgroundColor: Colors.transparent,
-              imageColor: (isDark ? TColors.light : TColors.dark),
+              imageColor: (isDark ? AppColors.light : AppColors.dark),
             ),
           ),
           const SizedBox(width: TSizes.spaceBtwItems / 2),

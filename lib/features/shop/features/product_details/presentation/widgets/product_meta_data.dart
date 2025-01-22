@@ -21,7 +21,7 @@ class TProductMetaData extends StatelessWidget {
   final ProductEntity product;
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     final cubit = getIt.get<ProductsCubit>();
     final salePersentage = cubit.calculateProductDiscount(
         product.price.toDouble(), product.salePrice!);
@@ -81,7 +81,7 @@ class TProductMetaData extends StatelessWidget {
               image: product.brand?.image ?? TImages.nikeLogo,
               width: 32,
               height: 32,
-              backgroundColor: isDark ? TColors.black : TColors.white,
+              backgroundColor: isDark ? AppColors.black : AppColors.white,
             ),
             const SizedBox(width: 5),
             TBrandTitleWithVerifiedIcon(

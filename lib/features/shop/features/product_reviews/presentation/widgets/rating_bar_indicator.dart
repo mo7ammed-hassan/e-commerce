@@ -5,7 +5,8 @@ import 'package:t_store/utils/constants/colors.dart';
 
 class TRatingBarIndicator extends StatelessWidget {
   const TRatingBarIndicator({
-    super.key, required this.rating,
+    super.key,
+    required this.rating,
   });
   final double rating;
   @override
@@ -15,7 +16,7 @@ class TRatingBarIndicator extends StatelessWidget {
       itemSize: 20.0,
       itemBuilder: (context, index) => const Icon(
         Iconsax.star1,
-        color: TColors.primary,
+        color: AppColors.primary,
       ),
     );
   }

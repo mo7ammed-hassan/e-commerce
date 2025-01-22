@@ -20,7 +20,7 @@ class ProductCardHorizantal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return OpenContainerWrapper(
       radius: const Radius.circular(TSizes.productImageRadius),
       nextScreen: ProductDetailPage(product: product),
@@ -29,7 +29,7 @@ class ProductCardHorizantal extends StatelessWidget {
         padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(TSizes.productImageRadius),
-          color: isDark ? TColors.darkerGrey : TColors.softGrey,
+          color: isDark ? AppColors.darkerGrey : AppColors.softGrey,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +38,7 @@ class ProductCardHorizantal extends StatelessWidget {
             TRoundedContainer(
               height: 120,
               padding: const EdgeInsets.all(TSizes.xs),
-              backgroundColor: isDark ? TColors.dark : TColors.grey,
+              backgroundColor: isDark ? AppColors.dark : AppColors.grey,
               child: Stack(
                 children: [
                   SizedBox(

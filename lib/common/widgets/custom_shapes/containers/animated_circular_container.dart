@@ -15,7 +15,7 @@ class TAnimatedCircularConatiner extends StatelessWidget {
     this.padding = 0,
     this.margin,
     this.child,
-    this.backgroundColor = TColors.white,
+    this.backgroundColor = AppColors.white,
   });
 
   @override

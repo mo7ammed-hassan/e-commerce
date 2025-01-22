@@ -15,6 +15,7 @@ import 'package:t_store/features/shop/features/home/domain/entites/category_enti
 import 'package:t_store/features/shop/features/wishlist/data/model/wishlist_model.dart';
 import 'package:t_store/firebase_options.dart';
 import 'package:t_store/service_locator.dart';
+import 'package:t_store/utils/popups/loaders.dart';
 import 'package:t_store/utils/theme/theme.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -96,8 +97,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'T-Store',
         themeMode: ThemeMode.system,
-        theme: TAppTheme.lightTheme,
-        darkTheme: TAppTheme.darkTheme,
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        navigatorKey: AppContext.navigatorKey,
         home: const AppEntryPoint(),
       ),
     );

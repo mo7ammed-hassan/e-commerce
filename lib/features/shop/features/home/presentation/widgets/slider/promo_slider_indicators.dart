@@ -25,7 +25,7 @@ class TPromoSliderIndicators extends StatelessWidget {
                 height: 4,
                 margin: const EdgeInsets.only(right: 10),
                 backgroundColor:
-                    state == index ? TColors.primary : TColors.grey,
+                    state == index ? AppColors.primary : AppColors.grey,
               ),
             ),
           ),

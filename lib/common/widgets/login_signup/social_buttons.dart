@@ -32,7 +32,7 @@ class TSocialButtons extends StatelessWidget {
                 );
               } else if (state is SignInWithGoogleFaliureState) {
                 TFullScreenLoader.stopLoading();
-                TLoaders.errorSnackBar(
+                Loaders.errorSnackBar(
                   title: 'Error',
                   message: state.errorMessage,
                 );
@@ -42,21 +42,19 @@ class TSocialButtons extends StatelessWidget {
               } else if (state is NotVerifiedEmailState) {
                 TFullScreenLoader.stopLoading();
                 context.removeAll(VerifyEmailPage(email: state.email));
-                TLoaders.successSnackBar(
+                Loaders.successSnackBar(
                   title: 'Email Not Verified',
                   message: 'Please Check your inbox and verify email.',
                 );
               }
             },
-            child: Builder(
-              builder: (context) {
-                return TSocialButton(
-                  onPressed: () =>
-                      context.read<SignInWithGoogleCubit>().signInWithGoogle(),
-                  socialIcon: TImages.google,
-                );
-              }
-            ),
+            child: Builder(builder: (context) {
+              return TSocialButton(
+                onPressed: () =>
+                    context.read<SignInWithGoogleCubit>().signInWithGoogle(),
+                socialIcon: TImages.google,
+              );
+            }),
           ),
           const SizedBox(width: TSizes.spaceBtwItems),
           const TSocialButton(socialIcon: TImages.facebook),

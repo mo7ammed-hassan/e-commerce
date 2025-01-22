@@ -18,10 +18,10 @@ class TProductDetailImageSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return TCurvedEdgeWidget(
       child: Container(
-        color: isDark ? TColors.darkerGrey : TColors.light,
+        color: isDark ? AppColors.darkerGrey : AppColors.light,
         child: Stack(
           children: [
             _buildMainImage(context),

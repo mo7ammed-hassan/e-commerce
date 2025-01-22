@@ -26,7 +26,7 @@ class SuccessPage extends StatelessWidget {
             children: [
               Lottie.asset(
                 image,
-                width: THelperFunctions.screenWidth() * 0.6,
+                width: HelperFunctions.screenWidth() * 0.6,
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
               Text(

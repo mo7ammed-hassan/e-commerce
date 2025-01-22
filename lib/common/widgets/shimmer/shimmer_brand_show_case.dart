@@ -16,7 +16,7 @@ class ShimmerBrandShowCase extends StatelessWidget {
     return Skeletonizer(
       child: TRoundedContainer(
         showBorder: true,
-        borderColor: TColors.darkGrey,
+        borderColor: AppColors.darkGrey,
         backgroundColor: Colors.transparent,
         //margin: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
         padding: const EdgeInsets.all(TSizes.md),
@@ -32,14 +32,13 @@ class ShimmerBrandShowCase extends StatelessWidget {
                 (index) => Expanded(
                   child: TRoundedContainer(
                     height: 100,
-                    backgroundColor: THelperFunctions.isDarkMode(context)
-                        ? TColors.darkerGrey
-                        : TColors.light,
+                    backgroundColor: HelperFunctions.isDarkMode(context)
+                        ? AppColors.darkerGrey
+                        : AppColors.light,
                     margin: const EdgeInsets.only(right: TSizes.sm),
                     padding: const EdgeInsets.all(2),
                     child: ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(TSizes.cardRadiusLg),
+                      borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
                       child: const Image(
                         image: AssetImage(TImages.productImage1),
                         fit: BoxFit.cover,

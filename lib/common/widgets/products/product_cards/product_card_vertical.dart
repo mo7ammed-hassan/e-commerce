@@ -20,7 +20,7 @@ class TVerticalProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartCubit = CartCubit();
     ProductsCubit cubit = ProductsCubit();
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return OpenContainerWrapper(
       radius: const Radius.circular(TSizes.productImageRadius),
       nextScreen: ProductDetailPage(product: product),
@@ -30,7 +30,7 @@ class TVerticalProductCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(TSizes.productImageRadius),
           boxShadow: [TShadowStyle.verticalProductShadow],
-          color: isDark ? TColors.darkerGrey : TColors.white,
+          color: isDark ? AppColors.darkerGrey : AppColors.white,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

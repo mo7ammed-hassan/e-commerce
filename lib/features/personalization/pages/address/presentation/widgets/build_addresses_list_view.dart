@@ -46,7 +46,7 @@ class BuildAddressesListView extends StatelessWidget {
   // Loading Widget
   Widget _loadingWidget() {
     return const Center(
-      child: CircularProgressIndicator(color: TColors.primary),
+      child: CircularProgressIndicator(color: AppColors.primary),
     );
   }
 

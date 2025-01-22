@@ -133,13 +133,13 @@ class AddNewAddressPage extends StatelessWidget {
                   listener: (context, state) {
                     if (state is AddAddressSuccessState) {
                       Navigator.pop(context);
-                      TLoaders.customToast(
+                      Loaders.customToast(
                         message: 'Address added successfully 🥳',
                       );
                     }
 
                     if (state is AddAddressFailureState) {
-                      TLoaders.errorSnackBar(
+                      Loaders.errorSnackBar(
                         title: 'Error',
                         message: 'There was an error adding your address',
                       );

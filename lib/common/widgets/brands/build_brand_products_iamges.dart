@@ -51,9 +51,9 @@ class BuildBrandProductsImages extends StatelessWidget {
   Widget _topBrandImage(BuildContext context, {required String image}) {
     return TRoundedContainer(
       height: 100,
-      backgroundColor: THelperFunctions.isDarkMode(context)
-          ? TColors.darkerGrey
-          : TColors.light,
+      backgroundColor: HelperFunctions.isDarkMode(context)
+          ? AppColors.darkerGrey
+          : AppColors.light,
       margin: const EdgeInsets.only(right: TSizes.sm),
       padding: const EdgeInsets.all(TSizes.md),
       child: ClipRRect(

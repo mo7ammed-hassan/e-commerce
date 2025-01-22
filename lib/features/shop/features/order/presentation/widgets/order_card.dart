@@ -10,11 +10,11 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return TRoundedContainer(
       padding: const EdgeInsets.all(TSizes.md),
       showBorder: true,
-      backgroundColor: isDark ? TColors.dark : TColors.light,
+      backgroundColor: isDark ? AppColors.dark : AppColors.light,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -30,7 +30,7 @@ class OrderCard extends StatelessWidget {
                     Text(
                       'Proccessing',
                       style: Theme.of(context).textTheme.bodyLarge!.apply(
-                            color: TColors.primary,
+                            color: AppColors.primary,
                             fontSizeDelta: 1, // reduce the size
                           ),
                     ),

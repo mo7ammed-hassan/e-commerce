@@ -27,12 +27,12 @@ class TReadMoreText extends StatelessWidget {
       moreStyle: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.bold,
-        color: TColors.primary,
+        color: AppColors.primary,
       ),
       lessStyle: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.bold,
-        color: TColors.primary,
+        color: AppColors.primary,
       ),
     );
   }

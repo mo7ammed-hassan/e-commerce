@@ -7,9 +7,7 @@ import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class ShimmerBrandProductsImages extends StatelessWidget {
-  const ShimmerBrandProductsImages({
-    super.key
-  });
+  const ShimmerBrandProductsImages({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +18,9 @@ class ShimmerBrandProductsImages extends StatelessWidget {
           (index) => Expanded(
             child: TRoundedContainer(
               height: 100,
-              backgroundColor: THelperFunctions.isDarkMode(context)
-                  ? TColors.darkerGrey
-                  : TColors.light,
+              backgroundColor: HelperFunctions.isDarkMode(context)
+                  ? AppColors.darkerGrey
+                  : AppColors.light,
               margin: const EdgeInsets.only(right: TSizes.sm),
               padding: const EdgeInsets.all(2),
               child: ClipRRect(

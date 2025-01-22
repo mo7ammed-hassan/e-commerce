@@ -14,7 +14,7 @@ class StoreResponse extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return TRoundedContainer(
       padding: const EdgeInsets.all(TSizes.md),
-      backgroundColor: isDark ? TColors.darkerGrey : TColors.grey,
+      backgroundColor: isDark ? AppColors.darkerGrey : AppColors.grey,
       child: Column(
         children: [
           Row(

@@ -32,9 +32,9 @@ class StorePage extends StatelessWidget {
                 automaticallyImplyLeading: false,
                 pinned: true,
                 floating: true,
-                backgroundColor: THelperFunctions.isDarkMode(context)
-                    ? TColors.black
-                    : TColors.white,
+                backgroundColor: HelperFunctions.isDarkMode(context)
+                    ? AppColors.black
+                    : AppColors.white,
                 expandedHeight: 420, //440
                 flexibleSpace: const Padding(
                   padding: EdgeInsets.all(TSizes.defaultSpace),

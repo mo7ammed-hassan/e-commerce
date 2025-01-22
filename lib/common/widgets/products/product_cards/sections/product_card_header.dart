@@ -19,12 +19,12 @@ class TProductCardHeader extends StatelessWidget {
   final String productId;
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return TRoundedContainer(
       height: 180,
       width: 180,
       padding: const EdgeInsets.all(TSizes.sm),
-      backgroundColor: isDark ? TColors.dark : TColors.light,
+      backgroundColor: isDark ? AppColors.dark : AppColors.light,
       child: Stack(
         children: [
           _productImage(),

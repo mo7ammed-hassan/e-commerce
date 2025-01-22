@@ -18,7 +18,7 @@ class TBottomAddToCart extends StatelessWidget {
         vertical: TSizes.spaceBtwItems / 2,
       ),
       decoration: BoxDecoration(
-        color: isDark ? TColors.darkerGrey : TColors.light,
+        color: isDark ? AppColors.darkerGrey : AppColors.light,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(TSizes.cardRadiusLg),
           topRight: Radius.circular(TSizes.cardRadiusLg),
@@ -30,11 +30,11 @@ class TBottomAddToCart extends StatelessWidget {
           Row(
             children: [
               const TCircularIcon(
-                backgroundColor: TColors.darkGrey,
+                backgroundColor: AppColors.darkGrey,
                 icon: Iconsax.minus,
                 width: 40,
                 height: 40,
-                color: TColors.white,
+                color: AppColors.white,
               ),
               const SizedBox(width: TSizes.spaceBtwItems),
               Text(
@@ -43,11 +43,11 @@ class TBottomAddToCart extends StatelessWidget {
               ),
               const SizedBox(width: TSizes.spaceBtwItems),
               const TCircularIcon(
-                backgroundColor: TColors.black,
+                backgroundColor: AppColors.black,
                 icon: Iconsax.add,
                 width: 40,
                 height: 40,
-                color: TColors.white,
+                color: AppColors.white,
               ),
             ],
           ),
@@ -58,8 +58,8 @@ class TBottomAddToCart extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(TSizes.md),
-              backgroundColor: TColors.black,
-              side: const BorderSide(color: TColors.black),
+              backgroundColor: AppColors.black,
+              side: const BorderSide(color: AppColors.black),
             ),
             child: const Text('Add to cart'),
           ),

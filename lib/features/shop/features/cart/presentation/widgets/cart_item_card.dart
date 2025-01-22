@@ -19,7 +19,7 @@ class CartItemCard extends StatelessWidget {
   final CartItemEntity cartItem;
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return Column(
       children: [
         Row(
@@ -30,7 +30,7 @@ class CartItemCard extends StatelessWidget {
               width: 60,
               height: 60,
               padding: const EdgeInsets.all(TSizes.sm),
-              backgroundColor: isDark ? TColors.darkerGrey : TColors.light,
+              backgroundColor: isDark ? AppColors.darkerGrey : AppColors.light,
             ),
             const SizedBox(width: TSizes.spaceBtwItems),
             Expanded(

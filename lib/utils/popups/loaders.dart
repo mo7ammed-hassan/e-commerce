@@ -5,12 +5,12 @@ import 'package:iconsax/iconsax.dart';
 import '../constants/colors.dart';
 import '../helpers/helper_functions.dart';
 
-class TLoaders {
+class Loaders {
   static hideSnackBar() =>
-      ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
+      ScaffoldMessenger.of(AppContext.context).hideCurrentSnackBar();
 
   static customToast({required message, bool isMedium = true}) {
-    ScaffoldMessenger.of(Get.context!).showSnackBar(
+    ScaffoldMessenger.of(AppContext.context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
         elevation: 0,
@@ -21,16 +21,16 @@ class TLoaders {
           margin: const EdgeInsets.symmetric(horizontal: 30),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: THelperFunctions.isDarkMode(Get.context!)
-                ? TColors.darkerGrey.withValues(alpha: 0.9)
-                : TColors.grey.withValues(alpha: 0.9),
+            color: HelperFunctions.isDarkMode(AppContext.context)
+                ? AppColors.darkerGrey.withValues(alpha: 0.9)
+                : AppColors.grey.withValues(alpha: 0.9),
           ),
           child: Center(
             child: Text(
               message,
               style: isMedium
-                  ? Theme.of(Get.context!).textTheme.bodyMedium
-                  : Theme.of(Get.context!).textTheme.labelLarge,
+                  ? Theme.of(AppContext.context).textTheme.bodyMedium
+                  : Theme.of(AppContext.context).textTheme.labelLarge,
             ),
           ),
         ),
@@ -39,7 +39,7 @@ class TLoaders {
   }
 
   static customToastLoading() {
-    ScaffoldMessenger.of(Get.context!).showSnackBar(
+    ScaffoldMessenger.of(AppContext.context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
         elevation: 0,
@@ -50,13 +50,13 @@ class TLoaders {
           margin: const EdgeInsets.symmetric(horizontal: 30),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: THelperFunctions.isDarkMode(Get.context!)
-                ? TColors.darkerGrey.withValues(alpha: 0.9)
-                : TColors.grey.withValues(alpha: 0.9),
+            color: HelperFunctions.isDarkMode(AppContext.context)
+                ? AppColors.darkerGrey.withValues(alpha: 0.9)
+                : AppColors.grey.withValues(alpha: 0.9),
           ),
           child: const Center(
             child: CircularProgressIndicator(
-              color: TColors.primary,
+              color: AppColors.primary,
             ),
           ),
         ),
@@ -71,11 +71,11 @@ class TLoaders {
       isDismissible: true,
       shouldIconPulse: true,
       colorText: Colors.white,
-      backgroundColor: TColors.primary,
+      backgroundColor: AppColors.primary,
       snackPosition: SnackPosition.BOTTOM,
       duration: Duration(seconds: duration),
       margin: const EdgeInsets.all(10),
-      icon: const Icon(Iconsax.check, color: TColors.white),
+      icon: const Icon(Iconsax.check, color: AppColors.white),
     );
   }
 
@@ -85,12 +85,12 @@ class TLoaders {
       message,
       isDismissible: true,
       shouldIconPulse: true,
-      colorText: TColors.white,
+      colorText: AppColors.white,
       backgroundColor: Colors.orange,
       snackPosition: SnackPosition.BOTTOM,
       duration: const Duration(seconds: 3),
       margin: const EdgeInsets.all(20),
-      icon: const Icon(Iconsax.warning_2, color: TColors.white),
+      icon: const Icon(Iconsax.warning_2, color: AppColors.white),
     );
   }
 
@@ -100,12 +100,28 @@ class TLoaders {
       message,
       isDismissible: true,
       shouldIconPulse: true,
-      colorText: TColors.white,
+      colorText: AppColors.white,
       backgroundColor: Colors.red.shade600,
       snackPosition: SnackPosition.BOTTOM,
       duration: const Duration(seconds: 3),
       margin: const EdgeInsets.all(20),
-      icon: const Icon(Iconsax.warning_2, color: TColors.white),
+      icon: const Icon(Iconsax.warning_2, color: AppColors.white),
     );
+  }
+}
+
+class AppContext {
+  AppContext._();
+  // Singleton Instance
+  static final AppContext instance = AppContext._();
+
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
+
+  static BuildContext get context {
+    if (navigatorKey.currentContext == null) {
+      throw Exception("Context is not available yet!");
+    }
+    return navigatorKey.currentContext!;
   }
 }

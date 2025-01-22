@@ -14,7 +14,7 @@ class TBrandShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     return TRoundedContainer(
       showBorder: true,
-      borderColor: TColors.darkGrey,
+      borderColor: AppColors.darkGrey,
       backgroundColor: Colors.transparent,
       //margin: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
       padding: const EdgeInsets.all(TSizes.md),

@@ -30,7 +30,7 @@ class AddressPage extends StatelessWidget {
                 if (state is SelectedAddressLoadingState)
                   const Center(
                     child: CircularProgressIndicator(
-                      color: TColors.primary,
+                      color: AppColors.primary,
                     ),
                   ),
               ],
@@ -47,7 +47,7 @@ class AddressPage extends StatelessWidget {
       builder: (context) {
         final addressCubit = context.read<AddressCubit>();
         return FloatingActionButton(
-          backgroundColor: TColors.primary,
+          backgroundColor: AppColors.primary,
           onPressed: () {
             Navigator.push(
               context,
@@ -61,7 +61,7 @@ class AddressPage extends StatelessWidget {
           },
           child: const Icon(
             Iconsax.add,
-            color: TColors.white,
+            color: AppColors.white,
           ),
         );
       },

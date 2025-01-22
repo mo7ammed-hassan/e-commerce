@@ -15,7 +15,7 @@ class ChekoutOrderDetial extends StatelessWidget {
     return TRoundedContainer(
       padding: const EdgeInsets.all(TSizes.md),
       showBorder: true,
-      backgroundColor: isDark ? TColors.black : TColors.white,
+      backgroundColor: isDark ? AppColors.black : AppColors.white,
       child: const Column(
         children: [
           PricingSection(),

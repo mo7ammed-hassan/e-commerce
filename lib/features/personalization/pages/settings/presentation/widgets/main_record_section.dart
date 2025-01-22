@@ -23,14 +23,14 @@ class MainRecordSection extends StatelessWidget {
         }
         if (state is UploadDataSuccess) {
           TFullScreenLoader.stopLoading();
-          TLoaders.successSnackBar(
+          Loaders.successSnackBar(
             title: 'Congratulations',
             message: state.message,
           );
         }
         if (state is UploadDataFailure) {
           TFullScreenLoader.stopLoading();
-          TLoaders.errorSnackBar(
+          Loaders.errorSnackBar(
             title: 'Error',
             message: state.error.toString(),
           );

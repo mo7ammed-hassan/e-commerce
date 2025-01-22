@@ -52,7 +52,7 @@ class CloseAccountButton extends StatelessWidget {
       confirm: ElevatedButton(
         style: ElevatedButton.styleFrom(
           side: BorderSide.none,
-          backgroundColor: TColors.warning,
+          backgroundColor: AppColors.warning,
         ),
         onPressed: () {
           context.read<DeleteUserAccountCubit>().deleteUserAccount();

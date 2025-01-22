@@ -22,7 +22,7 @@ class TCircularIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+    final isDark = HelperFunctions.isDarkMode(context);
     return Container(
       width: width,
       height: height,
@@ -30,8 +30,8 @@ class TCircularIcon extends StatelessWidget {
         color: backgroundColor != null
             ? backgroundColor!
             : isDark
-                ? TColors.black.withValues(alpha: 0.9)
-                : TColors.white.withValues(alpha: 0.9),
+                ? AppColors.black.withValues(alpha: 0.9)
+                : AppColors.white.withValues(alpha: 0.9),
         shape: BoxShape.circle,
       ),
       child: IconButton(
