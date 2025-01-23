@@ -17,14 +17,14 @@ class CartManagementServiceImpl implements CartManagementService {
   final CartItemFactoryInterface cartItemFactory;
 
   static final String _userId = FirebaseAuth.instance.currentUser!.uid;
-  static final String _boxName = '${_userId}Cart';
+  static final String _boxName = 'Cart_$_userId';
 
   CartManagementServiceImpl(
       this.cartLocalStorageServices, this.cartItemFactory);
 
   @override
   Future<void> addSingleItemToCart({required CartItemModel cartItem}) async {
-    var cartBox = await Hive.openBox<CartItemModel>(_boxName);
+    var cartBox = Hive.box<CartItemModel>(_boxName);
     String cartKey = '${cartItem.productId}-${cartItem.variationId}';
 
     if (cartBox.containsKey(cartKey)) {
@@ -46,14 +46,14 @@ class CartManagementServiceImpl implements CartManagementService {
 
   @override
   Future<void> removeAllItemsFromCart() async {
-    var cartBox = await Hive.openBox<CartItemModel>(_boxName);
+    var cartBox = Hive.box<CartItemModel>(_boxName);
     await cartBox.clear();
   }
 
   @override
   Future<void> removeSingleItemFromCart(
       {required CartItemModel cartItem}) async {
-    var cartBox = await Hive.openBox<CartItemModel>(_boxName);
+    var cartBox = Hive.box<CartItemModel>(_boxName);
     String cartKey = '${cartItem.productId}-${cartItem.variationId}';
     if (!cartBox.containsKey(cartKey)) return;
 

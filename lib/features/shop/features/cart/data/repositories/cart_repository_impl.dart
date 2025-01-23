@@ -19,7 +19,8 @@ class CartRepositoryImpl extends CartRepository {
     int quantity = 1,
   }) async {
     try {
-      await cartManagementService.addProductToCart(product: product, quantity: quantity);
+      await cartManagementService.addProductToCart(
+          product: product, quantity: quantity);
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -63,7 +64,7 @@ class CartRepositoryImpl extends CartRepository {
   @override
   Future<Either<ServerFailure, List<CartItemEntity>>> fetchCartItems() async {
     try {
-      var cartModels = await cartLocalStorageServices.fetchCartItems();
+      var cartModels = cartLocalStorageServices.fetchCartItems();
       List<CartItemEntity> cartItems =
           cartModels.map((cartModel) => cartModel.toEntity()).toList();
       return Right(cartItems);

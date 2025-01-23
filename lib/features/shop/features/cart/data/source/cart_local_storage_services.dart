@@ -6,25 +6,25 @@ abstract class CartLocalStorageServices {
   // -- Store items in cart--
   void storeCartItems({required List<CartItemModel> cartItems});
   // -- Fetch items from cart--
-  Future<List<CartItemModel>> fetchCartItems();
+  List<CartItemModel> fetchCartItems();
   // -- Get total items in cart--
-  Future<int> getCartItemsCount();
+  int getCartItemsCount();
+  // -- Get CartItemQuantity --
+  int getItemQuantity(String productId);
 }
 
 class CartLocalStorageServicesImpl implements CartLocalStorageServices {
   static final String _userId = FirebaseAuth.instance.currentUser!.uid;
-  static final String _boxName = '${_userId}Cart';
+  static final String _boxName = 'Cart_$_userId';
 
-  static Box<CartItemModel>? _cartBox;
-
-  Future<Box<CartItemModel>> _openBox() async {
-    _cartBox ??= await Hive.openBox<CartItemModel>(_boxName);
-    return _cartBox!;
-  }
+  // Future<Box<CartItemModel>> _openBox() async {
+  //   _cartBox ??= await Hive.openBox<CartItemModel>(_boxName);
+  //   return _cartBox!;
+  // }
 
   @override
-  Future<List<CartItemModel>> fetchCartItems() async {
-    final cartBox = await _openBox();
+  List<CartItemModel> fetchCartItems() {
+    final cartBox = Hive.box<CartItemModel>(_boxName);
     // print(
     //     'Cart Items: ${cartBox.values.toList().map((e) => e.toJson()).toList()}');
     return cartBox.values.toList();
@@ -32,18 +32,28 @@ class CartLocalStorageServicesImpl implements CartLocalStorageServices {
 
   @override
   Future<void> storeCartItems({required List<CartItemModel> cartItems}) async {
-    final box = await _openBox();
-    await box.clear();
+    final cartBox = Hive.box<CartItemModel>(_boxName);
+    await cartBox.clear();
 
     for (var item in cartItems) {
       String key = '${item.productId}-${item.variationId}';
-      await box.put(key, item);
+      await cartBox.put(key, item);
     }
   }
 
   @override
-  Future<int> getCartItemsCount() async {
-    final cartBox = await _openBox();
+  int getCartItemsCount() {
+    final cartBox = Hive.box<CartItemModel>(_boxName);
     return cartBox.values.length;
+  }
+
+  @override
+  int getItemQuantity(String productId) {
+    final cartBox = Hive.box<CartItemModel>(_boxName);
+    final cartItems = cartBox.values.toList();
+    final foundItem = cartItems
+        .where((element) => element.productId == productId)
+        .fold(0, (previousValue, element) => previousValue + element.quantity);
+    return foundItem;
   }
 }

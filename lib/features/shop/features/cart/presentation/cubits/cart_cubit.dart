@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
+import 'package:t_store/features/shop/features/cart/data/source/cart_local_storage_services.dart';
 import 'package:t_store/features/shop/features/cart/domain/usecases/add_product_to_cart_use_case.dart';
 import 'package:t_store/features/shop/features/cart/domain/usecases/add_single_cart_item_use_case.dart';
 import 'package:t_store/features/shop/features/cart/domain/usecases/fetch_cart_items_use_case.dart';
@@ -17,7 +18,7 @@ class CartCubit extends Cubit<CartState> {
 
   // -- Fetch Cart Items --
   int totalCartItems = 0;
-  Future<void> fetchCartItems() async {
+  void fetchCartItems() async {
     emit(CartLoadingState());
     final result = await getIt.get<FetchCartItemsUseCase>().call();
     result.fold((failure) => emit(CartErrorState(failure.message)),
@@ -63,13 +64,19 @@ class CartCubit extends Cubit<CartState> {
   }
 
   // -- Remove All Cart Items --
-
   Future<void> removeAllCartItems() async {
     var result = await getIt.get<RemoverSingleCartItemUseCase>().call();
     result.fold(
       (failure) => emit(CartErrorState(failure.message)),
       (_) => fetchCartItems(),
     );
+  }
+
+  // -- Get Item Quantity --
+  int getItemQuantity({required String productId}) {
+    int cartItemQuantity =
+        getIt.get<CartLocalStorageServices>().getItemQuantity(productId);
+    return cartItemQuantity;
   }
 
   // -- Get Total Cart Items --
