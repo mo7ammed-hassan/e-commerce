@@ -10,11 +10,8 @@ import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class CartItemCard extends StatelessWidget {
-  const CartItemCard({
-    super.key,
-    this.showAddRemoveButtons = true,
-    required this.cartItem,
-  });
+  const CartItemCard(
+      {super.key, this.showAddRemoveButtons = true, required this.cartItem});
   final bool showAddRemoveButtons;
   final CartItemEntity cartItem;
   @override
@@ -26,7 +23,7 @@ class CartItemCard extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(3.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -80,7 +77,10 @@ class CartItemCard extends StatelessWidget {
                               isDark: isDark,
                               cartItem: cartItem,
                             ),
-                            TProductPriceText(price: cartItem.price.toString()),
+                            TProductPriceText(
+                              price: (cartItem.price * cartItem.quantity)
+                                  .toStringAsFixed(2),
+                            ),
                           ],
                         ),
                     ],

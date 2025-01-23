@@ -28,14 +28,14 @@ class CartPage extends StatelessWidget {
                 ? _emptyWidget(context)
                 : const Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: AppSizes.spaceBtwItems,
+                      horizontal: AppSizes.spaceBtwItems - 2,
                       vertical: AppSizes.defaultSpace,
                     ),
                     child: CartItems(),
                   ),
             bottomNavigationBar: (cartCubit.totalCartItems == 0)
                 ? null
-                : _checkoutButton(context),
+                : _checkoutButton(context, cartCubit.totalCartPrice),
           );
         },
       ),
@@ -64,7 +64,7 @@ class CartPage extends StatelessWidget {
     );
   }
 
-  Widget _checkoutButton(BuildContext context) {
+  Widget _checkoutButton(BuildContext context, double totalPrice) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: AppSizes.defaultSpace,
@@ -79,7 +79,7 @@ class CartPage extends StatelessWidget {
             ),
           );
         },
-        child: const Text('Checkout \$300'),
+        child: Text('Checkout \$${totalPrice.toStringAsFixed(2)}'),
       ),
     );
   }
