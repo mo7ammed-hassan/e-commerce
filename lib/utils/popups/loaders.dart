@@ -31,6 +31,7 @@ class Loaders {
               style: isMedium
                   ? Theme.of(AppContext.context).textTheme.bodyMedium
                   : Theme.of(AppContext.context).textTheme.labelLarge,
+              textAlign: TextAlign.center,
             ),
           ),
         ),
@@ -82,6 +83,7 @@ class Loaders {
       icon: const Icon(Iconsax.warning_2, color: AppColors.white),
     );
   }
+
 }
 
 class AppContext {

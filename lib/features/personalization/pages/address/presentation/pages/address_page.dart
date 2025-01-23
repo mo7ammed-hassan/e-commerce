@@ -27,7 +27,8 @@ class AddressPage extends StatelessWidget {
                   padding: EdgeInsets.all(AppSizes.spaceBtwItems),
                   child: BuildAddressesListView(),
                 ),
-                if (state is SelectedAddressLoadingState)
+                if (state is SelectedAddressLoadingState ||
+                    state is DeleteAddressLoadingState)
                   const Center(
                     child: CircularProgressIndicator(
                       color: AppColors.primary,
