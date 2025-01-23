@@ -20,7 +20,7 @@ class PaymentSection extends StatelessWidget {
           showActionButton: true,
           buttonTitle: 'Change',
         ),
-        const SizedBox(height: TSizes.spaceBtwItems / 2),
+        const SizedBox(height: AppSizes.spaceBtwItems / 2),
         Row(
           children: [
             TRoundedImage(
@@ -32,7 +32,7 @@ class PaymentSection extends StatelessWidget {
               padding: const EdgeInsets.all(2),
               borderRadius: 5,
             ),
-            const SizedBox(width: TSizes.spaceBtwItems),
+            const SizedBox(width: AppSizes.spaceBtwItems),
             Text(
               'Visa',
               style: Theme.of(context).textTheme.bodyLarge,

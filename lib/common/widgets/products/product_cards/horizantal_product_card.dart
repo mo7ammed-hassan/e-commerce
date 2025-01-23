@@ -22,13 +22,13 @@ class HorizantalProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = HelperFunctions.isDarkMode(context);
     return OpenContainerWrapper(
-      radius: const Radius.circular(TSizes.productImageRadius),
+      radius: const Radius.circular(AppSizes.productImageRadius),
       nextScreen: ProductDetailPage(product: product),
       child: Container(
         width: 310,
         padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(TSizes.productImageRadius),
+          borderRadius: BorderRadius.circular(AppSizes.productImageRadius),
           color: isDark ? AppColors.darkerGrey : AppColors.softGrey,
         ),
         child: Row(
@@ -37,7 +37,7 @@ class HorizantalProductCard extends StatelessWidget {
           children: [
             TRoundedContainer(
               height: 120,
-              padding: const EdgeInsets.all(TSizes.xs),
+              padding: const EdgeInsets.all(AppSizes.xs),
               backgroundColor: isDark ? AppColors.dark : AppColors.grey,
               child: Stack(
                 children: [
@@ -55,11 +55,11 @@ class HorizantalProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(width: TSizes.spaceBtwItems / 2),
+            const SizedBox(width: AppSizes.spaceBtwItems / 2),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(
-                    right: TSizes.sm, left: TSizes.sm, top: TSizes.sm),
+                    right: AppSizes.sm, left: AppSizes.sm, top: AppSizes.sm),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +71,7 @@ class HorizantalProductCard extends StatelessWidget {
                           title: product.title,
                           smallSize: true,
                         ),
-                        const SizedBox(height: TSizes.spaceBtwItems / 2),
+                        const SizedBox(height: AppSizes.spaceBtwItems / 2),
                         TBrandTitleWithVerifiedIcon(
                           title: product.brand?.name ?? '',
                         ),

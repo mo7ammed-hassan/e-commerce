@@ -23,8 +23,8 @@ class CartPage extends StatelessWidget {
                 appBar: _appBar(context),
                 body: const Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: TSizes.spaceBtwItems,
-                    vertical: TSizes.defaultSpace,
+                    horizontal: AppSizes.spaceBtwItems,
+                    vertical: AppSizes.defaultSpace,
                   ),
                   child: CartItems(),
                 ),
@@ -35,8 +35,8 @@ class CartPage extends StatelessWidget {
               appBar: _appBar(context),
               body: const Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: TSizes.spaceBtwItems,
-                  vertical: TSizes.defaultSpace,
+                  horizontal: AppSizes.spaceBtwItems,
+                  vertical: AppSizes.defaultSpace,
                 ),
                 child: CartItems(),
               ),
@@ -47,8 +47,8 @@ class CartPage extends StatelessWidget {
             appBar: _appBar(context),
             body: const Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: TSizes.spaceBtwItems,
-                vertical: TSizes.defaultSpace,
+                horizontal: AppSizes.spaceBtwItems,
+                vertical: AppSizes.defaultSpace,
               ),
               child: CartItems(),
             ),
@@ -71,8 +71,8 @@ class CartPage extends StatelessWidget {
   Widget _checkoutButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: TSizes.defaultSpace,
-        vertical: TSizes.spaceBtwItems,
+        horizontal: AppSizes.defaultSpace,
+        vertical: AppSizes.spaceBtwItems,
       ),
       child: ElevatedButton(
         onPressed: () {

@@ -31,23 +31,23 @@ class ProductDetailPage extends StatelessWidget {
               TProductDetailImageSlider(product: product),
               Padding(
                 padding: const EdgeInsets.only(
-                  bottom: TSizes.defaultSpace,
-                  right: TSizes.spaceBtwItems,
-                  left: TSizes.spaceBtwItems,
+                  bottom: AppSizes.defaultSpace,
+                  right: AppSizes.spaceBtwItems,
+                  left: AppSizes.spaceBtwItems,
                 ),
                 child: Column(
                   children: [
                     // -Rating & Share
                     const TRatingAndShare(),
-                    const SizedBox(height: TSizes.spaceBtwItems / 2),
+                    const SizedBox(height: AppSizes.spaceBtwItems / 2),
                     // - Price, Title, Stock, Brand
                     TProductMetaData(product: product),
-                    const SizedBox(height: TSizes.spaceBtwItems),
+                    const SizedBox(height: AppSizes.spaceBtwItems),
                     // - Attributes
                     if (product.productType == ProductType.variable.toString())
                       TProductAttributes(product: product),
                     if (product.productType == ProductType.variable.toString())
-                      const SizedBox(height: TSizes.spaceBtwSections),
+                      const SizedBox(height: AppSizes.spaceBtwSections),
                     // - Checkout Button
                     SizedBox(
                       width: double.infinity,
@@ -56,13 +56,13 @@ class ProductDetailPage extends StatelessWidget {
                         child: const Text('Checkout'),
                       ),
                     ),
-                    const SizedBox(height: TSizes.spaceBtwSections),
+                    const SizedBox(height: AppSizes.spaceBtwSections),
                     // -- Description
                     const TSectionHeading(
                       title: 'Description',
                       showActionButton: false,
                     ),
-                    const SizedBox(height: TSizes.spaceBtwItems),
+                    const SizedBox(height: AppSizes.spaceBtwItems),
                     ReadMoreText(
                       product.description ??
                           'This is a Product description. there are more things that can be added to this description',
@@ -77,9 +77,9 @@ class ProductDetailPage extends StatelessWidget {
                     ),
 
                     // Reviews
-                    const SizedBox(height: TSizes.spaceBtwItems),
+                    const SizedBox(height: AppSizes.spaceBtwItems),
                     const Divider(),
-                    const SizedBox(height: TSizes.spaceBtwItems),
+                    const SizedBox(height: AppSizes.spaceBtwItems),
                     const OpenContainerWrapper(
                       nextScreen: ProductReviewPage(),
                       radius: Radius.circular(0),

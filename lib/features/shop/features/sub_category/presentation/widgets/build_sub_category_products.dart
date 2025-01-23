@@ -43,7 +43,7 @@ class BuildSubCategoryProducts extends StatelessWidget {
       itemBuilder: (context, index) =>
           HorizantalProductCard(product: products[index]),
       separatorBuilder: (BuildContext context, int index) =>
-          const SizedBox(width: TSizes.spaceBtwItems),
+          const SizedBox(width: AppSizes.spaceBtwItems),
     );
   }
 }

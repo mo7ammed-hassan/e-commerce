@@ -28,16 +28,16 @@ class BrandProductsPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: TSizes.spaceBtwItems,
-              vertical: TSizes.defaultSpace,
+              horizontal: AppSizes.spaceBtwItems,
+              vertical: AppSizes.defaultSpace,
             ),
             child: Column(
               children: [
                 TBrandCard(brand: brand),
-                const SizedBox(height: TSizes.spaceBtwSections),
+                const SizedBox(height: AppSizes.spaceBtwSections),
                 const TSectionHeading(
                     title: 'Products', showActionButton: false),
-                const SizedBox(height: TSizes.spaceBtwItems),
+                const SizedBox(height: AppSizes.spaceBtwItems),
                 BlocBuilder<ProductsByBrandCubit, ProductsByBrandState>(
                   builder: (context, state) {
                     if (state is ProductsByBrandLoadingState ||
@@ -87,7 +87,7 @@ class BrandProductsPage extends StatelessWidget {
         const SortableDropdown(
           initialValue: 'Name',
         ),
-        const SizedBox(height: TSizes.spaceBtwSections),
+        const SizedBox(height: AppSizes.spaceBtwSections),
         Skeletonizer(
           child: TGridLayout(
             itemCount: 6,

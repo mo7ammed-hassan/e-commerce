@@ -11,6 +11,9 @@ import 'package:t_store/utils/popups/loaders.dart';
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitialState());
+  // CartCubit._() : super(CartInitialState());
+  // static final instance = CartCubit._();
+  // factory CartCubit() => instance;
 
   // -- Fetch Cart Items --
   int totalCartItems = 0;

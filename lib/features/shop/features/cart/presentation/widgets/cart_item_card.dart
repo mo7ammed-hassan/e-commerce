@@ -29,10 +29,10 @@ class CartItemCard extends StatelessWidget {
               imageUrl: cartItem.imageUrl!,
               width: 60,
               height: 60,
-              padding: const EdgeInsets.all(TSizes.sm),
+              padding: const EdgeInsets.all(AppSizes.sm),
               backgroundColor: isDark ? AppColors.darkerGrey : AppColors.light,
             ),
-            const SizedBox(width: TSizes.spaceBtwItems),
+            const SizedBox(width: AppSizes.spaceBtwItems),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +64,7 @@ class CartItemCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: AppSizes.spaceBtwItems),
                   if (showAddRemoveButtons)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

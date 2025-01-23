@@ -17,13 +17,13 @@ class TProductAttributes extends StatelessWidget {
     return BlocProvider(
       create: (context) {
         final cubit = ProductVariationCubit();
-         cubit.initializeWithDefault(product); // Initialize with default
+        cubit.initializeWithDefault(product); // Initialize with default
         return cubit;
       },
       child: Column(
         children: [
           const VariationDetails(),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: AppSizes.spaceBtwItems),
           _buildAttributesList(context),
         ],
       ),
@@ -46,12 +46,12 @@ class TProductAttributes extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (attribute.key.isOdd) const SizedBox(height: TSizes.spaceBtwItems),
+        if (attribute.key.isOdd) const SizedBox(height: AppSizes.spaceBtwItems),
         TSectionHeading(
           title: attribute.value.name,
           showActionButton: false,
         ),
-        const SizedBox(height: TSizes.spaceBtwItems / 2),
+        const SizedBox(height: AppSizes.spaceBtwItems / 2),
         BuildChoiceChips(attribute: attribute, product: product),
       ],
     );

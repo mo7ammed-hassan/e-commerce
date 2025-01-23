@@ -21,7 +21,7 @@ class AddressSection extends StatelessWidget {
           'Mohamed Hasan',
           style: Theme.of(context).textTheme.bodyLarge,
         ),
-        const SizedBox(height: TSizes.spaceBtwItems / 2),
+        const SizedBox(height: AppSizes.spaceBtwItems / 2),
         Row(
           children: [
             const Icon(
@@ -29,14 +29,14 @@ class AddressSection extends StatelessWidget {
               color: Colors.grey,
               size: 16,
             ),
-            const SizedBox(width: TSizes.spaceBtwItems),
+            const SizedBox(width: AppSizes.spaceBtwItems),
             Text(
               '+201096493188',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),
-        const SizedBox(height: TSizes.spaceBtwItems / 2),
+        const SizedBox(height: AppSizes.spaceBtwItems / 2),
         Row(
           children: [
             const Icon(
@@ -44,7 +44,7 @@ class AddressSection extends StatelessWidget {
               color: Colors.grey,
               size: 16,
             ),
-            const SizedBox(width: TSizes.spaceBtwItems),
+            const SizedBox(width: AppSizes.spaceBtwItems),
             Text(
               'South Liana, Maine 87695, EGY',
               style: Theme.of(context).textTheme.bodyMedium,

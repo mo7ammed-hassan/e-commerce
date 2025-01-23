@@ -12,8 +12,8 @@ class OrderPage extends StatelessWidget {
       appBar: _appBar(context),
       body: const Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: TSizes.spaceBtwItems,
-          vertical: TSizes.defaultSpace,
+          horizontal: AppSizes.spaceBtwItems,
+          vertical: AppSizes.defaultSpace,
         ),
         child: OrderListItems(),
       ),

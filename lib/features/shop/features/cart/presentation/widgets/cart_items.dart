@@ -47,7 +47,7 @@ class CartItems extends StatelessWidget {
         cartItem: cartItems[index],
       ),
       separatorBuilder: (context, index) => const SizedBox(
-        height: TSizes.spaceBtwSections,
+        height: AppSizes.spaceBtwSections,
       ),
     );
   }

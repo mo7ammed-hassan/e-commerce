@@ -18,15 +18,15 @@ class CheckoutPage extends StatelessWidget {
       appBar: _appBar(context),
       body: const SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(TSizes.spaceBtwItems),
+          padding: EdgeInsets.all(AppSizes.spaceBtwItems),
           child: Column(
             children: [
               CartItems(
                 showAddRemoveButtons: false,
               ),
-              SizedBox(height: TSizes.spaceBtwSections),
+              SizedBox(height: AppSizes.spaceBtwSections),
               CouponFiled(),
-              SizedBox(height: TSizes.spaceBtwSections),
+              SizedBox(height: AppSizes.spaceBtwSections),
               ChekoutOrderDetial(),
             ],
           ),
@@ -38,8 +38,8 @@ class CheckoutPage extends StatelessWidget {
   Widget _checkoutButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: TSizes.defaultSpace,
-        vertical: TSizes.spaceBtwItems,
+        horizontal: AppSizes.defaultSpace,
+        vertical: AppSizes.spaceBtwItems,
       ),
       child: ElevatedButton(
         onPressed: () {

@@ -29,7 +29,7 @@ class TSortableProducts extends StatelessWidget {
                     .read<SortableProductCubit>()
                     .sortProducts(value.toString()),
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: AppSizes.spaceBtwSections),
               BlocBuilder<SortableProductCubit, List<ProductEntity>>(
                 builder: (context, state) {
                   return AnimatedGridLayout(

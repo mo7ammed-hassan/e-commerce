@@ -18,7 +18,7 @@ class PricingSection extends StatelessWidget {
             Text('\$1478', style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
-        const SizedBox(height: TSizes.spaceBtwItems / 2),
+        const SizedBox(height: AppSizes.spaceBtwItems / 2),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween, // or use Expanded
           children: [
@@ -27,7 +27,7 @@ class PricingSection extends StatelessWidget {
             Text('\$6.0', style: Theme.of(context).textTheme.labelLarge),
           ],
         ),
-        const SizedBox(height: TSizes.spaceBtwItems / 2),
+        const SizedBox(height: AppSizes.spaceBtwItems / 2),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween, // or use Expanded
           children: [
@@ -36,7 +36,7 @@ class PricingSection extends StatelessWidget {
             Text('\$10.0', style: Theme.of(context).textTheme.labelLarge),
           ],
         ),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: AppSizes.spaceBtwItems),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween, // or use Expanded
           children: [

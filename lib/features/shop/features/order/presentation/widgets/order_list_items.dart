@@ -12,7 +12,7 @@ class OrderListItems extends StatelessWidget {
     return ListView.separated(
       itemBuilder: (context, index) => const OrderCard(),
       separatorBuilder: (context, index) =>
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: AppSizes.spaceBtwItems),
       itemCount: 6,
     );
   }

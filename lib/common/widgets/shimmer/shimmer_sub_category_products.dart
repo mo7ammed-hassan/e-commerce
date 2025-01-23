@@ -20,7 +20,7 @@ class ShimmerSubCategoryProducts extends StatelessWidget {
           ),
         ),
         separatorBuilder: (BuildContext context, int index) =>
-            const SizedBox(width: TSizes.spaceBtwItems),
+            const SizedBox(width: AppSizes.spaceBtwItems),
       ),
     );
   }

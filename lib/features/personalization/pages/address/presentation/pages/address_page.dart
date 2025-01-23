@@ -24,7 +24,7 @@ class AddressPage extends StatelessWidget {
             return Stack(
               children: [
                 const Padding(
-                  padding: EdgeInsets.all(TSizes.spaceBtwItems),
+                  padding: EdgeInsets.all(AppSizes.spaceBtwItems),
                   child: BuildAddressesListView(),
                 ),
                 if (state is SelectedAddressLoadingState)

@@ -14,7 +14,7 @@ class TProductCartFooter extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: TSizes.sm),
+          padding: const EdgeInsets.only(left: AppSizes.sm),
           child: TProductPriceText(
             price: price ?? '0',
             isLarge: false,

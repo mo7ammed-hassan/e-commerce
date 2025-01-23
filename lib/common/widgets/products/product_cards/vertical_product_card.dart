@@ -20,13 +20,13 @@ class TVerticalProductCard extends StatelessWidget {
     ProductsCubit cubit = ProductsCubit();
     final isDark = HelperFunctions.isDarkMode(context);
     return OpenContainerWrapper(
-      radius: const Radius.circular(TSizes.productImageRadius),
+      radius: const Radius.circular(AppSizes.productImageRadius),
       nextScreen: ProductDetailPage(product: product),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(TSizes.productImageRadius),
+          borderRadius: BorderRadius.circular(AppSizes.productImageRadius),
           boxShadow: [TShadowStyle.verticalProductShadow],
           color: isDark ? AppColors.darkerGrey : AppColors.white,
         ),
@@ -40,7 +40,7 @@ class TVerticalProductCard extends StatelessWidget {
                       product.price.toDouble(), product.salePrice!) ??
                   '0',
             ),
-            const SizedBox(height: TSizes.spaceBtwItems / 2),
+            const SizedBox(height: AppSizes.spaceBtwItems / 2),
             TProductCardBody(
               title: product.title,
               brandTitle: product.brand?.name ?? '',

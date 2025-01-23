@@ -31,8 +31,8 @@ class AllProductsPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: TSizes.spaceBtwItems,
-              vertical: TSizes.defaultSpace,
+              horizontal: AppSizes.spaceBtwItems,
+              vertical: AppSizes.defaultSpace,
             ),
             child: BlocBuilder<AllProductsCubit, AllProductsState>(
               builder: (context, state) {

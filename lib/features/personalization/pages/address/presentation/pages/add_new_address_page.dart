@@ -25,7 +25,7 @@ class AddNewAddressPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.spaceBtwItems),
+          padding: const EdgeInsets.all(AppSizes.spaceBtwItems),
           child: Form(
             key: addressCubit.formKey,
             child: Column(
@@ -41,7 +41,7 @@ class AddNewAddressPage extends StatelessWidget {
                     labelText: 'Name',
                   ),
                 ),
-                const SizedBox(height: TSizes.spaceBtwInputFields),
+                const SizedBox(height: AppSizes.spaceBtwInputFields),
                 TextFormField(
                   controller: addressCubit.phoneController,
                   textInputAction: TextInputAction.next,
@@ -52,7 +52,7 @@ class AddNewAddressPage extends StatelessWidget {
                     labelText: 'Phone Number',
                   ),
                 ),
-                const SizedBox(height: TSizes.spaceBtwInputFields),
+                const SizedBox(height: AppSizes.spaceBtwInputFields),
                 Row(
                   children: [
                     Expanded(
@@ -68,7 +68,7 @@ class AddNewAddressPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: TSizes.spaceBtwInputFields),
+                    const SizedBox(width: AppSizes.spaceBtwInputFields),
                     Expanded(
                       child: TextFormField(
                         controller: addressCubit.postalCodeController,
@@ -84,7 +84,7 @@ class AddNewAddressPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: TSizes.spaceBtwInputFields),
+                const SizedBox(height: AppSizes.spaceBtwInputFields),
                 Row(
                   children: [
                     Expanded(
@@ -100,7 +100,7 @@ class AddNewAddressPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: TSizes.spaceBtwInputFields),
+                    const SizedBox(width: AppSizes.spaceBtwInputFields),
                     Expanded(
                       child: TextFormField(
                         controller: addressCubit.stateController,
@@ -116,7 +116,7 @@ class AddNewAddressPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: TSizes.spaceBtwInputFields),
+                const SizedBox(height: AppSizes.spaceBtwInputFields),
                 TextFormField(
                   controller: addressCubit.countryController,
                   validator: (value) =>
@@ -128,7 +128,7 @@ class AddNewAddressPage extends StatelessWidget {
                     labelText: 'Country',
                   ),
                 ),
-                const SizedBox(height: TSizes.defaultSpace),
+                const SizedBox(height: AppSizes.defaultSpace),
                 BlocListener<AddressCubit, AddressState>(
                   listener: (context, state) {
                     if (state is AddAddressSuccessState) {

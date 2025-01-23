@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/icons/circular_icon.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
@@ -14,14 +15,14 @@ class TBottomAddToCart extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: TSizes.defaultSpace,
-        vertical: TSizes.spaceBtwItems / 2,
+        horizontal: AppSizes.defaultSpace,
+        vertical: AppSizes.spaceBtwItems / 2,
       ),
       decoration: BoxDecoration(
         color: isDark ? AppColors.darkerGrey : AppColors.light,
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(TSizes.cardRadiusLg),
-          topRight: Radius.circular(TSizes.cardRadiusLg),
+          topLeft: Radius.circular(AppSizes.cardRadiusLg),
+          topRight: Radius.circular(AppSizes.cardRadiusLg),
         ),
       ),
       child: Row(
@@ -36,12 +37,12 @@ class TBottomAddToCart extends StatelessWidget {
                 height: 40,
                 color: AppColors.white,
               ),
-              const SizedBox(width: TSizes.spaceBtwItems),
+              const SizedBox(width: AppSizes.spaceBtwItems),
               Text(
                 '3',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
-              const SizedBox(width: TSizes.spaceBtwItems),
+              const SizedBox(width: AppSizes.spaceBtwItems),
               const TCircularIcon(
                 backgroundColor: AppColors.black,
                 icon: Iconsax.add,
@@ -51,13 +52,14 @@ class TBottomAddToCart extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: TSizes.spaceBtwSections),
+          const SizedBox(width: AppSizes.spaceBtwSections),
           ElevatedButton(
             onPressed: () async {
-              await CartCubit().addProductToCart(product: product);
+              await getIt.get<CartCubit>().addProductToCart(product: product);
+              // await CartCubit().addProductToCart(product: product);
             },
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.all(TSizes.md),
+              padding: const EdgeInsets.all(AppSizes.md),
               backgroundColor: AppColors.black,
               side: const BorderSide(color: AppColors.black),
             ),

@@ -13,17 +13,17 @@ class ChekoutOrderDetial extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return TRoundedContainer(
-      padding: const EdgeInsets.all(TSizes.md),
+      padding: const EdgeInsets.all(AppSizes.md),
       showBorder: true,
       backgroundColor: isDark ? AppColors.black : AppColors.white,
       child: const Column(
         children: [
           PricingSection(),
-          SizedBox(height: TSizes.spaceBtwItems),
+          SizedBox(height: AppSizes.spaceBtwItems),
           Divider(),
-          SizedBox(height: TSizes.spaceBtwItems),
+          SizedBox(height: AppSizes.spaceBtwItems),
           PaymentSection(),
-          SizedBox(height: TSizes.spaceBtwSections),
+          SizedBox(height: AppSizes.spaceBtwSections),
           AddressSection(),
         ],
       ),

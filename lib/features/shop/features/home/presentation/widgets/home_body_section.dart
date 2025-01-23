@@ -33,13 +33,13 @@ class _HomeBodySectionState extends State<HomeBodySection> {
       value: productsCubit,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: TSizes.spaceBtwItems,
-          vertical: TSizes.defaultSpace,
+          horizontal: AppSizes.spaceBtwItems,
+          vertical: AppSizes.defaultSpace,
         ),
         child: Column(
           children: [
             const TPromoSlider(),
-            const SizedBox(height: TSizes.spaceBtwSections),
+            const SizedBox(height: AppSizes.spaceBtwSections),
             TSectionHeading(
               title: 'Featured Products',
               onPressed: () async {
@@ -52,9 +52,9 @@ class _HomeBodySectionState extends State<HomeBodySection> {
                 );
               },
             ),
-            const SizedBox(height: TSizes.spaceBtwItems),
+            const SizedBox(height: AppSizes.spaceBtwItems),
             const FeaturedProductSection(),
-            const SizedBox(height: TSizes.spaceBtwSections),
+            const SizedBox(height: AppSizes.spaceBtwSections),
             TSectionHeading(
               title: 'Popular Products',
               onPressed: () {
@@ -67,7 +67,7 @@ class _HomeBodySectionState extends State<HomeBodySection> {
                 );
               },
             ),
-            const SizedBox(height: TSizes.spaceBtwItems),
+            const SizedBox(height: AppSizes.spaceBtwItems),
             const PopularProductsSection(),
           ],
         ),
