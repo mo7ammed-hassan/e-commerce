@@ -6,6 +6,7 @@ import 'package:t_store/features/shop/features/all_products/domain/entity/produc
 import 'package:t_store/features/shop/features/product_details/presentation/cubits/product_variation_cubit.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/build_choice_chips.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/variation_details.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class TProductAttributes extends StatelessWidget {
@@ -14,12 +15,10 @@ class TProductAttributes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        final cubit = ProductVariationCubit();
-        cubit.initializeWithDefault(product); // Initialize with default
-        return cubit;
-      },
+    final cubit = getIt.get<ProductVariationCubit>();
+
+    return BlocProvider.value(
+      value: cubit..initializeWithDefault(product), // Initialize with default
       child: Column(
         children: [
           const VariationDetails(),

@@ -95,4 +95,13 @@ class ProductVariationCubit extends Cubit<ProductVariationEntity> {
 
     return availableVariationAttributesValues;
   }
+
+  // -- reset variation--
+  void resetVariation() {
+    selectedVariation = ProductVariationEntity.empty();
+    selectedAttributes = {};
+    selectedIamge = '';
+    variationStockState = '';
+    emit(selectedVariation);
+  }
 }

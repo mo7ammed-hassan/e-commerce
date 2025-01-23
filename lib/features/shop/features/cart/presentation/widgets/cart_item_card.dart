@@ -20,68 +20,77 @@ class CartItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = HelperFunctions.isDarkMode(context);
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TRoundedImage(
-              imageUrl: cartItem.imageUrl!,
-              width: 60,
-              height: 60,
-              padding: const EdgeInsets.all(AppSizes.sm),
-              backgroundColor: isDark ? AppColors.darkerGrey : AppColors.light,
-            ),
-            const SizedBox(width: AppSizes.spaceBtwItems),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const TBrandTitleWithVerifiedIcon(title: 'Nike'),
-                  TProductTitleText(
-                    title: cartItem.title,
-                    maxLines: 1,
+    return InkWell(
+      borderRadius: BorderRadius.circular(AppSizes.md),
+      onTap: () {},
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TRoundedImage(
+                  imageUrl: cartItem.imageUrl!,
+                  width: 60,
+                  height: 60,
+                  padding: const EdgeInsets.all(AppSizes.sm),
+                  backgroundColor:
+                      isDark ? AppColors.darkerGrey : AppColors.light,
+                ),
+                const SizedBox(width: AppSizes.spaceBtwItems),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TBrandTitleWithVerifiedIcon(title: 'Nike'),
+                      TProductTitleText(
+                        title: cartItem.title,
+                        maxLines: 1,
+                      ),
+                      Text.rich(
+                        TextSpan(
+                          children: (cartItem.selectedVariation ?? {})
+                              .entries
+                              .map(
+                                (entry) => TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: '${entry.key}  ',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                    TextSpan(
+                                      text: '${entry.value}  ',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    )
+                                  ],
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                      const SizedBox(height: AppSizes.spaceBtwItems),
+                      if (showAddRemoveButtons)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TProductQuantityButtons(
+                              isDark: isDark,
+                              cartItem: cartItem,
+                            ),
+                            TProductPriceText(price: cartItem.price.toString()),
+                          ],
+                        ),
+                    ],
                   ),
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Color  ',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        TextSpan(
-                          text: '${cartItem.selectedVariation?['color']}  ',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        TextSpan(
-                          text: 'Size  ',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        TextSpan(
-                          text: '${cartItem.selectedVariation?['size']}  ',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: AppSizes.spaceBtwItems),
-                  if (showAddRemoveButtons)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TProductQuantityButtons(
-                          isDark: isDark,
-                          cartItem: cartItem,
-                        ),
-                        TProductPriceText(price: cartItem.price.toString()),
-                      ],
-                    ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

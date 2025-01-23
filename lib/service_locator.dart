@@ -103,11 +103,13 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<WishlistFirebaseServices>(
     WishlistFirebaseServicesImpl(),
   );
+  getIt.registerLazySingleton<ProductVariationCubit>(
+      () => ProductVariationCubit());
   getIt.registerLazySingleton<CartLocalStorageServices>(
     () => CartLocalStorageServicesImpl(),
   );
   getIt.registerSingleton<DefaultCartItemFactory>(
-    DefaultCartItemFactory(ProductVariationCubit()),
+    DefaultCartItemFactory(getIt.get<ProductVariationCubit>()),
   );
   getIt.registerLazySingleton<CartManagementService>(
     () => CartManagementServiceImpl(

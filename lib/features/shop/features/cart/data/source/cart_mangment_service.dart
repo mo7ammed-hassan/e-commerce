@@ -42,6 +42,7 @@ class CartManagementServiceImpl implements CartManagementService {
     var cartItem =
         cartItemFactory.createCartItem(product: product, quantity: quantity);
     await addSingleItemToCart(cartItem: cartItem);
+    cartItemFactory.resetVariationCubit();
   }
 
   @override
