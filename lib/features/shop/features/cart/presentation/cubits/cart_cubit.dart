@@ -13,14 +13,15 @@ class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitialState());
 
   // -- Fetch Cart Items --
-
+  int totalCartItems = 0;
   Future<void> fetchCartItems() async {
     emit(CartLoadingState());
     final result = await getIt.get<FetchCartItemsUseCase>().call();
-    result.fold(
-      (failure) => emit(CartErrorState(failure.message)),
-      (cartItems) => emit(CartLoadedState(cartItems)),
-    );
+    result.fold((failure) => emit(CartErrorState(failure.message)),
+        (cartItems) {
+      totalCartItems = cartItems.length;
+      emit(CartLoadedState(cartItems, cartItems.length));
+    });
   }
 
   // -- Add Product To Cart --
@@ -67,4 +68,15 @@ class CartCubit extends Cubit<CartState> {
       (_) => fetchCartItems(),
     );
   }
+
+  // -- Get Total Cart Items --
+  // Future<int> getTotalCartItems() async {
+  //   return await getIt
+  //       .get<CartLocalStorageServices>()
+  //       .getCartItemsCount()
+  //       .then((value) {
+  //     totalCartItems = value;
+  //     return value;
+  //   });
+  // }
 }

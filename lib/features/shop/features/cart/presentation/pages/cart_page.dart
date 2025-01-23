@@ -5,6 +5,7 @@ import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cub
 import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_state.dart';
 import 'package:t_store/features/shop/features/cart/presentation/widgets/cart_items.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/pages/checkout_page.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class CartPage extends StatelessWidget {
@@ -12,8 +13,8 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartCubit()..fetchCartItems(),
+    return BlocProvider.value(
+      value: getIt.get<CartCubit>(),
       child: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
           if (state is CartLoadedState) {

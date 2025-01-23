@@ -8,6 +8,7 @@ import 'package:t_store/features/shop/features/all_products/domain/entity/produc
 import 'package:t_store/features/shop/features/all_products/presentation/cubits/products_cubit.dart';
 import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/pages/product_detail_page.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
@@ -18,7 +19,7 @@ class TVerticalProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartCubit = CartCubit();
+    final cartCubit = getIt.get<CartCubit>();
     ProductsCubit cubit = ProductsCubit();
     final isDark = HelperFunctions.isDarkMode(context);
     return OpenContainerWrapper(

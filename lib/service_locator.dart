@@ -58,6 +58,7 @@ import 'package:t_store/features/shop/features/cart/domain/usecases/add_product_
 import 'package:t_store/features/shop/features/cart/domain/usecases/add_single_cart_item_use_case.dart';
 import 'package:t_store/features/shop/features/cart/domain/usecases/fetch_cart_items_use_case.dart';
 import 'package:t_store/features/shop/features/cart/domain/usecases/remover_single_cart_item_use_case.dart';
+import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:t_store/features/shop/features/home/data/repository/banner_repository_impl.dart';
 import 'package:t_store/features/shop/features/home/data/repository/category_repository_impl.dart';
 import 'package:t_store/features/shop/features/home/data/source/remote/banner_firebase_services.dart';
@@ -287,6 +288,9 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit());
   getIt.registerLazySingleton<FavoriteButtonCubit>(
     () => FavoriteButtonCubit(getIt.get<WishlistCubit>()),
+  );
+  getIt.registerLazySingleton<CartCubit>(
+    () => CartCubit(),
   );
 
   // -- HIVE BOXES --

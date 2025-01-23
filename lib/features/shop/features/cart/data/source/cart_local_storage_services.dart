@@ -7,6 +7,8 @@ abstract class CartLocalStorageServices {
   void storeCartItems({required List<CartItemModel> cartItems});
   // -- Fetch items from cart--
   Future<List<CartItemModel>> fetchCartItems();
+  // -- Get total items in cart--
+  Future<int> getCartItemsCount();
 }
 
 class CartLocalStorageServicesImpl implements CartLocalStorageServices {
@@ -37,5 +39,11 @@ class CartLocalStorageServicesImpl implements CartLocalStorageServices {
       String key = '${item.productId}-${item.variationId}';
       await box.put(key, item);
     }
+  }
+
+  @override
+  Future<int> getCartItemsCount() async {
+    final cartBox = await _openBox();
+    return cartBox.values.length;
   }
 }

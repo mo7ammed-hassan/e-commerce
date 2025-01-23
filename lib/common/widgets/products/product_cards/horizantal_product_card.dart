@@ -9,17 +9,20 @@ import 'package:t_store/common/widgets/texts/brand_title_with_verified_icon.dart
 import 'package:t_store/common/widgets/texts/product_price.dart';
 import 'package:t_store/common/widgets/texts/product_title_text.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
+import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/pages/product_detail_page.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
-class ProductCardHorizantal extends StatelessWidget {
+class HorizantalProductCard extends StatelessWidget {
   final ProductEntity product;
-  const ProductCardHorizantal({super.key, required this.product});
+  const HorizantalProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
+    final cartCubit = getIt.get<CartCubit>();
     final isDark = HelperFunctions.isDarkMode(context);
     return OpenContainerWrapper(
       radius: const Radius.circular(TSizes.productImageRadius),
@@ -87,7 +90,11 @@ class ProductCardHorizantal extends StatelessWidget {
                             maxLines: 2,
                           ),
                         ),
-                        const TAddIcon(),
+                        TAddIcon(
+                          onTap: () async {
+                            await cartCubit.addProductToCart(product: product);
+                          },
+                        ),
                       ],
                     )
                   ],
