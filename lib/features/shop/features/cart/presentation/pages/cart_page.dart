@@ -17,7 +17,7 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cartCubit = getIt<CartCubit>();
+    var cartCubit = getIt.get<CartCubit>();
     return BlocProvider.value(
       value: cartCubit,
       child: BlocBuilder<CartCubit, CartState>(
@@ -75,7 +75,7 @@ class CartPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const CheckoutPage(),
+              builder: (context) => CheckoutPage(subTotal: totalPrice),
             ),
           );
         },

@@ -1,34 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/success_pages/success_page.dart';
+import 'package:t_store/features/shop/features/cart/data/source/cart_managment_service.dart';
+import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:t_store/features/shop/features/cart/presentation/widgets/cart_items.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/widgets/chekout_order_detial.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/widgets/coupon_field.dart';
 import 'package:t_store/navigation_menu.dart';
+import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/images_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
 
 class CheckoutPage extends StatelessWidget {
-  const CheckoutPage({super.key});
+  const CheckoutPage({super.key, required this.subTotal});
+
+  final double subTotal;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: _checkoutButton(context),
-      appBar: _appBar(context),
-      body: const SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(AppSizes.spaceBtwItems),
-          child: Column(
-            children: [
-              CartItems(
-                showAddRemoveButtons: false,
-              ),
-              SizedBox(height: AppSizes.spaceBtwSections),
-              CouponFiled(),
-              SizedBox(height: AppSizes.spaceBtwSections),
-              ChekoutOrderDetial(),
-            ],
+    return BlocProvider.value(
+      value: getIt.get<CartCubit>(),
+      child: Scaffold(
+        bottomNavigationBar: _checkoutButton(context),
+        appBar: _appBar(context),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizes.spaceBtwItems),
+            child: Column(
+              children: [
+                const CartItems(
+                  showAddRemoveButtons: false,
+                ),
+                const SizedBox(height: AppSizes.spaceBtwSections),
+                const CouponFiled(),
+                const SizedBox(height: AppSizes.spaceBtwSections),
+                ChekoutOrderDetial(
+                  subTotal: subTotal,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -43,23 +55,18 @@ class CheckoutPage extends StatelessWidget {
       ),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SuccessPage(
-                title: 'Payment Success!',
-                subtitle: 'Your items will be shipping soon!',
-                image: TImages.successfulPaymentIcon,
-                onPressed: () {
-                  // Navigate to success page after payment success
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NavigationMenu(),
-                    ),
-                  );
-                },
-              ),
+          context.pushPage(
+            SuccessPage(
+              json: false,
+              title: 'Payment Success!',
+              subtitle: 'Your items will be shipping soon!',
+              image: TImages.successfulPaymentIcon,
+              onPressed: () async {
+                context.pushPage(const NavigationMenu());
+                await getIt
+                    .get<CartManagementService>()
+                    .removeAllItemsFromCart();
+              },
             ),
           );
         },

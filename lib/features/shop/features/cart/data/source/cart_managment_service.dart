@@ -1,5 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive/hive.dart';
+import 'package:t_store/common/core/errors/failures.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/cart/data/mappers_or_factories/cart_item_factory.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
@@ -11,6 +13,8 @@ abstract class CartManagementService {
   Future<void> addSingleItemToCart({required CartItemModel cartItem});
   Future<void> removeSingleItemFromCart({required CartItemModel cartItem});
   Future<void> removeAllItemsFromCart();
+  Future<Either<Failure, void>> addProductToCartFormProduct(
+      {required ProductEntity product, required int quantity});
 }
 
 class CartManagementServiceImpl implements CartManagementService {
@@ -38,11 +42,35 @@ class CartManagementServiceImpl implements CartManagementService {
   }
 
   @override
+  Future<Either<Failure, void>> addProductToCartFormProduct(
+      {required ProductEntity product, required int quantity}) async {
+    try {
+      var cartItem =
+          cartItemFactory.createCartItem(product: product, quantity: quantity);
+      await addSingleItemToCart(cartItem: cartItem);
+      cartItemFactory.resetVariationCubit();
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<void> addProductToCart(
       {required ProductEntity product, required int quantity}) async {
     var cartItem =
         cartItemFactory.createCartItem(product: product, quantity: quantity);
-    await addSingleItemToCart(cartItem: cartItem);
+
+    var cartBox = Hive.box<CartItemModel>(_boxName);
+    String cartKey = '${cartItem.productId}-${cartItem.variationId}';
+
+    if (cartBox.containsKey(cartKey)) {
+      var existingItem = cartBox.get(cartKey)!;
+      existingItem.quantity = quantity;
+      await cartBox.put(cartKey, existingItem);
+    } else {
+      await cartBox.put(cartKey, cartItem);
+    }
     cartItemFactory.resetVariationCubit();
   }
 

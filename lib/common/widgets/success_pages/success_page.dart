@@ -8,12 +8,14 @@ import 'package:t_store/utils/helpers/helper_functions.dart';
 class SuccessPage extends StatelessWidget {
   final String image, title, subtitle;
   final VoidCallback? onPressed;
+  final bool json;
   const SuccessPage({
     super.key,
     required this.image,
     required this.title,
     required this.subtitle,
     this.onPressed,
+    this.json = true,
   });
 
   @override
@@ -24,10 +26,14 @@ class SuccessPage extends StatelessWidget {
           padding: TSpacingStyles.paddingWithAppBarHeight * 2,
           child: Column(
             children: [
-              Lottie.asset(
-                image,
-                width: HelperFunctions.screenWidth() * 0.6,
-              ),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.1),
+              json
+                  ? Lottie.asset(
+                      image,
+                      width: HelperFunctions.screenWidth() * 0.6,
+                    )
+                  : Image.asset(image,
+                      width: HelperFunctions.screenWidth() * 0.5),
               const SizedBox(height: AppSizes.spaceBtwSections),
               Text(
                 title,

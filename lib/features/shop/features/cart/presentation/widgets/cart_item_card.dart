@@ -40,7 +40,8 @@ class CartItemCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const TBrandTitleWithVerifiedIcon(title: 'Nike'),
+                      TBrandTitleWithVerifiedIcon(
+                          title: cartItem.brandName ?? ''),
                       TProductTitleText(
                         title: cartItem.title,
                         maxLines: 1,
@@ -68,21 +69,22 @@ class CartItemCard extends StatelessWidget {
                               .toList(),
                         ),
                       ),
-                      const SizedBox(height: AppSizes.spaceBtwItems),
                       if (showAddRemoveButtons)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                        const SizedBox(height: AppSizes.spaceBtwItems),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (showAddRemoveButtons)
                             TProductQuantityButtons(
                               isDark: isDark,
                               cartItem: cartItem,
                             ),
-                            TProductPriceText(
-                              price: (cartItem.price * cartItem.quantity)
-                                  .toStringAsFixed(2),
-                            ),
-                          ],
-                        ),
+                          TProductPriceText(
+                            price: (cartItem.price * cartItem.quantity)
+                                .toStringAsFixed(2),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

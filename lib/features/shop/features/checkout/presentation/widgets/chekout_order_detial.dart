@@ -7,7 +7,8 @@ import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class ChekoutOrderDetial extends StatelessWidget {
-  const ChekoutOrderDetial({super.key});
+  const ChekoutOrderDetial({super.key, required this.subTotal});
+  final double subTotal;
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +17,15 @@ class ChekoutOrderDetial extends StatelessWidget {
       padding: const EdgeInsets.all(AppSizes.md),
       showBorder: true,
       backgroundColor: isDark ? AppColors.black : AppColors.white,
-      child: const Column(
+      child:  Column(
         children: [
-          PricingSection(),
-          SizedBox(height: AppSizes.spaceBtwItems),
-          Divider(),
-          SizedBox(height: AppSizes.spaceBtwItems),
-          PaymentSection(),
-          SizedBox(height: AppSizes.spaceBtwSections),
-          AddressSection(),
+          PricingSection(subTotal: subTotal),
+          const SizedBox(height: AppSizes.spaceBtwItems),
+          const Divider(),
+          const SizedBox(height: AppSizes.spaceBtwItems),
+          const PaymentSection(),
+          const SizedBox(height: AppSizes.spaceBtwSections),
+          const AddressSection(),
         ],
       ),
     );

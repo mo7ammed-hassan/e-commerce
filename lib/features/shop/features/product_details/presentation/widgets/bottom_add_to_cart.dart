@@ -3,16 +3,53 @@ import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/icons/circular_icon.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
+import 'package:t_store/features/shop/features/product_details/presentation/cubits/product_variation_cubit.dart';
 import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
-class TBottomAddToCart extends StatelessWidget {
+class TBottomAddToCart extends StatefulWidget {
   const TBottomAddToCart({super.key, required this.product});
   final ProductEntity product;
+
+  @override
+  State<TBottomAddToCart> createState() => _TBottomAddToCartState();
+}
+
+class _TBottomAddToCartState extends State<TBottomAddToCart> {
+  int cartItemQuantity = 0;
+
+  //@override
+  // void initState() {
+  //   super.initState();
+  //   cartItemQuantity = getIt
+  //               .get<CartCubit>()
+  //               .getItemQuantity(productId: widget.product.id) ==
+  //           0
+  //       ? 1
+  //       : getIt.get<CartCubit>().getItemQuantity(productId: widget.product.id);
+  // }
+  @override
+  void initState() {
+    super.initState();
+    cartItemQuantity = getIt.get<CartCubit>().getItemQuantityWithVariationId(
+                  productId: widget.product.id,
+                  selectedVariationId:
+                      getIt.get<ProductVariationCubit>().selectedVariation.id,
+                ) ==
+            0
+        ? 1
+        : getIt.get<CartCubit>().getItemQuantityWithVariationId(
+              productId: widget.product.id,
+              selectedVariationId:
+                  getIt.get<ProductVariationCubit>().selectedVariation.id,
+            );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppSizes.defaultSpace,
@@ -36,12 +73,16 @@ class TBottomAddToCart extends StatelessWidget {
                 width: 40,
                 height: 40,
                 color: AppColors.white,
-                onPressed: () {},
+                onPressed: () {
+                  if (cartItemQuantity > 0) {
+                    cartItemQuantity--;
+                    setState(() {});
+                  }
+                },
               ),
               const SizedBox(width: AppSizes.spaceBtwItems),
-              // TODO: Quantity should get from the cart cubit
               Text(
-                '1',
+                cartItemQuantity > 0 ? cartItemQuantity.toString() : '1',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(width: AppSizes.spaceBtwItems),
@@ -51,7 +92,10 @@ class TBottomAddToCart extends StatelessWidget {
                 width: 40,
                 height: 40,
                 color: AppColors.white,
-                onPressed: () {},
+                onPressed: () {
+                  cartItemQuantity++;
+                  setState(() {});
+                },
               ),
             ],
           ),
@@ -59,11 +103,9 @@ class TBottomAddToCart extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               await getIt.get<CartCubit>().addProductToCart(
-                  product: product,
-                  quantity: getIt
-                      .get<CartCubit>()
-                      .getItemQuantity(productId: product.id));
-              // await CartCubit().addProductToCart(product: product);
+                    product: widget.product,
+                    quantity: cartItemQuantity > 0 ? cartItemQuantity : 1,
+                  );
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(AppSizes.md),
