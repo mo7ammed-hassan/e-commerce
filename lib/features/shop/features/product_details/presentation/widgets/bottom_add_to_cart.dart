@@ -30,32 +30,39 @@ class TBottomAddToCart extends StatelessWidget {
         children: [
           Row(
             children: [
-              const TCircularIcon(
+              TCircularIcon(
                 backgroundColor: AppColors.darkGrey,
                 icon: Iconsax.minus,
                 width: 40,
                 height: 40,
                 color: AppColors.white,
+                onPressed: () {},
               ),
               const SizedBox(width: AppSizes.spaceBtwItems),
+              // TODO: Quantity should get from the cart cubit
               Text(
-                '3',
+                '1',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(width: AppSizes.spaceBtwItems),
-              const TCircularIcon(
+              TCircularIcon(
                 backgroundColor: AppColors.black,
                 icon: Iconsax.add,
                 width: 40,
                 height: 40,
                 color: AppColors.white,
+                onPressed: () {},
               ),
             ],
           ),
           const SizedBox(width: AppSizes.spaceBtwSections),
           ElevatedButton(
             onPressed: () async {
-              await getIt.get<CartCubit>().addProductToCart(product: product);
+              await getIt.get<CartCubit>().addProductToCart(
+                  product: product,
+                  quantity: getIt
+                      .get<CartCubit>()
+                      .getItemQuantity(productId: product.id));
               // await CartCubit().addProductToCart(product: product);
             },
             style: ElevatedButton.styleFrom(

@@ -3,7 +3,7 @@ import 'package:t_store/common/core/errors/failures.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_local_storage_services.dart';
-import 'package:t_store/features/shop/features/cart/data/source/cart_mangment_service.dart';
+import 'package:t_store/features/shop/features/cart/data/source/cart_managment_service.dart';
 import 'package:t_store/features/shop/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:t_store/features/shop/features/cart/domain/repositories/cart_repository.dart';
 
@@ -16,7 +16,7 @@ class CartRepositoryImpl extends CartRepository {
   @override
   Future<Either<Failure, void>> addProductToCart({
     required ProductEntity product,
-    int quantity = 1,
+    required int quantity,
   }) async {
     try {
       await cartManagementService.addProductToCart(
@@ -70,6 +70,19 @@ class CartRepositoryImpl extends CartRepository {
       return Right(cartItems);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  int getItemQuantityWithVariationId(
+      {required String productId, required String selectedVariationId}) {
+    try {
+      var quantity = cartLocalStorageServices.getItemQuantityWithVariationId(
+          productId: productId, selectedVariationId: selectedVariationId);
+
+      return quantity;
+    } catch (e) {
+      rethrow;
     }
   }
 }

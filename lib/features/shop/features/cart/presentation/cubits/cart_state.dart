@@ -30,3 +30,8 @@ class CartErrorState extends CartState {
   @override
   List<Object> get props => [message];
 }
+
+
+class CartItemQuantityChangedState extends CartState {
+  const CartItemQuantityChangedState();
+}

@@ -11,6 +11,9 @@ abstract class CartLocalStorageServices {
   int getCartItemsCount();
   // -- Get CartItemQuantity --
   int getItemQuantity(String productId);
+  // -- Get ItemCount With Variation --
+  int getItemQuantityWithVariationId(
+      {required String productId, required String selectedVariationId});
 }
 
 class CartLocalStorageServicesImpl implements CartLocalStorageServices {
@@ -55,5 +58,24 @@ class CartLocalStorageServicesImpl implements CartLocalStorageServices {
         .where((element) => element.productId == productId)
         .fold(0, (previousValue, element) => previousValue + element.quantity);
     return foundItem;
+  }
+
+  @override
+  int getItemQuantityWithVariationId(
+      {required String productId, required String? selectedVariationId}) {
+    if (selectedVariationId == null || selectedVariationId.isEmpty) {
+      getCartItemsCount();
+    }
+    var cartBox = Hive.box<CartItemModel>(_boxName);
+    final cartItems = cartBox.values.toList();
+    final foundItemQuantity = cartItems
+        .where(
+          (item) =>
+              item.productId == productId &&
+              item.variationId == selectedVariationId,
+        )
+        .fold(0, (previousValue, item) => previousValue + item.quantity);
+
+    return foundItemQuantity;
   }
 }

@@ -33,7 +33,7 @@ class AuthenticationFirebaseServicesImpl
       await getIt
           .get<OpenBoxes>()
           .closeUserWishlistBox(userID: _user.currentUser!.uid);
-      // -- Reset Singletons to resevie new instance   
+      // -- Reset Singletons to resevie new instance
       await getIt.resetLazySingleton<WishlistCubit>();
       await getIt.resetLazySingleton<FavoriteButtonCubit>();
       await getIt.resetLazySingleton<OpenBoxes>();
@@ -83,9 +83,7 @@ class AuthenticationFirebaseServicesImpl
           );
 
       // Open User Wishlist Box
-      await getIt
-          .get<OpenBoxes>()
-          .openUserWishlistBox(userID: userCredential.user!.uid);
+      await getIt.get<OpenBoxes>().initializeUserBox();
 
       return const Right(
         'Your Account has been created! Verify email to continue',
@@ -113,8 +111,8 @@ class AuthenticationFirebaseServicesImpl
 
       // Open User Wishlist Box
       await getIt
-          .get<OpenBoxes>()
-          .openUserWishlistBox(userID: userCredential.user!.uid);
+          .get<OpenBoxes>().initializeUserBox();
+          //.openUserWishlistBox(userID: userCredential.user!.uid);
 
       return Right(userCredential.user);
     } on FirebaseAuthException catch (e) {

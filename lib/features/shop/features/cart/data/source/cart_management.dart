@@ -5,22 +5,22 @@ import 'package:t_store/features/shop/features/cart/data/mappers_or_factories/ca
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_local_storage_services.dart';
 
-abstract class CartManagementService {
-  Future<void> addProductToCart({required ProductEntity product, int quantity});
+abstract class CartManagement {
+  Future<void> addProductToCart(
+      {required ProductEntity product, required int quantity});
   Future<void> addSingleItemToCart({required CartItemModel cartItem});
   Future<void> removeSingleItemFromCart({required CartItemModel cartItem});
   Future<void> removeAllItemsFromCart();
 }
 
-class CartManagementServiceImpl implements CartManagementService {
+class CartManagementImpl implements CartManagement {
   final CartLocalStorageServices cartLocalStorageServices;
   final CartItemFactoryInterface cartItemFactory;
 
   static final String _userId = FirebaseAuth.instance.currentUser!.uid;
   static final String _boxName = 'Cart_$_userId';
 
-  CartManagementServiceImpl(
-      this.cartLocalStorageServices, this.cartItemFactory);
+  CartManagementImpl(this.cartLocalStorageServices, this.cartItemFactory);
 
   @override
   Future<void> addSingleItemToCart({required CartItemModel cartItem}) async {
@@ -38,7 +38,7 @@ class CartManagementServiceImpl implements CartManagementService {
 
   @override
   Future<void> addProductToCart(
-      {required ProductEntity product, int quantity = 1}) async {
+      {required ProductEntity product, required int quantity}) async {
     var cartItem =
         cartItemFactory.createCartItem(product: product, quantity: quantity);
     await addSingleItemToCart(cartItem: cartItem);
