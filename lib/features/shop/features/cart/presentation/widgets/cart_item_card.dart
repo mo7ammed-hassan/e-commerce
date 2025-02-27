@@ -71,20 +71,20 @@ class CartItemCard extends StatelessWidget {
                       ),
                       if (showAddRemoveButtons)
                         const SizedBox(height: AppSizes.spaceBtwItems),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          if (showAddRemoveButtons)
+                      if (showAddRemoveButtons)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             TProductQuantityButtons(
                               isDark: isDark,
                               cartItem: cartItem,
                             ),
-                          TProductPriceText(
-                            price: (cartItem.price * cartItem.quantity)
-                                .toStringAsFixed(2),
-                          ),
-                        ],
-                      ),
+                            TProductPriceText(
+                              price: (cartItem.price * cartItem.quantity)
+                                  .toStringAsFixed(2),
+                            ),
+                          ],
+                        ),
                     ],
                   ),
                 ),
