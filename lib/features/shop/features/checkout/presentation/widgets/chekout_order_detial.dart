@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:t_store/features/shop/features/checkout/presentation/widgets/address_section.dart';
-import 'package:t_store/features/shop/features/checkout/presentation/widgets/payment_section.dart';
+import 'package:t_store/features/shop/features/checkout/presentation/widgets/address/address_section.dart';
+import 'package:t_store/features/shop/features/checkout/presentation/widgets/payment/payment_section.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/widgets/pricing_section.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
@@ -17,7 +17,7 @@ class ChekoutOrderDetial extends StatelessWidget {
       padding: const EdgeInsets.all(AppSizes.md),
       showBorder: true,
       backgroundColor: isDark ? AppColors.black : AppColors.white,
-      child:  Column(
+      child: Column(
         children: [
           PricingSection(subTotal: subTotal),
           const SizedBox(height: AppSizes.spaceBtwItems),

@@ -9,7 +9,8 @@ import 'package:t_store/utils/helpers/helper_functions.dart';
 import 'package:t_store/utils/helpers/navigation.dart';
 
 class PaymentTile extends StatelessWidget {
-  const PaymentTile({super.key, required this.paymentMethod, required this.cubit});
+  const PaymentTile(
+      {super.key, required this.paymentMethod, required this.cubit});
   final PaymentMethodModel paymentMethod;
   final CheckoutCubit cubit;
 

@@ -53,9 +53,9 @@ class AddressPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => BlocProvider.value(
-                  value: addressCubit, // Pass the ✅ Same instance
-                  child: const AddNewAddressPage(),
+                // 👈 Pass cubit or use BlocProvider.value
+                builder: (context) => AddNewAddressPage(
+                  addressCubit: addressCubit,
                 ),
               ),
             );
