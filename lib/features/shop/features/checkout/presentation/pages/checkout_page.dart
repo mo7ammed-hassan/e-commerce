@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/success_pages/success_page.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_managment_service.dart';
-import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:t_store/features/shop/features/cart/presentation/widgets/cart_items.dart';
-import 'package:t_store/features/shop/features/checkout/presentation/cubits/checkout_cubit.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/widgets/chekout_order_detial.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/widgets/coupon_field.dart';
 import 'package:t_store/navigation_menu.dart';
@@ -21,30 +18,24 @@ class CheckoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt.get<CartCubit>(),
-      child: Scaffold(
-        bottomNavigationBar: _checkoutButton(context),
-        appBar: _appBar(context),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(AppSizes.spaceBtwItems),
-            child: Column(
-              children: [
-                const CartItems(
-                  showAddRemoveButtons: false,
-                ),
-                const SizedBox(height: AppSizes.spaceBtwSections),
-                const CouponFiled(),
-                const SizedBox(height: AppSizes.spaceBtwSections),
-                BlocProvider(
-                  create: (context) => CheckoutCubit()..initPaymentMethod(),
-                  child: ChekoutOrderDetial(
-                    subTotal: subTotal,
-                  ),
-                ),
-              ],
-            ),
+    return Scaffold(
+      bottomNavigationBar: _checkoutButton(context),
+      appBar: _appBar(context),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(AppSizes.spaceBtwItems),
+          child: Column(
+            children: [
+              const CartItems(
+                showAddRemoveButtons: false,
+              ),
+              const SizedBox(height: AppSizes.spaceBtwSections),
+              const CouponFiled(),
+              const SizedBox(height: AppSizes.spaceBtwSections),
+              ChekoutOrderDetial(
+                subTotal: subTotal,
+              ),
+            ],
           ),
         ),
       ),
@@ -59,6 +50,7 @@ class CheckoutPage extends StatelessWidget {
       ),
       child: ElevatedButton(
         onPressed: () {
+          // subTotal > 0 ?
           context.pushPage(
             SuccessPage(
               json: true,
