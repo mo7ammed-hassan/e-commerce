@@ -5,6 +5,7 @@ import 'package:t_store/common/widgets/success_pages/success_page.dart';
 import 'package:t_store/features/shop/features/cart/data/source/cart_managment_service.dart';
 import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:t_store/features/shop/features/cart/presentation/widgets/cart_items.dart';
+import 'package:t_store/features/shop/features/checkout/presentation/cubits/checkout_cubit.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/widgets/chekout_order_detial.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/widgets/coupon_field.dart';
 import 'package:t_store/navigation_menu.dart';
@@ -36,8 +37,11 @@ class CheckoutPage extends StatelessWidget {
                 const SizedBox(height: AppSizes.spaceBtwSections),
                 const CouponFiled(),
                 const SizedBox(height: AppSizes.spaceBtwSections),
-                ChekoutOrderDetial(
-                  subTotal: subTotal,
+                BlocProvider(
+                  create: (context) => CheckoutCubit()..initPaymentMethod(),
+                  child: ChekoutOrderDetial(
+                    subTotal: subTotal,
+                  ),
                 ),
               ],
             ),
