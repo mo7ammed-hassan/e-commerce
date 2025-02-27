@@ -5,6 +5,7 @@ import 'package:readmore/readmore.dart';
 import 'package:t_store/common/widgets/animation_containers/open_container_wrapper.dart';
 import 'package:t_store/common/widgets/texts/section_heading.dart';
 import 'package:t_store/features/shop/features/all_products/domain/entity/product_entity.dart';
+import 'package:t_store/features/shop/features/checkout/presentation/pages/checkout_page.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/cubits/images_product_cubit.dart';
 import 'package:t_store/features/shop/features/product_reviews/presentation/pages/product_review_page.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/bottom_add_to_cart.dart';
@@ -14,6 +15,7 @@ import 'package:t_store/features/shop/features/product_details/presentation/widg
 import 'package:t_store/features/shop/features/product_details/presentation/widgets/rating_and_share.dart';
 import 'package:t_store/utils/constants/enums.dart';
 import 'package:t_store/utils/constants/sizes.dart';
+import 'package:t_store/utils/helpers/navigation.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final ProductEntity product;
@@ -52,7 +54,9 @@ class ProductDetailPage extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.pushPage(const CheckoutPage(subTotal: 0));
+                        },
                         child: const Text('Checkout'),
                       ),
                     ),

@@ -57,10 +57,10 @@ class CheckoutPage extends StatelessWidget {
         onPressed: () {
           context.pushPage(
             SuccessPage(
-              json: false,
+              json: true,
               title: 'Payment Success!',
               subtitle: 'Your items will be shipping soon!',
-              image: TImages.successfulPaymentIcon,
+              image: TImages.completeOrder,
               onPressed: () async {
                 context.pushPage(const NavigationMenu());
                 await getIt

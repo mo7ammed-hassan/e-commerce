@@ -26,7 +26,7 @@ class SuccessPage extends StatelessWidget {
           padding: TSpacingStyles.paddingWithAppBarHeight * 2,
           child: Column(
             children: [
-              SizedBox(height: MediaQuery.sizeOf(context).height * 0.1),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
               json
                   ? Lottie.asset(
                       image,
