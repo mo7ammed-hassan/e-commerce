@@ -66,7 +66,7 @@ class CheckoutPage extends StatelessWidget {
             ),
           );
         },
-        child: const Text('Checkout \$300'),
+        child:  Text('Checkout \$$subTotal'),
       ),
     );
   }
