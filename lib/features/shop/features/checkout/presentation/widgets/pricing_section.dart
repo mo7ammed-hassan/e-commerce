@@ -15,7 +15,7 @@ class PricingSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Subtotal', style: Theme.of(context).textTheme.bodyMedium),
-            Text('\$$subTotal', style: Theme.of(context).textTheme.bodyMedium),
+            Text('\$${calcSubTotal()}', style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
         const SizedBox(height: AppSizes.spaceBtwItems / 2),
@@ -58,7 +58,11 @@ class PricingSection extends StatelessWidget {
     );
   }
 
-  double calcTotal() {
-    return subTotal + 6.0 + 10.0;
+  String calcTotal() {
+    return (subTotal + 6.0 + 10.0).toStringAsFixed(2);
+  }
+
+  String calcSubTotal() {
+    return subTotal.toStringAsFixed(2);
   }
 }

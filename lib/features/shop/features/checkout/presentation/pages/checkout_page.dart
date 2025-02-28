@@ -66,7 +66,7 @@ class CheckoutPage extends StatelessWidget {
             ),
           );
         },
-        child:  Text('Checkout \$$subTotal'),
+        child: Text('Checkout \$${(subTotal + 6.0 + 10.0).toStringAsFixed(2)}'),
       ),
     );
   }

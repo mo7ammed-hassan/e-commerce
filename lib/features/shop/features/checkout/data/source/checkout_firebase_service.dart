@@ -1,4 +1,3 @@
 abstract class CheckoutFirebaseService {
-  Future<void> placeOrder();
-  
+  Future<void> placeOrder(); 
 }
