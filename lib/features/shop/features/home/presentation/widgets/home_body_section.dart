@@ -12,19 +12,8 @@ import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/navigation.dart';
 
-class HomeBodySection extends StatefulWidget {
+class HomeBodySection extends StatelessWidget {
   const HomeBodySection({super.key});
-
-  @override
-  State<HomeBodySection> createState() => _HomeBodySectionState();
-}
-
-class _HomeBodySectionState extends State<HomeBodySection> {
-  @override
-  void dispose() {
-    ProductsCubit().close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
