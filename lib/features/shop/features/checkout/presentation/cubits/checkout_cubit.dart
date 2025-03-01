@@ -18,7 +18,6 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   CheckoutCubit() : super(CheckoutInitial());
 
   PaymentMethodModel? selectedPaymentMethod;
-  double? totalAmount;
   AddressModel? selectedAddress;
   List<CartItemEntity> cartItems = getIt.get<CartCubit>().cartItemsList;
 
@@ -58,7 +57,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
         id: UniqueKey().toString(),
         userId: FirebaseAuth.instance.currentUser!.uid,
         status: OrderStatus.processing,
-        totalAmount: totalAmount ?? 0,
+        totalAmount: calculateTotalAmount(),
         orderDate: DateTime.now(),
         address: selectedAddress!,
         deliveryDate: DateTime.now().add(const Duration(days: 2)),

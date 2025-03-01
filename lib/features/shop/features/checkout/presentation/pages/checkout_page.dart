@@ -89,10 +89,7 @@ class CheckoutPage extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () async {
               final checkoutCubit = context.read<CheckoutCubit>();
-              checkoutCubit.totalAmount =
-                  (checkoutCubit.calculateSubTotalAmount() + 6.0 + 10.0);
               checkoutCubit.cartItems = getIt.get<CartCubit>().cartItemsList;
-
               checkoutCubit.calculateSubTotalAmount() > 0
                   ? await checkoutCubit.checkout()
                   : null;
