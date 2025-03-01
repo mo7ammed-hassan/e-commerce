@@ -31,6 +31,7 @@ class ProductVariationCubit extends Cubit<ProductVariationEntity> {
 
       // Get stock state and emit
       getProductVariationStock();
+
       emit(selectedVariation);
     }
   }

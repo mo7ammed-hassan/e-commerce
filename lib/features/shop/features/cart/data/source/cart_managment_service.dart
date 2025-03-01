@@ -71,7 +71,7 @@ class CartManagementServiceImpl implements CartManagementService {
     } else {
       await cartBox.put(cartKey, cartItem);
     }
-    cartItemFactory.resetVariationCubit();
+    //cartItemFactory.resetVariationCubit();
   }
 
   @override

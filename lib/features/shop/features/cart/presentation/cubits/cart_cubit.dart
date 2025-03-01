@@ -53,7 +53,7 @@ class CartCubit extends Cubit<CartState> {
 
     if (product.productType == ProductType.variable.toString()) {
       // Ensure a valid variation is selected
-      if (selectedVariation.id.isEmpty) {
+      if (selectedVariation.attributeValues.isEmpty) {
         Loaders.customToast(message: 'Please select a variation');
         return;
       }
