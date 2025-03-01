@@ -59,7 +59,9 @@ class HorizantalProductCard extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(
-                    right: AppSizes.sm, left: AppSizes.sm, top: AppSizes.sm),
+                  left: AppSizes.sm,
+                  top: AppSizes.sm,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,12 +84,15 @@ class HorizantalProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          child: TProductPriceText(
-                            price: product.price.toString(),
-                            maxLines: 2,
+                          flex: 3,
+                          child: FittedBox(
+                            child: TProductPriceText(
+                              price: product.price.toString(),
+                              maxLines: 2,
+                            ),
                           ),
                         ),
-                        AddIcon(product: product),
+                        Flexible(child: AddIcon(product: product)),
                       ],
                     )
                   ],
