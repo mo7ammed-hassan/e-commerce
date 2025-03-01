@@ -109,10 +109,7 @@ class AuthenticationFirebaseServicesImpl
         password: userSigninModel.password,
       );
 
-      // Open User Wishlist Box
-      await getIt
-          .get<OpenBoxes>().initializeUserBox();
-          //.openUserWishlistBox(userID: userCredential.user!.uid);
+      await getIt.get<OpenBoxes>().initializeUserBox();
 
       return Right(userCredential.user);
     } on FirebaseAuthException catch (e) {
@@ -121,6 +118,8 @@ class AuthenticationFirebaseServicesImpl
         message = 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
         message = 'Wrong password provided for that user.';
+      } else {
+        message = e.message!;
       }
 
       return Left(message);
