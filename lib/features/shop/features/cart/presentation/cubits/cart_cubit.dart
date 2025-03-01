@@ -9,7 +9,9 @@ import 'package:t_store/features/shop/features/cart/domain/usecases/add_single_c
 import 'package:t_store/features/shop/features/cart/domain/usecases/fetch_cart_items_use_case.dart';
 import 'package:t_store/features/shop/features/cart/domain/usecases/remover_single_cart_item_use_case.dart';
 import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_state.dart';
+import 'package:t_store/features/shop/features/product_details/presentation/cubits/product_variation_cubit.dart';
 import 'package:t_store/service_locator.dart';
+import 'package:t_store/utils/constants/enums.dart';
 import 'package:t_store/utils/popups/loaders.dart';
 
 class CartCubit extends Cubit<CartState> {
@@ -32,7 +34,7 @@ class CartCubit extends Cubit<CartState> {
       totalCartItems = cartItems.length;
       totalCartPrice = 0;
       cartItemsList = cartItems;
-       calculateTotalPrice();
+      calculateTotalPrice();
       emit(CartLoadedState(cartItems, cartItems.length));
     });
   }
@@ -40,6 +42,34 @@ class CartCubit extends Cubit<CartState> {
   // -- Add Product To Cart --
   Future<void> addProductToCart(
       {required ProductEntity product, int quantity = 1}) async {
+    final selectedVariation =
+        getIt.get<ProductVariationCubit>().selectedVariation;
+
+    // Check stock availability
+    if (product.stock == 0) {
+      Loaders.customToast(message: 'Out of stock');
+      return;
+    }
+
+    if (product.productType == ProductType.variable.toString()) {
+      // Ensure a valid variation is selected
+      if (selectedVariation.id.isEmpty) {
+        Loaders.customToast(message: 'Please select a variation');
+        return;
+      }
+
+      // Find the selected variation in the product's variations
+      final productVariation = product.productVariations?.firstWhere(
+        (variation) => variation.id == selectedVariation.id,
+      );
+
+      // Check stock availability
+      if (productVariation!.stock == 0) {
+        Loaders.customToast(message: 'Out of stock');
+        return;
+      }
+    }
+
     final result = await getIt
         .get<AddProductToCartUseCase>()
         .call(params: product, quantity: quantity);

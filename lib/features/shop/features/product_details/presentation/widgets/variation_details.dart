@@ -18,8 +18,6 @@ class VariationDetails extends StatelessWidget {
 
     return BlocBuilder<ProductVariationCubit, ProductVariationEntity>(
       builder: (context, state) {
-        if (state.id.isEmpty) return const SizedBox();
-
         return TRoundedContainer(
           padding: const EdgeInsets.all(AppSizes.md),
           backgroundColor: isDark ? AppColors.darkGrey : AppColors.grey,
@@ -28,7 +26,11 @@ class VariationDetails extends StatelessWidget {
               _buildVariationHeader(context, state),
               const SizedBox(height: AppSizes.spaceBtwItems),
               if (state.description != null && state.description!.isNotEmpty)
-                _buildDescription(state.description!),
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  child: _buildDescription(state.description!),
+                ),
             ],
           ),
         );
