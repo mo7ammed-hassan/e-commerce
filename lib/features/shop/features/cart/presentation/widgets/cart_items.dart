@@ -9,8 +9,9 @@ import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class CartItems extends StatelessWidget {
-  const CartItems({super.key, this.showAddRemoveButtons = true});
+  const CartItems({super.key, this.showAddRemoveButtons = true, this.physics});
   final bool showAddRemoveButtons;
+  final ScrollPhysics? physics;
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -46,6 +47,7 @@ class CartItems extends StatelessWidget {
     return ListView.separated(
       itemCount: cartItems.length,
       shrinkWrap: true,
+      physics: physics,
       itemBuilder: (context, index) => CartItemCard(
         showAddRemoveButtons: showAddRemoveButtons,
         cartItem: cartItems[index],

@@ -32,6 +32,7 @@ class CheckoutPage extends StatelessWidget {
             child: Column(
               children: [
                 CartItems(
+                  physics: NeverScrollableScrollPhysics(),
                   showAddRemoveButtons: false,
                 ),
                 SizedBox(height: AppSizes.spaceBtwSections),
