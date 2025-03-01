@@ -12,7 +12,7 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = HelperFunctions.isDarkMode(context);
     return TRoundedContainer(
-      padding: const EdgeInsets.all(TSizes.md),
+      padding: const EdgeInsets.all(AppSizes.md),
       showBorder: true,
       backgroundColor: isDark ? AppColors.dark : AppColors.light,
       child: Column(
@@ -21,7 +21,7 @@ class OrderCard extends StatelessWidget {
           Row(
             children: [
               const Icon(Iconsax.ship),
-              const SizedBox(width: TSizes.spaceBtwItems / 2),
+              const SizedBox(width: AppSizes.spaceBtwItems / 2),
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.min, // to take only required space
@@ -45,19 +45,19 @@ class OrderCard extends StatelessWidget {
                 onPressed: () {},
                 icon: const Icon(
                   Iconsax.arrow_right_34,
-                  size: TSizes.iconSm,
+                  size: AppSizes.iconSm,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: AppSizes.spaceBtwItems),
           Row(
             children: [
               Expanded(
                 child: Row(
                   children: [
                     const Icon(Iconsax.tag),
-                    const SizedBox(width: TSizes.spaceBtwItems / 2),
+                    const SizedBox(width: AppSizes.spaceBtwItems / 2),
                     Expanded(
                       child: Column(
                         mainAxisSize:
@@ -82,7 +82,7 @@ class OrderCard extends StatelessWidget {
                 child: Row(
                   children: [
                     const Icon(Iconsax.calendar),
-                    const SizedBox(width: TSizes.spaceBtwItems / 2),
+                    const SizedBox(width: AppSizes.spaceBtwItems / 2),
                     Expanded(
                       child: Column(
                         mainAxisSize:
