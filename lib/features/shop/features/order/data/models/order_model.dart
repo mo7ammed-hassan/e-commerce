@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:t_store/features/personalization/pages/address/data/models/address_model.dart';
 import 'package:t_store/features/shop/features/cart/data/models/cart_item_model.dart';
+import 'package:t_store/features/shop/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:t_store/utils/constants/enums.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
@@ -11,9 +12,9 @@ class OrderModel {
   final double totalAmount;
   final DateTime orderDate;
   final String paymentMethod;
-  final AddressModel addressModel;
+  final AddressModel address;
   final DateTime deliveryDate;
-  final List<CartItemModel> cartItems;
+  final List<CartItemEntity> cartItems;
 
   OrderModel({
     required this.id,
@@ -21,8 +22,8 @@ class OrderModel {
     required this.status,
     required this.totalAmount,
     required this.orderDate,
-    this.paymentMethod = 'PayPal',
-    required this.addressModel,
+    required this.paymentMethod,
+    required this.address,
     required this.deliveryDate,
     required this.cartItems,
   });
@@ -45,14 +46,14 @@ class OrderModel {
             .firstWhere((e) => e.toString() == json['status']),
         totalAmount: json['totalAmount'],
         orderDate: json['orderDate'] is Timestamp
-          ? (json['orderDate'] as Timestamp).toDate()
-          : DateTime.tryParse(json['orderData']) ?? DateTime.now(),
+            ? (json['orderDate'] as Timestamp).toDate()
+            : DateTime.tryParse(json['orderData']) ?? DateTime.now(),
         paymentMethod: json['paymentMethod'],
-        addressModel: AddressModel.fromJson(json['address']),
+        address: AddressModel.fromJson(json['address']),
         deliveryDate: json['deliveryDate'] is Timestamp
-          ? (json['deliveryDate'] as Timestamp).toDate()
-          : DateTime.tryParse(json['deliveryDate']) ?? DateTime.now(),
-        cartItems: List<CartItemModel>.from(
+            ? (json['deliveryDate'] as Timestamp).toDate()
+            : DateTime.tryParse(json['deliveryDate']) ?? DateTime.now(),
+        cartItems: List<CartItemEntity>.from(
           json['cartItems'].map((item) => CartItemModel.fromJson(item)),
         ),
       );
@@ -64,7 +65,7 @@ class OrderModel {
         'totalAmount': totalAmount,
         'orderDate': orderDate,
         'paymentMethod': paymentMethod,
-        'address': addressModel.toJson(),
+        'address': address.toJson(),
         'deliveryDate': deliveryDate,
         'cartItems': List<dynamic>.from(cartItems.map((item) => item.toJson())),
       };

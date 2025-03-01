@@ -1,14 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:t_store/features/personalization/pages/address/data/models/address_model.dart';
+import 'package:t_store/features/shop/features/cart/data/source/cart_managment_service.dart';
+import 'package:t_store/features/shop/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:t_store/features/shop/features/checkout/data/models/payment_method_model.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/cubits/checkout_state.dart';
+import 'package:t_store/features/shop/features/order/data/models/order_model.dart';
+import 'package:t_store/features/shop/features/order/domain/repositories/order_repository.dart';
+import 'package:t_store/service_locator.dart';
+import 'package:t_store/utils/constants/enums.dart';
 
 import 'package:t_store/utils/constants/images_strings.dart';
 
 class CheckoutCubit extends Cubit<CheckoutState> {
   CheckoutCubit() : super(CheckoutInitial());
 
-  PaymentMethodModel selectedPaymentMethod = PaymentMethodModel.empty();
+  PaymentMethodModel? selectedPaymentMethod;
+  double? totalAmount;
+  AddressModel? selectedAddress;
+  List<CartItemEntity> cartItems = getIt.get<CartCubit>().cartItemsList;
 
   // change payment method
   void initPaymentMethod() {
@@ -23,11 +35,54 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   }
 
   // checkout
-  void checkout() {
+  Future<void> checkout() async {
     emit(CheckoutLoadingState());
-    Future.delayed(const Duration(seconds: 3));
-    emit(CheckoutSuccessState());
+    if (selectedAddress == null || selectedAddress!.name.isEmpty) {
+      emit(CheckoutErrorState('Please select an address'));
+      return;
+    }
+
+    if (selectedPaymentMethod!.name.isEmpty ||
+        selectedPaymentMethod?.name == '') {
+      emit(CheckoutErrorState('Please select a payment method'));
+      return;
+    }
+
+    if (cartItems.isEmpty) {
+      emit(CheckoutErrorState('Cart is empty'));
+      return;
+    }
+
+    try {
+      final order = OrderModel(
+        id: UniqueKey().toString(),
+        userId: FirebaseAuth.instance.currentUser!.uid,
+        status: OrderStatus.processing,
+        totalAmount: totalAmount ?? 0,
+        orderDate: DateTime.now(),
+        address: selectedAddress!,
+        deliveryDate: DateTime.now().add(const Duration(days: 2)),
+        cartItems: cartItems,
+        paymentMethod: selectedPaymentMethod!.name,
+      );
+
+      await getIt.get<OrderRepository>().placeOrder(order: order);
+      await getIt.get<CartManagementService>().removeAllItemsFromCart();
+      emit(CheckoutSuccessState());
+    } catch (e) {
+      emit(CheckoutErrorState(e.toString()));
+    }
+  }
+
+  double calculateSubTotalAmount() {
+    double subtotal = 0.0;
+    subtotal = getIt.get<CartCubit>().calculateTotalPrice();
+    return subtotal;
+  }
+
+  double calculateTotalAmount() {
+    double total = 0.0;
+    total = getIt.get<CartCubit>().calculateTotalPrice();
+    return total + 10 + 6;
   }
 }
-
-// if success checkout then place order and remove all items from cart

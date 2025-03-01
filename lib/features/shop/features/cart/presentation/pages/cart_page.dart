@@ -75,7 +75,7 @@ class CartPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CheckoutPage(subTotal: totalPrice),
+              builder: (context) => const CheckoutPage(),
             ),
           );
         },

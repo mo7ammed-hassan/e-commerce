@@ -55,7 +55,7 @@ class ProductDetailPage extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          context.pushPage(const CheckoutPage(subTotal: 0));
+                          context.pushPage(const CheckoutPage());
                         },
                         child: const Text('Checkout'),
                       ),

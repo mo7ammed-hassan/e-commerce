@@ -5,7 +5,7 @@ import 'package:t_store/common/core/firebase_collections/collections.dart';
 import 'package:t_store/features/shop/features/order/data/models/order_model.dart';
 
 abstract class OrderFirebaseService {
-  Future<Either<String, void>> placeOrder();
+  Future<Either<String, void>> placeOrder({required OrderModel order});
   Future<Either<String, List<OrderModel>>> getAllOrders();
 }
 
@@ -30,13 +30,13 @@ class OrderFirebaseServiceImpl implements OrderFirebaseService {
   }
 
   @override
-  Future<Either<String, void>> placeOrder() async {
+  Future<Either<String, void>> placeOrder({required OrderModel order}) async {
     try {
       await _storage
           .collection(FirebaseCollections.USER_COLLECTION)
           .doc(_userId)
           .collection(FirebaseCollections.ORDERS_COLLECTION)
-          .add({});
+          .add(order.toJson());
       return const Right(null);
     } catch (e) {
       return Left(e.toString());

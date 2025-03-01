@@ -81,6 +81,21 @@ class AddressModel {
         createdAt: DateTime.now(),
         selectedAddress: false,
       );
+
+  static AddressModel fromEntity(AddressEntity addressEntity) {
+    return AddressModel(
+      id: addressEntity.id,
+      name: addressEntity.name,
+      phoneNumber: addressEntity.phoneNumber,
+      street: addressEntity.street,
+      city: addressEntity.city,
+      state: addressEntity.state,
+      country: addressEntity.country,
+      postalCode: addressEntity.postalCode,
+      createdAt: addressEntity.createdAt,
+      selectedAddress: addressEntity.selectedAddress,
+    );
+  }
 }
 
 extension AddressXModel on AddressModel {

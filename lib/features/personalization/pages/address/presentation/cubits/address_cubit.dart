@@ -52,6 +52,7 @@ class AddressCubit extends Cubit<AddressState> {
         if (addresses.isNotEmpty) {
           previousAddress = addresses.last;
         }
+
         emit(FetchAddressesSuccessState(addresses));
       },
     );

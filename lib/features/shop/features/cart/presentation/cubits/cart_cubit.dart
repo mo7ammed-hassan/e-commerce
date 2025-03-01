@@ -14,14 +14,16 @@ import 'package:t_store/utils/popups/loaders.dart';
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitialState());
+
   // CartCubit._() : super(CartInitialState());
   // static final instance = CartCubit._();
   // factory CartCubit() => instance;
 
-  // -- Fetch Cart Items --
-
   int totalCartItems = 0;
   double totalCartPrice = 0;
+  List<CartItemEntity> cartItemsList = [];
+
+  // -- Fetch Cart Items --
   void fetchCartItems() async {
     emit(CartLoadingState());
     final result = await getIt.get<FetchCartItemsUseCase>().call();
@@ -29,7 +31,8 @@ class CartCubit extends Cubit<CartState> {
         (cartItems) {
       totalCartItems = cartItems.length;
       totalCartPrice = 0;
-      calculateTotalPrice(cartItems);
+      cartItemsList = cartItems;
+       calculateTotalPrice();
       emit(CartLoadedState(cartItems, cartItems.length));
     });
   }
@@ -111,24 +114,12 @@ class CartCubit extends Cubit<CartState> {
   }
 
   // --Calculate total price --
-  void calculateTotalPrice(List<CartItemEntity> cartItems) {
-    for (var cartItem in cartItems) {
-      totalCartPrice += (cartItem.price * cartItem.quantity);
+  double calculateTotalPrice() {
+    totalCartPrice = 0;
+    for (var item in cartItemsList) {
+      totalCartPrice += item.price * item.quantity;
     }
+
+    return totalCartPrice;
   }
-
-  // Future<int> getTotalCartItems() async {
-  //   return await getIt
-  //       .get<CartLocalStorageServices>()
-  //       .getCartItemsCount()
-  //       .then((value) {
-  //     totalCartItems = value;
-  //     return value;
-  //   });
-  // }
-
-  // void incrementItemQuantity({required String productId}) {
-  //   getIt.get<CartLocalStorageServices>().incrementItemQuantity(productId);
-  //   fetchCartItems();
-  // }
 }

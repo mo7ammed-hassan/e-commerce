@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:t_store/features/shop/features/checkout/presentation/cubits/checkout_cubit.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class PricingSection extends StatelessWidget {
-  const PricingSection({
-    super.key,
-    required this.subTotal,
-  });
-  final double subTotal;
+  const PricingSection({super.key});
   @override
   Widget build(BuildContext context) {
+    final cuit = context.read<CheckoutCubit>();
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Subtotal', style: Theme.of(context).textTheme.bodyMedium),
-            Text('\$${calcSubTotal()}', style: Theme.of(context).textTheme.bodyMedium),
+            Text('\$${cuit.calculateSubTotalAmount()}',
+                style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
         const SizedBox(height: AppSizes.spaceBtwItems / 2),
@@ -48,7 +48,7 @@ class PricingSection extends StatelessWidget {
             const SizedBox(width: AppSizes.md),
             FittedBox(
               child: Text(
-                '\$${calcTotal()}',
+                '\$${cuit.calculateTotalAmount()}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
@@ -56,13 +56,5 @@ class PricingSection extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  String calcTotal() {
-    return (subTotal + 6.0 + 10.0).toStringAsFixed(2);
-  }
-
-  String calcSubTotal() {
-    return subTotal.toStringAsFixed(2);
   }
 }

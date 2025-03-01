@@ -12,7 +12,7 @@ class OrderRepositoryImpl extends OrderRepository {
   }
 
   @override
-  Future<Either<String, void>> placeOrder() async {
-    return await orderFirebaseService.placeOrder();
+  Future<Either<String, void>> placeOrder({required OrderModel order}) async {
+    return await orderFirebaseService.placeOrder(order: order);
   }
 }
