@@ -10,14 +10,21 @@ abstract class OrderFirebaseService {
 }
 
 class OrderFirebaseServiceImpl implements OrderFirebaseService {
-  final _userId = FirebaseAuth.instance.currentUser!.uid;
+  final _currentUser = FirebaseAuth.instance.currentUser;
   final _storage = FirebaseFirestore.instance;
   @override
   Future<Either<String, List<OrderModel>>> getAllOrders() async {
     try {
+      if (_currentUser == null) {
+        throw FirebaseAuthException(
+            code: 'USER_NOT_LOGGED_IN', message: 'User is not authenticated');
+      }
+
+      final userId = _currentUser.uid;
+
       var data = await _storage
           .collection(FirebaseCollections.USER_COLLECTION)
-          .doc(_userId)
+          .doc(userId)
           .collection(FirebaseCollections.ORDERS_COLLECTION)
           .get();
 
@@ -32,9 +39,15 @@ class OrderFirebaseServiceImpl implements OrderFirebaseService {
   @override
   Future<Either<String, void>> placeOrder({required OrderModel order}) async {
     try {
+      if (_currentUser == null) {
+        throw FirebaseAuthException(
+            code: 'USER_NOT_LOGGED_IN', message: 'User is not authenticated');
+      }
+
+      final userId = _currentUser.uid;
       await _storage
           .collection(FirebaseCollections.USER_COLLECTION)
-          .doc(_userId)
+          .doc(userId)
           .collection(FirebaseCollections.ORDERS_COLLECTION)
           .add(order.toJson());
       return const Right(null);

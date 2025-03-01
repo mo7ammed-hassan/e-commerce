@@ -67,6 +67,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
       await getIt.get<OrderRepository>().placeOrder(order: order);
       await getIt.get<CartManagementService>().removeAllItemsFromCart();
+      await Future.delayed(const Duration(seconds: 1));
       emit(CheckoutSuccessState());
     } catch (e) {
       emit(CheckoutErrorState(e.toString()));

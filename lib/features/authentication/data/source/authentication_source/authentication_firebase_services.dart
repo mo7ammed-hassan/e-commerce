@@ -43,7 +43,7 @@ class AuthenticationFirebaseServicesImpl
 
       return const Right('Success Logout');
     } catch (e) {
-      return const Left('There was an error, please try again');
+      return Left('There was an error, please try again $e');
     }
   }
 

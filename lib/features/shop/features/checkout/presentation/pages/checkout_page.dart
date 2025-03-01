@@ -68,7 +68,7 @@ class CheckoutPage extends StatelessWidget {
             }
             if (state is CheckoutErrorState) {
               TFullScreenLoader.stopLoading();
-              Loaders.errorSnackBar(
+              Loaders.warningSnackBar(
                   title: 'Error', message: state.errorMessage);
             }
 

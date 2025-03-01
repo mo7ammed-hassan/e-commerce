@@ -85,6 +85,10 @@ class CartCubit extends Cubit<CartState> {
 
   Future<void> addProductToCartFormProduct(
       {required ProductEntity product, int quantity = 1}) async {
+    if (product.stock == 0) {
+      Loaders.customToast(message: 'Out of stock');
+      return;
+    }
     final result = await getIt
         .get<CartManagementService>()
         .addProductToCartFormProduct(product: product, quantity: quantity);
