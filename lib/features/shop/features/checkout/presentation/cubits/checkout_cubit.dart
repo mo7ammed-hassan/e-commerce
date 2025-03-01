@@ -83,6 +83,6 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   double calculateTotalAmount() {
     double total = 0.0;
     total = getIt.get<CartCubit>().calculateTotalPrice();
-    return total + 10 + 6;
+    return double.parse((total + 10 + 6).toStringAsFixed(2));
   }
 }

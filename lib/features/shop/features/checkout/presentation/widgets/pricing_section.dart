@@ -14,7 +14,7 @@ class PricingSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Subtotal', style: Theme.of(context).textTheme.bodyMedium),
-            Text('\$${cuit.calculateSubTotalAmount()}',
+            Text('\$${cuit.calculateSubTotalAmount().toStringAsFixed(2)}',
                 style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
@@ -48,7 +48,7 @@ class PricingSection extends StatelessWidget {
             const SizedBox(width: AppSizes.md),
             FittedBox(
               child: Text(
-                '\$${cuit.calculateTotalAmount()}',
+                '\$${cuit.calculateTotalAmount().toStringAsFixed(2)}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
