@@ -57,7 +57,7 @@ class AddressModel {
       // --from json
 
   factory AddressModel.fromJson(Map<String, dynamic> json) => AddressModel( 
-        id: json['id'],
+        id: json['id'] ?? '',
         name: json['name'], 
         phoneNumber: json['phoneNumber'], 
         street: json['street'], 
@@ -65,7 +65,7 @@ class AddressModel {
         state: json['state'], 
         country: json['country'], 
         postalCode: json['postalCode'], 
-        createdAt: json['createdAt'], 
+        createdAt:  json['createdAt'] is Timestamp ? (json['createdAt'] as Timestamp).toDate() : DateTime.tryParse(json['createdAt']) ?? DateTime.now(), 
         selectedAddress: json['selectedAddress'], 
       );
 

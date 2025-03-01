@@ -8,6 +8,8 @@ import 'package:t_store/features/shop/features/cart/presentation/cubits/cart_cub
 import 'package:t_store/features/shop/features/checkout/data/models/payment_method_model.dart';
 import 'package:t_store/features/shop/features/checkout/presentation/cubits/checkout_state.dart';
 import 'package:t_store/features/shop/features/order/data/models/order_model.dart';
+import 'package:t_store/features/shop/features/order/data/repositories/order_repository.dart';
+import 'package:t_store/features/shop/features/order/data/source/order_firebase_service.dart';
 import 'package:t_store/features/shop/features/order/domain/repositories/order_repository.dart';
 import 'package:t_store/service_locator.dart';
 import 'package:t_store/utils/constants/enums.dart';
@@ -20,6 +22,10 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   PaymentMethodModel? selectedPaymentMethod;
   AddressModel? selectedAddress;
   List<CartItemEntity> cartItems = getIt.get<CartCubit>().cartItemsList;
+
+  final OrderRepository orderRepository = OrderRepositoryImpl(
+    OrderFirebaseServiceImpl(),
+  );
 
   // change payment method
   void initPaymentMethod() {
@@ -65,7 +71,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
         paymentMethod: selectedPaymentMethod!.name,
       );
 
-      await getIt.get<OrderRepository>().placeOrder(order: order);
+      await orderRepository.placeOrder(order: order);
       await getIt.get<CartManagementService>().removeAllItemsFromCart();
       await Future.delayed(const Duration(seconds: 1));
       emit(CheckoutSuccessState());

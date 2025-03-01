@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:t_store/features/shop/features/order/data/models/order_model.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class OrderCard extends StatelessWidget {
-  const OrderCard({super.key});
-
+  const OrderCard({super.key, required this.order});
+  final OrderModel order;
   @override
   Widget build(BuildContext context) {
     final isDark = HelperFunctions.isDarkMode(context);
@@ -28,14 +29,14 @@ class OrderCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Proccessing',
+                      order.orderStatusText,
                       style: Theme.of(context).textTheme.bodyLarge!.apply(
                             color: AppColors.primary,
                             fontSizeDelta: 1, // reduce the size
                           ),
                     ),
                     Text(
-                      '11 Nov 2024',
+                      order.formattedOrderDate,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ],
@@ -60,8 +61,7 @@ class OrderCard extends StatelessWidget {
                     const SizedBox(width: AppSizes.spaceBtwItems / 2),
                     Expanded(
                       child: Column(
-                        mainAxisSize:
-                            MainAxisSize.min, // to take only required space
+                        mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -69,7 +69,7 @@ class OrderCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                           Text(
-                            '[#256f2]',
+                            order.id,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
@@ -86,7 +86,7 @@ class OrderCard extends StatelessWidget {
                     Expanded(
                       child: Column(
                         mainAxisSize:
-                            MainAxisSize.min, // to take only required space
+                            MainAxisSize.min, 
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -94,7 +94,7 @@ class OrderCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                           Text(
-                            '03 Feb 2024',
+                            order.formattedDeliveryDate,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],

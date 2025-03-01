@@ -8,7 +8,16 @@ class OrderRepositoryImpl extends OrderRepository {
   OrderRepositoryImpl(this.orderFirebaseService);
   @override
   Future<Either<String, List<OrderModel>>> getAllOrders() async {
-    return await orderFirebaseService.getAllOrders();
+    var returendOrders = await orderFirebaseService.getAllOrders();
+    return returendOrders.fold(
+      (error) => Left(error),
+      (data) {
+        List<OrderModel> orders = List.from(data)
+            .map((document) => OrderModel.fromJson(document))
+            .toList();
+        return Right(orders);
+      },
+    );
   }
 
   @override

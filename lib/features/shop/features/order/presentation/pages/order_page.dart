@@ -5,32 +5,13 @@ import 'package:t_store/features/shop/features/order/presentation/cubits/order_c
 import 'package:t_store/features/shop/features/order/presentation/widgets/order_list_items.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
-class OrderPage extends StatefulWidget {
+class OrderPage extends StatelessWidget {
   const OrderPage({super.key});
-
-  @override
-  State<OrderPage> createState() => _OrderPageState();
-}
-
-class _OrderPageState extends State<OrderPage> {
-  late OrderCubit orderCubit;
-  @override
-  void initState() {
-    super.initState();
-    orderCubit = OrderCubit();
-    orderCubit.fetchOrders();
-  }
-
-  @override
-  void dispose() {
-    orderCubit.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => OrderCubit(),
+      create: (context) => OrderCubit()..fetchOrders(), 
       child: Scaffold(
         appBar: _appBar(context),
         body: const Padding(
@@ -54,3 +35,4 @@ class _OrderPageState extends State<OrderPage> {
     );
   }
 }
+

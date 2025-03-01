@@ -6,31 +6,24 @@ import 'package:t_store/features/shop/features/order/data/models/order_model.dar
 
 abstract class OrderFirebaseService {
   Future<Either<String, void>> placeOrder({required OrderModel order});
-  Future<Either<String, List<OrderModel>>> getAllOrders();
+  Future<Either<String, List<QueryDocumentSnapshot<Map<String, dynamic>>>>>
+      getAllOrders();
 }
 
 class OrderFirebaseServiceImpl implements OrderFirebaseService {
-  final _currentUser = FirebaseAuth.instance.currentUser;
+  final _currentUser = FirebaseAuth.instance.currentUser!.uid;
   final _storage = FirebaseFirestore.instance;
   @override
-  Future<Either<String, List<OrderModel>>> getAllOrders() async {
+  Future<Either<String, List<QueryDocumentSnapshot<Map<String, dynamic>>>>>
+      getAllOrders() async {
     try {
-      if (_currentUser == null) {
-        throw FirebaseAuthException(
-            code: 'USER_NOT_LOGGED_IN', message: 'User is not authenticated');
-      }
-
-      final userId = _currentUser.uid;
-
       var data = await _storage
           .collection(FirebaseCollections.USER_COLLECTION)
-          .doc(userId)
+          .doc(_currentUser)
           .collection(FirebaseCollections.ORDERS_COLLECTION)
           .get();
 
-      List<OrderModel> orders =
-          data.docs.map((doc) => OrderModel.fromJson(doc.data())).toList();
-      return Right(orders);
+      return Right(data.docs);
     } catch (e) {
       return Left(e.toString());
     }
@@ -39,15 +32,9 @@ class OrderFirebaseServiceImpl implements OrderFirebaseService {
   @override
   Future<Either<String, void>> placeOrder({required OrderModel order}) async {
     try {
-      if (_currentUser == null) {
-        throw FirebaseAuthException(
-            code: 'USER_NOT_LOGGED_IN', message: 'User is not authenticated');
-      }
-
-      final userId = _currentUser.uid;
       await _storage
           .collection(FirebaseCollections.USER_COLLECTION)
-          .doc(userId)
+          .doc(_currentUser)
           .collection(FirebaseCollections.ORDERS_COLLECTION)
           .add(order.toJson());
       return const Right(null);

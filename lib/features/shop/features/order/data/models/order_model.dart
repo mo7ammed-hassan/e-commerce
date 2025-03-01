@@ -39,24 +39,28 @@ class OrderModel {
           ? 'Shipped'
           : 'Processing';
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
-        id: json['id'],
-        userId: json['userId'],
-        status: OrderStatus.values
-            .firstWhere((e) => e.toString() == json['status']),
-        totalAmount: json['totalAmount'],
-        orderDate: json['orderDate'] is Timestamp
-            ? (json['orderDate'] as Timestamp).toDate()
-            : DateTime.tryParse(json['orderData']) ?? DateTime.now(),
-        paymentMethod: json['paymentMethod'],
-        address: AddressModel.fromJson(json['address']),
-        deliveryDate: json['deliveryDate'] is Timestamp
-            ? (json['deliveryDate'] as Timestamp).toDate()
-            : DateTime.tryParse(json['deliveryDate']) ?? DateTime.now(),
-        cartItems: List<CartItemEntity>.from(
-          json['cartItems'].map((item) => CartItemModel.fromJson(item)),
-        ),
-      );
+  factory OrderModel.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
+    final json = document.data()!;
+
+    return OrderModel(
+      id: json['id'] ?? '',
+      userId: json['userId'],
+      status:
+          OrderStatus.values.firstWhere((e) => e.toString() == json['status']),
+      totalAmount: json['totalAmount'],
+      orderDate: json['orderDate'] is Timestamp
+          ? (json['orderDate'] as Timestamp).toDate()
+          : DateTime.tryParse(json['orderDate']) ?? DateTime.now(),
+      paymentMethod: json['paymentMethod'],
+      address: AddressModel.fromJson(json['address']),
+      deliveryDate: json['deliveryDate'] is Timestamp
+          ? (json['deliveryDate'] as Timestamp).toDate()
+          : DateTime.tryParse(json['deliveryDate']) ?? DateTime.now(),
+      cartItems: List<CartItemEntity>.from(
+        json['cartItems'].map((item) => CartItemModel.fromJson(item).toEntity()),
+      ),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -69,4 +73,18 @@ class OrderModel {
         'deliveryDate': deliveryDate,
         'cartItems': List<dynamic>.from(cartItems.map((item) => item.toJson())),
       };
+
+  static empty() {
+    return OrderModel(
+      id: '',
+      userId: '',
+      status: OrderStatus.processing,
+      totalAmount: 0,
+      orderDate: DateTime.now(),
+      paymentMethod: '',
+      address: AddressModel.empty(),
+      deliveryDate: DateTime.now(),
+      cartItems: [],
+    );
+  }
 }
