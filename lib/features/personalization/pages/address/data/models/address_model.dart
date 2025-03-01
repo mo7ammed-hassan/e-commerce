@@ -54,6 +54,21 @@ class AddressModel {
         'selectedAddress': selectedAddress,
       };
 
+      // --from json
+
+  factory AddressModel.fromJson(Map<String, dynamic> json) => AddressModel( 
+        id: json['id'],
+        name: json['name'], 
+        phoneNumber: json['phoneNumber'], 
+        street: json['street'], 
+        city: json['city'], 
+        state: json['state'], 
+        country: json['country'], 
+        postalCode: json['postalCode'], 
+        createdAt: json['createdAt'], 
+        selectedAddress: json['selectedAddress'], 
+      );
+
   factory AddressModel.empty() => AddressModel(
         id: '',
         name: '',

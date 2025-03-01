@@ -10,4 +10,6 @@ class PaymentMethodModel {
   static PaymentMethodModel empty() {
     return const PaymentMethodModel(name: '', image: '');
   }
+
+  
 }

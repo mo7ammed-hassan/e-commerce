@@ -21,4 +21,13 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     selectedPaymentMethod = paymentMethod;
     emit(ChangePaymentMethodState());
   }
+
+  // checkout
+  void checkout() {
+    emit(CheckoutLoadingState());
+    Future.delayed(const Duration(seconds: 3));
+    emit(CheckoutSuccessState());
+  }
 }
+
+// if success checkout then place order and remove all items from cart

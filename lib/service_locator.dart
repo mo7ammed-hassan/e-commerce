@@ -68,6 +68,9 @@ import 'package:t_store/features/shop/features/home/domain/repository/banner_rep
 import 'package:t_store/features/shop/features/home/domain/repository/category_repositoy.dart';
 import 'package:t_store/features/shop/features/home/domain/use_cases/banner_use_case.dart';
 import 'package:t_store/features/shop/features/home/domain/use_cases/category_use_case.dart';
+import 'package:t_store/features/shop/features/order/data/repositories/order_repository.dart';
+import 'package:t_store/features/shop/features/order/data/source/order_firebase_service.dart';
+import 'package:t_store/features/shop/features/order/domain/repositories/order_repository.dart';
 import 'package:t_store/features/shop/features/product_details/presentation/cubits/product_variation_cubit.dart';
 import 'package:t_store/features/shop/features/wishlist/data/repositories/wishlist_repository_impl.dart';
 import 'package:t_store/features/shop/features/wishlist/data/source/wishlist_firebase_services.dart';
@@ -109,6 +112,9 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton<CartLocalStorageServices>(
     () => CartLocalStorageServicesImpl(),
   );
+  getIt.registerLazySingleton<OrderFirebaseService>(
+    () => OrderFirebaseServiceImpl(),
+  );
   getIt.registerSingleton<DefaultCartItemFactory>(
     DefaultCartItemFactory(getIt.get<ProductVariationCubit>()),
   );
@@ -144,6 +150,11 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<WishlistRepository>(
     WishlistRepositoryImpl(
       WishlistFirebaseServicesImpl(),
+    ),
+  );
+  getIt.registerSingleton<OrderRepository>(
+    OrderRepositoryImpl(
+      getIt.get<OrderFirebaseService>(),
     ),
   );
   getIt.registerSingleton<CartRepository>(
